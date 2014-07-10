@@ -2,6 +2,7 @@ package testes;
 
 import static org.junit.Assert.*;
 
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +18,7 @@ public class TestaUsuario {
 		usuario2 = new Usuario("Neymar Junior", "neymar@gmail.com", "12345678", "dica2");
 		usuario3 = new Usuario("Neymar Luiz", "neymar@hotmail.com", "1234567", "dica3");
 	}
+
 	
 	@Test
 	public void testaCriarUsuario() throws Exception {
@@ -32,6 +34,8 @@ public class TestaUsuario {
 		
 		try {
 			new Usuario("Neymar", "NeYmar@<gmail>.com", "123456", "123456");
+
+			fail("Exceção deve ser lançada");
 			fail("Exceção deve ser lançada");
 		} catch(Exception e) {
 			assertEquals("Mensagem de erro errada.", "Email inválido.",	e.getMessage());
@@ -65,5 +69,4 @@ public class TestaUsuario {
 		assertTrue(usuario1.equals(usuario2));
 		assertFalse(usuario1.equals(usuario3));
 	}
-
 }
