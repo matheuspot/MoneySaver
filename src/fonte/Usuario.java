@@ -18,7 +18,7 @@ public class Usuario {
 			throw new Exception("Senha inválida, deve conter 6 a 8 caracteres.");
 
 		if (!validaEmail(email))
-			throw new Exception("Email inválido.");
+			throw new Exception("E-mail inválido.");
 
 		this.nome = nome;
 		this.email = email;
