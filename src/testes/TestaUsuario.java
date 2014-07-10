@@ -1,14 +1,38 @@
 package testes;
 
-import static org.junit.Assert.*;
-
+import org.junit.Assert;
 import org.junit.Test;
 
-public class TestaUsuario {
+import fonte.Usuario;
 
+public class TestaUsuario {
+	
 	@Test
-	public void test() {
-		fail("Not yet implemented");
+	public void testCriaUsuario() {
+		try {
+			new Usuario("", "neymar@gmail.com", "123456", "123456");
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		
+		try {
+			new Usuario("Neymar", "NeYmar@JAPAN.com", "123456", "123456");
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		
+		try {
+			new Usuario("Neymar", "neymar@gmail.com", "1234", "123456");
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		
+		try {
+			new Usuario("Neymar", "neymar@gmail.com", "123456789010", "123456");
+		} catch(Exception e) {
+			e.getMessage();
+		}
+		
 	}
 
 }
