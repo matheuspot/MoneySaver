@@ -1,5 +1,7 @@
 package testes;
 
+// Test push lcc2
+
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
@@ -27,7 +29,7 @@ public class TestaGerenteDeUsuarios {
 		gerente.newEmail = "usuario1@casa.com";
 		gerente.newNome = "usuario1";
 		gerente.newSenha = "minhasenha123";
-		gerente.newSenhaConfirmacao = "minhasenha123";
+		gerente.newConfirmacaoDeSenha = "minhasenha123";
 		gerente.newDicaDeSenha = "senha fácil";
 
 		try {
@@ -45,7 +47,7 @@ public class TestaGerenteDeUsuarios {
 		gerente.newEmail = "usuario1@casa.com";
 		gerente.newNome = "usuario1";
 		gerente.newSenha = "minhasenha123";
-		gerente.newSenhaConfirmacao = "minhasenha123";
+		gerente.newConfirmacaoDeSenha = "minhasenha123";
 		// Dica de senha é null
 
 		try {
