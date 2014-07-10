@@ -9,10 +9,10 @@ public class Usuario {
 	public Usuario(String nome, String email, String senha, String dicaSenha)
 			throws Exception {
 		if ((nome.equals("")) || (nome == null))
-			throw new Exception("Nome não definido.");
+			throw new Exception("O usuário deve ser informado.");
 
 		if ((senha.length() < 6) || (senha.length() > 8))
-			throw new Exception("Senha com tamanho inválido.");
+			throw new Exception("Senha inválida, deve conter 6 a 8 caracteres.");
 
 		if (!validaEmail(email))
 			throw new Exception("Email inválido.");
@@ -35,5 +35,33 @@ public class Usuario {
 			return true;
 
 		return false;
+	}
+	
+	public boolean equals(Object objeto){
+		if (!(objeto instanceof Usuario))
+			return false;
+		
+		Usuario outro = (Usuario) objeto;
+		if (email.equals(outro.getEmail()))
+			return true;
+		
+		return false;
+		
+	}
+	
+	public String getNome(){
+		return nome;
+	}
+	
+	public String getEmail(){
+		return email;
+	}
+	
+	public String getDicaSenha(){
+		return dicaSenha;
+	}
+	
+	public String toString(){
+		return "Nome: " + nome + " \nE-mail: " + email + " \nDica de senha: " + dicaSenha;
 	}
 }
