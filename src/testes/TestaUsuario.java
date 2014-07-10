@@ -1,11 +1,14 @@
 package testes;
 
 import org.junit.Assert;
+import org.junit.Before;
 import org.junit.Test;
 
 import fonte.Usuario;
 
 public class TestaUsuario {
+	
+	Usuario usuario1;
 	
 	@Test
 	public void testCriaUsuario() {
@@ -16,7 +19,7 @@ public class TestaUsuario {
 		}
 		
 		try {
-			new Usuario("Neymar", "NeYmar@JAPAN.com", "123456", "123456");
+			new Usuario("Neymar", "NeYmar@<gmail>.com", "123456", "123456");
 		} catch(Exception e) {
 			e.getMessage();
 		}
@@ -34,5 +37,5 @@ public class TestaUsuario {
 		}
 		
 	}
-
+	
 }

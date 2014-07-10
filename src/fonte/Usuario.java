@@ -3,6 +3,9 @@ package fonte;
 import java.util.regex.*;
 
 public class Usuario {
+	
+	private final Pattern VALID_EMAIL_ADDRESS_REGEX =
+			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
 
 	private String nome, email, senha, dicaSenha;
 
@@ -27,13 +30,8 @@ public class Usuario {
 		if (email == null || email.length() < 0)
 			return false;
 
-		Pattern p = Pattern
-				.compile("^[\\w-]+(\\.[\\w-]+)*@([\\w-]+\\.)+[a-zA-Z]{2,7}$");
-		Matcher m = p.matcher(email);
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
+	    return matcher.find();
 
-		if (m.find())
-			return true;
-
-		return false;
 	}
 }
