@@ -19,8 +19,6 @@ public class TestaUsuario {
 	
 	@Test
 	public void testaCriarUsuario() throws Exception {
-		new Usuario("Neymar", "NeYmar@gmail.com", "123456", "dica");
-		new Usuario("Neymar Andrade", "neymar@yahoo.com", "12345678", "dica2");
 		
 		try {
 			new Usuario("", "neymar@gmail.com", "123456", "123456");
