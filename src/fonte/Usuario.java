@@ -3,9 +3,10 @@ package fonte;
 import java.util.regex.*;
 
 public class Usuario {
-	
-	private final Pattern VALID_EMAIL_ADDRESS_REGEX =
-			Pattern.compile("^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$", Pattern.CASE_INSENSITIVE);
+
+	private final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
+			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
+			Pattern.CASE_INSENSITIVE);
 
 	private String nome, email, senha, dicaSenha;
 
@@ -30,36 +31,37 @@ public class Usuario {
 		if (email == null || email.length() < 0)
 			return false;
 
-		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX .matcher(email);
-	    return matcher.find();
+		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
+		return matcher.find();
 
 	}
-	
-	public boolean equals(Object objeto){
+
+	public boolean equals(Object objeto) {
 		if (!(objeto instanceof Usuario))
 			return false;
-		
+
 		Usuario outro = (Usuario) objeto;
 		if (email.equals(outro.getEmail()))
 			return true;
-		
+
 		return false;
-		
+
 	}
-	
-	public String getNome(){
+
+	public String getNome() {
 		return nome;
 	}
-	
-	public String getEmail(){
+
+	public String getEmail() {
 		return email;
 	}
-	
-	public String getDicaSenha(){
+
+	public String getDicaSenha() {
 		return dicaSenha;
 	}
-	
-	public String toString(){
-		return "Nome: " + nome + " \nE-mail: " + email + " \nDica de senha: " + dicaSenha;
+
+	public String toString() {
+		return "Nome: " + nome + " \nE-mail: " + email + " \nDica de senha: "
+				+ dicaSenha;
 	}
 }
