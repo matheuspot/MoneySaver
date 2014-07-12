@@ -3,12 +3,13 @@ package testes;
 import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
-
 import fonte.Usuario;
 
 public class TestaUsuario {
 
-	private Usuario usuario1, usuario2, usuario3;
+	private Usuario usuario1;
+	private Usuario usuario2;
+	private Usuario usuario3;
 
 	@Before
 	public void criaUsuario() throws Exception {
@@ -65,13 +66,13 @@ public class TestaUsuario {
 	@Test
 	public void testaToString() {
 		assertEquals(
-				"Nome: Neymar \nE-mail: neymar@gmail.com \nDica de senha: dica1",
+				"Nome: Neymar\nE-mail: neymar@gmail.com\nDica de senha: dica1",
 				usuario1.toString());
 		assertEquals(
-				"Nome: Neymar Junior \nE-mail: neymar@gmail.com \nDica de senha: dica2",
+				"Nome: Neymar Junior\nE-mail: neymar@gmail.com\nDica de senha: dica2",
 				usuario2.toString());
 		assertEquals(
-				"Nome: Neymar Luiz \nE-mail: neymar@hotmail.com \nDica de senha: dica3",
+				"Nome: Neymar Luiz\nE-mail: neymar@hotmail.com\nDica de senha: dica3",
 				usuario3.toString());
 	}
 
