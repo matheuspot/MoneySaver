@@ -1,7 +1,8 @@
 package fonte;
 
 import java.util.ArrayList;
-import java.util.regex.*;
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import auxiliar.Arquivador;
 
 public class GerenteDeUsuarios {
@@ -57,6 +58,7 @@ public class GerenteDeUsuarios {
 
 		// Chegou aqui, já está logado. Leva o usuário para outra tela da
 		// interface que contém as operações.
+		// ignorar essa linha
 	}
 
 	private void usuarioValido(String nome, String email, String senha,
