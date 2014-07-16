@@ -37,9 +37,9 @@ public class TestaUsuario {
 			new Usuario("Neymar", "NeYmar@<gmail>.com", "123456", "123456");
 
 			fail("Exceção deve ser lançada");
-			fail("Exceção deve ser lançada");
+			
 		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.", "E-mail inválido.",
+			assertEquals("E-mail inválido.",
 					e.getMessage());
 		}
 
@@ -47,8 +47,7 @@ public class TestaUsuario {
 			new Usuario("Neymar", "neymar@gmail.com", "1234", "123456");
 			fail("Exceção deve ser lançada");
 		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Senha inválida, deve conter 6 a 8 caracteres.",
+			assertEquals("Senha inválida, deve conter 6 a 8 caracteres.",
 					e.getMessage());
 		}
 
@@ -56,8 +55,7 @@ public class TestaUsuario {
 			new Usuario("Neymar", "neymar@gmail.com", "123456789010", "123456");
 			fail("Exceção deve ser lançada");
 		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Senha inválida, deve conter 6 a 8 caracteres.",
+			assertEquals("Senha inválida, deve conter 6 a 8 caracteres.",
 					e.getMessage());
 		}
 
