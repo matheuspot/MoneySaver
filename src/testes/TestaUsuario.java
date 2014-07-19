@@ -13,17 +13,17 @@ public class TestaUsuario {
 
 	@Before
 	public void criaUsuario() throws Exception {
-		usuario1 = new Usuario("Neymar", "neymar@gmail.com", "123456", "dica1");
+		usuario1 = new Usuario("Neymar", "neymar@gmail.com", "123456", "dica12");
 		usuario2 = new Usuario("Neymar Junior", "neymar@gmail.com", "12345678",
-				"dica2");
+				"dica34");
 		usuario3 = new Usuario("Neymar Luiz", "neymar@hotmail.com", "1234567",
-				"dica3");
+				"dica56");
 	}
 
 	@Test
 	public void testaCriarUsuario() throws Exception {
-		new Usuario("Neymar", "NeYmar@gmail.com", "123456", "dica");
-		new Usuario("Neymar Andrade", "neymar@yahoo.com", "12345678", "dica2");
+		new Usuario("Neymar", "NeYmar@gmail.com", "123456", "dica12");
+		new Usuario("Neymar Andrade", "neymar@yahoo.com", "12345678", "dica34");
 
 		try {
 			new Usuario("", "neymar@gmail.com", "123456", "123456");
@@ -64,13 +64,13 @@ public class TestaUsuario {
 	@Test
 	public void testaToString() {
 		assertEquals(
-				"Nome: Neymar\nE-mail: neymar@gmail.com\nDica de senha: dica1",
+				"Nome: Neymar\nE-mail: neymar@gmail.com\nDica de senha: dica12",
 				usuario1.toString());
 		assertEquals(
-				"Nome: Neymar Junior\nE-mail: neymar@gmail.com\nDica de senha: dica2",
+				"Nome: Neymar Junior\nE-mail: neymar@gmail.com\nDica de senha: dica34",
 				usuario2.toString());
 		assertEquals(
-				"Nome: Neymar Luiz\nE-mail: neymar@hotmail.com\nDica de senha: dica3",
+				"Nome: Neymar Luiz\nE-mail: neymar@hotmail.com\nDica de senha: dica56",
 				usuario3.toString());
 	}
 

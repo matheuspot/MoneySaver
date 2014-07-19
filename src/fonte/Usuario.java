@@ -33,7 +33,10 @@ public class Usuario implements Serializable {
 			throw new Exception("Senha inválida, deve conter 6 a 8 caracteres.");
 
 		if (!validaEmail(email))
-			throw new Exception("E-mail inválido.");
+			throw new Exception("E-mail inválido.");		
+		
+		if (!validaSenha(dicaSenha))
+			throw new Exception("Dica de senha inválida, deve conter 6 a 8 caracteres.");
 
 		this.nome = nome;
 		this.email = email;

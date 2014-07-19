@@ -29,6 +29,7 @@ public class GerenteDeUsuarios {
 		} else {
 			usuariosDoSistema = new ArrayList<>(arquivador.leUsuarios());
 		}
+		
 	}
 
 	/**
@@ -149,6 +150,8 @@ public class GerenteDeUsuarios {
 	 */
 	private boolean senhaValida(String senha, String confirmacaoDeSenha) {
 		if (senha == null || senha.trim().length() == 0)
+			return false;
+		if (!(senha.equals(confirmacaoDeSenha)))
 			return false;
 		return true;
 	}
