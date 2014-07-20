@@ -12,71 +12,97 @@ public class TestaUsuario {
 	private Usuario usuario3;
 
 	@Before
-	public void criaUsuario() throws Exception {
-		usuario1 = new Usuario("Neymar", "neymar@gmail.com", "123456", "dica12");
-		usuario2 = new Usuario("Neymar Junior", "neymar@gmail.com", "12345678",
-				"dica34");
-		usuario3 = new Usuario("Neymar Luiz", "neymar@hotmail.com", "1234567",
-				"dica56");
+	public void inicializaUsuariosParaTestes() throws Exception {
+		usuario1 = new Usuario("Usuário1", "meu_usuario@gmail.com", "123456",
+				"menor senha");
+		usuario2 = new Usuario("Usuário2", "meu_usuario@gmail.com", "1234567",
+				"senha média");
+		usuario3 = new Usuario("Usuário3", "usuario3@hotmail.com", "12345678",
+				"maior senha");
 	}
 
 	@Test
-	public void testaCriarUsuario() throws Exception {
-		new Usuario("Neymar", "NeYmar@gmail.com", "123456", "dica12");
-		new Usuario("Neymar Andrade", "neymar@yahoo.com", "12345678", "dica34");
+	public void testaCriarUsuarioValido() throws Exception {
+		new Usuario("Usuário qualquer", "usuario_qualquer@gmail.com", "123456",
+				"qualquer dica");
+		new Usuario("Outro usuário", "outro.usuario@yahoo.com", "12345678",
+				"sem dica");
+	}
 
+	@Test
+	public void testaCriarUsuarioNomeInvalido() {
 		try {
-			new Usuario("", "neymar@gmail.com", "123456", "123456");
-			fail("Exceção deve ser lançada");
+			new Usuario("", "usuario@gmail.com", "123456", "dica");
+			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.",
-					"O usuário deve ser informado.", e.getMessage());
+					"O nome do usuário deve ser informado.", e.getMessage());
 		}
+	}
 
+	@Test
+	public void testaCriarUsuarioEmailInvalido() {
 		try {
-			new Usuario("Neymar", "NeYmar@<gmail>.com", "123456", "123456");
-
-			fail("Exceção deve ser lançada");
-			
+			new Usuario("usuário", "usuario@<gmail>.com", "123456", "dica");
+			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
-			assertEquals("E-mail inválido.",
+			assertEquals("Mensagem de erro errada.", "E-mail inválido.",
+					e.getMessage());
+		}
+	}
+
+	@Test
+	public void testaCriarUsuarioSenhaInvalida() {
+		try {
+			new Usuario("usuário", "usuario@gmail.com", "1234", "dica");
+			fail("Exceção deveria ter sido lançada.");
+		} catch (Exception e) {
+			assertEquals("Mensagem de erro errada.",
+					"Senha inválida, deve conter de 6 a 8 caracteres.",
 					e.getMessage());
 		}
 
 		try {
-			new Usuario("Neymar", "neymar@gmail.com", "1234", "123456");
-			fail("Exceção deve ser lançada");
+			new Usuario("usuário", "usuario@gmail.com", "123456789010", "dica");
+			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
-			assertEquals("Senha inválida, deve conter 6 a 8 caracteres.",
+			assertEquals("Mensagem de erro errada.",
+					"Senha inválida, deve conter de 6 a 8 caracteres.",
 					e.getMessage());
 		}
+	}
 
+	@Test
+	public void testaCriarUsuarioDicaDeSenhaInvalida() {
 		try {
-			new Usuario("Neymar", "neymar@gmail.com", "123456789010", "123456");
-			fail("Exceção deve ser lançada");
+			new Usuario("usuário", "usuario@gmail.com", "1234567", "");
+			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
-			assertEquals("Senha inválida, deve conter 6 a 8 caracteres.",
+			assertEquals("Mensagem de erro errada.", "Dica de senha inválida.",
 					e.getMessage());
 		}
-
 	}
 
 	@Test
 	public void testaToString() {
 		assertEquals(
-				"Nome: Neymar\nE-mail: neymar@gmail.com\nDica de senha: dica12",
+				"ToString errado.",
+				"Nome: Usuário1\nE-mail: meu_usuario@gmail.com\nDica de senha: menor senha",
 				usuario1.toString());
 		assertEquals(
-				"Nome: Neymar Junior\nE-mail: neymar@gmail.com\nDica de senha: dica34",
+				"ToString errado.",
+				"Nome: Usuário2\nE-mail: meu_usuario@gmail.com\nDica de senha: senha média",
 				usuario2.toString());
 		assertEquals(
-				"Nome: Neymar Luiz\nE-mail: neymar@hotmail.com\nDica de senha: dica56",
+				"ToString errado.",
+				"Nome: Usuário3\nE-mail: usuario3@hotmail.com\nDica de senha: maior senha",
 				usuario3.toString());
 	}
 
 	@Test
 	public void testaEquals() {
-		assertTrue(usuario1.equals(usuario2));
-		assertFalse(usuario1.equals(usuario3));
+		assertTrue("Usuários deveriam ser iguais.", usuario1.equals(usuario2));
+		assertFalse("Usuários não deveriam ser iguais.",
+				usuario1.equals(usuario3));
 	}
 }

@@ -19,7 +19,7 @@ public class TestaGerenteDeUsuarios {
 	}
 
 	@Test
-	public void testAdicionaUsuarioValido() throws Exception {
+	public void testaAdicionaUsuarioValido() throws Exception {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 		gerente.adicionaUsuario("Usuário200", "usuario200@yahoo.com",
@@ -27,7 +27,56 @@ public class TestaGerenteDeUsuarios {
 	}
 
 	@Test
-	public void testAdicionaUsuarioExistente() throws Exception {
+	public void testaAdicionaUsuarioNomeInvalido() {
+		try {
+			gerente.adicionaUsuario("", "usuario@gmail.com", "123456",
+					"123456", "dica");
+			fail("Exceção deveria ter sido lançada.");
+		} catch (Exception e) {
+			assertEquals("Mensage de erro errada.", "Nome inválido.",
+					e.getMessage());
+		}
+	}
+
+	@Test
+	public void testaAdicionaUsuarioEmailInvalido() {
+		try {
+			gerente.adicionaUsuario("usuario", "usuario@<gmail>.com", "123456",
+					"123456", "dica");
+			fail("Exceção deveria ter sido lançada.");
+		} catch (Exception e) {
+			assertEquals("Mensagem de erro errada.",
+					"E-mail inválido ou já existe.", e.getMessage());
+		}
+	}
+
+	@Test
+	public void testaAdicionaUsuarioConfirmacaoDeSenhaNaoConfere() {
+		try {
+			gerente.adicionaUsuario("usuario", "usuario@gmail.com", "123456",
+					"1234567", "dica");
+			fail("Exceção deveria ter sido lançada.");
+		} catch (Exception e) {
+			assertEquals("Mensagem de erro errada.",
+					"Senha inválida ou não confere com confirmação.",
+					e.getMessage());
+		}
+	}
+
+	@Test
+	public void testaAdicionaUsuarioDicaDeSenhaInvalida() {
+		try {
+			gerente.adicionaUsuario("usuario", "usuario@gmail.com", "123456",
+					"123456", "");
+			fail("Exceção deveria ter sido lançada.");
+		} catch (Exception e) {
+			assertEquals("Mensagem de erro errada.", "Dica de senha inválida.",
+					e.getMessage());
+		}
+	}
+
+	@Test
+	public void testaAdicionaUsuarioExistente() throws Exception {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
@@ -36,13 +85,13 @@ public class TestaGerenteDeUsuarios {
 					"123456", "senha fácil");
 			fail("Deveria ter lançado exceção, usuário já existe.");
 		} catch (Exception e) {
-			assertEquals("Mensagem de exceção errada.",
+			assertEquals("Mensagem de erro errada.",
 					"E-mail inválido ou já existe.", e.getMessage());
 		}
 	}
 
 	@Test
-	public void testPesquisaUsuario() throws Exception {
+	public void testaPesquisaUsuario() throws Exception {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
@@ -53,7 +102,7 @@ public class TestaGerenteDeUsuarios {
 	}
 
 	@Test
-	public void testLogin() throws Exception {
+	public void testaLogin() throws Exception {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
@@ -61,18 +110,18 @@ public class TestaGerenteDeUsuarios {
 	}
 
 	@Test
-	public void testLoginUsuarioInexistente() {
+	public void testaLoginUsuarioInexistente() {
 		try {
 			gerente.login("usuario1@gmail.com", "123456");
 			fail("Deveria ter lançado exceção, usuário não existe.");
 		} catch (Exception e) {
-			assertEquals("Mensagem de exceção errada.",
+			assertEquals("Mensagem de erro errada.",
 					"Usuário não existe. Cadastre-se primeiro.", e.getMessage());
 		}
 	}
 
 	@Test
-	public void testLoginUsuarioSenhaIncorreta() throws Exception {
+	public void testaLoginUsuarioSenhaIncorreta() throws Exception {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
@@ -80,7 +129,7 @@ public class TestaGerenteDeUsuarios {
 			gerente.login("usuario1@gmail.com", "1234567");
 			fail("Deveria ter lançado exceção, senha está errada.");
 		} catch (Exception e) {
-			assertEquals("Mensagem de exceção errada.", "Senha incorreta!",
+			assertEquals("Mensagem de erro errada.", "Senha incorreta!",
 					e.getMessage());
 		}
 	}

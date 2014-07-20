@@ -136,7 +136,7 @@ public class GerenteDeUsuarios {
 			throw new Exception(
 					"Senha inválida ou não confere com confirmação.");
 		if (!dicaDeSenhaValida(dicaDeSenha))
-			throw new Exception("Dica de senha inválida. Tente de novo.");
+			throw new Exception("Dica de senha inválida.");
 	}
 
 	/**
