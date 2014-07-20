@@ -9,8 +9,6 @@ import fonte.Usuario;
 
 /**
  * Classe para escrever uma lista de objetos da classe Usuario para um arquivo.
- * 
- * @author Roberto Matheus
  */
 
 public class Arquivador {
