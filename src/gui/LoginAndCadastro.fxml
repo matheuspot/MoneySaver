@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.geometry.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.effect.*?>
@@ -7,48 +8,45 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.layout.AnchorPane?>
 
-
 <AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <VBox layoutX="201.0" layoutY="91.0" prefHeight="120.0" prefWidth="220.0" spacing="5.0">
+      <VBox layoutX="25.0" layoutY="14.0" prefHeight="200.0" prefWidth="550.0">
          <children>
-            <Label contentDisplay="CENTER" text="Login" textAlignment="CENTER">
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <TextField>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </TextField>
-            <Label text="Senha" />
-            <PasswordField>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </PasswordField>
+            <AnchorPane prefHeight="200.0" prefWidth="550.0">
+               <children>
+                  <Label layoutX="220.0" prefHeight="60.0" prefWidth="110.0" text="Login">
+                     <font>
+                        <Font name="Calibri" size="40.0" />
+                     </font>
+                  </Label>
+                  <Label layoutX="220.0" layoutY="88.0" prefHeight="60.0" prefWidth="110.0" text="Senha">
+                     <font>
+                        <Font name="Calibri" size="40.0" />
+                     </font>
+                  </Label>
+                  <TextField layoutX="180.0" layoutY="60.0" prefHeight="30.0" prefWidth="190.0" promptText="E-mail" />
+                  <TextField layoutX="180.0" layoutY="146.0" prefHeight="30.0" prefWidth="190.0" promptText="Senha" />
+               </children>
+            </AnchorPane>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
       </VBox>
-      <VBox layoutX="245.0" layoutY="309.0" prefHeight="60.0" prefWidth="110.0" spacing="5.0">
+      <HBox layoutX="25.0" layoutY="214.0" prefHeight="170.0" prefWidth="550.0">
          <children>
-            <Label text="Não tem conta?">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Label>
-            <Button mnemonicParsing="false" text="Cadastre-se">
-               <VBox.margin>
-                  <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-               </VBox.margin>
-            </Button>
+            <AnchorPane prefHeight="170.0" prefWidth="550.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="170.0" prefWidth="270.0" text="Conectar">
+                     <font>
+                        <Font name="Calibri" size="41.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="280.0" mnemonicParsing="false" prefHeight="170.0" prefWidth="270.0" text="Cadastre-se">
+                     <font>
+                        <Font size="41.0" />
+                     </font>
+                  </Button>
+               </children>
+            </AnchorPane>
          </children>
-         <padding>
-            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
-         </padding>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
