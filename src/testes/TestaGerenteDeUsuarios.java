@@ -13,7 +13,7 @@ public class TestaGerenteDeUsuarios {
 
 	@Before
 	public void inicializaGerenteParaTestes() {
-		File arquivo = new File("usuarios");
+		File arquivo = new File("usuarios.txt");
 		arquivo.delete();
 		gerente = new GerenteDeUsuarios();
 	}
