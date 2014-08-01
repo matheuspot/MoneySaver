@@ -13,6 +13,26 @@
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="420.0">
                <children>
+                  <Label layoutX="100.0" layoutY="14.0" text="Preencha as informações abaixo">
+                     <font>
+                        <Font name="Calibri Italic" size="16.0" />
+                     </font>
+                  </Label>
+                  <TextField fx:id="nome" alignment="TOP_LEFT" layoutX="121.0" layoutY="50.0" promptText="Nome">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </TextField>
+                  <TextField fx:id="email" layoutX="121.0" layoutY="100.0" promptText="E-mail">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </TextField>
+                  <PasswordField fx:id="senha" layoutX="121.0" layoutY="150.0" promptText="Senha">
+                     <font>
+                        <Font name="Calibri" size="14.0" />
+                     </font>
+                  </PasswordField>
                   <PasswordField fx:id="confirmacaoSenha" layoutX="121.0" layoutY="200.0" promptText="Confirmação de senha">
                      <font>
                         <Font name="Calibri" size="14.0" />
@@ -23,31 +43,11 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <Label layoutX="100.0" layoutY="14.0" text="Preencha as informações abaixo">
-                     <font>
-                        <Font name="Calibri Italic" size="16.0" />
-                     </font>
-                  </Label>
-                  <PasswordField fx:id="senha" layoutX="121.0" layoutY="150.0" promptText="Senha">
-                     <font>
-                        <Font name="Calibri" size="14.0" />
-                     </font>
-                  </PasswordField>
-                  <TextField fx:id="email" layoutX="121.0" layoutY="100.0" promptText="E-mail">
-                     <font>
-                        <Font name="Calibri" size="14.0" />
-                     </font>
-                  </TextField>
                   <Button fx:id="cadastrar" layoutX="150.0" layoutY="312.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="110.0" text="Cadastrar">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
                   </Button>
-                  <TextField fx:id="nome" alignment="TOP_LEFT" layoutX="121.0" layoutY="50.0" promptText="Nome">
-                     <font>
-                        <Font name="Calibri" size="14.0" />
-                     </font>
-                  </TextField>
                </children>
             </AnchorPane>
          </children>
