@@ -30,12 +30,14 @@ public class ControllerClass {
     @FXML
     private TextField TFemail;
     
+    
     @FXML
     void initialize() {
     	botaoCadastrar.setOnAction(eventos);
     	botaoConectar.setOnAction(eventos);
     	PFsenha.setOnAction(eventos);
     	TFemail.setOnAction(eventos);
+    	
     }
     
     private class Eventos implements EventHandler<ActionEvent>{
@@ -47,16 +49,19 @@ public class ControllerClass {
     		if (evento.getSource() == botaoCadastrar){
     			Parent root;
 				try {
-					root = FXMLLoader.load(getClass().getResource(
-							"Cadastro.fxml"));
+					root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
 					Stage stage = new Stage();
-    	            stage.setTitle("My New Stage Title");
+    	            stage.setTitle("MoneySaver / Cadastro de novo usuário");
     	            stage.setScene(new Scene(root, 600, 400));
     	            stage.show();
     	            ((Node) evento.getSource()).getScene().getWindow().hide();
+    	            
+    	           
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+				
+				
     	        
     	    }
     	    

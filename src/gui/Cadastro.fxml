@@ -5,15 +5,14 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane id="Cadastro" fx:id="Cadastro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane id="Cadastro" fx:id="Cadastro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerCadastro">
    <children>
-      <Button layoutX="170.0" layoutY="324.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0" text="Cadastrar" />
+      <Button fx:id="cadastrar" layoutX="170.0" layoutY="324.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0" text="Cadastrar" />
       <Label layoutX="122.0" layoutY="29.0" text="Preencha as informacoes abaixo!" />
-      <PasswordField layoutX="134.0" layoutY="175.0" promptText="Senha" />
-      <PasswordField layoutX="134.0" layoutY="222.0" promptText="Confrimacao de Senha" />
-      <TextField layoutX="134.0" layoutY="79.0" promptText="Nome" />
-      <TextField layoutX="134.0" layoutY="126.0" promptText="Email" />
-      <TextField layoutX="134.0" layoutY="269.0" promptText="Dica de Senha" />
+      <PasswordField fx:id="senha" layoutX="134.0" layoutY="175.0" promptText="Senha" />
+      <PasswordField fx:id="confirmacaoSenha" layoutX="134.0" layoutY="222.0" promptText="Confrimacao de Senha" />
+      <TextField fx:id="nome" layoutX="134.0" layoutY="79.0" promptText="Nome" />
+      <TextField fx:id="email" layoutX="134.0" layoutY="126.0" promptText="Email" />
+      <TextField fx:id="dicaSenha" layoutX="134.0" layoutY="269.0" promptText="Dica de Senha" />
    </children>
 </AnchorPane>
