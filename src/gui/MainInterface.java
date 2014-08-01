@@ -23,5 +23,4 @@ public class MainInterface extends Application {
 		primaryStage.setTitle("MoneySaver");
 		primaryStage.show();
 	}
-
 }
