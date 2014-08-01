@@ -43,7 +43,12 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="cadastrar" layoutX="150.0" layoutY="312.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="110.0" text="Cadastrar">
+                  <Button fx:id="cadastrar" layoutX="66.0" layoutY="312.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="110.0" text="Cadastrar">
+                     <font>
+                        <Font name="Calibri Bold" size="20.0" />
+                     </font>
+                  </Button>
+                  <Button layoutX="234.0" layoutY="312.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="110.0" text="Voltar">
                      <font>
                         <Font name="Calibri Bold" size="20.0" />
                      </font>
