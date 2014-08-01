@@ -55,14 +55,10 @@ public class ControllerClass {
     	            stage.setScene(new Scene(root, 420, 400));
     	            stage.show();
     	            ((Node) evento.getSource()).getScene().getWindow().hide();
-    	            
     	           
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-				
-				
-    	        
     	    }
     	    
     		else if (evento.getSource() == botaoConectar){
