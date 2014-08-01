@@ -52,7 +52,7 @@ public class ControllerClass {
 					root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
 					Stage stage = new Stage();
     	            stage.setTitle("MoneySaver / Cadastro de novo usuário");
-    	            stage.setScene(new Scene(root, 600, 400));
+    	            stage.setScene(new Scene(root, 420, 400));
     	            stage.show();
     	            ((Node) evento.getSource()).getScene().getWindow().hide();
     	            
