@@ -57,16 +57,9 @@ public class ControllerClass {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-    	            
-
-    	            
-
     	        
-    	        }
+    	    }
     	    
-    			
-    		
-    			
     		else if (evento.getSource() == botaoConectar){
     			Dialogs.create()
     	        .owner(null)
