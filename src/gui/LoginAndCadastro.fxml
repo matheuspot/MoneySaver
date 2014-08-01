@@ -49,9 +49,12 @@
             </AnchorPane>
          </children>
       </HBox>
-      <HBox layoutX="50.0" prefHeight="120.0" prefWidth="500.0">
+      <HBox layoutX="83.0" layoutY="6.0" prefHeight="120.0" prefWidth="435.0">
          <children>
-            <ImageView fitHeight="96.0" fitWidth="433.0" pickOnBounds="true" preserveRatio="true" />
+            <ImageView fitHeight="120.0" fitWidth="435.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@MoneySaver.png" />
+               </image></ImageView>
          </children>
       </HBox>
    </children>

@@ -1,18 +1,55 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
+<?import javafx.geometry.*?>
 <?import javafx.scene.shape.*?>
 <?import java.lang.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="Cadastro" fx:id="Cadastro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="416.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerCadastro">
+<AnchorPane id="Cadastro" fx:id="Cadastro" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="420.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerCadastro">
    <children>
-      <Button fx:id="cadastrar" layoutX="170.0" layoutY="324.0" mnemonicParsing="false" prefHeight="36.0" prefWidth="78.0" text="Cadastrar" />
-      <Label layoutX="122.0" layoutY="29.0" text="Preencha as informacoes abaixo!" />
-      <PasswordField fx:id="senha" layoutX="134.0" layoutY="175.0" promptText="Senha" />
-      <PasswordField fx:id="confirmacaoSenha" layoutX="134.0" layoutY="222.0" promptText="Confrimacao de Senha" />
-      <TextField fx:id="nome" layoutX="134.0" layoutY="79.0" promptText="Nome" />
-      <TextField fx:id="email" layoutX="134.0" layoutY="126.0" promptText="Email" />
-      <TextField fx:id="dicaSenha" layoutX="134.0" layoutY="269.0" promptText="Dica de Senha" />
+      <VBox alignment="CENTER" prefHeight="400.0" prefWidth="420.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <Label layoutX="122.0" layoutY="29.0" text="Preencha as informaçoes abaixo">
+               <font>
+                  <Font name="Calibri Italic" size="16.0" />
+               </font>
+            </Label>
+            <TextField fx:id="nome" alignment="TOP_LEFT" layoutX="134.0" layoutY="79.0" promptText="Nome">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </TextField>
+            <TextField fx:id="email" layoutX="134.0" layoutY="126.0" promptText="E-mail">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </TextField>
+            <PasswordField fx:id="senha" layoutX="134.0" layoutY="175.0" promptText="Senha">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </PasswordField>
+            <PasswordField fx:id="confirmacaoSenha" layoutX="134.0" layoutY="222.0" promptText="Confirmação de senha">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </PasswordField>
+            <TextField fx:id="dicaSenha" layoutX="134.0" layoutY="269.0" promptText="Dica de senha">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </TextField>
+            <Button fx:id="cadastrar" layoutX="170.0" layoutY="324.0" mnemonicParsing="false" prefHeight="64.0" prefWidth="110.0" text="Cadastrar">
+               <font>
+                  <Font name="Calibri Bold" size="20.0" />
+               </font>
+            </Button>
+         </children>
+         <padding>
+            <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
+         </padding>
+      </VBox>
    </children>
 </AnchorPane>
