@@ -1,21 +1,15 @@
 package gui;
 
 import java.io.IOException;
-
 import org.controlsfx.dialog.Dialogs;
-
-import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
-import javafx.stage.Stage;
+import javafx.scene.layout.AnchorPane;
 
 public class ControllerClass {
 
@@ -29,6 +23,8 @@ public class ControllerClass {
     private PasswordField PFsenha;
     @FXML
     private TextField TFemail;
+    @FXML
+    private AnchorPane content;
     
     
     @FXML
@@ -42,20 +38,11 @@ public class ControllerClass {
     
     private class Eventos implements EventHandler<ActionEvent>{
     	
-    	GerenteDeUsuarios gerente = new GerenteDeUsuarios();
-    	
     	@Override
     	public void handle(ActionEvent evento){
     		if (evento.getSource() == botaoCadastrar){
-    			Parent root;
 				try {
-					root = FXMLLoader.load(getClass().getResource("Cadastro.fxml"));
-					Stage stage = new Stage();
-    	            stage.setTitle("MoneySaver / Cadastro de novo usuário");
-    	            stage.setScene(new Scene(root, 420, 400));
-    	            stage.show();
-    	            ((Node) evento.getSource()).getScene().getWindow().hide();
-    	           
+					content.getChildren().setAll(FXMLLoader.load(getClass().getResource("TelaCadastrar.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -68,15 +55,8 @@ public class ControllerClass {
     	        .masthead(null)
     	        .message("Botão conectar!")
     	        .showInformation();
-    		}
-    		else if (evento.getSource() == PFsenha){
-    			PasswordField PFsenha2 = (PasswordField) evento.getSource();
-    			System.out.print(PFsenha2.getText());
-    		}
     			
-    		else if (evento.getSource() == TFemail)
-    			System.out.print("sdasdsad");
-    			
+    		}
     	}
     }
 }

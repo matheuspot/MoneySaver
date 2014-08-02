@@ -1,16 +1,17 @@
 package gui;
 
+import java.io.IOException;
 
-import org.controlsfx.dialog.Dialogs;
 import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
-import javafx.scene.control.ButtonBase;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.layout.AnchorPane;
 
 public class ControllerCadastro {
 	
@@ -18,32 +19,25 @@ public class ControllerCadastro {
 	
 	@FXML
     private PasswordField PFsenha;
-
     @FXML
     private TextField TFdicaSenha;
-
     @FXML
     private PasswordField PFconfirmacaoSenha;
-
     @FXML
     private TextField TFnome;
-
     @FXML
     private TextField TFemail;
-    
     @FXML
     private Button botaoCadastrar;
-    
     @FXML
     private Button botaoVoltar;
-    
     @FXML
     private Label labelAviso;
-    
+    @FXML
+    private AnchorPane content;
     
     @FXML
     void initialize() {
-    	
     	TFnome.setOnAction(eventos);
     	TFemail.setOnAction(eventos);
     	PFsenha.setOnAction(eventos);
@@ -72,9 +66,14 @@ public class ControllerCadastro {
      				}
      	     }
     		
-    		else if (evento.getSource() == botaoVoltar){
-    			
+    		if (evento.getSource() == botaoVoltar){
+    			try {
+				content.getChildren().setAll(FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml")));
+    			} catch (IOException e) {
+    				e.printStackTrace();
+    			}
     		}
+    		
     	}
     }
 }

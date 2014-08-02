@@ -16,7 +16,7 @@ public class MainInterface extends Application {
 	public void start(Stage primaryStage) throws Exception {
 
 		Parent root = FXMLLoader.load(getClass().getResource(
-				"LoginAndCadastro.fxml"));
+				"TelaPrincipal.fxml"));
 		Scene scene = new Scene(root, 600, 400);
 
 		primaryStage.setScene(scene);
