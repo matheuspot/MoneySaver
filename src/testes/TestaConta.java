@@ -83,6 +83,7 @@ public class TestaConta {
 
 	@Test
 	public void testaToString() {
-		assertEquals("ToString errado.", "Saldo: 0.0", conta.toString());
+		assertEquals("ToString errado.", "Saldo da conta: 0.0",
+				conta.toString());
 	}
 }

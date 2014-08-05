@@ -1,11 +1,14 @@
 package fonte;
 
+import java.io.Serializable;
+
 /**
  * Classe usada para representar uma conta.
  */
 
-public class Conta {
+public class Conta implements Serializable {
 
+	private static final long serialVersionUID = 1L;
 	private double saldo;
 
 	/**
@@ -67,6 +70,6 @@ public class Conta {
 
 	@Override
 	public String toString() {
-		return "Saldo: " + saldo;
+		return "Saldo da conta: " + saldo;
 	}
 }
