@@ -8,16 +8,17 @@ import java.util.ArrayList;
 import fonte.Usuario;
 
 /**
- * Classe para escrever uma lista de objetos da classe Usuario para um arquivo.
+ * Classe usada para escrever uma lista de objetos da classe Usuario em um
+ * arquivo.
  */
 
-public class Arquivador {
-	String nomeDoArquivo;
-	FileOutputStream fos;
-	ObjectOutputStream oos;
-	FileInputStream fis;
-	ObjectInputStream ois;
-	ArrayList<Usuario> usuariosJaEscritos;
+public class ArquivadorUsuarios {
+	private String nomeDoArquivo;
+	private FileOutputStream fos;
+	private ObjectOutputStream oos;
+	private FileInputStream fis;
+	private ObjectInputStream ois;
+	private ArrayList<Usuario> usuariosJaEscritos;
 
 	/**
 	 * Construtor do arquivador, que tem como parâmetro o nome desejado para o
@@ -30,7 +31,7 @@ public class Arquivador {
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
 
-	public Arquivador(String nomeDoArquivo) throws Exception {
+	public ArquivadorUsuarios(String nomeDoArquivo) throws Exception {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
 		}

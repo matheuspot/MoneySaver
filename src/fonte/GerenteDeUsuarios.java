@@ -3,7 +3,7 @@ package fonte;
 import java.util.ArrayList;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-import auxiliar.Arquivador;
+import auxiliar.ArquivadorUsuarios;
 
 /**
  * Classe para gerenciamento de usuários.
@@ -12,7 +12,7 @@ import auxiliar.Arquivador;
 public class GerenteDeUsuarios {
 
 	private ArrayList<Usuario> usuariosDoSistema;
-	private Arquivador arquivador;
+	private ArquivadorUsuarios arquivador;
 
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
 			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
@@ -24,7 +24,7 @@ public class GerenteDeUsuarios {
 
 	public GerenteDeUsuarios() {
 		try {
-			arquivador = new Arquivador("usuarios.txt");
+			arquivador = new ArquivadorUsuarios("usuarios.txt");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

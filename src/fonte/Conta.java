@@ -72,4 +72,37 @@ public class Conta implements Serializable {
 	public String toString() {
 		return "Saldo da conta: " + saldo;
 	}
+
+	/**
+	 * Override do método hashCode da classe Object.
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		long temp;
+		temp = Double.doubleToLongBits(saldo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		return result;
+	}
+
+	/**
+	 * Override do método equals da classe Object.
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (Double.doubleToLongBits(saldo) != Double
+				.doubleToLongBits(other.saldo))
+			return false;
+		return true;
+	}
 }

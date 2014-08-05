@@ -121,23 +121,6 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Override do método equals da classe Object. Dois usuários são iguais se
-	 * eles tem o mesmo e-mail.
-	 */
-
-	@Override
-	public boolean equals(Object objeto) {
-		if (!(objeto instanceof Usuario))
-			return false;
-
-		Usuario outro = (Usuario) objeto;
-		if (email.equals(outro.getEmail()))
-			return true;
-
-		return false;
-	}
-
-	/**
 	 * Método para pegar o nome do usuário.
 	 * 
 	 * @return O nome do usuário.
@@ -201,5 +184,39 @@ public class Usuario implements Serializable {
 		if (senhaParaChecar.equals(senha))
 			return true;
 		return false;
+	}
+
+	/**
+	 * Override do método hashCode da classe Object.
+	 */
+
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((email == null) ? 0 : email.hashCode());
+		return result;
+	}
+
+	/**
+	 * Override do método equals da classe Object. Dois usuários são iguais se
+	 * eles tem o mesmo e-mail.
+	 */
+
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Usuario other = (Usuario) obj;
+		if (email == null) {
+			if (other.email != null)
+				return false;
+		} else if (!email.equals(other.email))
+			return false;
+		return true;
 	}
 }
