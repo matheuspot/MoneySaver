@@ -1,11 +1,10 @@
 package fonte;
 
-public class Conta { 
+public class Conta {
 
-	double saldo;
-	
-	public Conta(double saldo) {
-		this.saldo = saldo;
+	private double saldo;
+
+	public Conta() {
+		saldo = 0.0;
 	}
-	
 }

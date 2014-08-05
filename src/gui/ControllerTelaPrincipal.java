@@ -11,7 +11,7 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
-public class ControllerClass {
+public class ControllerTelaPrincipal {
 
 	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	
