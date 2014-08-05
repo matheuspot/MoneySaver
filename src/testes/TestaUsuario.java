@@ -87,15 +87,15 @@ public class TestaUsuario {
 	public void testaToString() {
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário1\nE-mail: meu_usuario@gmail.com\nDica de senha: menor senha",
+				"Nome: Usuário1\nE-mail: meu_usuario@gmail.com\nDica de senha: menor senha\nSaldo da conta: 0.0",
 				usuario1.toString());
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário2\nE-mail: meu_usuario@gmail.com\nDica de senha: senha média",
+				"Nome: Usuário2\nE-mail: meu_usuario@gmail.com\nDica de senha: senha média\nSaldo da conta: 0.0",
 				usuario2.toString());
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário3\nE-mail: usuario3@hotmail.com\nDica de senha: maior senha",
+				"Nome: Usuário3\nE-mail: usuario3@hotmail.com\nDica de senha: maior senha\nSaldo da conta: 0.0",
 				usuario3.toString());
 	}
 

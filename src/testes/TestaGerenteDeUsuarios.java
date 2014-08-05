@@ -95,10 +95,8 @@ public class TestaGerenteDeUsuarios {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
-		assertEquals(
-				"Retornou usuário errado.",
-				"Nome: Usuário1\nE-mail: usuario1@gmail.com\nDica de senha: senha fácil",
-				gerente.pesquisaUsuario("usuario1@gmail.com").toString());
+		assertEquals("Retornou usuário errado.", "usuario1@gmail.com", gerente
+				.pesquisaUsuario("usuario1@gmail.com").getEmail());
 	}
 
 	@Test
@@ -106,7 +104,8 @@ public class TestaGerenteDeUsuarios {
 		gerente.adicionaUsuario("Usuário1", "usuario1@gmail.com", "123456",
 				"123456", "senha fácil");
 
-		gerente.login("usuario1@gmail.com", "123456");
+		assertEquals("Usuário logado errado.", "usuario1@gmail.com", gerente
+				.login("usuario1@gmail.com", "123456").getEmail());
 	}
 
 	@Test

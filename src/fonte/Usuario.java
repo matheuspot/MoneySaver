@@ -184,7 +184,7 @@ public class Usuario implements Serializable {
 	@Override
 	public String toString() {
 		return "Nome: " + nome + "\nE-mail: " + email + "\nDica de senha: "
-				+ dicaSenha;
+				+ dicaSenha + "\n" + conta.toString();
 	}
 
 	/**

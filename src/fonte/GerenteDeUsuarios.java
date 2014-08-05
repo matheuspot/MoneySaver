@@ -88,12 +88,13 @@ public class GerenteDeUsuarios {
 	 *            E-mail do usuário.
 	 * @param senha
 	 *            Senha do usuário.
+	 * @return Retorna o usuário que está logando.
 	 * @throws Exception
 	 *             Lança exceção caso o usuário não esteja cadastrado, ou a
 	 *             senha estiver errada.
 	 */
 
-	public void login(String login, String senha) throws Exception {
+	public Usuario login(String login, String senha) throws Exception {
 		Usuario usuario = pesquisaUsuario(login);
 
 		if (usuario == null)
@@ -102,8 +103,7 @@ public class GerenteDeUsuarios {
 		if (!usuario.checaLogin(senha))
 			throw new Exception("Senha incorreta!");
 
-		// Chegou aqui, já está logado. Leva o usuário para outra tela da
-		// interface que contém as operações.
+		return usuario;
 	}
 
 	/**
