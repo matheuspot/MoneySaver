@@ -19,9 +19,10 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 	private String dicaSenha;
+	private Conta conta;
 
 	/**
-	 * Construtor da classe Usuario.
+	 * Construtor da classe Usuario, que começa com uma conta de saldo zero.
 	 * 
 	 * @param nome
 	 *            Nome do usuário.
@@ -54,6 +55,7 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.senha = senha;
 		this.dicaSenha = dicaSenha;
+		conta = new Conta();
 	}
 
 	/**
@@ -163,6 +165,16 @@ public class Usuario implements Serializable {
 
 	public String getDicaSenha() {
 		return dicaSenha;
+	}
+
+	/**
+	 * Método para pegar a conta do usuário.
+	 * 
+	 * @return A conta do usuário.
+	 */
+
+	public Conta getConta() {
+		return conta;
 	}
 
 	/**
