@@ -1,7 +1,7 @@
 package gui;
 
 import java.io.IOException;
-
+import org.controlsfx.dialog.Dialogs;
 import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -58,8 +58,18 @@ public class ControllerCadastro {
     			 
      	            try {
      					gerente.adicionaUsuario(TFnome.getText(), TFemail.getText(), PFsenha.getText(), PFconfirmacaoSenha.getText(), TFdicaSenha.getText());
-     					labelAviso.setText("Cadastro efetuado!");
-     					labelAviso.setVisible(true);
+     					Dialogs.create()
+     	    	        .owner(null)
+     	    	        .title("MoneySaver")
+     	    	        .masthead(null)
+     	    	        .message("Cadastro efetuado!")
+     	    	        .showInformation();
+     					try {
+     						content.getChildren().setAll(FXMLLoader.load(getClass().getResource("TelaPrincipal.fxml")));
+     		    			} catch (IOException e) {
+     		    				e.printStackTrace();
+     		    			}
+     					
      	            } catch (Exception e) {
      	            	labelAviso.setText(e.getMessage());
      					labelAviso.setVisible(true);
