@@ -8,17 +8,15 @@ public class Transacao {
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
-<<<<<<< HEAD
+
 	private Conta conta;
-=======
 	private Usuario usuario;
->>>>>>> origin/master
+
 
 	public Transacao(Usuario usuario) {
 		this.usuario = usuario;
 	}
 
-<<<<<<< HEAD
 	public void adicionaTransacao(String tipoDeTransacao) {
 		if(tipoDeTransacao=="Despesa") {
 			try{
@@ -33,8 +31,8 @@ public class Transacao {
 		// Aqui será colocado a categoria
 		
 		// Aqui será adicionada a descrição
+	}
 
-=======
 	public void adicionaTransacao(String tipoDeTransacao, String descricao,
 			String dataDeInsercao, double valor, Categoria categoria,
 			String recorrencia) {
@@ -44,7 +42,6 @@ public class Transacao {
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
->>>>>>> origin/master
 	}
 
 	public void editarTransacao() {
