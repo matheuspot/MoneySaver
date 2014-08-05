@@ -8,13 +8,21 @@ public class Transacao {
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
+	private Usuario usuario;
 
-	public Transacao() {
-
+	public Transacao(Usuario usuario) {
+		this.usuario = usuario;
 	}
 
-	public void adicionaTransacao() {
-
+	public void adicionaTransacao(String tipoDeTransacao, String descricao,
+			String dataDeInsercao, double valor, Categoria categoria,
+			String recorrencia) {
+		this.tipoDeTransacao = tipoDeTransacao;
+		this.descricao = descricao;
+		this.dataDeInsercao = dataDeInsercao;
+		this.valor = valor;
+		this.categoria = categoria;
+		this.recorrencia = recorrencia;
 	}
 
 	public void editarTransacao() {
