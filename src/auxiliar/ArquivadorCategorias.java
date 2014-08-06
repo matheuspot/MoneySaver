@@ -6,10 +6,13 @@ import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import fonte.Categoria;
-import fonte.Transacao;
 import fonte.Usuario;
+
+/**
+ * Classe usada para escrever uma coleção de objetos da classe Categoria em um
+ * arquivo.
+ */
 
 public class ArquivadorCategorias {
 	private String nomeDoArquivo;
@@ -17,39 +20,41 @@ public class ArquivadorCategorias {
 	private ObjectOutputStream oos;
 	private FileInputStream fis;
 	private ObjectInputStream ois;
-	private ArrayList<Categoria> categoriasJaEscritas;
-	
+	private HashMap<Usuario, ArrayList<Categoria>> categoriasJaEscritas;
+
 	/**
 	 * Construtor do arquivador, que tem como parâmetro o nome desejado para o
 	 * arquivo no qual será armazenado as categorias.
 	 * 
 	 * @param nomeDoArquivo
 	 *            Nome desejado para o arquivo no qual será armazenado as
-	 *            transações.
+	 *            categorias.
 	 * @throws Exception
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
+
 	public ArquivadorCategorias(String nomeDoArquivo) throws Exception {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
 		}
 		this.nomeDoArquivo = nomeDoArquivo;
-		
 	}
-	
+
 	/**
-	 * Método que recebe um ArrayList para escrever as categorias
+	 * Método que recebe um HashMap(Key: Usuario, Value: ArrayList de Categoria)
+	 * para escrever no arquivo.
 	 * 
-	 * @param categoriasJaEscritas
-	 *            Um ArrayList para
+	 * @param mapaDeCategorias
+	 *            Um HashMap(Key: Usuario, Value: ArrayList de Categoria) para
 	 *            escrever no arquivo.
 	 * @throws Exception
-	 *             Lança exceção se o ArrayList estiver vazio.
+	 *             Lança exceção se o HashMap estiver vazio.
 	 */
-	
-	public void escreveCategorias(ArrayList<Categoria> listaCategorias) throws Exception {
-		
-		if (listaCategorias.isEmpty()) {
+
+	public void escreveCategorias(
+			HashMap<Usuario, ArrayList<Categoria>> mapaDeCategorias)
+			throws Exception {
+		if (mapaDeCategorias.isEmpty()) {
 			throw new Exception(
 					"Coleção de categorias para escrever está vazia.");
 		}
@@ -57,22 +62,23 @@ public class ArquivadorCategorias {
 		try {
 			fos = new FileOutputStream(nomeDoArquivo);
 			oos = new ObjectOutputStream(fos);
-			oos.writeObject(listaCategorias);
+			oos.writeObject(mapaDeCategorias);
 			oos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 	}
-	
+
 	/**
-	 * Método que irá ler as categorias que estão
-	 * escritas no arquivo. Se o arquivo não existir, irá retornar null.
+	 * Método que irá ler as categorias de seus respectivos usuários que estão
+	 * escritos no arquivo. Se o arquivo não existir, irá retornar null.
 	 * 
-	 * @return Um ArrayList contendo as categorias.
+	 * @return Um HashMap(Key: Usuario, Value: ArrayList de Categoria). Caso o
+	 *         arquivo não exista, irá retornar null.
 	 */
-	
+
 	@SuppressWarnings("unchecked")
-	public ArrayList<Categoria> leCategorias() {
+	public HashMap<Usuario, ArrayList<Categoria>> leCategorias() {
 		try {
 			try {
 				fis = new FileInputStream(nomeDoArquivo);
@@ -81,33 +87,12 @@ public class ArquivadorCategorias {
 			}
 
 			ois = new ObjectInputStream(fis);
-			categoriasJaEscritas = (ArrayList<Categoria>) ois.readObject();
+			categoriasJaEscritas = (HashMap<Usuario, ArrayList<Categoria>>) ois
+					.readObject();
 			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return categoriasJaEscritas;
 	}
-	
-	/**
-	 * Método que irá remover uma categoria que está escrita no
-	 * arquivo.
-	 * 
-	 * @param categoria
-	 *            O nome da categoria que deseja remover.
-	 *            
-	 */
-
-	public void deletaCategoria(Categoria categoria) {
-		ArrayList<Categoria> listaCategorias = new ArrayList<Categoria>(leCategorias());
-
-		listaCategorias.remove(categoria);
-
-		try {
-			escreveCategorias(listaCategorias);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-
 }

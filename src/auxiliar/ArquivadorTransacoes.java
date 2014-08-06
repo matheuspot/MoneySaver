@@ -37,7 +37,6 @@ public class ArquivadorTransacoes {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
 		}
-
 		this.nomeDoArquivo = nomeDoArquivo;
 	}
 

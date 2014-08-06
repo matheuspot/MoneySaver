@@ -27,7 +27,6 @@ public class GerenteDeTransacoes {
 			transacoesExistentes = new ArrayList<>(
 					transacoesDoSistema.get(usuario));
 		}
-
 		this.usuario = usuario;
 	}
 
