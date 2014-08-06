@@ -96,30 +96,4 @@ public class ArquivadorTransacoes {
 		}
 		return transacoesJaEscritas;
 	}
-
-	/**
-	 * Método que irá remover uma transação de um usuário que está escrito no
-	 * arquivo.
-	 * 
-	 * @param usuario
-	 *            O usuário que têm a transação que deseja-se remover.
-	 * @param transacao
-	 *            A transação que deseja-se remover.
-	 */
-
-	public void deletaTransacao(Usuario usuario, Transacao transacao) {
-		HashMap<Usuario, ArrayList<Transacao>> mapaTransacoes = new HashMap<Usuario, ArrayList<Transacao>>(
-				leTransacoes());
-
-		ArrayList<Transacao> transacoes = mapaTransacoes.get(usuario);
-		transacoes.remove(transacao);
-
-		mapaTransacoes.put(usuario, transacoes);
-
-		try {
-			escreveTransacoes(mapaTransacoes);
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
 }

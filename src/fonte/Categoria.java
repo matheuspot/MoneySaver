@@ -6,18 +6,24 @@ public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String nome;
+	private String cor;
 
-	public Categoria(String nome) {
+	public Categoria(String nome, String cor) {
 		this.nome = nome;
+		this.cor = cor;
 	}
 
 	public String getNome() {
 		return nome;
 	}
+	
+	public String getCor() {
+		return cor;
+	}
 
 	@Override
 	public String toString() {
-		return nome;
+		return "Nome: " + nome + "\nCor: " + cor;
 	}
 
 	@Override

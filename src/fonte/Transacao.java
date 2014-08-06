@@ -24,6 +24,30 @@ public class Transacao implements Serializable {
 		this.recorrencia = recorrencia;
 	}
 
+	public String getTipoDeTransacao() {
+		return tipoDeTransacao;
+	}
+
+	public String getDescricao() {
+		return descricao;
+	}
+
+	public String getDataDeInsercao() {
+		return dataDeInsercao;
+	}
+
+	public double getValor() {
+		return valor;
+	}
+
+	public Categoria getCategoria() {
+		return categoria;
+	}
+
+	public String getRecorrencia() {
+		return recorrencia;
+	}
+
 	@Override
 	public String toString() {
 		return "Tipo de transação: " + tipoDeTransacao + "\nDescrição: "
