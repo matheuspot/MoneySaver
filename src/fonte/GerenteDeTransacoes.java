@@ -50,53 +50,47 @@ public class GerenteDeTransacoes {
 	private void transacaoValida(String tipoDeTransacao, String descricao,
 			String dataDeInsercao, double valor, Categoria categoria,
 			String recorrencia) throws Exception {
-		if (tipoDeTransacaoValido()) {
+		if (!tipoDeTransacaoValido(tipoDeTransacao)) {
 			throw new Exception("Tipo de transação inválido.");
 		}
-		if (descricaoValida()) {
-			throw new Exception("Descrição inválida.");
-		}
-		if (dataDeInsercaoValida()) {
+		if (!dataDeInsercaoValida()) {
 			throw new Exception("Data de inserção inválida.");
 		}
-		if (valorValido()) {
+		if (!valorValido(valor)) {
 			throw new Exception("Valor inválido.");
 		}
-		if (categoriaValida()) {
+		if (!categoriaValida(categoria)) {
 			throw new Exception("Categoria inválida.");
 		}
-		if (recorrenciaValida()) {
+		if (!recorrenciaValida()) {
 			throw new Exception("Recorrência inválida.");
 		}
 	}
 
 	private boolean recorrenciaValida() {
-		// TODO Auto-generated method stub
-		return false;
+		
+		return true;
 	}
 
-	private boolean categoriaValida() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean categoriaValida(Categoria categoria) {
+		if(categoria==null)
+			return false;
+		return true;
 	}
 
-	private boolean valorValido() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean valorValido(double valor) {
+		if(valor<=0)
+			return false;
+		return true;
 	}
 
 	private boolean dataDeInsercaoValida() {
-		// TODO Auto-generated method stub
-		return false;
+		return true;
 	}
 
-	private boolean descricaoValida() {
-		// TODO Auto-generated method stub
-		return false;
-	}
-
-	private boolean tipoDeTransacaoValido() {
-		// TODO Auto-generated method stub
-		return false;
+	private boolean tipoDeTransacaoValido(String tipo) {
+		if(tipo != "Despesa" && tipo != "Provento")
+			return false;
+		return true;
 	}
 }
