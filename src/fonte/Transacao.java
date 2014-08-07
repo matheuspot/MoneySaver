@@ -2,6 +2,9 @@ package fonte;
 
 import java.io.Serializable;
 
+/**
+ * Classe que representa uma transacao
+ */
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -12,10 +15,36 @@ public class Transacao implements Serializable {
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
-
+	
+	/**
+	 * Construtor da classe
+	 * 
+	 * @param tipoDeTransacao
+	 * 		Tipo da transacao (Despesa ou Provento)
+	 * @param descricao
+	 * 		Breve descricao sobre oq é a despesa
+	 * @param dataDeInsercao
+	 * 		Data em que a transacao foi feita
+	 * @param valor
+	 * 		Valor da transacao
+	 * @param categoria
+	 * 		Categoria em que a transacao se enquadra
+	 * @param recorrencia
+	 * 		Frenquencia em que ocorre a transacao
+	 * @throws Exception
+	 * 		Caso um parametro invalido seja passado,
+	 * 		uma excecao sera lancada
+	 */
 	public Transacao(String tipoDeTransacao, String descricao,
 			String dataDeInsercao, double valor, Categoria categoria,
-			String recorrencia) {
+			String recorrencia) throws Exception {
+		if (tipoDeTransacao == null || tipoDeTransacao.equals(""))
+			throw new Exception("Tipo de transacao vazio!");
+		if (valor <= 0) 
+			throw new Exception("Valor da transacao nao pode ser menor ou igual zero!");
+		if (categoria == null)
+			throw new Exception("Indique a categoria da transacao!");
+		
 		this.tipoDeTransacao = tipoDeTransacao;
 		this.descricao = descricao;
 		this.dataDeInsercao = dataDeInsercao;
@@ -23,39 +52,83 @@ public class Transacao implements Serializable {
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
 	}
-
+	
+	/**
+	 * Metodo de acesso ao tipo de transacao
+	 * 
+	 * @return
+	 * 		Tipo da transacao
+	 */
 	public String getTipoDeTransacao() {
 		return tipoDeTransacao;
 	}
-
+	
+	/**
+	 * Metodo de acesso a descricao da transacao
+	 * 
+	 * @return
+	 * 		Descricao da transacao
+	 */
 	public String getDescricao() {
 		return descricao;
 	}
-
+	
+	/**
+	 * Metodo de acesso a data de insercao da transacao
+	 * 
+	 * @return
+	 * 		Data da transacao
+	 */
 	public String getDataDeInsercao() {
 		return dataDeInsercao;
 	}
-
+	
+	/**
+	 * Metodo de acesso ao valor da transacao
+	 * 
+	 * @return
+	 * 		Valor da transacao
+	 */
 	public double getValor() {
 		return valor;
 	}
-
+	
+	/**
+	 * Metodo de acesso a categoria da transacao
+	 * 
+	 * @return
+	 * 		Categoria da transacao
+	 */
 	public Categoria getCategoria() {
 		return categoria;
 	}
-
+	
+	/**
+	 * Metodo de acesso a Recorrencia da Transacao
+	 * 
+	 * @return
+	 * 		Recorrencia da Transacao
+	 */
 	public String getRecorrencia() {
 		return recorrencia;
 	}
-
+	
+	/**
+	 * Reescreve o metodo toString da classe String,
+	 * Retorna uma string com as informacoes e caracteristicas
+	 * da transacao.
+	 */
 	@Override
 	public String toString() {
 		return "Tipo de transação: " + tipoDeTransacao + "\nDescrição: "
 				+ descricao + "\nData de Inserção: " + dataDeInsercao
-				+ "\nValor: " + valor + "\nCategoria: " + categoria
+				+ "\nValor: " + valor + "\nCategoria: " + categoria.getNome()
 				+ "\nRecorrência: " + recorrencia;
 	}
-
+	
+	/**
+	 * Hashcode
+	 */
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -75,7 +148,13 @@ public class Transacao implements Serializable {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-
+	
+	/**
+	 * Reescreve o metodo equals da classe object,
+	 * Compara as transacoes para verem se sao iguais,
+	 * se forem iguais, retorna true, caso contrario,
+	 * retorna false.
+	 */
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
