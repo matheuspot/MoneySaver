@@ -13,14 +13,21 @@ import javax.crypto.spec.PBEParameterSpec;
 import sun.misc.BASE64Decoder;
 import sun.misc.BASE64Encoder;
 
-public class ProtectedConfigFile {
+public abstract class Criptografia {
 
     private static final char[] PASSWORD = "enfldsgbnlsngdlksdsgm".toCharArray();
     private static final byte[] SALT = {
         (byte) 0xde, (byte) 0x33, (byte) 0x10, (byte) 0x12,
         (byte) 0xde, (byte) 0x33, (byte) 0x10, (byte) 0x12,
     };
-
+    
+    /**
+     * Criptografa uma senha
+     * @param property Senha a ser criptografada
+     * @return Senha criptografada
+     * @throws GeneralSecurityException 
+     * @throws UnsupportedEncodingException
+     */
    public static String encrypt(String property) throws GeneralSecurityException, UnsupportedEncodingException {
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
         SecretKey key = keyFactory.generateSecret(new PBEKeySpec(PASSWORD));
@@ -30,10 +37,16 @@ public class ProtectedConfigFile {
     }
 
     private static String base64Encode(byte[] bytes) {
-        // NB: This class is internal, and you probably should use another impl
         return new BASE64Encoder().encode(bytes);
     }
 
+    /**
+     * Decriptografa uma senha
+     * @param property Senha a ser decriptografada
+     * @return Senha decriptografada
+     * @throws GeneralSecurityException
+     * @throws IOException
+     */
     public static String decrypt(String property) throws GeneralSecurityException, IOException {
         SecretKeyFactory keyFactory = SecretKeyFactory.getInstance("PBEWithMD5AndDES");
         SecretKey key = keyFactory.generateSecret(new PBEKeySpec(PASSWORD));
@@ -43,7 +56,6 @@ public class ProtectedConfigFile {
     }
 
     private static byte[] base64Decode(String property) throws IOException {
-        // NB: This class is internal, and you probably should use another impl
         return new BASE64Decoder().decodeBuffer(property);
     }
 
