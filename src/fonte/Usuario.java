@@ -41,7 +41,9 @@ public class Usuario implements Serializable {
 		if (!validaNome(nome))
 			throw new Exception("O nome do usuário deve ser informado.");
 
-		
+		if (!validaSenha(senha))
+			throw new Exception(
+					"Senha inválida, deve conter de 6 a 8 caracteres.");
 
 		if (!validaEmail(email))
 			throw new Exception("E-mail inválido.");
@@ -49,6 +51,8 @@ public class Usuario implements Serializable {
 		if (!validaDicaSenha(dicaSenha))
 			throw new Exception("Dica de senha inválida.");
 
+		senha = ProtectedConfigFile.encrypt(senha);
+		
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
