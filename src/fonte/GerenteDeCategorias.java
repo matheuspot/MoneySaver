@@ -51,7 +51,14 @@ public class GerenteDeCategorias {
 	}
 
 	public String listaCategorias() {
-		return categoriasExistentes.toString();
+		String lista = "";
+		for (int i = 0; i < categoriasExistentes.size(); i++) {
+			lista += categoriasExistentes.get(i);
+
+			if (i < categoriasExistentes.size() - 1)
+				lista += "\n";
+		}
+		return lista;
 	}
 
 	public void adicionaCategoria(String nomeCategoria, String corCategoria)
