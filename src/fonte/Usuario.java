@@ -51,6 +51,8 @@ public class Usuario implements Serializable {
 		if (!validaDicaSenha(dicaSenha))
 			throw new Exception("Dica de senha inválida.");
 
+		senha = ProtectedConfigFile.encrypt(senha);
+		
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
