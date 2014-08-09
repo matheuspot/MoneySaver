@@ -28,6 +28,30 @@ public class GerenteDeCategorias {
 					categoriasDoSistema.get(usuario));
 		}
 		this.usuario = usuario;
+
+		if (categoriasExistentes.isEmpty())
+			adicionaCategoriasDefault();
+	}
+
+	private void adicionaCategoriasDefault() {
+		try {
+			categoriasExistentes.add(new Categoria("Lazer", "Verde"));
+			categoriasExistentes.add(new Categoria("Alimentação", "Azul"));
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+
+		categoriasDoSistema.put(usuario, categoriasExistentes);
+
+		try {
+			arquivador.escreveCategorias(categoriasDoSistema);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+	}
+
+	public String listaCategorias() {
+		return categoriasExistentes.toString();
 	}
 
 	public void adicionaCategoria(String nomeCategoria, String corCategoria)
