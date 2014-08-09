@@ -53,7 +53,7 @@ public class GerenteDeCategorias {
 	public String listaCategorias() {
 		String lista = "";
 		for (int i = 0; i < categoriasExistentes.size(); i++) {
-			lista += categoriasExistentes.get(i);
+			lista += categoriasExistentes.get(i).getNome();
 
 			if (i < categoriasExistentes.size() - 1)
 				lista += "\n";

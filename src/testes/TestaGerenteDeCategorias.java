@@ -15,9 +15,10 @@ public class TestaGerenteDeCategorias {
 	public void inicializaGerenteParaTestes() throws Exception {
 		File arquivo = new File("data3.mos");
 		arquivo.delete();
-		
-		usuario = new Usuario("usuario1", "usuario1@gmail.com", "123456", "nenhuma");
+
+		usuario = new Usuario("usuario1", "usuario1@gmail.com", "123456",
+				"nenhuma");
 		gerente = new GerenteDeCategorias(usuario);
-		
+
 	}
 }

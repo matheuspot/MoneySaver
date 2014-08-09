@@ -1,6 +1,8 @@
 package fonte;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.security.GeneralSecurityException;
 import java.util.regex.*;
 
 /**
@@ -52,7 +54,7 @@ public class Usuario implements Serializable {
 			throw new Exception("Dica de senha inválida.");
 
 		senha = Criptografia.encrypt(senha);
-		
+
 		this.nome = nome;
 		this.email = email;
 		this.senha = senha;
@@ -180,10 +182,13 @@ public class Usuario implements Serializable {
 	 *            Senha que o usuário informou na hora do login.
 	 * @return Retorna true se a senha for igual a senha cadastrada no sistema,
 	 *         e false caso contrário.
+	 * @throws IOException
+	 * @throws GeneralSecurityException
 	 */
 
-	public boolean checaLogin(String senhaParaChecar) {
-		if (senhaParaChecar.equals(senha))
+	public boolean checaLogin(String senhaParaChecar)
+			throws GeneralSecurityException, IOException {
+		if (senhaParaChecar.equals(Criptografia.decrypt(senha)))
 			return true;
 		return false;
 	}
