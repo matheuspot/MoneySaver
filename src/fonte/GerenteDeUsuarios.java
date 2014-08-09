@@ -58,6 +58,7 @@ public class GerenteDeUsuarios {
 			String confirmacaoDeSenha, String dicaDeSenha) throws Exception {
 
 		usuarioValido(nome, email, senha, confirmacaoDeSenha, dicaDeSenha);
+		senha = ProtectedConfigFile.encrypt(senha);
 
 		Usuario novoUsuario = new Usuario(nome, email, senha, dicaDeSenha);
 		usuariosDoSistema.add(novoUsuario);
