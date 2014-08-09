@@ -2,6 +2,7 @@ package fonte;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import auxiliar.ArquivadorTransacoes;
 
 public class GerenteDeTransacoes {
@@ -30,16 +31,11 @@ public class GerenteDeTransacoes {
 		this.usuario = usuario;
 	}
 
-	public void adicionaTransacao(String tipoDeTransacao, String descricao,
-			String dataDeInsercao, double valor, Categoria categoria,
-			String recorrencia) throws Exception {
+	public void adicionaTransacao(Transacao transacao) throws Exception {
 
-		transacaoValida(tipoDeTransacao, descricao, dataDeInsercao, valor,
-				categoria, recorrencia);
+		transacaoValida(transacao);
 
-		Transacao novaTransacao = new Transacao(tipoDeTransacao, descricao,
-				dataDeInsercao, valor, categoria, recorrencia);
-		transacoesExistentes.add(novaTransacao);
+		transacoesExistentes.add(transacao);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
 		arquivador.escreveTransacoes(transacoesDoSistema);
@@ -56,13 +52,12 @@ public class GerenteDeTransacoes {
 	}
 
 	public void editaTransacao(Transacao transacaoParaEditar,
-			String tipoDeTransacao, String descricao, String dataDeInsercao,
+			String descricao, String dataDeInsercao,
 			double valor, Categoria categoria, String recorrencia)
 			throws Exception {
 
-		transacaoValida(tipoDeTransacao, descricao, dataDeInsercao, valor,
-				categoria, recorrencia);
-		Transacao novaTransacao = new Transacao(tipoDeTransacao, descricao,
+		transacaoValida(transacaoParaEditar);
+		Transacao novaTransacao = new Transacao(descricao,
 				dataDeInsercao, valor, categoria, recorrencia);
 
 		transacoesExistentes.remove(transacaoParaEditar);
@@ -73,25 +68,23 @@ public class GerenteDeTransacoes {
 		arquivador.escreveTransacoes(transacoesDoSistema);
 	}
 
-	private void transacaoValida(String tipoDeTransacao, String descricao,
-			String dataDeInsercao, double valor, Categoria categoria,
-			String recorrencia) throws Exception {
-		if (!tipoDeTransacaoValido(tipoDeTransacao)) {
+	private void transacaoValida(Transacao transacao) throws Exception {
+		if (!tipoDeTransacaoValido(transacao)) {
 			throw new Exception("Tipo de transação inválido.");
 		}
-		if (!descricaoValida(descricao)) {
+		if (!descricaoValida(transacao.getDescricao())) {
 			throw new Exception("Descrição inválida.");
 		}
-		if (!dataDeInsercaoValida(dataDeInsercao)) {
+		if (!dataDeInsercaoValida(transacao.getDataDeInsercao())) {
 			throw new Exception("Data de inserção inválida.");
 		}
-		if (!valorValido(valor)) {
+		if (!valorValido(transacao.getValor())) {
 			throw new Exception("Valor inválido.");
 		}
-		if (!categoriaValida(categoria)) {
+		if (!categoriaValida(transacao.getCategoria())) {
 			throw new Exception("Categoria inválida.");
 		}
-		if (!recorrenciaValida(recorrencia)) {
+		if (!recorrenciaValida(transacao.getRecorrencia())) {
 			throw new Exception("Recorrência inválida.");
 		}
 	}
@@ -126,10 +119,10 @@ public class GerenteDeTransacoes {
 		return true;
 	}
 
-	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
-		if (tipoDeTransacao == null
-				|| !tipoDeTransacao.equals("despesa".toLowerCase())
-				|| !tipoDeTransacao.equals("provento".toLowerCase()))
+	private boolean tipoDeTransacaoValido(Transacao transacao) {
+		if (this == null
+				|| !this.equals(transacao)
+				|| !this.equals(transacao))
 			return false;
 		return true;
 	}

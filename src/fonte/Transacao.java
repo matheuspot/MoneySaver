@@ -9,7 +9,6 @@ public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private String tipoDeTransacao;
 	private String descricao;
 	private String dataDeInsercao;
 	private double valor;
@@ -19,8 +18,6 @@ public class Transacao implements Serializable {
 	/**
 	 * Construtor da classe
 	 * 
-	 * @param tipoDeTransacao
-	 * 		Tipo da transacao (Despesa ou Provento)
 	 * @param descricao
 	 * 		Breve descricao sobre oq é a despesa
 	 * @param dataDeInsercao
@@ -35,32 +32,19 @@ public class Transacao implements Serializable {
 	 * 		Caso um parametro invalido seja passado,
 	 * 		uma excecao sera lancada
 	 */
-	public Transacao(String tipoDeTransacao, String descricao,
+	public Transacao(String descricao,
 			String dataDeInsercao, double valor, Categoria categoria,
 			String recorrencia) throws Exception {
-		if (tipoDeTransacao == null || tipoDeTransacao.equals(""))
-			throw new Exception("Tipo de transacao vazio!");
 		if (valor <= 0) 
 			throw new Exception("Valor da transacao nao pode ser menor ou igual zero!");
 		if (categoria == null)
 			throw new Exception("Indique a categoria da transacao!");
 		
-		this.tipoDeTransacao = tipoDeTransacao;
 		this.descricao = descricao;
 		this.dataDeInsercao = dataDeInsercao;
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
-	}
-	
-	/**
-	 * Metodo de acesso ao tipo de transacao
-	 * 
-	 * @return
-	 * 		Tipo da transacao
-	 */
-	public String getTipoDeTransacao() {
-		return tipoDeTransacao;
 	}
 	
 	/**
@@ -120,8 +104,7 @@ public class Transacao implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return "Tipo de transação: " + tipoDeTransacao + "\nDescrição: "
-				+ descricao + "\nData de Inserção: " + dataDeInsercao
+		return "Descrição: " + descricao + "\nData de Inserção: " + dataDeInsercao
 				+ "\nValor: " + valor + "\nCategoria: " + categoria.getNome()
 				+ "\nRecorrência: " + recorrencia;
 	}
@@ -141,8 +124,6 @@ public class Transacao implements Serializable {
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result
 				+ ((recorrencia == null) ? 0 : recorrencia.hashCode());
-		result = prime * result
-				+ ((tipoDeTransacao == null) ? 0 : tipoDeTransacao.hashCode());
 		long temp;
 		temp = Double.doubleToLongBits(valor);
 		result = prime * result + (int) (temp ^ (temp >>> 32));
@@ -183,11 +164,6 @@ public class Transacao implements Serializable {
 			if (other.recorrencia != null)
 				return false;
 		} else if (!recorrencia.equals(other.recorrencia))
-			return false;
-		if (tipoDeTransacao == null) {
-			if (other.tipoDeTransacao != null)
-				return false;
-		} else if (!tipoDeTransacao.equals(other.tipoDeTransacao))
 			return false;
 		if (Double.doubleToLongBits(valor) != Double
 				.doubleToLongBits(other.valor))
