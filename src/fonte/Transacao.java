@@ -3,115 +3,120 @@ package fonte;
 import java.io.Serializable;
 
 /**
- * Classe que representa uma transacao
+ * Classe usada para representar uma transação.
  */
+
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-
 	private String descricao;
 	private String dataDeInsercao;
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
-	
+
 	/**
-	 * Construtor da classe
+	 * Construtor da classe Transacao.
 	 * 
 	 * @param descricao
-	 * 		Breve descricao sobre oq é a despesa
+	 *            A descrição da transação.
 	 * @param dataDeInsercao
-	 * 		Data em que a transacao foi feita
+	 *            A data de inserção da transação.
 	 * @param valor
-	 * 		Valor da transacao
+	 *            O valor da transação.
 	 * @param categoria
-	 * 		Categoria em que a transacao se enquadra
+	 *            A categoria da transação.
 	 * @param recorrencia
-	 * 		Frenquencia em que ocorre a transacao
+	 *            A recorrência desse tipo de transação.
 	 * @throws Exception
-	 * 		Caso um parametro invalido seja passado,
-	 * 		uma excecao sera lancada
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public Transacao(String descricao,
-			String dataDeInsercao, double valor, Categoria categoria,
-			String recorrencia) throws Exception {
-		if (valor <= 0) 
-			throw new Exception("Valor da transacao nao pode ser menor ou igual zero!");
+
+	public Transacao(String descricao, String dataDeInsercao, double valor,
+			Categoria categoria, String recorrencia) throws Exception {
+		if (descricao == null)
+			throw new Exception("Descrição inválida.");
+		if (dataDeInsercao == null)
+			throw new Exception("Data de inserção inválida.");
+		if (valor <= 0)
+			throw new Exception("Valor inválido.");
 		if (categoria == null)
-			throw new Exception("Indique a categoria da transacao!");
-		
+			throw new Exception("Categoria inválida.");
+		if (recorrencia == null)
+			throw new Exception("Recorrência inválida.");
+
 		this.descricao = descricao;
 		this.dataDeInsercao = dataDeInsercao;
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
 	}
-	
+
 	/**
-	 * Metodo de acesso a descricao da transacao
+	 * Método de acesso à descrição da transação.
 	 * 
-	 * @return
-	 * 		Descricao da transacao
+	 * @return A descrição da transação.
 	 */
+
 	public String getDescricao() {
 		return descricao;
 	}
-	
+
 	/**
-	 * Metodo de acesso a data de insercao da transacao
+	 * Método de acesso à data de inserção da transação.
 	 * 
-	 * @return
-	 * 		Data da transacao
+	 * @return A data de inserção da transação.
 	 */
+
 	public String getDataDeInsercao() {
 		return dataDeInsercao;
 	}
-	
+
 	/**
-	 * Metodo de acesso ao valor da transacao
+	 * Método de acesso ao valor da transação.
 	 * 
-	 * @return
-	 * 		Valor da transacao
+	 * @return O valor da transação.
 	 */
+
 	public double getValor() {
 		return valor;
 	}
-	
+
 	/**
-	 * Metodo de acesso a categoria da transacao
+	 * Método de acesso à categoria da transação.
 	 * 
-	 * @return
-	 * 		Categoria da transacao
+	 * @return A categoria da transação.
 	 */
+
 	public Categoria getCategoria() {
 		return categoria;
 	}
-	
+
 	/**
-	 * Metodo de acesso a Recorrencia da Transacao
+	 * Método de acesso à recorrência da transação.
 	 * 
-	 * @return
-	 * 		Recorrencia da Transacao
+	 * @return A recorrência da transação.
 	 */
+
 	public String getRecorrencia() {
 		return recorrencia;
 	}
-	
+
 	/**
-	 * Reescreve o metodo toString da classe String,
-	 * Retorna uma string com as informacoes e caracteristicas
-	 * da transacao.
+	 * Override do método toString da classe Object.
 	 */
+
 	@Override
 	public String toString() {
-		return "Descrição: " + descricao + "\nData de Inserção: " + dataDeInsercao
-				+ "\nValor: " + valor + "\nCategoria: " + categoria.getNome()
-				+ "\nRecorrência: " + recorrencia;
+		return "Descrição: " + descricao + "\nData de Inserção: "
+				+ dataDeInsercao + "\nValor: " + valor + "\nCategoria: "
+				+ categoria.getNome() + "\nRecorrência: " + recorrencia;
 	}
-	
+
 	/**
-	 * Hashcode
+	 * Override do método hashCode da classe Object.
 	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -129,13 +134,12 @@ public class Transacao implements Serializable {
 		result = prime * result + (int) (temp ^ (temp >>> 32));
 		return result;
 	}
-	
+
 	/**
-	 * Reescreve o metodo equals da classe object,
-	 * Compara as transacoes para verem se sao iguais,
-	 * se forem iguais, retorna true, caso contrario,
-	 * retorna false.
+	 * Override do método equals da classe Object. Duas transações são iguais se
+	 * todos os seus atributos são os mesmos.
 	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

@@ -3,78 +3,83 @@ package fonte;
 import java.io.Serializable;
 
 /**
- * Classe para representar uma Categoria
+ * Classe usada para representar uma categoria.
  */
+
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String cor;
-	
+
 	/**
-	 * Construtor da Classe
+	 * Construtor da classe Categoria.
 	 * 
 	 * @param nome
-	 * 		nome da categoria
+	 *            O nome da categoria.
 	 * @param cor
-	 * 		cor da categoria
+	 *            A cor da categoria.
+	 * @throws Exception
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
+
 	public Categoria(String nome, String cor) throws Exception {
-		if (nome == null || nome.equals(""))
-			throw new Exception("Diga o nome da Categoria!");
-		if (cor == null || cor.equals(""))
-			throw new Exception("Diga a cor desejada!");
-			
-		
+		if (nome == null || nome.trim().length() == 0)
+			throw new Exception("Nome inválido.");
+		if (cor == null || cor.trim().length() == 0)
+			throw new Exception("Cor inválida.");
+
 		this.nome = nome;
 		this.cor = cor;
 	}
-	
+
 	/**
-	 * Metodo de acesso ao nome da categoria
+	 * Método de acesso ao nome da categoria.
 	 * 
-	 * @return
-	 * 		nome da categoria
+	 * @return O nome da categoria.
 	 */
+
 	public String getNome() {
 		return nome;
 	}
-	
+
 	/**
-	 * Metodo de acesso a cor da categoria
+	 * Método de acesso à cor da categoria.
 	 * 
-	 * @return
-	 * 		cor da categoria
+	 * @return A cor da categoria.
 	 */
+
 	public String getCor() {
 		return cor;
 	}
-	
+
 	/**
-	 * Reescreve o metodo toString da classe String
-	 * Retorna uma String com as caracteristicas da categoria(nome e cor)
+	 * Override do método toString da classe Object.
 	 */
+
 	@Override
 	public String toString() {
 		return "Nome: " + nome + "\nCor: " + cor;
 	}
-	
+
 	/**
-	 * Hash code
+	 * Override do método hashCode da classe Object.
 	 */
+
 	@Override
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result + ((cor == null) ? 0 : cor.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		return result;
 	}
-	
+
 	/**
-	 * Checa se duas categorias sao iguais,
-	 * e retorna true caso seja ou false, 
-	 * caso contrario.
+	 * Override do método equals da classe Object. Duas categorias são iguais se
+	 * elas tem mesma cor e mesmo nome.
 	 */
+
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)
@@ -84,12 +89,15 @@ public class Categoria implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Categoria other = (Categoria) obj;
+		if (cor == null) {
+			if (other.cor != null)
+				return false;
+		} else if (!cor.equals(other.cor))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
-			return false;
-		if (!cor.equals(other.getCor()))
 			return false;
 		return true;
 	}

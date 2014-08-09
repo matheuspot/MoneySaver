@@ -24,7 +24,7 @@ public class GerenteDeUsuarios {
 
 	public GerenteDeUsuarios() {
 		try {
-			arquivador = new ArquivadorUsuarios("usuarios.txt");
+			arquivador = new ArquivadorUsuarios("data1.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

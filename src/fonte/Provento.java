@@ -8,4 +8,9 @@ public class Provento extends Transacao {
 			Categoria categoria, String recorrencia) throws Exception {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
 	}
+
+	@Override
+	public double getValor() {
+		return -super.getValor();
+	}
 }

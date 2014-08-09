@@ -13,7 +13,7 @@ public class GerenteDeCategorias {
 
 	public GerenteDeCategorias(Usuario usuario) {
 		try {
-			arquivador = new ArquivadorCategorias("categorias.txt");
+			arquivador = new ArquivadorCategorias("data3.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}

@@ -4,7 +4,6 @@ import static org.junit.Assert.*;
 import java.io.File;
 import org.junit.Before;
 import org.junit.Test;
-
 import fonte.GerenteDeUsuarios;
 
 public class TestaGerenteDeUsuarios {
@@ -13,7 +12,7 @@ public class TestaGerenteDeUsuarios {
 
 	@Before
 	public void inicializaGerenteParaTestes() {
-		File arquivo = new File("usuarios.txt");
+		File arquivo = new File("data1.mos");
 		arquivo.delete();
 		gerente = new GerenteDeUsuarios();
 	}
