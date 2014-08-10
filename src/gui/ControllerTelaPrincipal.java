@@ -1,7 +1,9 @@
 package gui;
 
 import java.io.IOException;
+
 import fonte.GerenteDeUsuarios;
+import fonte.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -15,6 +17,7 @@ import javafx.scene.layout.AnchorPane;
 public class ControllerTelaPrincipal {
 
 	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	public static Usuario usuarioAtivo;
 
 	@FXML
 	private Button botaoCadastrar;
@@ -61,6 +64,7 @@ public class ControllerTelaPrincipal {
 						content.getChildren().setAll(
 								FXMLLoader.load(getClass().getResource(
 										"TelaDeOperacoesPrincipais.fxml")));
+						usuarioAtivo = (Usuario) botaoConectar.getUserData();
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

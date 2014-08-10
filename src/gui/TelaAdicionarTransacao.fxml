@@ -1,5 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.paint.*?>
+<?import javafx.scene.shape.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
@@ -13,15 +15,14 @@
             <Font name="Calibri Light" size="18.0" />
          </font>
       </Label>
-      <TextArea layoutX="200.0" layoutY="140.0" prefHeight="120.0" prefWidth="200.0" promptText="Descrição">
+      <TextArea fx:id="descricao" layoutX="200.0" layoutY="140.0" prefHeight="120.0" prefWidth="200.0" promptText="Descrição">
          <font>
             <Font name="Calibri Light" size="14.0" />
          </font>
       </TextArea>
-      <ChoiceBox layoutX="31.0" layoutY="235.0" prefWidth="150.0" />
-      <DatePicker layoutX="412.0" layoutY="140.0" />
+      <DatePicker fx:id="tabelaData" layoutX="412.0" layoutY="140.0" prefHeight="25.0" prefWidth="174.0" promptText="Data" />
       <TextField layoutX="31.0" layoutY="140.0" promptText="Valor" />
-      <Button layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar">
+      <Button fx:id="botaoAdicionar" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar">
          <font>
             <Font name="Calibri Light" size="28.0" />
          </font>
@@ -31,7 +32,10 @@
             <Font name="Calibri Light" size="28.0" />
          </font>
       </Button>
-      <RadioButton fx:id="RBprovento" layoutX="412.0" layoutY="227.0" mnemonicParsing="false" text="Provento" />
-      <RadioButton fx:id="RBdespesa" layoutX="412.0" layoutY="185.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" text="Despesa" />
+      <RadioButton fx:id="RBprovento" layoutX="421.0" layoutY="226.0" mnemonicParsing="false" text="Provento" />
+      <RadioButton fx:id="RBdespesa" layoutX="421.0" layoutY="184.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="98.0" text="Despesa" />
+      <ComboBox fx:id="CBrecorrencia" layoutX="31.0" layoutY="188.0" prefWidth="150.0" promptText="Recorrência" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="199.0" layoutY="300.0" prefHeight="17.0" prefWidth="200.0" text="Label" textFill="#e42121" visible="false" />
+      <ComboBox fx:id="CBcategoria" layoutX="31.0" layoutY="231.0" prefWidth="150.0" promptText="Categoria" />
    </children>
 </AnchorPane>
