@@ -50,15 +50,10 @@ public class GerenteDeCategorias {
 		}
 	}
 
-	public String listaCategorias() {
-		String lista = "";
-		for (int i = 0; i < categoriasExistentes.size(); i++) {
-			lista += categoriasExistentes.get(i).getNome();
-
-			if (i < categoriasExistentes.size() - 1)
-				lista += "\n";
-		}
-		return lista;
+	public Categoria[] listaCategorias() {
+		Categoria[] arrayDeCategorias = (Categoria[]) categoriasExistentes
+				.toArray();
+		return arrayDeCategorias;
 	}
 
 	public void adicionaCategoria(String nomeCategoria, String corCategoria)
