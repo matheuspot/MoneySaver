@@ -64,6 +64,7 @@ public class ArquivadorTransacoes {
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(mapaDeTransacoes);
 			oos.close();
+			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,6 +91,7 @@ public class ArquivadorTransacoes {
 			transacoesJaEscritas = (HashMap<Usuario, ArrayList<Transacao>>) ois
 					.readObject();
 			ois.close();
+			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
