@@ -27,6 +27,7 @@
                   </Label>
                   <TextField fx:id="TFemail" layoutX="180.0" layoutY="60.0" prefHeight="30.0" prefWidth="190.0" promptText="E-mail" />
                   <PasswordField fx:id="PFsenha" layoutX="180.0" layoutY="148.0" prefHeight="30.0" prefWidth="190.0" promptText="Senha" />
+                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="139.0" layoutY="186.0" prefHeight="17.0" prefWidth="272.0" text="Label" textFill="#e81c1c" visible="false" />
                </children>
             </AnchorPane>
          </children>

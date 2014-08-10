@@ -1,12 +1,13 @@
 package gui;
 
 import java.io.IOException;
-import org.controlsfx.dialog.Dialogs;
+import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.control.Button;
+import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
@@ -25,6 +26,8 @@ public class ControllerTelaPrincipal {
 	private TextField TFemail;
 	@FXML
 	private AnchorPane content;
+	@FXML
+	private Label labelAviso;
 
 	@FXML
 	void initialize() {
@@ -32,9 +35,12 @@ public class ControllerTelaPrincipal {
 		botaoConectar.setOnAction(eventos);
 		PFsenha.setOnAction(eventos);
 		TFemail.setOnAction(eventos);
+		labelAviso.setVisible(false);
 	}
 
 	private class Eventos implements EventHandler<ActionEvent> {
+		
+		GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
 		@Override
 		public void handle(ActionEvent evento) {
@@ -49,8 +55,19 @@ public class ControllerTelaPrincipal {
 			}
 
 			else if (evento.getSource() == botaoConectar) {
-				Dialogs.create().owner(null).title("MoneySaver").masthead(null)
-						.message("Botão conectar!").showInformation();
+				try {
+					gerente.login(TFemail.getText(), PFsenha.getText());
+					try {
+						content.getChildren().setAll(
+								FXMLLoader.load(getClass().getResource(
+										"TelaDeOperacoesPrincipais.fxml")));
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
+				} catch (Exception e) {
+					labelAviso.setText(e.getMessage());
+					labelAviso.setVisible(true);
+				}
 			}
 		}
 	}

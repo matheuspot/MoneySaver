@@ -7,15 +7,15 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" xmlns:fx="http://javafx.com/fxml/1" xmlns="http://javafx.com/javafx/8">
+<SplitPane fx:id="content2" dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerOperacoesPrincipais">
    <items>
-      <AnchorPane prefHeight="400.0" prefWidth="300.0">
+      <AnchorPane fx:id="content" prefHeight="400.0" prefWidth="300.0">
          <children>
             <VBox layoutX="8.0" layoutY="14.0" prefHeight="398.0" prefWidth="296.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
                   <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="296.0" text="Transações" textAlignment="CENTER">
                     <items>
-                      <MenuItem mnemonicParsing="false" text="Adicionar Transação" />
+                      <MenuItem fx:id="adicionarTransacao" mnemonicParsing="false" text="Adicionar Transação" />
                         <MenuItem mnemonicParsing="false" text="Remover Transação" />
                       <MenuItem mnemonicParsing="false" text="Editar Transação" />
                     </items>
