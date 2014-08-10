@@ -20,6 +20,9 @@ public class ControllerAdicionarTransacao {
 
     @FXML
     private Button botaoCancelar;
+    
+    @FXML
+    private Button botaoAdicionar;
 
     @FXML
     private AnchorPane content;
@@ -33,6 +36,7 @@ public class ControllerAdicionarTransacao {
 	void initialize() {
     	
     	botaoCancelar.setOnAction(eventos);
+    	botaoAdicionar.setOnAction(eventos);
     	RBdespesa.setToggleGroup(group);
     	RBprovento.setToggleGroup(group);
     }
@@ -48,7 +52,11 @@ public class ControllerAdicionarTransacao {
 									"TelaDeOperacoesPrincipais.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				}				
+			}
+			
+			if (evento.getSource() == botaoAdicionar) {
+				
 			}
 		}
     }
