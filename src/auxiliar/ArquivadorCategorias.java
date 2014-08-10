@@ -64,6 +64,7 @@ public class ArquivadorCategorias {
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(mapaDeCategorias);
 			oos.close();
+			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -90,6 +91,7 @@ public class ArquivadorCategorias {
 			categoriasJaEscritas = (HashMap<Usuario, ArrayList<Categoria>>) ois
 					.readObject();
 			ois.close();
+			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}

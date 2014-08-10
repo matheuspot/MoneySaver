@@ -59,6 +59,7 @@ public class ArquivadorUsuarios {
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(listaDeUsuarios);
 			oos.close();
+			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -84,6 +85,7 @@ public class ArquivadorUsuarios {
 			ois = new ObjectInputStream(fis);
 			usuariosJaEscritos = (ArrayList<Usuario>) ois.readObject();
 			ois.close();
+			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
