@@ -46,6 +46,23 @@ public class GerenteDeCategorias {
 	}
 
 	/**
+	 * Método para pesquisar uma categoria pelo seu nome.
+	 * 
+	 * @param nome
+	 *            Nome da categoria.
+	 * @return Retorna a categoria, caso ela exista; e retorna null, caso
+	 *         contrário.
+	 */
+
+	public Categoria pesquisaCategoria(String nome) {
+		for (Categoria categoria : categoriasExistentes) {
+			if (categoria.getNome().equals(nome))
+				return categoria;
+		}
+		return null;
+	}
+
+	/**
 	 * Método que adiciona categorias default quando o usuário é novo e não tem
 	 * nenhuma categoria ainda.
 	 */
