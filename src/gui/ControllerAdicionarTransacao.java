@@ -7,7 +7,10 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.GerenteDeCategorias;
+import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -21,6 +24,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 
@@ -63,16 +67,14 @@ public class ControllerAdicionarTransacao {
     
     private ToggleGroup group = new ToggleGroup();
     
-    private final ObservableList<String> recorrencias =
-		    FXCollections.observableArrayList(
-		                 "Nenhuma",
-		                 "Semanal",	
-		                 "Mensal");   
-    
     GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo);
+    GerenteDeTransacoes transacao = new GerenteDeTransacoes(ControllerTelaPrincipal.usuarioAtivo);
     
     private ObservableList<String> categorias =
 		    FXCollections.observableArrayList(gerente.listaCategorias());
+    
+    private final ObservableList<String> recorrencias =
+		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
     
     @FXML
 	void initialize() {
@@ -80,12 +82,13 @@ public class ControllerAdicionarTransacao {
     	botaoAdicionar.setOnAction(eventos);
     	labelAviso.setVisible(false);
     	RBdespesa.setToggleGroup(group);
+    	RBdespesa.setUserData("despesa");
     	RBprovento.setToggleGroup(group);
+    	RBprovento.setUserData("provento");
     	CBrecorrencia.setItems(recorrencias);
     	CBcategoria.setItems(categorias);
     }
-    	
-
+    
 	private class Eventos implements EventHandler<ActionEvent> {
 
 		@Override
@@ -97,33 +100,40 @@ public class ControllerAdicionarTransacao {
 									"TelaDeOperacoesPrincipais.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
-				}
+				}				
 			}
 			else if (evento.getSource() == botaoAdicionar) {
-				Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
-				.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
-				.showConfirm();
-				
-				if (resposta == Dialog.Actions.YES){
-					try {
-						content.getChildren().clear();
-						content.getChildren().setAll(
-								FXMLLoader.load(getClass().getResource(
-										"TelaAdicionarTransacao.fxml")));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
+				try{
+					
+					transacao.adicionaTransacao(descricao.getText(), data.toString(), valor.getText(), CBcategoria.getSelectionModel().getSelectedItem(), 
+							CBrecorrencia.getSelectionModel().getSelectedItem(), group.getSelectedToggle().getUserData());
+					
+					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
+							.showConfirm();
+							
+							if (resposta == Dialog.Actions.YES){
+								try {
+									content.getChildren().clear();
+									content.getChildren().setAll(
+											FXMLLoader.load(getClass().getResource(
+													"TelaAdicionarTransacao.fxml")));
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+							else if (resposta == Dialog.Actions.NO){
+								try {
+									content.getChildren().setAll(
+											FXMLLoader.load(getClass().getResource(
+													"TelaDeOperacoesPrincipais.fxml")));
+								} catch (IOException e) {
+									e.printStackTrace();
+								}
+							}
+				} catch (Exception e){
+					e.printStackTrace();
 				}
-				else if (resposta == Dialog.Actions.NO){
-					try {
-						content.getChildren().setAll(
-								FXMLLoader.load(getClass().getResource(
-										"TelaDeOperacoesPrincipais.fxml")));
-					} catch (IOException e) {
-						e.printStackTrace();
-					}
-				}
-				
 			}
 		}
 	}
