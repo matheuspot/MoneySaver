@@ -21,7 +21,7 @@
          </font>
       </TextArea>
       <DatePicker fx:id="tabelaData" layoutX="412.0" layoutY="140.0" prefHeight="25.0" prefWidth="174.0" promptText="Data" />
-      <TextField layoutX="31.0" layoutY="140.0" promptText="Valor" />
+      <TextField fx:id="valor" layoutX="31.0" layoutY="140.0" promptText="Valor" />
       <Button fx:id="botaoAdicionar" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar">
          <font>
             <Font name="Calibri Light" size="28.0" />
