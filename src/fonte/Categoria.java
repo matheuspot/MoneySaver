@@ -59,7 +59,7 @@ public class Categoria implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Nome: " + nome + "\nCor: " + cor;
+		return nome;
 	}
 
 	/**

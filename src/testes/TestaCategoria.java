@@ -76,14 +76,14 @@ public class TestaCategoria {
 
 	@Test
 	public void testaToString() throws Exception {
-		assertEquals("Nome: contas\nCor: amarelo", categoria1.toString());
-		assertEquals("Nome: eletronicos\nCor: verde", categoria2.toString());
+		assertEquals("contas", categoria1.toString());
+		assertEquals("eletronicos", categoria2.toString());
 
 		categoria1 = new Categoria("restaurante", "vermelho");
-		assertEquals("Nome: restaurante\nCor: vermelho", categoria1.toString());
+		assertEquals("restaurante", categoria1.toString());
 
 		categoria2 = new Categoria("lazer", "preto");
-		assertEquals("Nome: lazer\nCor: preto", categoria2.toString());
+		assertEquals("lazer", categoria2.toString());
 	}
 
 	@Test
