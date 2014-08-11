@@ -103,6 +103,17 @@ public class Transacao implements Serializable {
 	}
 
 	/**
+	 * Método parecido com o toString mas que retorna apenas a data e o valor da
+	 * transação.
+	 * 
+	 * @return A data e o valor da transação.
+	 */
+
+	public String toStringResumido() {
+		return dataDeInsercao + " " + valor;
+	}
+
+	/**
 	 * Override do método toString da classe Object.
 	 */
 

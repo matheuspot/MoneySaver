@@ -94,6 +94,12 @@ public class TestaTransacao {
 	}
 
 	@Test
+	public void testaToStringResumido() {
+		assertEquals("06/08/2014 400.0", transacao1.toStringResumido());
+		assertEquals("07/08/2014 65.4", transacao2.toStringResumido());
+	}
+
+	@Test
 	public void testaToString() {
 		assertEquals("Descrição: Bolsa PIBIC"
 				+ "\nData de Inserção: 06/08/2014\nValor: 400.0"

@@ -16,69 +16,16 @@ public class TestaConta {
 	}
 
 	@Test
-	public void testaAdicionaDinheiro() {
-		try {
-			conta.adicionaDinheiro(100);
-		} catch (Exception e) {
-			fail("Exceção não deveria ter sido lançada.");
-		}
-
-		assertEquals("Saldo errado.", 100.0, conta.getSaldo(), 0.0);
-
-		try {
-			conta.adicionaDinheiro(-100);
-			fail("Exceção deveria ter sido lançada.");
-		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Valor inválido, entre com um número maior que zero.",
-					e.getMessage());
-		}
-
-		assertEquals("Saldo errado.", 100.0, conta.getSaldo(), 0.0);
-
-		try {
-			conta.adicionaDinheiro(0);
-			fail("Exceção deveria ter sido lançada.");
-		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Valor inválido, entre com um número maior que zero.",
-					e.getMessage());
-		}
-
-		assertEquals("Saldo errado.", 100.0, conta.getSaldo(), 0.0);
-	}
-
-	@Test
-	public void testaRetiraDinheiro() {
-		try {
-			conta.retiraDinheiro(100);
-		} catch (Exception e) {
-			fail("Exceção não deveria ter sido lançada.");
-		}
-
-		assertEquals("Saldo errado.", -100.0, conta.getSaldo(), 0.0);
-
-		try {
-			conta.retiraDinheiro(-100);
-			fail("Exceção deveria ter sido lançada.");
-		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Valor inválido, entre com um número maior que zero.",
-					e.getMessage());
-		}
-
-		assertEquals("Saldo errado.", -100.0, conta.getSaldo(), 0.0);
-
-		try {
-			conta.retiraDinheiro(0);
-			fail("Exceção deveria ter sido lançada.");
-		} catch (Exception e) {
-			assertEquals("Mensagem de erro errada.",
-					"Valor inválido, entre com um número maior que zero.",
-					e.getMessage());
-		}
-
-		assertEquals("Saldo errado.", -100.0, conta.getSaldo(), 0.0);
+	public void testaMoveDinheiroNaConta() {
+		assertEquals(0.0, conta.getSaldo(), 0.0);
+		conta.moveDinheiroNaConta(5);
+		assertEquals(5.0, conta.getSaldo(), 0.0);
+		conta.moveDinheiroNaConta(10);
+		assertEquals(15.0, conta.getSaldo(), 0.0);
+		conta.moveDinheiroNaConta(-15);
+		assertEquals(0.0, conta.getSaldo(), 0.0);
+		conta.moveDinheiroNaConta(-15);
+		assertEquals(-15.0, conta.getSaldo(), 0.0);
 	}
 
 	@Test

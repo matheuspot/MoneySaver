@@ -21,37 +21,13 @@ public class Conta implements Serializable {
 	}
 
 	/**
-	 * Método usado para adicionar dinheiro na conta.
+	 * Método para mover dinheiro na conta. Pode ser para adicionar ou retirar.
 	 * 
 	 * @param dinheiro
-	 *            O valor que deseja-se adicionar na conta.
-	 * @throws Exception
-	 *             Lança exceção se o valor não for maior do que zero.
+	 *            O valor que será adicionado ou retirado da conta.
 	 */
-
-	public void adicionaDinheiro(double dinheiro) throws Exception {
-		if (dinheiro <= 0) {
-			throw new Exception(
-					"Valor inválido, entre com um número maior que zero.");
-		}
+	public void moveDinheiroNaConta(double dinheiro) {
 		saldo += dinheiro;
-	}
-
-	/**
-	 * Método usado para retirar dinheiro da conta.
-	 * 
-	 * @param dinheiro
-	 *            O valor que deseja-se retirar da conta.
-	 * @throws Exception
-	 *             Lança exceção se o valor não for maior do que zero.
-	 */
-
-	public void retiraDinheiro(double dinheiro) throws Exception {
-		if (dinheiro <= 0) {
-			throw new Exception(
-					"Valor inválido, entre com um número maior que zero.");
-		}
-		saldo -= dinheiro;
 	}
 
 	/**

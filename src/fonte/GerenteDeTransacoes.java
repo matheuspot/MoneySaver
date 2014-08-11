@@ -10,6 +10,7 @@ public class GerenteDeTransacoes {
 	private ArrayList<Transacao> transacoesExistentes;
 	private ArquivadorTransacoes arquivador;
 	private Usuario usuario;
+	private Transacao transacaoQueSeraAdicionada;
 
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
@@ -31,15 +32,23 @@ public class GerenteDeTransacoes {
 	}
 
 	public void adicionaTransacao(String descricao, String dataDeInsercao,
-			double valor, Categoria categoria, String recorrencia)
-			throws Exception {
+			double valor, Categoria categoria, String recorrencia,
+			String tipoDeTransacao) throws Exception {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
-				recorrencia);
+				recorrencia, tipoDeTransacao);
 
-		Transacao novaTransacao = new Transacao(descricao, dataDeInsercao,
-				valor, categoria, recorrencia);
-		transacoesExistentes.add(novaTransacao);
+		if (tipoDeTransacao.equals("despesa")) {
+			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+					valor, categoria, recorrencia);
+		} else if (tipoDeTransacao.equals("provento")) {
+			transacaoQueSeraAdicionada = new Provento(descricao,
+					dataDeInsercao, valor, categoria, recorrencia);
+		}
+
+		usuario.getConta().moveDinheiroNaConta(
+				transacaoQueSeraAdicionada.getValor());
+		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
 		arquivador.escreveTransacoes(transacoesDoSistema);
@@ -49,6 +58,7 @@ public class GerenteDeTransacoes {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
 
+		usuario.getConta().moveDinheiroNaConta(-transacao.getValor());
 		transacoesExistentes.remove(transacao);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
@@ -57,24 +67,55 @@ public class GerenteDeTransacoes {
 
 	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
 			String dataDeInsercao, double valor, Categoria categoria,
-			String recorrencia) throws Exception {
+			String recorrencia, String tipoDeTransacao) throws Exception {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
-				recorrencia);
-		Transacao novaTransacao = new Transacao(descricao, dataDeInsercao,
-				valor, categoria, recorrencia);
+				recorrencia, tipoDeTransacao);
 
+		if (tipoDeTransacao.equals("despesa")) {
+			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+					valor, categoria, recorrencia);
+		} else if (tipoDeTransacao.equals("provento")) {
+			transacaoQueSeraAdicionada = new Provento(descricao,
+					dataDeInsercao, valor, categoria, recorrencia);
+		}
+
+		usuario.getConta().moveDinheiroNaConta(-transacaoParaEditar.getValor());
 		transacoesExistentes.remove(transacaoParaEditar);
-		transacoesExistentes.add(novaTransacao);
+		usuario.getConta().moveDinheiroNaConta(
+				transacaoQueSeraAdicionada.getValor());
+		transacoesExistentes.add(transacaoQueSeraAdicionada);
 
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
 		arquivador.escreveTransacoes(transacoesDoSistema);
 	}
 
+	public String[] listaTransacoesResumidas() {
+		int tamanhoDoArray = transacoesExistentes.size();
+		String[] transacoes = new String[tamanhoDoArray];
+
+		for (int i = 0; i < tamanhoDoArray; i++) {
+			transacoes[i] = transacoesExistentes.get(i).toStringResumido();
+		}
+
+		return transacoes;
+	}
+	
+	public String[] listaTransacoesDetalhadas() {
+		int tamanhoDoArray = transacoesExistentes.size();
+		String[] transacoes = new String[tamanhoDoArray];
+		
+		for (int i = 0; i < tamanhoDoArray; i++) {
+			transacoes[i] = transacoesExistentes.get(i).toString();
+		}
+		
+		return transacoes;
+	}
+
 	private void transacaoValida(String descricao, String dataDeInsercao,
-			double valor, Categoria categoria, String recorrencia)
-			throws Exception {
+			double valor, Categoria categoria, String recorrencia,
+			String tipoDeTransacao) throws Exception {
 		if (!descricaoValida(descricao)) {
 			throw new Exception("Descrição inválida.");
 		}
@@ -90,6 +131,15 @@ public class GerenteDeTransacoes {
 		if (!recorrenciaValida(recorrencia)) {
 			throw new Exception("Recorrência inválida.");
 		}
+		if (!tipoDeTransacaoValido(tipoDeTransacao))
+			throw new Exception("Tipo de transação inválido.");
+	}
+
+	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
+		if (!tipoDeTransacao.equals("despesa")
+				|| !tipoDeTransacao.equals("provento"))
+			return false;
+		return true;
 	}
 
 	private boolean recorrenciaValida(String recorrencia) {
