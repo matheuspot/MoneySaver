@@ -4,6 +4,10 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import auxiliar.ArquivadorTransacoes;
 
+/**
+ * Classe para gerenciamento de transações.
+ */
+
 public class GerenteDeTransacoes {
 
 	private HashMap<Usuario, ArrayList<Transacao>> transacoesDoSistema;
@@ -11,6 +15,14 @@ public class GerenteDeTransacoes {
 	private ArquivadorTransacoes arquivador;
 	private Usuario usuario;
 	private Transacao transacaoQueSeraAdicionada;
+
+	/**
+	 * Construtor da classe GerenteDeTransacoes, que leva um usuário como
+	 * parâmetro.
+	 * 
+	 * @param usuario
+	 *            O usuário que está logado.
+	 */
 
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
@@ -30,6 +42,25 @@ public class GerenteDeTransacoes {
 		}
 		this.usuario = usuario;
 	}
+
+	/**
+	 * Método que irá adicionar uma transação às transações que o usuário têm.
+	 * 
+	 * @param descricao
+	 *            A descrição da transação.
+	 * @param dataDeInsercao
+	 *            A data de inserção da transação.
+	 * @param valor
+	 *            O valor da transação.
+	 * @param categoria
+	 *            A categoria da transação.
+	 * @param recorrencia
+	 *            A recorrência da transação.
+	 * @param tipoDeTransacao
+	 *            O tipo de transação.
+	 * @throws Exception
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 */
 
 	public void adicionaTransacao(String descricao, String dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
@@ -55,6 +86,15 @@ public class GerenteDeTransacoes {
 		arquivador.escreveTransacoes(transacoesDoSistema);
 	}
 
+	/**
+	 * Método que irá remover uma transação das transações que o usuário têm.
+	 * 
+	 * @param transacao
+	 *            A transação que deseja-se remover.
+	 * @throws Exception
+	 *             Lança exceção se a transação não existir.
+	 */
+
 	public void removeTransacao(Transacao transacao) throws Exception {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
@@ -65,6 +105,27 @@ public class GerenteDeTransacoes {
 
 		arquivador.escreveTransacoes(transacoesDoSistema);
 	}
+
+	/**
+	 * Método que irá editar uma transação das transações que o usuário têm.
+	 * 
+	 * @param transacaoParaEditar
+	 *            A transação que deseja-se editar.
+	 * @param descricao
+	 *            A descrição da transação nova.
+	 * @param dataDeInsercao
+	 *            A data de inserção da transação nova.
+	 * @param valor
+	 *            O valor da transação nova.
+	 * @param categoria
+	 *            A categoria da transação nova.
+	 * @param recorrencia
+	 *            A recorrência da transação nova.
+	 * @param tipoDeTransacao
+	 *            O tipo de transação nova.
+	 * @throws Exception
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 */
 
 	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
 			String dataDeInsercao, String valor, Categoria categoria,
@@ -92,6 +153,13 @@ public class GerenteDeTransacoes {
 
 		arquivador.escreveTransacoes(transacoesDoSistema);
 	}
+
+	/**
+	 * Método que lista as transações que o usuário têm de forma resumida.
+	 * 
+	 * @return Uma String com informações das transações do usuário de forma
+	 *         reduzida.
+	 */
 
 	public String[] listaTransacoesResumidas() {
 		int tamanhoDoArray = transacoesExistentes.size();
@@ -139,7 +207,7 @@ public class GerenteDeTransacoes {
 
 	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
 		if (!tipoDeTransacao.equals("despesa")
-				|| !tipoDeTransacao.equals("provento"))
+				&& !tipoDeTransacao.equals("provento"))
 			return false;
 		return true;
 	}
