@@ -16,8 +16,8 @@
                   <MenuButton alignment="CENTER" contentDisplay="CENTER" mnemonicParsing="false" prefHeight="50.0" prefWidth="296.0" text="Transações" textAlignment="CENTER">
                     <items>
                       <MenuItem fx:id="adicionarTransacao" mnemonicParsing="false" text="Adicionar Transação" />
-                        <MenuItem mnemonicParsing="false" text="Remover Transação" />
-                      <MenuItem mnemonicParsing="false" text="Editar Transação" />
+                        <MenuItem fx:id="removerTransacao" mnemonicParsing="false" text="Remover Transação" />
+                      <MenuItem fx:id="editarTransacao" mnemonicParsing="false" text="Editar Transação" />
                     </items>
                      <font>
                         <Font name="Calibri Light" size="28.0" />

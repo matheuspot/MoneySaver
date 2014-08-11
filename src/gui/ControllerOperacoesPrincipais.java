@@ -15,11 +15,17 @@ public class ControllerOperacoesPrincipais {
     @FXML
     private MenuItem adicionarTransacao;
     @FXML
+    private MenuItem removerTransacao;
+    @FXML
+    private MenuItem editarTransacao;
+    @FXML
 	private AnchorPane content;
     
     @FXML
 	void initialize() {
     	adicionarTransacao.setOnAction(eventos);
+    	removerTransacao.setOnAction(eventos);
+    	editarTransacao.setOnAction(eventos);
     }
     	
     private class Eventos implements EventHandler<ActionEvent> {
@@ -34,7 +40,7 @@ public class ControllerOperacoesPrincipais {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			}
+			} 
 		}
     }
 }
