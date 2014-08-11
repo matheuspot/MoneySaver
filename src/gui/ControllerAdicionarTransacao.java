@@ -67,6 +67,8 @@ public class ControllerAdicionarTransacao {
     @FXML
     private Button botaoAdicionar;
     
+    Categoria categoria;
+    
     private ToggleGroup group = new ToggleGroup();
     
     GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo);
@@ -104,11 +106,11 @@ public class ControllerAdicionarTransacao {
 					e.printStackTrace();
 				}			
 			} else if (evento.getSource() == botaoAdicionar) {
+				
 				try{
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					Categoria categoria = new Categoria(CBcategoria.getSelectionModel().getSelectedItem(), "Verde");
-					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), categoria, 
-							CBrecorrencia.getSelectionModel().getSelectedItem(), (String) group.getSelectedToggle().getUserData());
+					
+					
+					
 				
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
