@@ -109,9 +109,10 @@ public class ControllerAdicionarTransacao {
 				
 				try{
 					
-					
-					
-				
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), 
+							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
+							(String) group.getSelectedToggle().getUserData());
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
