@@ -103,15 +103,15 @@ public class GerenteDeTransacoes {
 
 		return transacoes;
 	}
-	
+
 	public String[] listaTransacoesDetalhadas() {
 		int tamanhoDoArray = transacoesExistentes.size();
 		String[] transacoes = new String[tamanhoDoArray];
-		
+
 		for (int i = 0; i < tamanhoDoArray; i++) {
 			transacoes[i] = transacoesExistentes.get(i).toString();
 		}
-		
+
 		return transacoes;
 	}
 
@@ -157,15 +157,14 @@ public class GerenteDeTransacoes {
 	}
 
 	private boolean valorValido(String valor) {
-		try{
+		try {
 			Double valor2 = Double.parseDouble(valor);
 			if (valor2 <= 0)
 				return false;
 			return true;
-		} catch (Exception e){
+		} catch (Exception e) {
 			return false;
 		}
-		
 	}
 
 	private boolean dataDeInsercaoValida(String dataDeInsercao) {
@@ -175,7 +174,7 @@ public class GerenteDeTransacoes {
 	}
 
 	private boolean descricaoValida(String descricao) {
-		if (descricao == "")
+		if (descricao == null || descricao.trim().length() == 0)
 			return false;
 		return true;
 	}

@@ -30,7 +30,6 @@ public class TestaConta {
 
 	@Test
 	public void testaToString() {
-		assertEquals("ToString errado.", "Saldo da conta: 0.0",
-				conta.toString());
+		assertEquals("ToString errado.", "R$ 0,00", conta.toString());
 	}
 }
