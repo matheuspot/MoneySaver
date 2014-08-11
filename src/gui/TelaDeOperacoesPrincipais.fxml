@@ -23,9 +23,9 @@
                   </Label>
                   <HBox prefHeight="35.0" prefWidth="286.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
+                        <Button fx:id="adicionarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
+                        <Button fx:id="removerTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
+                        <Button fx:id="editarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
                      </children>
                   </HBox>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Categorias" textAlignment="CENTER">
@@ -35,14 +35,14 @@
                   </Label>
                   <HBox prefHeight="35.0" prefWidth="286.0">
                      <children>
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
-                        <Button mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
+                        <Button fx:id="adicionarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
+                        <Button fx:id="removerCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
+                        <Button fx:id="editarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
                      </children>
                   </HBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
-                        <Button alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="122.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
+                        <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="122.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
                            <font>
                               <Font name="Calibri Light" size="22.0" />
                            </font>
@@ -76,7 +76,7 @@
                         <Font name="Calibri Light" size="30.0" />
                      </font>
                   </Label>
-                  <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" text="Colocar o saldo aqui" textAlignment="CENTER">
+                  <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" text="Colocar o saldo aqui" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri Light" size="22.0" />
                      </font>

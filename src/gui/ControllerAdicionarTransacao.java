@@ -1,11 +1,13 @@
 package gui;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
+import fonte.Categoria;
 import fonte.GerenteDeCategorias;
 import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
@@ -39,7 +41,7 @@ public class ControllerAdicionarTransacao {
     private Button botaoCancelar;
 
     @FXML
-    private DatePicker data;
+    private DatePicker tabelaData;
 
     @FXML
     private ComboBox<String> CBrecorrencia;
@@ -100,13 +102,14 @@ public class ControllerAdicionarTransacao {
 									"TelaDeOperacoesPrincipais.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
-				}				
-			}
-			else if (evento.getSource() == botaoAdicionar) {
+				}			
+			} else if (evento.getSource() == botaoAdicionar) {
 				try{
-					
-					transacao.adicionaTransacao(descricao.getText(), data.toString(), valor.getText(), CBcategoria.getSelectionModel().getSelectedItem(), 
-							CBrecorrencia.getSelectionModel().getSelectedItem(), group.getSelectedToggle().getUserData());
+					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+					Categoria categoria = new Categoria(CBcategoria.getSelectionModel().getSelectedItem(), "Verde");
+					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), categoria, 
+							CBrecorrencia.getSelectionModel().getSelectedItem(), (String) group.getSelectedToggle().getUserData());
+				
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
@@ -132,9 +135,11 @@ public class ControllerAdicionarTransacao {
 								}
 							}
 				} catch (Exception e){
-					e.printStackTrace();
+					labelAviso.setText(e.getMessage());
+					labelAviso.setVisible(true);
 				}
 			}
+			
 		}
 	}
 }

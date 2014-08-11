@@ -32,18 +32,19 @@ public class GerenteDeTransacoes {
 	}
 
 	public void adicionaTransacao(String descricao, String dataDeInsercao,
-			double valor, Categoria categoria, String recorrencia,
+			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
+		Double valor2 = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor, categoria, recorrencia);
+					valor2, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor, categoria, recorrencia);
+					dataDeInsercao, valor2, categoria, recorrencia);
 		}
 
 		usuario.getConta().moveDinheiroNaConta(
@@ -66,18 +67,19 @@ public class GerenteDeTransacoes {
 	}
 
 	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
-			String dataDeInsercao, double valor, Categoria categoria,
+			String dataDeInsercao, String valor, Categoria categoria,
 			String recorrencia, String tipoDeTransacao) throws Exception {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
+		Double valor2 = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor, categoria, recorrencia);
+					valor2, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor, categoria, recorrencia);
+					dataDeInsercao, valor2, categoria, recorrencia);
 		}
 
 		usuario.getConta().moveDinheiroNaConta(-transacaoParaEditar.getValor());
@@ -114,7 +116,7 @@ public class GerenteDeTransacoes {
 	}
 
 	private void transacaoValida(String descricao, String dataDeInsercao,
-			double valor, Categoria categoria, String recorrencia,
+			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
 		if (!descricaoValida(descricao)) {
 			throw new Exception("Descrição inválida.");
@@ -154,10 +156,16 @@ public class GerenteDeTransacoes {
 		return true;
 	}
 
-	private boolean valorValido(double valor) {
-		if (valor <= 0)
+	private boolean valorValido(String valor) {
+		try{
+			Double valor2 = Double.parseDouble(valor);
+			if (valor2 <= 0)
+				return false;
+			return true;
+		} catch (Exception e){
 			return false;
-		return true;
+		}
+		
 	}
 
 	private boolean dataDeInsercaoValida(String dataDeInsercao) {
@@ -167,7 +175,7 @@ public class GerenteDeTransacoes {
 	}
 
 	private boolean descricaoValida(String descricao) {
-		if (descricao == null)
+		if (descricao == "")
 			return false;
 		return true;
 	}

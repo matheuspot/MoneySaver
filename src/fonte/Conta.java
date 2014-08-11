@@ -46,7 +46,7 @@ public class Conta implements Serializable {
 
 	@Override
 	public String toString() {
-		return "Saldo da conta: " + saldo;
+		return String.format("R$ %.2d", saldo);
 	}
 
 	/**
