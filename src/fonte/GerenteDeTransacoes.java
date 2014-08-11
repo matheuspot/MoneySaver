@@ -157,8 +157,8 @@ public class GerenteDeTransacoes {
 	/**
 	 * Método que lista as transações que o usuário têm de forma resumida.
 	 * 
-	 * @return Uma String com informações das transações do usuário de forma
-	 *         reduzida.
+	 * @return Um Array de String com informações das transações do usuário de
+	 *         forma reduzida.
 	 */
 
 	public String[] listaTransacoesResumidas() {
@@ -172,6 +172,13 @@ public class GerenteDeTransacoes {
 		return transacoes;
 	}
 
+	/**
+	 * Método que lista as transações que o usuário têm de forma detalhada.
+	 * 
+	 * @return Um Array de String com informações detalhadas das transações que
+	 *         o usuário têm.
+	 */
+
 	public String[] listaTransacoesDetalhadas() {
 		int tamanhoDoArray = transacoesExistentes.size();
 		String[] transacoes = new String[tamanhoDoArray];
@@ -182,6 +189,25 @@ public class GerenteDeTransacoes {
 
 		return transacoes;
 	}
+
+	/**
+	 * Método que verifica se uma transação é válida.
+	 * 
+	 * @param descricao
+	 *            A descrição da transação.
+	 * @param dataDeInsercao
+	 *            A data de inserção da transação.
+	 * @param valor
+	 *            O valor da transação.
+	 * @param categoria
+	 *            A categoria da transação.
+	 * @param recorrencia
+	 *            A recorrência da transação.
+	 * @param tipoDeTransacao
+	 *            O tipo de transação.
+	 * @throws Exception
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 */
 
 	private void transacaoValida(String descricao, String dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
@@ -205,6 +231,14 @@ public class GerenteDeTransacoes {
 			throw new Exception("Tipo de transação inválido.");
 	}
 
+	/**
+	 * Método que checa se o tipo de transação é válido.
+	 * 
+	 * @param tipoDeTransacao
+	 *            O tipo de transação.
+	 * @return Retorna true se for válido, e false caso contrário.
+	 */
+
 	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
 		if (!tipoDeTransacao.equals("despesa")
 				&& !tipoDeTransacao.equals("provento"))
@@ -212,17 +246,41 @@ public class GerenteDeTransacoes {
 		return true;
 	}
 
+	/**
+	 * Método que checa se a recorrência da transação é válida.
+	 * 
+	 * @param recorrencia
+	 *            A recorrência da transação.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+
 	private boolean recorrenciaValida(String recorrencia) {
 		if (recorrencia == null || recorrencia.trim().length() == 0)
 			return false;
 		return true;
 	}
 
+	/**
+	 * Método que verifica se a categoria da transação é válida.
+	 * 
+	 * @param categoria
+	 *            A categoria da transação.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+
 	private boolean categoriaValida(Categoria categoria) {
 		if (categoria == null)
 			return false;
 		return true;
 	}
+
+	/**
+	 * Método que verifica se o valor da transação é válido.
+	 * 
+	 * @param valor
+	 *            O valor da transação.
+	 * @return Retorna true se for válido, e false caso contrário.
+	 */
 
 	private boolean valorValido(String valor) {
 		try {
@@ -235,11 +293,27 @@ public class GerenteDeTransacoes {
 		}
 	}
 
+	/**
+	 * Método que verifica se a data de inserção da transação é válida.
+	 * 
+	 * @param dataDeInsercao
+	 *            A data de inserção da transação.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+
 	private boolean dataDeInsercaoValida(String dataDeInsercao) {
 		if (dataDeInsercao == null)
 			return false;
 		return true;
 	}
+
+	/**
+	 * Método que verifica se a descrição da transação é válida.
+	 * 
+	 * @param descricao
+	 *            A descrição da transação.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
 
 	private boolean descricaoValida(String descricao) {
 		if (descricao == null || descricao.trim().length() == 0)
