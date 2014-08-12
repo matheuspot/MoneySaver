@@ -131,6 +131,9 @@ public class GerenteDeTransacoes {
 			String dataDeInsercao, String valor, Categoria categoria,
 			String recorrencia, String tipoDeTransacao) throws Exception {
 
+		if (transacaoParaEditar == null
+				|| !transacoesExistentes.contains(transacaoParaEditar))
+			throw new Exception("Transação inexistente.");
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double valor2 = Double.parseDouble(valor);
@@ -240,8 +243,9 @@ public class GerenteDeTransacoes {
 	 */
 
 	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
-		if (!tipoDeTransacao.equals("despesa")
-				&& !tipoDeTransacao.equals("provento"))
+		if (tipoDeTransacao == null
+				|| (!tipoDeTransacao.equals("despesa") && !tipoDeTransacao
+						.equals("provento")))
 			return false;
 		return true;
 	}
@@ -302,7 +306,7 @@ public class GerenteDeTransacoes {
 	 */
 
 	private boolean dataDeInsercaoValida(String dataDeInsercao) {
-		if (dataDeInsercao == null)
+		if (dataDeInsercao == null || dataDeInsercao.trim().length() == 0)
 			return false;
 		return true;
 	}
