@@ -8,6 +8,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
@@ -16,8 +17,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerTelaPrincipal {
 
-	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-	public static Usuario usuarioAtivo;
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private Usuario usuarioAtivo;
 
 	@FXML
 	private Button botaoCadastrar;
@@ -59,12 +60,13 @@ public class ControllerTelaPrincipal {
 
 			else if (evento.getSource() == botaoConectar) {
 				try {
-					gerente.login(TFemail.getText(), PFsenha.getText());
+					usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
 					try {
-						content.getChildren().setAll(
-								FXMLLoader.load(getClass().getResource(
-										"TelaDeOperacoesPrincipais.fxml")));
-						usuarioAtivo = (Usuario) botaoConectar.getUserData();
+						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+						Parent root = (Parent)fxmlLoader.load();          
+						ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+						controller.setUsuario(usuarioAtivo);
+						content.getChildren().setAll(root);
 					} catch (IOException e) {
 						e.printStackTrace();
 					}

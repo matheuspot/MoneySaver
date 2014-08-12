@@ -2,7 +2,9 @@ package fonte;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import auxiliar.ArquivadorTransacoes;
+import auxiliar.ArquivadorUsuarios;
 
 /**
  * Classe para gerenciamento de transações.
@@ -13,7 +15,9 @@ public class GerenteDeTransacoes {
 	private HashMap<Usuario, ArrayList<Transacao>> transacoesDoSistema;
 	private ArrayList<Transacao> transacoesExistentes;
 	private ArquivadorTransacoes arquivador;
+	private ArquivadorUsuarios arquivadorUsuarios;
 	private Usuario usuario;
+	private ArrayList<Usuario> usuarios;
 	private Transacao transacaoQueSeraAdicionada;
 
 	/**
@@ -27,6 +31,12 @@ public class GerenteDeTransacoes {
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
 			arquivador = new ArquivadorTransacoes("data2.mos");
+		} catch (Exception e) {
+			System.err.println(e.getMessage());
+		}
+		
+		try {
+			arquivadorUsuarios = new ArquivadorUsuarios("data1.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -78,8 +88,13 @@ public class GerenteDeTransacoes {
 					dataDeInsercao, valor2, categoria, recorrencia);
 		}
 
+		usuarios = arquivadorUsuarios.leUsuarios();
+		usuarios.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
+		usuarios.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuarios);
+		
 		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 

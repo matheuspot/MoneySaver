@@ -37,6 +37,7 @@
                   <Font name="Calibri Light" size="36.0" />
                </font>
             </Label>
+            <Label fx:id="labelAviso" alignment="CENTER" layoutX="206.0" layoutY="234.0" prefHeight="17.0" prefWidth="184.0" text="Label" textFill="#e11919" visible="false" />
          </children>
       </AnchorPane>
    </children>

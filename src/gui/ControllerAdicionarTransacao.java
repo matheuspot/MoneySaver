@@ -11,6 +11,7 @@ import fonte.Categoria;
 import fonte.GerenteDeCategorias;
 import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
+import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -19,6 +20,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
@@ -32,7 +34,8 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerAdicionarTransacao {
 
-	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private Usuario usuarioAtivo;
 
 	@FXML
     private RadioButton RBprovento;
@@ -67,12 +70,11 @@ public class ControllerAdicionarTransacao {
     @FXML
     private Button botaoAdicionar;
     
-    Categoria categoria;
-    
     private ToggleGroup group = new ToggleGroup();
     
-    GerenteDeTransacoes transacao = new GerenteDeTransacoes(ControllerTelaPrincipal.usuarioAtivo);
-    GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo); 
+    private GerenteDeTransacoes transacao;
+    
+    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
     private ObservableList<String> categorias =
 		    FXCollections.observableArrayList(gerente.listaCategorias());
@@ -93,18 +95,25 @@ public class ControllerAdicionarTransacao {
     	CBcategoria.setItems(categorias);
     }
     
+    public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
+    	transacao = new GerenteDeTransacoes(usuarioAtivo);
+    }
+    
 	private class Eventos implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCancelar) {
 				try {
-					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"TelaDeOperacoesPrincipais.fxml")));
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
-				}			
+				}	
 			} else if (evento.getSource() == botaoAdicionar) {
 				try{
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
@@ -118,22 +127,25 @@ public class ControllerAdicionarTransacao {
 							
 					if (resposta == Dialog.Actions.YES){
 						try {
-							content.getChildren().clear();
-							content.getChildren().setAll(
-									FXMLLoader.load(getClass().getResource(
-											"TelaAdicionarTransacao.fxml")));
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaAdicionarTransacao.fxml"));     
+							Parent root = (Parent)fxmlLoader.load();          
+							ControllerAdicionarTransacao controller = 	fxmlLoader.<ControllerAdicionarTransacao>getController();
+							controller.setUsuario(usuarioAtivo);
+							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
 					}
 					else if (resposta == Dialog.Actions.NO){
 						try {
-							content.getChildren().setAll(
-									FXMLLoader.load(getClass().getResource(
-											"TelaDeOperacoesPrincipais.fxml")));
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+							Parent root = (Parent)fxmlLoader.load();          
+							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+							controller.setUsuario(usuarioAtivo);
+							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
-						}
+						}	
 					}
 				} catch (Exception e){
 					labelAviso.setText(e.getMessage());

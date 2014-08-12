@@ -1,19 +1,23 @@
 package gui;
 
 import java.io.IOException;
+
+import fonte.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 
 public class ControllerOperacoesPrincipais {
 	
-	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private Usuario usuarioAtivo;
 
-	 @FXML
+		@FXML
 	    private Button editarTransacao;
 
 	    @FXML
@@ -39,7 +43,7 @@ public class ControllerOperacoesPrincipais {
 
 	    @FXML
 	    private AnchorPane content;
-    
+	    
     @FXML
 	void initialize() {
     	adicionarTransacao.setOnAction(eventos);
@@ -50,6 +54,11 @@ public class ControllerOperacoesPrincipais {
     	editarCategoria.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
     }
+    
+    public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
+    	labelSaldo.setText(usuarioAtivo.getConta().toString());
+    }
     	
     private class Eventos implements EventHandler<ActionEvent> {
 
@@ -57,9 +66,11 @@ public class ControllerOperacoesPrincipais {
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == adicionarTransacao) {
 				try {
-					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"TelaAdicionarTransacao.fxml")));
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaAdicionarTransacao.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerAdicionarTransacao controller = fxmlLoader.<ControllerAdicionarTransacao>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -68,15 +79,26 @@ public class ControllerOperacoesPrincipais {
 					content.getChildren().setAll(
 							FXMLLoader.load(getClass().getResource(
 									"TelaPrincipal.fxml")));
-					ControllerTelaPrincipal.usuarioAtivo = null;
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else if (evento.getSource() == adicionarCategoria) {
 				try {
-					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"TelaAdicionarCategoria.fxml")));
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaAdicionarCategoria.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerAdicionaCategoria controller = fxmlLoader.<ControllerAdicionaCategoria>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == removerCategoria) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaRemoverCategoria.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

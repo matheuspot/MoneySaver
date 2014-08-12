@@ -136,8 +136,8 @@ public class GerenteDeCategorias {
 	 */
 
 	public void removeCategoria(Categoria categoria) throws Exception {
-		if (!categoriasExistentes.contains(categoria))
-			throw new Exception("Categoria inexistente.");
+		if (categoria == null)
+			throw new Exception("Selecione uma categoria.");
 
 		categoriasExistentes.remove(categoria);
 		categoriasDoSistema.put(usuario, categoriasExistentes);

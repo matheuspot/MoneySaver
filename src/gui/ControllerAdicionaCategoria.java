@@ -8,21 +8,24 @@ import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
 import fonte.GerenteDeCategorias;
+import fonte.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ColorPicker;
+import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 
 public class ControllerAdicionaCategoria {
 	
-	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-	
-	GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo);
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private Usuario usuarioAtivo;
+	private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
 	
 	@FXML
     private Button botaoAdicionar;
@@ -38,6 +41,9 @@ public class ControllerAdicionaCategoria {
 
     @FXML
     private AnchorPane content;
+    
+    @FXML
+    private Label labelAviso;
 	
 	@FXML
 	void initialize() {
@@ -45,18 +51,24 @@ public class ControllerAdicionaCategoria {
     	botaoAdicionar.setOnAction(eventos);
 	}
 	
+	public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
+    }
+	
 	private class Eventos implements EventHandler<ActionEvent> {
 		
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCancelar) {
 				try {
-					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"TelaDeOperacoesPrincipais.fxml")));
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
-				}			
+				}		
 			} else if (evento.getSource() == botaoAdicionar) {
 				try {
 					gerente.adicionaCategoria(nome.getText(), cor.getValue().toString());
@@ -65,27 +77,31 @@ public class ControllerAdicionaCategoria {
 							.masthead(null).message("Categoria Adicionada. Deseja adicionar uma nova Categoria?")
 							.showConfirm();
 							
-							if (resposta == Dialog.Actions.YES){
-								try {
-									content.getChildren().clear();
-									content.getChildren().setAll(
-											FXMLLoader.load(getClass().getResource(
-													"TelaAdicionarCategoria.fxml")));
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-							else if (resposta == Dialog.Actions.NO){
-								try {
-									content.getChildren().setAll(
-											FXMLLoader.load(getClass().getResource(
-													"TelaDeOperacoesPrincipais.fxml")));
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
+					if (resposta == Dialog.Actions.YES){
+						try {
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaAdicionarCategoria.fxml"));     
+							Parent root = (Parent)fxmlLoader.load();          
+							ControllerAdicionaCategoria controller = 	fxmlLoader.<ControllerAdicionaCategoria>getController();
+							controller.setUsuario(usuarioAtivo);
+							content.getChildren().setAll(root);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					else if (resposta == Dialog.Actions.NO){
+						try {
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+							Parent root = (Parent)fxmlLoader.load();          
+							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+							controller.setUsuario(usuarioAtivo);
+							content.getChildren().setAll(root);
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (Exception e) {
-					e.printStackTrace();
+					labelAviso.setText(e.getMessage());
+					labelAviso.setVisible(true);
 				}
 			}
 		}
