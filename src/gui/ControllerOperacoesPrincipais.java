@@ -63,6 +63,14 @@ public class ControllerOperacoesPrincipais {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
+			} else if (evento.getSource() == adicionarCategoria) {
+				try {
+					content.getChildren().setAll(
+							FXMLLoader.load(getClass().getResource(
+									"TelaAdicionaCategoria.fxml")));
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
 			} else if (evento.getSource() == botaoSair) {
 				try {
 					content.getChildren().setAll(
