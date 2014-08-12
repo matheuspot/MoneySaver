@@ -73,13 +73,32 @@ public class ControllerRemoverCategoria {
 				}		
 			} else if (evento.getSource() == botaoRemover) {
 				
-				Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
-						.masthead(null).message("Deseja remover a categoria selecionada?")
-						.showConfirm();
-				
-				if (resposta == Dialog.Actions.YES){
-					try{						
-						gerente.removeCategoria(gerente.pesquisaCategoria(CBcategorias.getSelectionModel().getSelectedItem()));
+				if (CBcategorias.getSelectionModel().getSelectedItem() == null){
+					labelAviso.setText("Selecione uma categoria.");
+					labelAviso.setVisible(true);
+					
+				} else {
+					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Deseja remover a categoria selecionada?")
+							.showConfirm();
+					
+					if (resposta == Dialog.Actions.YES){
+						try{						
+							gerente.removeCategoria(gerente.pesquisaCategoria(CBcategorias.getSelectionModel().getSelectedItem()));
+							try {
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
+								Parent root = (Parent)fxmlLoader.load();          
+								ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
+								controller.setUsuario(usuarioAtivo);
+								content.getChildren().setAll(root);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} catch (Exception e) {
+							labelAviso.setText(e.getMessage());
+							labelAviso.setVisible(true);
+						}
+					} else if (resposta == Dialog.Actions.NO){
 						try {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
@@ -89,19 +108,6 @@ public class ControllerRemoverCategoria {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						labelAviso.setText(e.getMessage());
-						labelAviso.setVisible(true);
-					}
-				} else if (resposta == Dialog.Actions.NO){
-					try {
-						FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
-						Parent root = (Parent)fxmlLoader.load();          
-						ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-						controller.setUsuario(usuarioAtivo);
-						content.getChildren().setAll(root);
-					} catch (IOException e) {
-						e.printStackTrace();
 					}
 				}
 			}
