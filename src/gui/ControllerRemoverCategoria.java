@@ -78,6 +78,8 @@ public class ControllerRemoverCategoria {
 					labelAviso.setVisible(true);
 					
 				} else {
+					labelAviso.setVisible(false);
+					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Deseja remover a categoria selecionada?")
 							.showConfirm();
