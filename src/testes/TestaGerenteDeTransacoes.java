@@ -2,6 +2,7 @@ package testes;
 
 import static org.junit.Assert.*;
 import java.io.File;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import fonte.Categoria;
@@ -27,6 +28,12 @@ public class TestaGerenteDeTransacoes {
 		categoria1 = new Categoria("Fds", "Vermelho");
 
 		assertEquals(0, gerente.listaTransacoesResumidas().length);
+	}
+	
+	@After
+	public void limpaArquivos() {
+		File arquivo = new File("data2.mos");
+		arquivo.delete();
 	}
 
 	@Test

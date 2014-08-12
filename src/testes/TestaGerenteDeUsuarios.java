@@ -2,6 +2,7 @@ package testes;
 
 import static org.junit.Assert.*;
 import java.io.File;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import fonte.GerenteDeUsuarios;
@@ -15,6 +16,12 @@ public class TestaGerenteDeUsuarios {
 		File arquivo = new File("data1.mos");
 		arquivo.delete();
 		gerente = new GerenteDeUsuarios();
+	}
+
+	@After
+	public void limpaArquivos() {
+		File arquivo = new File("data1.mos");
+		arquivo.delete();
 	}
 
 	@Test

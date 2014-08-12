@@ -2,6 +2,7 @@ package testes;
 
 import static org.junit.Assert.*;
 import java.io.File;
+import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 import fonte.Categoria;
@@ -26,6 +27,12 @@ public class TestaGerenteDeCategorias {
 		categoriasExistentes = new String[2];
 		categoriasExistentes[0] = "Lazer";
 		categoriasExistentes[1] = "Alimentação";
+	}
+
+	@After
+	public void limpaArquivos() {
+		File arquivo = new File("data3.mos");
+		arquivo.delete();
 	}
 
 	@Test
