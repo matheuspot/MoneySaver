@@ -71,8 +71,8 @@ public class ControllerAdicionarTransacao {
     
     private ToggleGroup group = new ToggleGroup();
     
-    GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo);
     GerenteDeTransacoes transacao = new GerenteDeTransacoes(ControllerTelaPrincipal.usuarioAtivo);
+    GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo); 
     
     private ObservableList<String> categorias =
 		    FXCollections.observableArrayList(gerente.listaCategorias());
@@ -106,9 +106,7 @@ public class ControllerAdicionarTransacao {
 					e.printStackTrace();
 				}			
 			} else if (evento.getSource() == botaoAdicionar) {
-				
 				try{
-					
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), 
 							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
@@ -118,25 +116,25 @@ public class ControllerAdicionarTransacao {
 							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
 							.showConfirm();
 							
-							if (resposta == Dialog.Actions.YES){
-								try {
-									content.getChildren().clear();
-									content.getChildren().setAll(
-											FXMLLoader.load(getClass().getResource(
-													"TelaAdicionarTransacao.fxml")));
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
-							else if (resposta == Dialog.Actions.NO){
-								try {
-									content.getChildren().setAll(
-											FXMLLoader.load(getClass().getResource(
-													"TelaDeOperacoesPrincipais.fxml")));
-								} catch (IOException e) {
-									e.printStackTrace();
-								}
-							}
+					if (resposta == Dialog.Actions.YES){
+						try {
+							content.getChildren().clear();
+							content.getChildren().setAll(
+									FXMLLoader.load(getClass().getResource(
+											"TelaAdicionarTransacao.fxml")));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
+					else if (resposta == Dialog.Actions.NO){
+						try {
+							content.getChildren().setAll(
+									FXMLLoader.load(getClass().getResource(
+											"TelaDeOperacoesPrincipais.fxml")));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					}
 				} catch (Exception e){
 					labelAviso.setText(e.getMessage());
 					labelAviso.setVisible(true);
