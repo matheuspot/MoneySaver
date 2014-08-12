@@ -25,21 +25,19 @@ public class ControllerAdicionaCategoria {
 	GerenteDeCategorias gerente = new GerenteDeCategorias(ControllerTelaPrincipal.usuarioAtivo);
 	
 	@FXML
-	private Button botaoCancelar;
-	
-	@FXML
-	private Button botaoAdicionar;
-	
-	@FXML
-	private TextField Nome;
-	
-	@FXML
-	private ColorPicker CPcor;
-	
-	@FXML
+    private Button botaoAdicionar;
+
+    @FXML
+    private Button botaoCancelar;
+
+    @FXML
+    private ColorPicker cor;
+
+    @FXML
+    private TextField nome;
+
+    @FXML
     private AnchorPane content;
-	
-	Categoria categoria; 
 	
 	@FXML
 	void initialize() {
@@ -61,7 +59,7 @@ public class ControllerAdicionaCategoria {
 				}			
 			} else if (evento.getSource() == botaoAdicionar) {
 				try {
-					gerente.adicionaCategoria(Nome.getText(), CPcor.getPromptText());
+					gerente.adicionaCategoria(nome.getText(), cor.getValue().toString());
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Categoria Adicionada. Deseja adicionar uma nova Categoria?")
@@ -92,5 +90,4 @@ public class ControllerAdicionaCategoria {
 			}
 		}
 	}
-	
 }
