@@ -25,6 +25,7 @@
                   <Button mnemonicParsing="false" prefHeight="54.0" prefWidth="143.0" text="Cancelar" />
                </children>
             </HBox>
+            <Label layoutX="195.0" layoutY="64.0" text="Digite as informações sobre a categoria" />
          </children>
       </AnchorPane>
    </children>

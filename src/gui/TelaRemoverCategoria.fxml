@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <AnchorPane layoutX="-1.0" prefHeight="400.0" prefWidth="600.0">
+         <children>
+            <HBox layoutX="226.0" layoutY="89.0" prefHeight="26.0" prefWidth="149.0">
+               <children>
+                  <ComboBox prefWidth="150.0" />
+               </children>
+            </HBox>
+            <HBox layoutX="159.0" layoutY="257.0" prefHeight="55.0" prefWidth="119.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="56.0" prefWidth="118.0" text="Remover" />
+               </children>
+            </HBox>
+            <HBox layoutX="322.0" layoutY="257.0" prefHeight="55.0" prefWidth="134.0">
+               <children>
+                  <Button mnemonicParsing="false" prefHeight="59.0" prefWidth="134.0" text="Voltar" />
+               </children>
+            </HBox>
+            <Label layoutX="249.0" layoutY="52.0" text="Escolha a Categoria:" />
+         </children>
+      </AnchorPane>
+   </children>
+</Pane>
