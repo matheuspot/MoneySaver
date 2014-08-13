@@ -69,8 +69,8 @@ public class GerenteDeCategorias {
 
 	private void adicionaCategoriasDefault() {
 		try {
-			categoriasExistentes.add(new Categoria("Lazer", "Verde"));
-			categoriasExistentes.add(new Categoria("Alimentação", "Azul"));
+			categoriasExistentes.add(new Categoria("Lazer", "669966"));
+			categoriasExistentes.add(new Categoria("Alimentação", "334db3"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -100,6 +100,14 @@ public class GerenteDeCategorias {
 		}
 
 		return nomeDasCategorias;
+	}
+	
+	/**
+	 * Método que retorna um ArrayList com as categorias do usuário.
+	 * @return Um ArrayList com as categorias do usuário.
+	 */
+	public ArrayList<Categoria> listaCategorias2() {
+		return categoriasExistentes;
 	}
 
 	/**

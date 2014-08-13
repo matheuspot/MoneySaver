@@ -2,6 +2,7 @@ package gui;
 
 import java.io.IOException;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialog.Actions;
@@ -10,10 +11,8 @@ import org.controlsfx.dialog.Dialogs;
 import fonte.Categoria;
 import fonte.GerenteDeCategorias;
 import fonte.GerenteDeTransacoes;
-import fonte.Transacao;
 import fonte.Usuario;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -25,12 +24,15 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
-import javafx.scene.control.Toggle;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 public class ControllerAdicionarTransacao {
 
@@ -53,7 +55,7 @@ public class ControllerAdicionarTransacao {
     private TextField valor;
 
     @FXML
-    private ComboBox<String> CBcategoria;
+    private ComboBox<Categoria> CBcategoria;
 
     @FXML
     private AnchorPane content;
@@ -76,8 +78,7 @@ public class ControllerAdicionarTransacao {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ObservableList<String> categorias =
-		    FXCollections.observableArrayList(gerente.listaCategorias());
+    private ArrayList<Categoria> categorias = gerente.listaCategorias2();
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
@@ -92,7 +93,23 @@ public class ControllerAdicionarTransacao {
     	RBprovento.setToggleGroup(group);
     	RBprovento.setUserData("provento");
     	CBrecorrencia.setItems(recorrencias);
-    	CBcategoria.setItems(categorias);
+    	CBcategoria.getItems().addAll(categorias);
+    	CBcategoria.setCellFactory(
+    	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
+    	            @Override public ListCell<Categoria> call(ListView<Categoria> param) {
+    	                final ListCell<Categoria> cell = new ListCell<Categoria>() {
+    	                    @Override public void updateItem(Categoria item, 
+    	                        boolean empty) {
+    	                            super.updateItem(item, empty);
+    	                            if (item != null) {
+    	                                setText(item.getNome());
+    	                                setTextFill(Color.valueOf(item.getCor()));
+    	                            }
+    	                        }
+    	            };
+    	            return cell;
+    	        }
+    	    });
     }
     
     public void setUsuario(Usuario usuario){
@@ -118,7 +135,7 @@ public class ControllerAdicionarTransacao {
 				try{
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), 
-							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
+							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem().getNome()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
