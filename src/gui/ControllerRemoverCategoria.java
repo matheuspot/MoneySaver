@@ -1,16 +1,16 @@
 package gui;
 
+import fonte.Categoria;
 import fonte.GerenteDeCategorias;
 import fonte.Usuario;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -19,7 +19,11 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 public class ControllerRemoverCategoria {
 	
@@ -30,7 +34,7 @@ public class ControllerRemoverCategoria {
     private Button botaoCancelar;
 
     @FXML
-    private ComboBox<String> CBcategorias;
+    private ComboBox<Categoria> CBcategorias;
 
     @FXML
     private Label labelAviso;
@@ -43,14 +47,29 @@ public class ControllerRemoverCategoria {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ObservableList<String> categorias =
-		    FXCollections.observableArrayList(gerente.listaCategorias());
+    private ArrayList<Categoria> categorias = gerente.getCategorias();
     
     @FXML
 	void initialize() {
 		botaoCancelar.setOnAction(eventos);
     	botaoRemover.setOnAction(eventos);
-    	CBcategorias.setItems(categorias);
+    	CBcategorias.getItems().addAll(categorias);
+    	CBcategorias.setCellFactory(
+    	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
+    	            @Override public ListCell<Categoria> call(ListView<Categoria> param) {
+    	                final ListCell<Categoria> cell = new ListCell<Categoria>() {
+    	                    @Override public void updateItem(Categoria item, 
+    	                        boolean empty) {
+    	                            super.updateItem(item, empty);
+    	                            if (item != null) {
+    	                                setText(item.getNome());
+    	                                setTextFill(Color.valueOf(item.getCor()));
+    	                            }
+    	                        }
+    	            };
+    	            return cell;
+    	        }
+    	    });
 	}
     
     public void setUsuario(Usuario usuario){
@@ -73,13 +92,34 @@ public class ControllerRemoverCategoria {
 				}		
 			} else if (evento.getSource() == botaoRemover) {
 				
-				Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
-						.masthead(null).message("Deseja remover a categoria selecionada?")
-						.showConfirm();
-				
-				if (resposta == Dialog.Actions.YES){
-					try{						
-						gerente.removeCategoria(gerente.pesquisaCategoria(CBcategorias.getSelectionModel().getSelectedItem()));
+				if (CBcategorias.getSelectionModel().getSelectedItem() == null){
+					labelAviso.setText("Selecione uma categoria.");
+					labelAviso.setVisible(true);
+					
+				} else {
+					labelAviso.setVisible(false);
+					
+					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Deseja remover a categoria selecionada?")
+							.showConfirm();
+					
+					if (resposta == Dialog.Actions.YES){
+						try{						
+							gerente.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
+							try {
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
+								Parent root = (Parent)fxmlLoader.load();          
+								ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
+								controller.setUsuario(usuarioAtivo);
+								content.getChildren().setAll(root);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}
+						} catch (Exception e) {
+							labelAviso.setText(e.getMessage());
+							labelAviso.setVisible(true);
+						}
+					} else if (resposta == Dialog.Actions.NO){
 						try {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
@@ -89,19 +129,6 @@ public class ControllerRemoverCategoria {
 						} catch (IOException e) {
 							e.printStackTrace();
 						}
-					} catch (Exception e) {
-						labelAviso.setText(e.getMessage());
-						labelAviso.setVisible(true);
-					}
-				} else if (resposta == Dialog.Actions.NO){
-					try {
-						FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
-						Parent root = (Parent)fxmlLoader.load();          
-						ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-						controller.setUsuario(usuarioAtivo);
-						content.getChildren().setAll(root);
-					} catch (IOException e) {
-						e.printStackTrace();
 					}
 				}
 			}

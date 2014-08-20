@@ -10,9 +10,9 @@
 
 <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerAdicionarTransacao">
    <children>
-      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="230.0" layoutY="14.0" prefHeight="30.0" prefWidth="140.0" text="Nova Transação" textAlignment="CENTER">
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="146.0" layoutY="23.0" prefHeight="41.0" prefWidth="306.0" text="Adicionar Transação" textAlignment="CENTER">
          <font>
-            <Font name="Calibri Light" size="18.0" />
+            <Font name="Calibri Light" size="36.0" />
          </font>
       </Label>
       <TextArea fx:id="descricao" layoutX="200.0" layoutY="140.0" prefHeight="120.0" prefWidth="200.0" promptText="Descrição">
