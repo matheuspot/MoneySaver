@@ -12,9 +12,9 @@ public class TestaCriptografia {
 			IOException {
 
 		String senha = "senha123";
-		String senhaEncrypted = fonte.Criptografia.encrypt(senha);
+		String senhaEncrypted = auxiliar.Criptografia.encrypt(senha);
 		assertNotEquals(senha, senhaEncrypted);
-		String senhaDecrypted = fonte.Criptografia.decrypt(senhaEncrypted);
+		String senhaDecrypted = auxiliar.Criptografia.decrypt(senhaEncrypted);
 		assertEquals(senha, senhaDecrypted);
 	}
 }

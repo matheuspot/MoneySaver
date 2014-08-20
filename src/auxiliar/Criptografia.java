@@ -1,4 +1,4 @@
-package fonte;
+package auxiliar;
 
 import java.io.IOException;
 import java.io.UnsupportedEncodingException;

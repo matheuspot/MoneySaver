@@ -5,6 +5,8 @@ import java.io.Serializable;
 import java.security.GeneralSecurityException;
 import java.util.regex.*;
 
+import auxiliar.Criptografia;
+
 /**
  * Classe usada para representar um usuário.
  */

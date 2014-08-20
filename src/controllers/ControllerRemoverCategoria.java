@@ -1,4 +1,4 @@
-package gui;
+package controllers;
 
 import fonte.Categoria;
 import fonte.GerenteDeCategorias;
