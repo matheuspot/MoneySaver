@@ -78,7 +78,7 @@ public class ControllerAdicionarTransacao {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ArrayList<Categoria> categorias = gerente.listaCategorias2();
+    private ArrayList<Categoria> categorias = gerente.getCategorias();
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   

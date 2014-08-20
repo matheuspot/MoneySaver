@@ -47,7 +47,7 @@ public class ControllerRemoverCategoria {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ArrayList<Categoria> categorias = gerente.listaCategorias2();
+    private ArrayList<Categoria> categorias = gerente.getCategorias();
     
     @FXML
 	void initialize() {

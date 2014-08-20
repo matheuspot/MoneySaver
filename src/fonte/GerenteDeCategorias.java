@@ -106,7 +106,7 @@ public class GerenteDeCategorias {
 	 * Método que retorna um ArrayList com as categorias do usuário.
 	 * @return Um ArrayList com as categorias do usuário.
 	 */
-	public ArrayList<Categoria> listaCategorias2() {
+	public ArrayList<Categoria> getCategorias() {
 		return categoriasExistentes;
 	}
 
