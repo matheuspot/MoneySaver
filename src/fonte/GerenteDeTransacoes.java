@@ -2,7 +2,6 @@ package fonte;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
@@ -14,10 +13,10 @@ public class GerenteDeTransacoes {
 
 	private HashMap<Usuario, ArrayList<Transacao>> transacoesDoSistema;
 	private ArrayList<Transacao> transacoesExistentes;
-	private ArquivadorTransacoes arquivador;
+	private ArquivadorTransacoes arquivadorTransacoes;
 	private ArquivadorUsuarios arquivadorUsuarios;
 	private Usuario usuario;
-	private ArrayList<Usuario> usuarios;
+	private ArrayList<Usuario> usuariosDoSistema;
 	private Transacao transacaoQueSeraAdicionada;
 
 	/**
@@ -30,7 +29,7 @@ public class GerenteDeTransacoes {
 
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
-			arquivador = new ArquivadorTransacoes("data2.mos");
+			arquivadorTransacoes = new ArquivadorTransacoes("data2.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -41,20 +40,20 @@ public class GerenteDeTransacoes {
 			System.err.println(e.getMessage());
 		}
 
-		if (arquivador.leTransacoes() == null) {
+		if (arquivadorTransacoes.leTransacoes() == null) {
 			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>();
 			transacoesExistentes = new ArrayList<>();
 		} else {
 			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>(
-					arquivador.leTransacoes());
+					arquivadorTransacoes.leTransacoes());
 			transacoesExistentes = new ArrayList<>(
 					transacoesDoSistema.get(usuario));
 		}
 
 		if (arquivadorUsuarios.leUsuarios() == null) {
-			usuarios = new ArrayList<>();
+			usuariosDoSistema = new ArrayList<>();
 		} else {
-			usuarios = new ArrayList<>(arquivadorUsuarios.leUsuarios());
+			usuariosDoSistema = new ArrayList<>(arquivadorUsuarios.leUsuarios());
 		}
 
 		this.usuario = usuario;
@@ -95,16 +94,16 @@ public class GerenteDeTransacoes {
 					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 
-		usuarios.remove(usuario);
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
-		usuarios.add(usuario);
-		arquivadorUsuarios.escreveUsuarios(usuarios);
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
 
 		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
@@ -120,15 +119,15 @@ public class GerenteDeTransacoes {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
 
-		usuarios.remove(usuario);
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacao.getValor());
-		usuarios.add(usuario);
-		arquivadorUsuarios.escreveUsuarios(usuarios);
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
 
 		transacoesExistentes.remove(transacao);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
@@ -159,6 +158,7 @@ public class GerenteDeTransacoes {
 		if (transacaoParaEditar == null
 				|| !transacoesExistentes.contains(transacaoParaEditar))
 			throw new Exception("Transação inexistente.");
+
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double novoValor = Double.parseDouble(valor);
@@ -171,18 +171,18 @@ public class GerenteDeTransacoes {
 					dataDeInsercao, novoValor, categoria, recorrencia);
 		}
 
-		usuarios.remove(usuario);
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacaoParaEditar.getValor());
 		transacoesExistentes.remove(transacaoParaEditar);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
-		usuarios.add(usuario);
-		arquivadorUsuarios.escreveUsuarios(usuarios);
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
 
 		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
