@@ -92,6 +92,7 @@ public class ControllerAdicionarTransacao {
     	RBdespesa.setUserData("despesa");
     	RBprovento.setToggleGroup(group);
     	RBprovento.setUserData("provento");
+    	RBprovento.setSelected(true);
     	CBrecorrencia.setItems(recorrencias);
     	CBcategoria.getItems().addAll(categorias);
     	CBcategoria.setCellFactory(
@@ -133,9 +134,9 @@ public class ControllerAdicionarTransacao {
 				}	
 			} else if (evento.getSource() == botaoAdicionar) {
 				try{
-					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
-							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem().getNome()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
+							CBcategoria.getSelectionModel().getSelectedItem(), 
+							CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
