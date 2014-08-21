@@ -339,4 +339,14 @@ public class GerenteDeTransacoes {
 			return false;
 		return true;
 	}
+	
+	/**
+	 * Retorna uma lista com as transações existentes de um determinado usuário.
+	 * @return
+	 * 		Uma lista com as transações existentes de um determinado usuário.
+	 */
+	
+	public ArrayList<Transacao> getTransacoesExistentes(){
+		return transacoesExistentes;
+	}
 }
