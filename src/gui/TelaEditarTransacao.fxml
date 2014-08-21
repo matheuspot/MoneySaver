@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
-
 
 <Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
@@ -27,6 +27,9 @@
       <Label layoutX="84.0" layoutY="95.0" text="Categoria" />
       <Label layoutX="274.0" layoutY="79.0" text="Descricao" />
       <Label layoutX="485.0" layoutY="35.0" text="Data" />
-      <Label layoutX="256.0" layoutY="27.0" text="Editar Transacao" />
+      <Label layoutX="215.0" layoutY="29.0" text="Editar Transacao">
+         <font>
+            <Font name="Calibri" size="25.0" />
+         </font></Label>
    </children>
 </Pane>
