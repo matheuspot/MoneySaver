@@ -1,8 +1,11 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.Date;
 
+import fonte.Categoria;
 import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
@@ -12,13 +15,19 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
+import javafx.scene.control.ListCell;
+import javafx.scene.control.ListView;
+import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
 import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.paint.Color;
+import javafx.util.Callback;
 
 public class ControllerOperacoesPrincipais {
 	
@@ -56,13 +65,12 @@ public class ControllerOperacoesPrincipais {
 	    private TableView<Transacao> table;
 	    
 	    @FXML
-	    private TableColumn<Transacao, String> colunaValor;
+	    private TableColumn<Transacao, Double> colunaValor;
 	    
 	    @FXML
 	    private TableColumn<Transacao, String> colunaData;
 	    
 	    private GerenteDeTransacoes gerente;  
-	    
 	    
     @FXML
 	void initialize() {
@@ -79,22 +87,65 @@ public class ControllerOperacoesPrincipais {
     	usuarioAtivo = usuario;
     	labelSaldo.setText(usuarioAtivo.getConta().toString());
     	
+    	gerente = new GerenteDeTransacoes(usuarioAtivo);
+    	ArrayList<Transacao> transacoesExistentes = gerente.getTransacoesExistentes();
+    	ObservableList<Transacao> transacoes = FXCollections.observableArrayList();
+    	
+    	for (Transacao transacao : transacoesExistentes) 
+ 		    transacoes.add(transacao);
+    	
+    	TableColumn<Transacao, Double> colunaValor = new TableColumn<Transacao, Double>("Valor");
+    	colunaValor.setCellValueFactory(new PropertyValueFactory<Transacao, Double>("valor"));
+    	colunaValor.setCellFactory(new Callback<TableColumn<Transacao, Double>, TableCell<Transacao,Double>>(){
+
+            @Override
+            public TableCell<Transacao, Double> call(TableColumn<Transacao, Double> param) {
+
+                TableCell<Transacao, Double> cell = new TableCell<Transacao, Double>(){
+
+                	protected void updateItem(Double item, boolean empty) {
+                        if (item != null) {
+                        	if (item < 0)
+                        		setTextFill(Color.RED);
+                        	else
+                        		setTextFill(Color.GREEN);
+                            setText(String.valueOf(item));
+                        }
+                    }                    
+                };               
+                
+                cell.setAlignment(Pos.CENTER);
+                return cell;        
+            }
+
+        });
+    	
+    	
     	TableColumn<Transacao, String> colunaData = new TableColumn<Transacao, String>("Data");
     	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, String>("dataDeInsercao"));
-    	
-    	TableColumn<Transacao, String> colunaValor = new TableColumn<Transacao, String>("Valor");
-    	colunaValor.setCellValueFactory(new PropertyValueFactory<Transacao, String>("valor"));
+    	colunaData.setCellFactory(new Callback<TableColumn<Transacao, String>, TableCell<Transacao, String>>(){
+
+            @Override
+            public TableCell<Transacao, String> call(TableColumn<Transacao, String> param) {
+
+                TableCell<Transacao, String> cell = new TableCell<Transacao, String>(){
+
+                	protected void updateItem(String item, boolean empty) {
+                        if (item != null) {
+                        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                            setText(item);
+                        }
+                    }                    
+                };               
+                
+                cell.setAlignment(Pos.CENTER);
+                return cell;        
+            }
+
+        });
     	
     	table.setTableMenuButtonVisible(true);
     	table.getColumns().addAll(colunaData, colunaValor);
-    	
-    	gerente = new GerenteDeTransacoes(usuarioAtivo);
-    	ArrayList<Transacao> transacoes2 = gerente.getTransacoesExistentes();
-    	
-    	ObservableList<Transacao> transacoes = FXCollections.observableArrayList();
-    		for (Transacao transacao : transacoes2) 
-     		    transacoes.add(transacao);
-			
     	table.setItems(transacoes);
     }
     	
