@@ -24,5 +24,9 @@
       </Button>
       <ComboBox fx:id="CBcategorias" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Categorias" />
       <Label fx:id="labelAviso" alignment="CENTER" layoutX="208.0" layoutY="287.0" prefHeight="17.0" prefWidth="189.0" text="Aviso" textFill="#d71111" visible="false" />
+      <Label fx:id="labelAviso" alignment="CENTER" contentDisplay="CENTER" layoutX="191.0" layoutY="139.0" text="Selecione uma categoria" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="22.0" />
+         </font></Label>
    </children>
 </AnchorPane>
