@@ -60,7 +60,7 @@ public class ControllerAdicionaCategoria {
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCancelar) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 					controller.setUsuario(usuarioAtivo);
@@ -78,7 +78,7 @@ public class ControllerAdicionaCategoria {
 							
 					if (resposta == Dialog.Actions.YES){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaAdicionarCategoria.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerAdicionaCategoria controller = 	fxmlLoader.<ControllerAdicionaCategoria>getController();
 							controller.setUsuario(usuarioAtivo);
@@ -89,7 +89,7 @@ public class ControllerAdicionaCategoria {
 					}
 					else if (resposta == Dialog.Actions.NO){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 							controller.setUsuario(usuarioAtivo);

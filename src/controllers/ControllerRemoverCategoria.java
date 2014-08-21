@@ -82,7 +82,7 @@ public class ControllerRemoverCategoria {
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCancelar) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 					controller.setUsuario(usuarioAtivo);
@@ -107,7 +107,7 @@ public class ControllerRemoverCategoria {
 						try{						
 							gerente.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
 							try {
-								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
 								controller.setUsuario(usuarioAtivo);
@@ -121,7 +121,7 @@ public class ControllerRemoverCategoria {
 						}
 					} else if (resposta == Dialog.Actions.NO){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("TelaRemoverCategoria.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
 							controller.setUsuario(usuarioAtivo);

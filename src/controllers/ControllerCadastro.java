@@ -66,7 +66,7 @@ public class ControllerCadastro {
 					try {
 						content.getChildren().setAll(
 								FXMLLoader.load(getClass().getResource(
-										"TelaPrincipal.fxml")));
+										"../gui/TelaPrincipal.fxml")));
 					} catch (IOException e) {
 						e.printStackTrace();
 					}
@@ -81,7 +81,7 @@ public class ControllerCadastro {
 				try {
 					content.getChildren().setAll(
 							FXMLLoader.load(getClass().getResource(
-									"TelaPrincipal.fxml")));
+									"../gui/TelaPrincipal.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

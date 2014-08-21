@@ -58,7 +58,7 @@ public class ControllerTelaPrincipal {
 				try {
 					content.getChildren().setAll(
 							FXMLLoader.load(getClass().getResource(
-									"TelaCadastrar.fxml")));
+									"../gui/TelaCadastrar.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -68,7 +68,7 @@ public class ControllerTelaPrincipal {
 				try {
 					usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
 					try {
-						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 						Parent root = (Parent)fxmlLoader.load();          
 						ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 						controller.setUsuario(usuarioAtivo);
@@ -91,7 +91,7 @@ public class ControllerTelaPrincipal {
 	        	 try {
 						usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("TelaDeOperacoesPrincipais.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 							controller.setUsuario(usuarioAtivo);
