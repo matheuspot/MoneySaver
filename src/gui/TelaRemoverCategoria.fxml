@@ -12,17 +12,18 @@
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="329.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="318.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
       <ComboBox fx:id="CBcategorias" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Categorias" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="208.0" layoutY="287.0" prefHeight="17.0" prefWidth="189.0" text="Aviso" textFill="#d71111" visible="false" />
       <Label fx:id="labelAviso" alignment="CENTER" contentDisplay="CENTER" layoutX="191.0" layoutY="139.0" text="Selecione uma categoria" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="22.0" />
