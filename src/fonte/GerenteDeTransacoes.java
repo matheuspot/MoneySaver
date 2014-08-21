@@ -34,7 +34,7 @@ public class GerenteDeTransacoes {
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
+
 		try {
 			arquivadorUsuarios = new ArquivadorUsuarios("data1.mos");
 		} catch (Exception e) {
@@ -50,6 +50,13 @@ public class GerenteDeTransacoes {
 			transacoesExistentes = new ArrayList<>(
 					transacoesDoSistema.get(usuario));
 		}
+
+		if (arquivadorUsuarios.leUsuarios() == null) {
+			usuarios = new ArrayList<>();
+		} else {
+			usuarios = new ArrayList<>(arquivadorUsuarios.leUsuarios());
+		}
+
 		this.usuario = usuario;
 	}
 
@@ -78,23 +85,22 @@ public class GerenteDeTransacoes {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
-		Double valor2 = Double.parseDouble(valor);
+		Double valorNovo = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor2, categoria, recorrencia);
+					valorNovo, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor2, categoria, recorrencia);
+					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 
-		usuarios = arquivadorUsuarios.leUsuarios();
 		usuarios.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
 		usuarios.add(usuario);
 		arquivadorUsuarios.escreveUsuarios(usuarios);
-		
+
 		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
@@ -114,7 +120,11 @@ public class GerenteDeTransacoes {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
 
+		usuarios.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacao.getValor());
+		usuarios.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuarios);
+
 		transacoesExistentes.remove(transacao);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
@@ -151,22 +161,25 @@ public class GerenteDeTransacoes {
 			throw new Exception("Transação inexistente.");
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
-		Double valor2 = Double.parseDouble(valor);
+		Double novoValor = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor2, categoria, recorrencia);
+					novoValor, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor2, categoria, recorrencia);
+					dataDeInsercao, novoValor, categoria, recorrencia);
 		}
 
+		usuarios.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacaoParaEditar.getValor());
 		transacoesExistentes.remove(transacaoParaEditar);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
-		transacoesExistentes.add(transacaoQueSeraAdicionada);
+		usuarios.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuarios);
 
+		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
 		arquivador.escreveTransacoes(transacoesDoSistema);

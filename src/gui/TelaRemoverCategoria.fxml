@@ -5,7 +5,6 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane fx:id="content" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRemoverCategoria">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Categoria" textAlignment="CENTER">
@@ -24,5 +23,9 @@
          </font>
       </Button>
       <ComboBox fx:id="CBcategorias" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Categorias" />
+      <Label fx:id="labelAviso" alignment="CENTER" contentDisplay="CENTER" layoutX="191.0" layoutY="139.0" text="Selecione uma categoria" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="22.0" />
+         </font></Label>
    </children>
 </AnchorPane>
