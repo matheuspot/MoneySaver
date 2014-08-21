@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+
 import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
@@ -16,6 +17,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
@@ -66,6 +68,12 @@ public class ControllerOperacoesPrincipais {
 	    @FXML
 	    private TableColumn<Transacao, String> colunaData;
 	    
+	    @FXML
+	    private ComboBox<String> CBmes;
+	    
+	    private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+	    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+	    
 	    private GerenteDeTransacoes gerente;  
 	    
     @FXML
@@ -77,6 +85,7 @@ public class ControllerOperacoesPrincipais {
     	removerCategoria.setOnAction(eventos);
     	editarCategoria.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
+    	CBmes.getItems().addAll(meses);
     }
     
     public void setUsuario(Usuario usuario){
