@@ -5,27 +5,24 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRemoverCategoria">
+
+<AnchorPane fx:id="content" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRemoverCategoria">
    <children>
-      <AnchorPane fx:id="content" prefHeight="400.0" prefWidth="600.0">
-         <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Categoria" textAlignment="CENTER">
-               <font>
-                  <Font name="Calibri" size="36.0" />
-               </font>
-            </Label>
-            <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="329.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
-               <font>
-                  <Font name="Calibri" size="28.0" />
-               </font>
-            </Button>
-            <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
-               <font>
-                  <Font name="Calibri" size="28.0" />
-               </font>
-            </Button>
-            <ComboBox fx:id="CBcategorias" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Categorias" />
-         </children>
-      </AnchorPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Categoria" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="329.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="CBcategorias" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Categorias" />
    </children>
-</Pane>
+</AnchorPane>

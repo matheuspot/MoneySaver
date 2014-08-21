@@ -14,27 +14,27 @@
          <children>
             <AnchorPane prefHeight="400.0" prefWidth="420.0">
                <children>
-                  <TextField fx:id="TFnome" alignment="TOP_LEFT" layoutX="214.0" layoutY="70.0" prefHeight="30.0" prefWidth="180.0" promptText="Nome">
+                  <TextField fx:id="TFnome" alignment="TOP_LEFT" layoutX="214.0" layoutY="60.0" prefHeight="30.0" prefWidth="180.0" promptText="Nome">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <TextField fx:id="TFemail" layoutX="214.0" layoutY="120.0" prefHeight="30.0" prefWidth="180.0" promptText="E-mail">
+                  <TextField fx:id="TFemail" layoutX="214.0" layoutY="110.0" prefHeight="30.0" prefWidth="180.0" promptText="E-mail">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="PFsenha" layoutX="214.0" layoutY="170.0" prefHeight="30.0" prefWidth="180.0" promptText="Senha">
+                  <PasswordField fx:id="PFsenha" layoutX="214.0" layoutY="160.0" prefHeight="30.0" prefWidth="180.0" promptText="Senha">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </PasswordField>
-                  <PasswordField fx:id="PFconfirmacaoSenha" layoutX="214.0" layoutY="220.0" prefHeight="30.0" prefWidth="180.0" promptText="Confirmação de senha">
+                  <PasswordField fx:id="PFconfirmacaoSenha" layoutX="214.0" layoutY="210.0" prefHeight="30.0" prefWidth="180.0" promptText="Confirmação de senha">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </PasswordField>
-                  <TextField fx:id="TFdicaSenha" layoutX="214.0" layoutY="270.0" prefHeight="30.0" prefWidth="180.0" promptText="Dica de senha">
+                  <TextField fx:id="TFdicaSenha" layoutX="214.0" layoutY="260.0" prefHeight="30.0" prefWidth="180.0" promptText="Dica de senha">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
@@ -49,7 +49,7 @@
                         <Font name="Calibri" size="28.0" />
                      </font>
                   </Button>
-                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="170.0" layoutY="287.0" prefHeight="17.0" prefWidth="241.0" text="Label" textFill="#dd1111" visible="false" />
+                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="175.0" layoutY="297.0" prefHeight="17.0" prefWidth="241.0" text="Label" textFill="#dd1111" visible="false" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" prefHeight="40.0" prefWidth="310.0" text="Novo Usuário" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="36.0" />
