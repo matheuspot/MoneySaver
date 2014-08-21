@@ -134,7 +134,7 @@ public class ControllerAdicionarTransacao {
 			} else if (evento.getSource() == botaoAdicionar) {
 				try{
 					DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue().format(formatter), valor.getText(), 
+					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
 							gerente.pesquisaCategoria(CBcategoria.getSelectionModel().getSelectedItem().getNome()), CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
 					

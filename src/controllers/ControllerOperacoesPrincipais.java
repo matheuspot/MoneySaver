@@ -1,11 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
-import java.util.Date;
-
-import fonte.Categoria;
 import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
@@ -19,8 +17,6 @@ import javafx.geometry.Pos;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
-import javafx.scene.control.ListCell;
-import javafx.scene.control.ListView;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -121,19 +117,19 @@ public class ControllerOperacoesPrincipais {
         });
     	
     	
-    	TableColumn<Transacao, String> colunaData = new TableColumn<Transacao, String>("Data");
-    	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, String>("dataDeInsercao"));
-    	colunaData.setCellFactory(new Callback<TableColumn<Transacao, String>, TableCell<Transacao, String>>(){
+    	TableColumn<Transacao, LocalDate> colunaData = new TableColumn<Transacao, LocalDate>("Data");
+    	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, LocalDate>("dataDeInsercao"));
+    	colunaData.setCellFactory(new Callback<TableColumn<Transacao, LocalDate>, TableCell<Transacao, LocalDate>>(){
 
             @Override
-            public TableCell<Transacao, String> call(TableColumn<Transacao, String> param) {
+            public TableCell<Transacao, LocalDate> call(TableColumn<Transacao, LocalDate> param) {
 
-                TableCell<Transacao, String> cell = new TableCell<Transacao, String>(){
+                TableCell<Transacao, LocalDate> cell = new TableCell<Transacao, LocalDate>(){
 
-                	protected void updateItem(String item, boolean empty) {
+                	protected void updateItem(LocalDate item, boolean empty) {
                         if (item != null) {
                         	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            setText(item);
+                            setText(item.format(formatter));
                         }
                     }                    
                 };               
