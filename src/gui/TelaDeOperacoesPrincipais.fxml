@@ -72,8 +72,10 @@
                         </Label>
                         <MenuButton layoutX="14.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Histograma">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Action 1" />
-                            <MenuItem mnemonicParsing="false" text="Action 2" />
+                            <MenuItem mnemonicParsing="false" text="Despesa" />
+                            <MenuItem mnemonicParsing="false" text="Provento" />
+                              <MenuItem mnemonicParsing="false" text="Categoria" />
+                              <MenuItem mnemonicParsing="false" text="Data" />
                           </items>
                            <font>
                               <Font name="Calibri" size="14.0" />
@@ -84,8 +86,10 @@
                               <Font name="Calibri" size="14.0" />
                            </font>
                            <items>
-                              <MenuItem mnemonicParsing="false" text="Action 1" />
-                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                              <MenuItem mnemonicParsing="false" text="Despesa" />
+                              <MenuItem mnemonicParsing="false" text="Provento" />
+                              <MenuItem mnemonicParsing="false" text="Categoria" />
+                              <MenuItem mnemonicParsing="false" text="Data" />
                            </items>
                         </MenuButton>
                      </children>
@@ -98,7 +102,38 @@
          <children>
             <VBox layoutX="15.0" layoutY="14.0" prefHeight="398.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="75.0" prefWidth="296.0" text="Últimas transações" textAlignment="CENTER">
+                  <HBox spacing="5.0">
+                     <children>
+                        <Label alignment="CENTER" contentDisplay="CENTER" text="Visualizar transações do mês" textAlignment="CENTER">
+                           <font>
+                              <Font name="Calibri" size="19.0" />
+                           </font>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </Label>
+                        <MenuButton mnemonicParsing="false" text="Mês">
+                          <items>
+                            <MenuItem mnemonicParsing="false" text="01" />
+                            <MenuItem mnemonicParsing="false" text="02" />
+                              <MenuItem mnemonicParsing="false" text="03" />
+                              <MenuItem mnemonicParsing="false" text="04" />
+                              <MenuItem mnemonicParsing="false" text="05" />
+                              <MenuItem mnemonicParsing="false" text="06" />
+                              <MenuItem mnemonicParsing="false" text="07" />
+                              <MenuItem mnemonicParsing="false" text="08" />
+                              <MenuItem mnemonicParsing="false" text="09" />
+                              <MenuItem mnemonicParsing="false" text="10" />
+                              <MenuItem mnemonicParsing="false" text="11" />
+                              <MenuItem mnemonicParsing="false" text="12" />
+                          </items>
+                           <padding>
+                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
+                           </padding>
+                        </MenuButton>
+                     </children>
+                  </HBox>
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="40.0" prefWidth="296.0" text="Últimas transações" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="34.0" />
                      </font>
@@ -113,7 +148,7 @@
                         <Font name="Calibri" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" textAlignment="CENTER">
+                  <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="30.0" prefWidth="296.0" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="22.0" />
                      </font>
