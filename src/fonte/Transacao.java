@@ -1,6 +1,8 @@
 package fonte;
 
 import java.io.Serializable;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Classe usada para representar uma transação.
@@ -9,8 +11,11 @@ import java.io.Serializable;
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+	private static final SimpleDateFormat FORMATACAO_DATA = new SimpleDateFormat(
+			"dd/MM/yyyy");
+
 	private String descricao;
-	private String dataDeInsercao;
+	private Date dataDeInsercao;
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
@@ -46,7 +51,7 @@ public class Transacao implements Serializable {
 			throw new Exception("Recorrência inválida.");
 
 		this.descricao = descricao;
-		this.dataDeInsercao = dataDeInsercao;
+		this.dataDeInsercao = FORMATACAO_DATA.parse(dataDeInsercao);
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
@@ -68,7 +73,7 @@ public class Transacao implements Serializable {
 	 * @return A data de inserção da transação.
 	 */
 
-	public String getDataDeInsercao() {
+	public Date getDataDeInsercao() {
 		return dataDeInsercao;
 	}
 
@@ -110,7 +115,7 @@ public class Transacao implements Serializable {
 	 */
 
 	public String toStringResumido() {
-		return dataDeInsercao + " " + valor;
+		return FORMATACAO_DATA.format(dataDeInsercao) + " " + valor;
 	}
 
 	/**
@@ -120,8 +125,9 @@ public class Transacao implements Serializable {
 	@Override
 	public String toString() {
 		return "Descrição: " + descricao + "\nData de Inserção: "
-				+ dataDeInsercao + "\nValor: " + valor + "\nCategoria: "
-				+ categoria.getNome() + "\nRecorrência: " + recorrencia;
+				+ FORMATACAO_DATA.format(dataDeInsercao) + "\nValor: " + valor
+				+ "\nCategoria: " + categoria.getNome() + "\nRecorrência: "
+				+ recorrencia;
 	}
 
 	/**
