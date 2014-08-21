@@ -1,5 +1,7 @@
 package fonte;
 
+import java.time.LocalDate;
+
 /**
  * Classe usada para representar um provento.
  */
@@ -25,7 +27,7 @@ public class Provento extends Transacao {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 
-	public Provento(String descricao, String dataDeInsercao, double valor,
+	public Provento(String descricao, LocalDate dataDeInsercao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
 	}

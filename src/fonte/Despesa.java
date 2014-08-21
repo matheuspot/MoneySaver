@@ -1,5 +1,7 @@
 package fonte;
 
+import java.time.LocalDate;
+
 /**
  * Classe usada para representar uma despesa.
  */
@@ -25,7 +27,7 @@ public class Despesa extends Transacao {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 
-	public Despesa(String descricao, String dataDeInsercao, double valor,
+	public Despesa(String descricao, LocalDate dataDeInsercao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
 	}

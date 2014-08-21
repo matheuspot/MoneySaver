@@ -1,7 +1,9 @@
 package fonte;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
+
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
@@ -78,7 +80,7 @@ public class GerenteDeTransacoes {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 
-	public void adicionaTransacao(String descricao, String dataDeInsercao,
+	public void adicionaTransacao(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
 
@@ -152,7 +154,7 @@ public class GerenteDeTransacoes {
 	 */
 
 	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
-			String dataDeInsercao, String valor, Categoria categoria,
+			LocalDate dataDeInsercao, String valor, Categoria categoria,
 			String recorrencia, String tipoDeTransacao) throws Exception {
 
 		if (transacaoParaEditar == null
@@ -240,7 +242,7 @@ public class GerenteDeTransacoes {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 
-	private void transacaoValida(String descricao, String dataDeInsercao,
+	private void transacaoValida(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
 		if (!descricaoValida(descricao)) {
@@ -333,8 +335,8 @@ public class GerenteDeTransacoes {
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
 
-	private boolean dataDeInsercaoValida(String dataDeInsercao) {
-		if (dataDeInsercao == null || dataDeInsercao.trim().length() == 0)
+	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
+		if (dataDeInsercao == null)
 			return false;
 		return true;
 	}
@@ -352,14 +354,14 @@ public class GerenteDeTransacoes {
 			return false;
 		return true;
 	}
-	
+
 	/**
 	 * Retorna uma lista com as transações existentes de um determinado usuário.
-	 * @return
-	 * 		Uma lista com as transações existentes de um determinado usuário.
+	 * 
+	 * @return Uma lista com as transações existentes de um determinado usuário.
 	 */
-	
-	public ArrayList<Transacao> getTransacoesExistentes(){
+
+	public ArrayList<Transacao> getTransacoesExistentes() {
 		return transacoesExistentes;
 	}
 }

@@ -1,8 +1,7 @@
 package fonte;
 
 import java.io.Serializable;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
 
 /**
  * Classe usada para representar uma transação.
@@ -11,11 +10,9 @@ import java.util.Date;
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private static final SimpleDateFormat FORMATACAO_DATA = new SimpleDateFormat(
-			"dd/MM/yyyy");
 
 	private String descricao;
-	private Date dataDeInsercao;
+	private LocalDate dataDeInsercao;
 	private double valor;
 	private Categoria categoria;
 	private String recorrencia;
@@ -37,7 +34,7 @@ public class Transacao implements Serializable {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 
-	public Transacao(String descricao, String dataDeInsercao, double valor,
+	public Transacao(String descricao, LocalDate dataDeInsercao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
 		if (descricao == null)
 			throw new Exception("Descrição inválida.");
@@ -51,7 +48,7 @@ public class Transacao implements Serializable {
 			throw new Exception("Recorrência inválida.");
 
 		this.descricao = descricao;
-		this.dataDeInsercao = FORMATACAO_DATA.parse(dataDeInsercao);
+		this.dataDeInsercao = dataDeInsercao;
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;
@@ -73,7 +70,7 @@ public class Transacao implements Serializable {
 	 * @return A data de inserção da transação.
 	 */
 
-	public Date getDataDeInsercao() {
+	public LocalDate getDataDeInsercao() {
 		return dataDeInsercao;
 	}
 
@@ -115,7 +112,7 @@ public class Transacao implements Serializable {
 	 */
 
 	public String toStringResumido() {
-		return FORMATACAO_DATA.format(dataDeInsercao) + " " + valor;
+		return dataDeInsercao + " " + valor;
 	}
 
 	/**
@@ -125,9 +122,8 @@ public class Transacao implements Serializable {
 	@Override
 	public String toString() {
 		return "Descrição: " + descricao + "\nData de Inserção: "
-				+ FORMATACAO_DATA.format(dataDeInsercao) + "\nValor: " + valor
-				+ "\nCategoria: " + categoria.getNome() + "\nRecorrência: "
-				+ recorrencia;
+				+ dataDeInsercao + "\nValor: " + valor + "\nCategoria: "
+				+ categoria.getNome() + "\nRecorrência: " + recorrencia;
 	}
 
 	/**
