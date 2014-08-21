@@ -65,17 +65,29 @@
                               <Font name="Calibri" size="22.0" />
                            </font>
                         </Button>
-                        <SplitMenuButton layoutY="21.0" mnemonicParsing="false" prefHeight="40.0" prefWidth="286.0" text="Relatórios" textAlignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" prefHeight="40.0" prefWidth="296.0" text="Relatórios" textAlignment="CENTER">
+                           <font>
+                              <Font name="Calibri" size="34.0" />
+                           </font>
+                        </Label>
+                        <MenuButton layoutX="14.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Histograma">
                           <items>
-                            <MenuItem mnemonicParsing="false" text="Proventos" />
-                            <MenuItem mnemonicParsing="false" text="Despesas" />
-                              <MenuItem mnemonicParsing="false" text="Mensal" />
-                              <MenuItem mnemonicParsing="false" text="Categorias" />
+                            <MenuItem mnemonicParsing="false" text="Action 1" />
+                            <MenuItem mnemonicParsing="false" text="Action 2" />
                           </items>
                            <font>
-                              <Font name="Calibri" size="20.0" />
+                              <Font name="Calibri" size="14.0" />
                            </font>
-                        </SplitMenuButton>
+                        </MenuButton>
+                        <MenuButton layoutX="169.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Lista">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font>
+                           <items>
+                              <MenuItem mnemonicParsing="false" text="Action 1" />
+                              <MenuItem mnemonicParsing="false" text="Action 2" />
+                           </items>
+                        </MenuButton>
                      </children>
                   </AnchorPane>
                </children>
@@ -101,7 +113,7 @@
                         <Font name="Calibri" size="30.0" />
                      </font>
                   </Label>
-                  <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" text="Colocar o saldo aqui" textAlignment="CENTER">
+                  <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="22.0" />
                      </font>
