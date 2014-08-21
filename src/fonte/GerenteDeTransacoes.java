@@ -2,7 +2,6 @@ package fonte;
 
 import java.util.ArrayList;
 import java.util.HashMap;
-
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
@@ -14,10 +13,10 @@ public class GerenteDeTransacoes {
 
 	private HashMap<Usuario, ArrayList<Transacao>> transacoesDoSistema;
 	private ArrayList<Transacao> transacoesExistentes;
-	private ArquivadorTransacoes arquivador;
+	private ArquivadorTransacoes arquivadorTransacoes;
 	private ArquivadorUsuarios arquivadorUsuarios;
 	private Usuario usuario;
-	private ArrayList<Usuario> usuarios;
+	private ArrayList<Usuario> usuariosDoSistema;
 	private Transacao transacaoQueSeraAdicionada;
 
 	/**
@@ -30,26 +29,33 @@ public class GerenteDeTransacoes {
 
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
-			arquivador = new ArquivadorTransacoes("data2.mos");
+			arquivadorTransacoes = new ArquivadorTransacoes("data2.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
-		
+
 		try {
 			arquivadorUsuarios = new ArquivadorUsuarios("data1.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
 
-		if (arquivador.leTransacoes() == null) {
+		if (arquivadorTransacoes.leTransacoes() == null) {
 			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>();
 			transacoesExistentes = new ArrayList<>();
 		} else {
 			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>(
-					arquivador.leTransacoes());
+					arquivadorTransacoes.leTransacoes());
 			transacoesExistentes = new ArrayList<>(
 					transacoesDoSistema.get(usuario));
 		}
+
+		if (arquivadorUsuarios.leUsuarios() == null) {
+			usuariosDoSistema = new ArrayList<>();
+		} else {
+			usuariosDoSistema = new ArrayList<>(arquivadorUsuarios.leUsuarios());
+		}
+
 		this.usuario = usuario;
 	}
 
@@ -78,27 +84,26 @@ public class GerenteDeTransacoes {
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
-		Double valor2 = Double.parseDouble(valor);
+		Double valorNovo = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor2, categoria, recorrencia);
+					valorNovo, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor2, categoria, recorrencia);
+					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 
-		usuarios = arquivadorUsuarios.leUsuarios();
-		usuarios.remove(usuario);
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
-		usuarios.add(usuario);
-		arquivadorUsuarios.escreveUsuarios(usuarios);
-		
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
+
 		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
@@ -114,11 +119,15 @@ public class GerenteDeTransacoes {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
 
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacao.getValor());
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
+
 		transacoesExistentes.remove(transacao);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
@@ -149,27 +158,31 @@ public class GerenteDeTransacoes {
 		if (transacaoParaEditar == null
 				|| !transacoesExistentes.contains(transacaoParaEditar))
 			throw new Exception("Transação inexistente.");
+
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
-		Double valor2 = Double.parseDouble(valor);
+		Double novoValor = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
 			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					valor2, categoria, recorrencia);
+					novoValor, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valor2, categoria, recorrencia);
+					dataDeInsercao, novoValor, categoria, recorrencia);
 		}
 
+		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(-transacaoParaEditar.getValor());
 		transacoesExistentes.remove(transacaoParaEditar);
 		usuario.getConta().moveDinheiroNaConta(
 				transacaoQueSeraAdicionada.getValor());
-		transacoesExistentes.add(transacaoQueSeraAdicionada);
+		usuariosDoSistema.add(usuario);
+		arquivadorUsuarios.escreveUsuarios(usuariosDoSistema);
 
+		transacoesExistentes.add(transacaoQueSeraAdicionada);
 		transacoesDoSistema.put(usuario, transacoesExistentes);
 
-		arquivador.escreveTransacoes(transacoesDoSistema);
+		arquivadorTransacoes.escreveTransacoes(transacoesDoSistema);
 	}
 
 	/**
