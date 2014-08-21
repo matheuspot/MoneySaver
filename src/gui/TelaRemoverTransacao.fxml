@@ -1,27 +1,33 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import javafx.scene.control.*?>
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
 
-<Pane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
    <children>
-      <HBox layoutX="136.0" layoutY="264.0" prefHeight="65.0" prefWidth="128.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="66.0" prefWidth="124.0" text="Remover" />
-         </children>
-      </HBox>
-      <HBox layoutX="336.0" layoutY="264.0" prefHeight="66.0" prefWidth="129.0">
-         <children>
-            <Button mnemonicParsing="false" prefHeight="65.0" prefWidth="128.0" text="Cancelar" />
-         </children>
-      </HBox>
-      <AnchorPane layoutX="137.0" layoutY="54.0" prefHeight="164.0" prefWidth="326.0">
-         <children>
-            <Label layoutX="110.0" layoutY="14.0" text="Escolha a Transacao:" />
-            <ComboBox layoutX="88.0" layoutY="78.0" prefWidth="150.0" />
-         </children>
-      </AnchorPane>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Transação" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <TableView layoutX="25.0" layoutY="94.0" prefHeight="230.0" prefWidth="550.0" />
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="209.0" layoutY="62.0" text="Selecione uma transação" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
    </children>
-</Pane>
+</AnchorPane>
