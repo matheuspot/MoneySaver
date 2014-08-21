@@ -7,7 +7,7 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<SplitPane fx:id="content2" dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="gui.ControllerOperacoesPrincipais">
+<SplitPane fx:id="content2" dividerPositions="0.5" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerOperacoesPrincipais">
    <items>
       <AnchorPane fx:id="content" prefHeight="400.0" prefWidth="300.0">
          <children>
@@ -18,33 +18,51 @@
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Transações" textAlignment="CENTER">
                      <font>
-                        <Font name="Calibri Light" size="34.0" />
+                        <Font name="Calibri" size="34.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="35.0" prefWidth="286.0">
                      <children>
-                        <Button fx:id="adicionarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
-                        <Button fx:id="removerTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
-                        <Button fx:id="editarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
+                        <Button fx:id="adicionarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="removerTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="editarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Categorias" textAlignment="CENTER">
                      <font>
-                        <Font name="Calibri Light" size="34.0" />
+                        <Font name="Calibri" size="34.0" />
                      </font>
                   </Label>
                   <HBox prefHeight="35.0" prefWidth="286.0">
                      <children>
-                        <Button fx:id="adicionarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar" />
-                        <Button fx:id="removerCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover" />
-                        <Button fx:id="editarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar" />
+                        <Button fx:id="adicionarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font></Button>
+                        <Button fx:id="removerCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover">
+                           <font>
+                              <Font size="14.0" />
+                           </font></Button>
+                        <Button fx:id="editarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar">
+                           <font>
+                              <Font name="Calibri" size="14.0" />
+                           </font></Button>
                      </children>
                   </HBox>
                   <AnchorPane prefHeight="200.0" prefWidth="200.0">
                      <children>
                         <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="122.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
                            <font>
-                              <Font name="Calibri Light" size="22.0" />
+                              <Font name="Calibri" size="22.0" />
                            </font>
                         </Button>
                      </children>
@@ -59,7 +77,7 @@
                <children>
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="75.0" prefWidth="296.0" text="Últimas transações" textAlignment="CENTER">
                      <font>
-                        <Font name="Calibri Light" size="34.0" />
+                        <Font name="Calibri" size="34.0" />
                      </font>
                   </Label>
                   <TableView layoutX="15.0" layoutY="99.0" prefHeight="245.0" prefWidth="296.0">
@@ -73,12 +91,12 @@
                   </TableView>
                   <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="296.0" text="Saldo do mês">
                      <font>
-                        <Font name="Calibri Light" size="30.0" />
+                        <Font name="Calibri" size="30.0" />
                      </font>
                   </Label>
                   <Label fx:id="labelSaldo" alignment="CENTER" contentDisplay="CENTER" prefHeight="43.0" prefWidth="296.0" text="Colocar o saldo aqui" textAlignment="CENTER">
                      <font>
-                        <Font name="Calibri Light" size="22.0" />
+                        <Font name="Calibri" size="22.0" />
                      </font>
                   </Label>
                </children>
