@@ -102,17 +102,14 @@
          <children>
             <VBox layoutX="15.0" layoutY="14.0" prefHeight="398.0" prefWidth="296.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                <children>
-                  <HBox spacing="5.0">
+                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="40.0" prefWidth="296.0" text="Últimas transações" textAlignment="CENTER">
+                     <font>
+                        <Font name="Calibri" size="34.0" />
+                     </font>
+                  </Label>
+                  <Pane prefHeight="41.0" prefWidth="289.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" text="Visualizar transações do mês" textAlignment="CENTER">
-                           <font>
-                              <Font name="Calibri" size="19.0" />
-                           </font>
-                           <padding>
-                              <Insets bottom="1.0" left="1.0" right="1.0" top="1.0" />
-                           </padding>
-                        </Label>
-                        <MenuButton mnemonicParsing="false" text="Mês">
+                        <MenuButton alignment="CENTER" layoutX="71.0" layoutY="7.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="147.0" text="Mês">
                           <items>
                             <MenuItem mnemonicParsing="false" text="01" />
                             <MenuItem mnemonicParsing="false" text="02" />
@@ -132,13 +129,8 @@
                            </padding>
                         </MenuButton>
                      </children>
-                  </HBox>
-                  <Label alignment="CENTER" contentDisplay="CENTER" layoutX="15.0" layoutY="14.0" prefHeight="40.0" prefWidth="296.0" text="Últimas transações" textAlignment="CENTER">
-                     <font>
-                        <Font name="Calibri" size="34.0" />
-                     </font>
-                  </Label>
-                  <TableView fx:id="table" layoutX="15.0" layoutY="99.0" prefHeight="245.0" prefWidth="296.0">
+                  </Pane>
+                  <TableView fx:id="table" layoutX="15.0" layoutY="99.0" prefHeight="253.0" prefWidth="289.0">
                      <columnResizePolicy>
                         <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
                      </columnResizePolicy>
