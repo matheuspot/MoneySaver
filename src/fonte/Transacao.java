@@ -6,7 +6,6 @@ import java.time.LocalDate;
 /**
  * Classe usada para representar uma transação.
  */
-
 public class Transacao implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -33,7 +32,6 @@ public class Transacao implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public Transacao(String descricao, LocalDate dataDeInsercao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
 		if (descricao == null)
@@ -59,7 +57,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return A descrição da transação.
 	 */
-
 	public String getDescricao() {
 		return descricao;
 	}
@@ -69,7 +66,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return A data de inserção da transação.
 	 */
-
 	public LocalDate getDataDeInsercao() {
 		return dataDeInsercao;
 	}
@@ -79,7 +75,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return O valor da transação.
 	 */
-
 	public double getValor() {
 		return valor;
 	}
@@ -89,7 +84,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return A categoria da transação.
 	 */
-
 	public Categoria getCategoria() {
 		return categoria;
 	}
@@ -99,7 +93,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return A recorrência da transação.
 	 */
-
 	public String getRecorrencia() {
 		return recorrencia;
 	}
@@ -110,7 +103,6 @@ public class Transacao implements Serializable {
 	 * 
 	 * @return A data e o valor da transação.
 	 */
-
 	public String toStringResumido() {
 		return dataDeInsercao + " " + valor;
 	}
@@ -118,7 +110,6 @@ public class Transacao implements Serializable {
 	/**
 	 * Override do método toString da classe Object.
 	 */
-
 	@Override
 	public String toString() {
 		return "Descrição: " + descricao + "\nData de Inserção: "
@@ -129,7 +120,6 @@ public class Transacao implements Serializable {
 	/**
 	 * Override do método hashCode da classe Object.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -152,7 +142,6 @@ public class Transacao implements Serializable {
 	 * Override do método equals da classe Object. Duas transações são iguais se
 	 * todos os seus atributos são os mesmos.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

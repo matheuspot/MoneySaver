@@ -2,10 +2,11 @@ package auxiliar;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import fonte.Categoria;
 import fonte.Usuario;
 
@@ -13,14 +14,13 @@ import fonte.Usuario;
  * Classe usada para escrever uma coleção de objetos da classe Categoria em um
  * arquivo.
  */
-
 public class ArquivadorCategorias {
 	private String nomeDoArquivo;
 	private FileOutputStream fos;
 	private ObjectOutputStream oos;
 	private FileInputStream fis;
 	private ObjectInputStream ois;
-	private HashMap<Usuario, ArrayList<Categoria>> categoriasJaEscritas;
+	private Map<Usuario, List<Categoria>> categoriasJaEscritas;
 
 	/**
 	 * Construtor do arquivador, que tem como parâmetro o nome desejado para o
@@ -32,7 +32,6 @@ public class ArquivadorCategorias {
 	 * @throws Exception
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
-
 	public ArquivadorCategorias(String nomeDoArquivo) throws Exception {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
@@ -41,18 +40,16 @@ public class ArquivadorCategorias {
 	}
 
 	/**
-	 * Método que recebe um HashMap(Key: Usuario, Value: ArrayList de Categoria)
-	 * para escrever no arquivo.
+	 * Método que recebe um Map(Key: Usuario, Value: List de Categoria) para
+	 * escrever no arquivo.
 	 * 
 	 * @param mapaDeCategorias
-	 *            Um HashMap(Key: Usuario, Value: ArrayList de Categoria) para
-	 *            escrever no arquivo.
+	 *            Um Map(Key: Usuario, Value: List de Categoria) para escrever
+	 *            no arquivo.
 	 * @throws Exception
-	 *             Lança exceção se o HashMap estiver vazio.
+	 *             Lança exceção se o Map estiver vazio.
 	 */
-
-	public void escreveCategorias(
-			HashMap<Usuario, ArrayList<Categoria>> mapaDeCategorias)
+	public void escreveCategorias(Map<Usuario, List<Categoria>> mapaDeCategorias)
 			throws Exception {
 		if (mapaDeCategorias.isEmpty()) {
 			throw new Exception(
@@ -63,10 +60,11 @@ public class ArquivadorCategorias {
 			fos = new FileOutputStream(nomeDoArquivo);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(mapaDeCategorias);
-			oos.close();
-			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			oos.close();
+			fos.close();
 		}
 	}
 
@@ -74,12 +72,11 @@ public class ArquivadorCategorias {
 	 * Método que irá ler as categorias de seus respectivos usuários que estão
 	 * escritos no arquivo. Se o arquivo não existir, irá retornar null.
 	 * 
-	 * @return Um HashMap(Key: Usuario, Value: ArrayList de Categoria). Caso o
-	 *         arquivo não exista, irá retornar null.
+	 * @return Um Map(Key: Usuario, Value: List de Categoria). Caso o arquivo
+	 *         não exista, irá retornar null.
 	 */
-
 	@SuppressWarnings("unchecked")
-	public HashMap<Usuario, ArrayList<Categoria>> leCategorias() {
+	public Map<Usuario, List<Categoria>> leCategorias() {
 		try {
 			try {
 				fis = new FileInputStream(nomeDoArquivo);
@@ -88,12 +85,17 @@ public class ArquivadorCategorias {
 			}
 
 			ois = new ObjectInputStream(fis);
-			categoriasJaEscritas = (HashMap<Usuario, ArrayList<Categoria>>) ois
+			categoriasJaEscritas = (Map<Usuario, List<Categoria>>) ois
 					.readObject();
-			ois.close();
-			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				ois.close();
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return categoriasJaEscritas;
 	}

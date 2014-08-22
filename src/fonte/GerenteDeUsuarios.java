@@ -1,6 +1,7 @@
 package fonte;
 
 import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 import auxiliar.ArquivadorUsuarios;
@@ -8,10 +9,9 @@ import auxiliar.ArquivadorUsuarios;
 /**
  * Classe para gerenciamento de usuários.
  */
-
 public class GerenteDeUsuarios {
 
-	private ArrayList<Usuario> usuariosDoSistema;
+	private List<Usuario> usuariosDoSistema;
 	private ArquivadorUsuarios arquivador;
 
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
@@ -21,7 +21,6 @@ public class GerenteDeUsuarios {
 	/**
 	 * Construtor da classe GerenteDeUsuarios, que não tem parâmetros.
 	 */
-
 	public GerenteDeUsuarios() {
 		try {
 			arquivador = new ArquivadorUsuarios("data1.mos");
@@ -53,7 +52,6 @@ public class GerenteDeUsuarios {
 	 *             Lança exceção caso algum parâmetro seja inválido ou se o
 	 *             usuário já estiver cadastrado no sistema.
 	 */
-
 	public void adicionaUsuario(String nome, String email, String senha,
 			String confirmacaoDeSenha, String dicaDeSenha) throws Exception {
 
@@ -72,7 +70,6 @@ public class GerenteDeUsuarios {
 	 *            E-mail do usuário a ser procurado.
 	 * @return Retorna o usuário caso ele exista; caso contrário, retorna null.
 	 */
-
 	public Usuario pesquisaUsuario(String email) {
 		for (Usuario usuario : usuariosDoSistema) {
 			if (usuario.getEmail().equals(email))
@@ -93,7 +90,6 @@ public class GerenteDeUsuarios {
 	 *             Lança exceção caso o usuário não esteja cadastrado, ou a
 	 *             senha estiver errada.
 	 */
-
 	public Usuario login(String login, String senha) throws Exception {
 		Usuario usuario = pesquisaUsuario(login);
 
@@ -124,7 +120,6 @@ public class GerenteDeUsuarios {
 	 *             menos um dos parâmetros estiver incorreto ou usuário já
 	 *             existir.
 	 */
-
 	private void usuarioValido(String nome, String email, String senha,
 			String confirmacaoDeSenha, String dicaDeSenha) throws Exception {
 
@@ -146,7 +141,6 @@ public class GerenteDeUsuarios {
 	 *            Nome do usuário.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
-
 	private boolean nomeValido(String nome) {
 		if (nome == null || nome.trim().length() == 0)
 			return false;
@@ -160,7 +154,6 @@ public class GerenteDeUsuarios {
 	 *            E-mail do usuário.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
-
 	private boolean emailValido(String email) {
 		if (email == null || email.trim().length() == 0 || emailJaExiste(email))
 			return false;
@@ -176,7 +169,6 @@ public class GerenteDeUsuarios {
 	 *            E-mail do usuário.
 	 * @return Retorna true se o e-mail já existe, e false caso contrário.
 	 */
-
 	private boolean emailJaExiste(String email) {
 		if (pesquisaUsuario(email) != null)
 			return true;
@@ -194,7 +186,6 @@ public class GerenteDeUsuarios {
 	 * @return Retorna true se a senha for igual a confirmação de senha, e false
 	 *         caso contrário.
 	 */
-
 	private boolean senhaValida(String senha, String confirmacaoDeSenha) {
 		if (senha == null || senha.trim().length() == 0)
 			return false;
@@ -211,7 +202,6 @@ public class GerenteDeUsuarios {
 	 * @return Retorna true se a dica de senha for válida, e false caso
 	 *         contrário.
 	 */
-
 	private boolean dicaDeSenhaValida(String dicaDeSenha) {
 		if (dicaDeSenha == null || dicaDeSenha.trim().length() == 0)
 			return false;

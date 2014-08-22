@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Classe usada para representar uma conta.
  */
-
 public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -15,7 +14,6 @@ public class Conta implements Serializable {
 	 * Construtor da classe Conta, que não recebe nenhum parâmetro e começa com
 	 * saldo igual a zero.
 	 */
-
 	public Conta() {
 		saldo = 0.0;
 	}
@@ -35,7 +33,6 @@ public class Conta implements Serializable {
 	 * 
 	 * @return O saldo da conta.
 	 */
-
 	public double getSaldo() {
 		return saldo;
 	}
@@ -43,7 +40,6 @@ public class Conta implements Serializable {
 	/**
 	 * Override do método toString da classe Object
 	 */
-
 	@Override
 	public String toString() {
 		return String.format("R$ %.2f", saldo);
@@ -52,7 +48,6 @@ public class Conta implements Serializable {
 	/**
 	 * Override do método hashCode da classe Object.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -66,7 +61,6 @@ public class Conta implements Serializable {
 	/**
 	 * Override do método equals da classe Object.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

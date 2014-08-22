@@ -2,23 +2,23 @@ package auxiliar;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
+import java.util.List;
 import fonte.Usuario;
 
 /**
  * Classe usada para escrever uma lista de objetos da classe Usuario em um
  * arquivo.
  */
-
 public class ArquivadorUsuarios {
 	private String nomeDoArquivo;
 	private FileOutputStream fos;
 	private ObjectOutputStream oos;
 	private FileInputStream fis;
 	private ObjectInputStream ois;
-	private ArrayList<Usuario> usuariosJaEscritos;
+	private List<Usuario> usuariosJaEscritos;
 
 	/**
 	 * Construtor do arquivador, que tem como parâmetro o nome desejado para o
@@ -30,7 +30,6 @@ public class ArquivadorUsuarios {
 	 * @throws Exception
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
-
 	public ArquivadorUsuarios(String nomeDoArquivo) throws Exception {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
@@ -40,16 +39,14 @@ public class ArquivadorUsuarios {
 	}
 
 	/**
-	 * Método que recebe um ArrayList de usuários para escrever no arquivo.
+	 * Método que recebe um List de usuários para escrever no arquivo.
 	 * 
 	 * @param listaDeUsuarios
-	 *            Um ArrayList de usuários para escrever no arquivo.
+	 *            Um List de usuários para escrever no arquivo.
 	 * @throws Exception
-	 *             Lança exceção se o ArrayList estiver vazio.
+	 *             Lança exceção se o List estiver vazio.
 	 */
-
-	public void escreveUsuarios(ArrayList<Usuario> listaDeUsuarios)
-			throws Exception {
+	public void escreveUsuarios(List<Usuario> listaDeUsuarios) throws Exception {
 		if (listaDeUsuarios.isEmpty()) {
 			throw new Exception("Lista de usuários para escrever está vazia.");
 		}
@@ -58,10 +55,11 @@ public class ArquivadorUsuarios {
 			fos = new FileOutputStream(nomeDoArquivo);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(listaDeUsuarios);
-			oos.close();
-			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			oos.close();
+			fos.close();
 		}
 	}
 
@@ -69,12 +67,11 @@ public class ArquivadorUsuarios {
 	 * Método que irá ler os usuários que estão escritos no arquivo. Se o
 	 * arquivo não existir, irá retornar null.
 	 * 
-	 * @return Um ArrayList com objetos da classe Usuario. Caso o arquivo não
-	 *         exista, irá retornar null.
+	 * @return Um List com objetos da classe Usuario. Caso o arquivo não exista,
+	 *         irá retornar null.
 	 */
-
 	@SuppressWarnings("unchecked")
-	public ArrayList<Usuario> leUsuarios() {
+	public List<Usuario> leUsuarios() {
 		try {
 			try {
 				fis = new FileInputStream(nomeDoArquivo);
@@ -83,11 +80,16 @@ public class ArquivadorUsuarios {
 			}
 
 			ois = new ObjectInputStream(fis);
-			usuariosJaEscritos = (ArrayList<Usuario>) ois.readObject();
-			ois.close();
-			fis.close();
+			usuariosJaEscritos = (List<Usuario>) ois.readObject();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				fis.close();
+				ois.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return usuariosJaEscritos;
 	}

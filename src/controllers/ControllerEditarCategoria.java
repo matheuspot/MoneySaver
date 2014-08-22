@@ -1,15 +1,8 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
+import java.util.List;
 
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
-import org.controlsfx.dialog.Dialog.Actions;
-
-import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
@@ -27,6 +20,14 @@ import javafx.scene.control.TextField;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialog.Actions;
+import org.controlsfx.dialog.Dialogs;
+
+import fonte.Categoria;
+import fonte.GerenteDeCategorias;
+import fonte.Usuario;
 
 public class ControllerEditarCategoria {
 	
@@ -56,7 +57,7 @@ public class ControllerEditarCategoria {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ArrayList<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias = gerente.getCategorias();
     
     private ChangeListener<Categoria> changeListener = new ChangeListener<Categoria>() {
         @Override 

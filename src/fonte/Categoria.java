@@ -5,7 +5,6 @@ import java.io.Serializable;
 /**
  * Classe usada para representar uma categoria.
  */
-
 public class Categoria implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -22,7 +21,6 @@ public class Categoria implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public Categoria(String nome, String cor) throws Exception {
 		if (nome == null || nome.trim().length() == 0)
 			throw new Exception("Nome inválido.");
@@ -38,7 +36,6 @@ public class Categoria implements Serializable {
 	 * 
 	 * @return O nome da categoria.
 	 */
-
 	public String getNome() {
 		return nome;
 	}
@@ -48,7 +45,6 @@ public class Categoria implements Serializable {
 	 * 
 	 * @return A cor da categoria.
 	 */
-
 	public String getCor() {
 		return cor;
 	}
@@ -56,7 +52,6 @@ public class Categoria implements Serializable {
 	/**
 	 * Override do método toString da classe Object.
 	 */
-
 	@Override
 	public String toString() {
 		return nome;
@@ -65,7 +60,6 @@ public class Categoria implements Serializable {
 	/**
 	 * Override do método hashCode da classe Object.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -79,7 +73,6 @@ public class Categoria implements Serializable {
 	 * Override do método equals da classe Object. Duas categorias são iguais se
 	 * elas tem mesma cor e mesmo nome.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

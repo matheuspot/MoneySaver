@@ -5,7 +5,6 @@ import java.time.LocalDate;
 /**
  * Classe usada para representar uma despesa.
  */
-
 public class Despesa extends Transacao {
 
 	private static final long serialVersionUID = 1L;
@@ -26,7 +25,6 @@ public class Despesa extends Transacao {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public Despesa(String descricao, LocalDate dataDeInsercao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
@@ -35,7 +33,6 @@ public class Despesa extends Transacao {
 	/**
 	 * Método de acesso ao valor da despesa.
 	 */
-
 	@Override
 	public double getValor() {
 		return -super.getValor();

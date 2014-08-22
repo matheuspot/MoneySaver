@@ -2,10 +2,11 @@ package auxiliar;
 
 import java.io.FileInputStream;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
-import java.util.ArrayList;
-import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import fonte.Transacao;
 import fonte.Usuario;
 
@@ -13,14 +14,13 @@ import fonte.Usuario;
  * Classe usada para escrever uma coleção de objetos da classe Transacao em um
  * arquivo.
  */
-
 public class ArquivadorTransacoes {
 	private String nomeDoArquivo;
 	private FileOutputStream fos;
 	private ObjectOutputStream oos;
 	private FileInputStream fis;
 	private ObjectInputStream ois;
-	private HashMap<Usuario, ArrayList<Transacao>> transacoesJaEscritas;
+	private Map<Usuario, List<Transacao>> transacoesJaEscritas;
 
 	/**
 	 * Construtor do arquivador, que tem como parâmetro o nome desejado para o
@@ -32,7 +32,6 @@ public class ArquivadorTransacoes {
 	 * @throws Exception
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
-
 	public ArquivadorTransacoes(String nomeDoArquivo) throws Exception {
 		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
 			throw new Exception("Nome do arquivo inválido.");
@@ -41,18 +40,16 @@ public class ArquivadorTransacoes {
 	}
 
 	/**
-	 * Método que recebe um HashMap(Key: Usuario, Value: ArrayList de Transacao)
-	 * para escrever no arquivo.
+	 * Método que recebe um Map(Key: Usuario, Value: List de Transacao) para
+	 * escrever no arquivo.
 	 * 
 	 * @param mapaDeTransacoes
-	 *            Um HashMap(Key: Usuario, Value: ArrayList de Transacao) para
-	 *            escrever no arquivo.
+	 *            Um Map(Key: Usuario, Value: List de Transacao) para escrever
+	 *            no arquivo.
 	 * @throws Exception
-	 *             Lança exceção se o HashMap estiver vazio.
+	 *             Lança exceção se o Map estiver vazio.
 	 */
-
-	public void escreveTransacoes(
-			HashMap<Usuario, ArrayList<Transacao>> mapaDeTransacoes)
+	public void escreveTransacoes(Map<Usuario, List<Transacao>> mapaDeTransacoes)
 			throws Exception {
 		if (mapaDeTransacoes.isEmpty()) {
 			throw new Exception(
@@ -63,10 +60,11 @@ public class ArquivadorTransacoes {
 			fos = new FileOutputStream(nomeDoArquivo);
 			oos = new ObjectOutputStream(fos);
 			oos.writeObject(mapaDeTransacoes);
-			oos.close();
-			fos.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			oos.close();
+			fos.close();
 		}
 	}
 
@@ -74,12 +72,11 @@ public class ArquivadorTransacoes {
 	 * Método que irá ler as transações de seus respectivos usuários que estão
 	 * escritos no arquivo. Se o arquivo não existir, irá retornar null.
 	 * 
-	 * @return Um HashMap(Key: Usuario, Value: ArrayList de Transacao). Caso o
-	 *         arquivo não exista, irá retornar null.
+	 * @return Um Map(Key: Usuario, Value: List de Transacao). Caso o arquivo
+	 *         não exista, irá retornar null.
 	 */
-
 	@SuppressWarnings("unchecked")
-	public HashMap<Usuario, ArrayList<Transacao>> leTransacoes() {
+	public Map<Usuario, List<Transacao>> leTransacoes() {
 		try {
 			try {
 				fis = new FileInputStream(nomeDoArquivo);
@@ -88,12 +85,17 @@ public class ArquivadorTransacoes {
 			}
 
 			ois = new ObjectInputStream(fis);
-			transacoesJaEscritas = (HashMap<Usuario, ArrayList<Transacao>>) ois
+			transacoesJaEscritas = (Map<Usuario, List<Transacao>>) ois
 					.readObject();
-			ois.close();
-			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				ois.close();
+				fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return transacoesJaEscritas;
 	}

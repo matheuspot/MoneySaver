@@ -1,15 +1,7 @@
 package controllers;
 
-import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.Usuario;
-
 import java.io.IOException;
-import java.util.ArrayList;
-
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialogs;
-import org.controlsfx.dialog.Dialog.Actions;
+import java.util.List;
 
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -24,6 +16,14 @@ import javafx.scene.control.ListView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialog.Actions;
+import org.controlsfx.dialog.Dialogs;
+
+import fonte.Categoria;
+import fonte.GerenteDeCategorias;
+import fonte.Usuario;
 
 public class ControllerRemoverCategoria {
 	
@@ -47,7 +47,7 @@ public class ControllerRemoverCategoria {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ArrayList<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias = gerente.getCategorias();
     
     @FXML
 	void initialize() {

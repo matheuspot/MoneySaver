@@ -3,14 +3,13 @@ package fonte;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.GeneralSecurityException;
-import java.util.regex.*;
-
+import java.util.regex.Matcher;
+import java.util.regex.Pattern;
 import auxiliar.Criptografia;
 
 /**
  * Classe usada para representar um usuário.
  */
-
 public class Usuario implements Serializable {
 
 	private static final long serialVersionUID = 1L;
@@ -39,7 +38,6 @@ public class Usuario implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public Usuario(String nome, String email, String senha, String dicaSenha)
 			throws Exception {
 		if (!validaNome(nome))
@@ -72,7 +70,6 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se a dica de senha do usuário for válida, e false
 	 *         caso contrário.
 	 */
-
 	private boolean validaDicaSenha(String dicaSenha) {
 		if (dicaSenha.trim().length() == 0 || dicaSenha == null)
 			return false;
@@ -87,7 +84,6 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se a senha do usuário for válida, e false caso
 	 *         contrário.
 	 */
-
 	private boolean validaSenha(String senha) {
 		if (senha.length() < 6 || senha.length() > 8)
 			return false;
@@ -102,7 +98,6 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se o nome do usuário for válido, e false caso
 	 *         contrário.
 	 */
-
 	private boolean validaNome(String nome) {
 		if (nome.trim().length() == 0 || nome == null)
 			return false;
@@ -117,7 +112,6 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se o e-mail do usuário for válido, e false caso
 	 *         contrário.
 	 */
-
 	private boolean validaEmail(String email) {
 		if (email == null || email.trim().length() == 0)
 			return false;
@@ -131,7 +125,6 @@ public class Usuario implements Serializable {
 	 * 
 	 * @return O nome do usuário.
 	 */
-
 	public String getNome() {
 		return nome;
 	}
@@ -141,7 +134,6 @@ public class Usuario implements Serializable {
 	 * 
 	 * @return O e-mail do usuário.
 	 */
-
 	public String getEmail() {
 		return email;
 	}
@@ -151,7 +143,6 @@ public class Usuario implements Serializable {
 	 * 
 	 * @return A dica de senha do usuário.
 	 */
-
 	public String getDicaSenha() {
 		return dicaSenha;
 	}
@@ -161,7 +152,6 @@ public class Usuario implements Serializable {
 	 * 
 	 * @return A conta do usuário.
 	 */
-
 	public Conta getConta() {
 		return conta;
 	}
@@ -169,7 +159,6 @@ public class Usuario implements Serializable {
 	/**
 	 * Override do método toString da classe Object.
 	 */
-
 	@Override
 	public String toString() {
 		return "Nome: " + nome + "\nE-mail: " + email + "\nDica de senha: "
@@ -187,7 +176,6 @@ public class Usuario implements Serializable {
 	 * @throws IOException
 	 * @throws GeneralSecurityException
 	 */
-
 	public boolean checaLogin(String senhaParaChecar)
 			throws GeneralSecurityException, IOException {
 		if (senhaParaChecar.equals(Criptografia.decrypt(senha)))
@@ -198,7 +186,6 @@ public class Usuario implements Serializable {
 	/**
 	 * Override do método hashCode da classe Object.
 	 */
-
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -211,7 +198,6 @@ public class Usuario implements Serializable {
 	 * Override do método equals da classe Object. Dois usuários são iguais se
 	 * eles tem o mesmo e-mail.
 	 */
-
 	@Override
 	public boolean equals(Object obj) {
 		if (this == obj)

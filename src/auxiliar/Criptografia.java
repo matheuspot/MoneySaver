@@ -14,7 +14,6 @@ import sun.misc.BASE64Encoder;
 /**
  * Classe usada para criptografar uma senha.
  */
-
 public abstract class Criptografia {
 
 	private static final char[] PASSWORD = "enfldsgbnlsngdlksdsgm"
@@ -31,7 +30,6 @@ public abstract class Criptografia {
 	 * @throws GeneralSecurityException
 	 * @throws UnsupportedEncodingException
 	 */
-
 	public static String encrypt(String property)
 			throws GeneralSecurityException, UnsupportedEncodingException {
 		SecretKeyFactory keyFactory = SecretKeyFactory
@@ -56,7 +54,6 @@ public abstract class Criptografia {
 	 * @throws GeneralSecurityException
 	 * @throws IOException
 	 */
-
 	public static String decrypt(String property)
 			throws GeneralSecurityException, IOException {
 		SecretKeyFactory keyFactory = SecretKeyFactory
@@ -71,5 +68,4 @@ public abstract class Criptografia {
 	private static byte[] base64Decode(String property) throws IOException {
 		return new BASE64Decoder().decodeBuffer(property);
 	}
-
 }

@@ -1,17 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
-
-import org.controlsfx.dialog.Dialog;
-import org.controlsfx.dialog.Dialog.Actions;
-import org.controlsfx.dialog.Dialogs;
-
-import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.GerenteDeTransacoes;
-import fonte.Usuario;
+import java.util.List;
 
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -33,6 +23,15 @@ import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialog.Actions;
+import org.controlsfx.dialog.Dialogs;
+
+import fonte.Categoria;
+import fonte.GerenteDeCategorias;
+import fonte.GerenteDeTransacoes;
+import fonte.Usuario;
 
 public class ControllerAdicionarTransacao {
 
@@ -78,7 +77,7 @@ public class ControllerAdicionarTransacao {
     
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
     
-    private ArrayList<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias = gerente.getCategorias();
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   

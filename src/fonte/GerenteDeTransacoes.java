@@ -3,22 +3,22 @@ package fonte;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashMap;
-
+import java.util.List;
+import java.util.Map;
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
 /**
  * Classe para gerenciamento de transações.
  */
-
 public class GerenteDeTransacoes {
 
-	private HashMap<Usuario, ArrayList<Transacao>> transacoesDoSistema;
-	private ArrayList<Transacao> transacoesExistentes;
+	private Map<Usuario, List<Transacao>> transacoesDoSistema;
+	private List<Transacao> transacoesExistentes;
 	private ArquivadorTransacoes arquivadorTransacoes;
 	private ArquivadorUsuarios arquivadorUsuarios;
 	private Usuario usuario;
-	private ArrayList<Usuario> usuariosDoSistema;
+	private List<Usuario> usuariosDoSistema;
 	private Transacao transacaoQueSeraAdicionada;
 
 	/**
@@ -28,7 +28,6 @@ public class GerenteDeTransacoes {
 	 * @param usuario
 	 *            O usuário que está logado.
 	 */
-
 	public GerenteDeTransacoes(Usuario usuario) {
 		try {
 			arquivadorTransacoes = new ArquivadorTransacoes("data2.mos");
@@ -43,10 +42,10 @@ public class GerenteDeTransacoes {
 		}
 
 		if (arquivadorTransacoes.leTransacoes() == null) {
-			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>();
+			transacoesDoSistema = new HashMap<Usuario, List<Transacao>>();
 			transacoesExistentes = new ArrayList<>();
 		} else {
-			transacoesDoSistema = new HashMap<Usuario, ArrayList<Transacao>>(
+			transacoesDoSistema = new HashMap<Usuario, List<Transacao>>(
 					arquivadorTransacoes.leTransacoes());
 			transacoesExistentes = new ArrayList<>(
 					transacoesDoSistema.get(usuario));
@@ -79,7 +78,6 @@ public class GerenteDeTransacoes {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public void adicionaTransacao(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
@@ -116,7 +114,6 @@ public class GerenteDeTransacoes {
 	 * @throws Exception
 	 *             Lança exceção se a transação não existir.
 	 */
-
 	public void removeTransacao(Transacao transacao) throws Exception {
 		if (!transacoesExistentes.contains(transacao))
 			throw new Exception("Transação inexistente.");
@@ -152,7 +149,6 @@ public class GerenteDeTransacoes {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
 			LocalDate dataDeInsercao, String valor, Categoria categoria,
 			String recorrencia, String tipoDeTransacao) throws Exception {
@@ -188,42 +184,6 @@ public class GerenteDeTransacoes {
 	}
 
 	/**
-	 * Método que lista as transações que o usuário têm de forma resumida.
-	 * 
-	 * @return Um Array de String com informações das transações do usuário de
-	 *         forma reduzida.
-	 */
-
-	public String[] listaTransacoesResumidas() {
-		int tamanhoDoArray = transacoesExistentes.size();
-		String[] transacoes = new String[tamanhoDoArray];
-
-		for (int i = 0; i < tamanhoDoArray; i++) {
-			transacoes[i] = transacoesExistentes.get(i).toStringResumido();
-		}
-
-		return transacoes;
-	}
-
-	/**
-	 * Método que lista as transações que o usuário têm de forma detalhada.
-	 * 
-	 * @return Um Array de String com informações detalhadas das transações que
-	 *         o usuário têm.
-	 */
-
-	public String[] listaTransacoesDetalhadas() {
-		int tamanhoDoArray = transacoesExistentes.size();
-		String[] transacoes = new String[tamanhoDoArray];
-
-		for (int i = 0; i < tamanhoDoArray; i++) {
-			transacoes[i] = transacoesExistentes.get(i).toString();
-		}
-
-		return transacoes;
-	}
-
-	/**
 	 * Método que verifica se uma transação é válida.
 	 * 
 	 * @param descricao
@@ -241,7 +201,6 @@ public class GerenteDeTransacoes {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	private void transacaoValida(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
@@ -271,7 +230,6 @@ public class GerenteDeTransacoes {
 	 *            O tipo de transação.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
-
 	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
 		if (tipoDeTransacao == null
 				|| (!tipoDeTransacao.equals("despesa") && !tipoDeTransacao
@@ -287,7 +245,6 @@ public class GerenteDeTransacoes {
 	 *            A recorrência da transação.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-
 	private boolean recorrenciaValida(String recorrencia) {
 		if (recorrencia == null || recorrencia.trim().length() == 0)
 			return false;
@@ -301,7 +258,6 @@ public class GerenteDeTransacoes {
 	 *            A categoria da transação.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-
 	private boolean categoriaValida(Categoria categoria) {
 		if (categoria == null)
 			return false;
@@ -315,11 +271,10 @@ public class GerenteDeTransacoes {
 	 *            O valor da transação.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
-
 	private boolean valorValido(String valor) {
 		try {
-			Double valor2 = Double.parseDouble(valor);
-			if (valor2 <= 0)
+			Double valorNovo = Double.parseDouble(valor);
+			if (valorNovo <= 0)
 				return false;
 			return true;
 		} catch (Exception e) {
@@ -334,7 +289,6 @@ public class GerenteDeTransacoes {
 	 *            A data de inserção da transação.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-
 	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
 		if (dataDeInsercao == null)
 			return false;
@@ -348,7 +302,6 @@ public class GerenteDeTransacoes {
 	 *            A descrição da transação.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-
 	private boolean descricaoValida(String descricao) {
 		if (descricao == null || descricao.trim().length() == 0)
 			return false;
@@ -356,12 +309,13 @@ public class GerenteDeTransacoes {
 	}
 
 	/**
-	 * Retorna uma lista com as transações existentes de um determinado usuário.
+	 * Método de acesso a lista de transações existentes do usuário que está
+	 * logado.
 	 * 
-	 * @return Uma lista com as transações existentes de um determinado usuário.
+	 * @return Retorna uma lista com as transações existentes do usuário que
+	 *         está logado.
 	 */
-
-	public ArrayList<Transacao> getTransacoesExistentes() {
+	public List<Transacao> getTransacoesExistentes() {
 		return transacoesExistentes;
 	}
 }

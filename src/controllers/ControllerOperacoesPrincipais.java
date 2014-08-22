@@ -3,11 +3,8 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
+import java.util.List;
 
-import fonte.GerenteDeTransacoes;
-import fonte.Transacao;
-import fonte.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -26,6 +23,9 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
+import fonte.GerenteDeTransacoes;
+import fonte.Transacao;
+import fonte.Usuario;
 
 public class ControllerOperacoesPrincipais {
 	
@@ -93,7 +93,7 @@ public class ControllerOperacoesPrincipais {
     	labelSaldo.setText(usuarioAtivo.getConta().toString());
     	
     	gerente = new GerenteDeTransacoes(usuarioAtivo);
-    	ArrayList<Transacao> transacoesExistentes = gerente.getTransacoesExistentes();
+    	List<Transacao> transacoesExistentes = gerente.getTransacoesExistentes();
     	ObservableList<Transacao> transacoes = FXCollections.observableArrayList();
     	
     	for (Transacao transacao : transacoesExistentes) 

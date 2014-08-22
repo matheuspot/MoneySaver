@@ -2,16 +2,17 @@ package fonte;
 
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 import auxiliar.ArquivadorCategorias;
 
 /**
  * Classe para gerenciamento de categorias.
  */
-
 public class GerenteDeCategorias {
 
-	private HashMap<Usuario, ArrayList<Categoria>> categoriasDoSistema;
-	private ArrayList<Categoria> categoriasExistentes;
+	private Map<Usuario, List<Categoria>> categoriasDoSistema;
+	private List<Categoria> categoriasExistentes;
 	private ArquivadorCategorias arquivador;
 	private Usuario usuario;
 
@@ -22,7 +23,6 @@ public class GerenteDeCategorias {
 	 * @param usuario
 	 *            O usuário que está logado.
 	 */
-
 	public GerenteDeCategorias(Usuario usuario) {
 		try {
 			arquivador = new ArquivadorCategorias("data3.mos");
@@ -31,10 +31,10 @@ public class GerenteDeCategorias {
 		}
 
 		if (arquivador.leCategorias() == null) {
-			categoriasDoSistema = new HashMap<Usuario, ArrayList<Categoria>>();
+			categoriasDoSistema = new HashMap<Usuario, List<Categoria>>();
 			categoriasExistentes = new ArrayList<>();
 		} else {
-			categoriasDoSistema = new HashMap<Usuario, ArrayList<Categoria>>(
+			categoriasDoSistema = new HashMap<Usuario, List<Categoria>>(
 					arquivador.leCategorias());
 			categoriasExistentes = new ArrayList<>(
 					categoriasDoSistema.get(usuario));
@@ -53,7 +53,6 @@ public class GerenteDeCategorias {
 	 * @return Retorna a categoria, caso ela exista; e retorna null, caso
 	 *         contrário.
 	 */
-
 	public Categoria pesquisaCategoria(String nome) {
 		for (Categoria categoria : categoriasExistentes) {
 			if (categoria.getNome().equals(nome))
@@ -66,7 +65,6 @@ public class GerenteDeCategorias {
 	 * Método que adiciona categorias default quando o usuário é novo e não tem
 	 * nenhuma categoria ainda.
 	 */
-
 	private void adicionaCategoriasDefault() {
 		try {
 			categoriasExistentes.add(new Categoria("Lazer", "669966"));
@@ -90,7 +88,6 @@ public class GerenteDeCategorias {
 	 * 
 	 * @return Um Array de Strings com os nomes das categorias do usuário.
 	 */
-
 	public String[] listaCategorias() {
 		int tamanhoDoArray = categoriasExistentes.size();
 		String[] nomeDasCategorias = new String[tamanhoDoArray];
@@ -101,12 +98,13 @@ public class GerenteDeCategorias {
 
 		return nomeDasCategorias;
 	}
-	
+
 	/**
-	 * Método que retorna um ArrayList com as categorias do usuário.
-	 * @return Um ArrayList com as categorias do usuário.
+	 * Método que retorna um List com as categorias do usuário.
+	 * 
+	 * @return Um List com as categorias do usuário.
 	 */
-	public ArrayList<Categoria> getCategorias() {
+	public List<Categoria> getCategorias() {
 		return categoriasExistentes;
 	}
 
@@ -120,7 +118,6 @@ public class GerenteDeCategorias {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public void adicionaCategoria(String nomeCategoria, String corCategoria)
 			throws Exception {
 
@@ -142,7 +139,6 @@ public class GerenteDeCategorias {
 	 *             Lança exceção se a categoria que deseja-se remover não
 	 *             existir.
 	 */
-
 	public void removeCategoria(Categoria categoria) throws Exception {
 		if (!categoriasExistentes.contains(categoria))
 			throw new Exception("Categoria inexistente.");
@@ -166,7 +162,6 @@ public class GerenteDeCategorias {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-
 	public void editaCategoria(Categoria categoriaParaEditar,
 			String nomeCategoria, String corCategoria) throws Exception {
 
@@ -196,7 +191,6 @@ public class GerenteDeCategorias {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido ou
 	 *             se a categoria já existe.
 	 */
-
 	public void categoriaValida(String nomeCategoria, String corCategoria)
 			throws Exception {
 		if (!nomeValido(nomeCategoria))
@@ -218,7 +212,6 @@ public class GerenteDeCategorias {
 	 *            O nome da categoria.
 	 * @return Retorna true se o nome for válido e false, caso contrário.
 	 */
-
 	private boolean nomeValido(String nomeCategoria) {
 		if (nomeCategoria == null || nomeCategoria.length() == 0)
 			return false;
@@ -232,7 +225,6 @@ public class GerenteDeCategorias {
 	 *            A cor da categoria.
 	 * @return Retorna true se o nome for válido e false, caso contrário.
 	 */
-
 	private boolean corValido(String corCategoria) {
 		if (corCategoria == null || corCategoria.length() == 0)
 			return false;
