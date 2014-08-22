@@ -63,8 +63,14 @@ public class ArquivadorTransacoes {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			oos.close();
-			fos.close();
+			try {
+				if (oos != null)
+					oos.close();
+				if (fos != null)
+					fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -87,10 +93,17 @@ public class ArquivadorTransacoes {
 			ois = new ObjectInputStream(fis);
 			transacoesJaEscritas = (Map<Usuario, List<Transacao>>) ois
 					.readObject();
-			ois.close();
-			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (ois != null)
+					ois.close();
+				if (fis != null)
+					fis.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return transacoesJaEscritas;
 	}

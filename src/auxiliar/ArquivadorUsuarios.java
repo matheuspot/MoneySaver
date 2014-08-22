@@ -58,8 +58,14 @@ public class ArquivadorUsuarios {
 		} catch (Exception e) {
 			e.printStackTrace();
 		} finally {
-			oos.close();
-			fos.close();
+			try {
+				if (oos != null)
+					oos.close();
+				if (fos != null)
+					fos.close();
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
 		}
 	}
 
@@ -81,10 +87,17 @@ public class ArquivadorUsuarios {
 
 			ois = new ObjectInputStream(fis);
 			usuariosJaEscritos = (List<Usuario>) ois.readObject();
-			fis.close();
-			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
+		} finally {
+			try {
+				if (fis != null)
+					fis.close();
+				if (ois != null)
+					ois.close();
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 		return usuariosJaEscritos;
 	}
