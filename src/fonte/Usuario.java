@@ -71,7 +71,7 @@ public class Usuario implements Serializable {
 	 *         caso contrário.
 	 */
 	private boolean validaDicaSenha(String dicaSenha) {
-		if (dicaSenha.trim().length() == 0 || dicaSenha == null)
+		if (dicaSenha == null || dicaSenha.trim().length() == 0)
 			return false;
 		return true;
 	}
@@ -99,7 +99,7 @@ public class Usuario implements Serializable {
 	 *         contrário.
 	 */
 	private boolean validaNome(String nome) {
-		if (nome.trim().length() == 0 || nome == null)
+		if (nome == null || nome.trim().length() == 0)
 			return false;
 		return true;
 	}
