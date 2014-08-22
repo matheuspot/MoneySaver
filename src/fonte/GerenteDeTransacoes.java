@@ -5,6 +5,8 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+import java.util.stream.Collectors;
+
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
@@ -317,5 +319,20 @@ public class GerenteDeTransacoes {
 	 */
 	public List<Transacao> getTransacoesExistentes() {
 		return transacoesExistentes;
+	}
+
+	/**
+	 * Método que recebe um inteiro de 1 até 12, que representa o mês, e filtra
+	 * as transações baseado no mês de entrada.
+	 * 
+	 * @param mes
+	 *            O mês que deseja-se usar para o filtro.
+	 * @return Retorna uma List de Transacao somente do mês desejado.
+	 */
+	public List<Transacao> listaTransacoesPeloMes(int mes) {
+		List<Transacao> listaFiltradaPorMes = transacoesExistentes.stream()
+				.filter(t -> t.getDataDeInsercao().getMonthValue() == mes)
+				.collect(Collectors.toList());
+		return listaFiltradaPorMes;
 	}
 }

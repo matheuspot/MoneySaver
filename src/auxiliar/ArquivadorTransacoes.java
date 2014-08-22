@@ -87,15 +87,10 @@ public class ArquivadorTransacoes {
 			ois = new ObjectInputStream(fis);
 			transacoesJaEscritas = (Map<Usuario, List<Transacao>>) ois
 					.readObject();
+			ois.close();
+			fis.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				ois.close();
-				fis.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		return transacoesJaEscritas;
 	}

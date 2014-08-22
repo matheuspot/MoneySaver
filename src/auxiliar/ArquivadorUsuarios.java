@@ -81,15 +81,10 @@ public class ArquivadorUsuarios {
 
 			ois = new ObjectInputStream(fis);
 			usuariosJaEscritos = (List<Usuario>) ois.readObject();
+			fis.close();
+			ois.close();
 		} catch (Exception e) {
 			e.printStackTrace();
-		} finally {
-			try {
-				fis.close();
-				ois.close();
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
 		}
 		return usuariosJaEscritos;
 	}
