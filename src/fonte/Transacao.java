@@ -6,7 +6,7 @@ import java.time.LocalDate;
 /**
  * Classe usada para representar uma transação.
  */
-public class Transacao implements Serializable {
+public class Transacao implements Serializable, Comparable<Transacao> {
 
 	private static final long serialVersionUID = 1L;
 
@@ -98,16 +98,6 @@ public class Transacao implements Serializable {
 	}
 
 	/**
-	 * Método parecido com o toString mas que retorna apenas a data e o valor da
-	 * transação.
-	 * 
-	 * @return A data e o valor da transação.
-	 */
-	public String toStringResumido() {
-		return dataDeInsercao + " " + valor;
-	}
-
-	/**
 	 * Override do método toString da classe Object.
 	 */
 	@Override
@@ -175,5 +165,13 @@ public class Transacao implements Serializable {
 				.doubleToLongBits(other.valor))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Método usado para comparar uma transação com outra baseado em suas datas.
+	 */
+	@Override
+	public int compareTo(Transacao outraTransacao) {
+		return -dataDeInsercao.compareTo(outraTransacao.getDataDeInsercao());
 	}
 }

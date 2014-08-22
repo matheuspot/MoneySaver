@@ -105,12 +105,6 @@ public class TestaTransacao {
 	}
 
 	@Test
-	public void testaToStringResumido() {
-		assertEquals(data1 + " 400.0", transacao1.toStringResumido());
-		assertEquals(data2 + " 65.4", transacao2.toStringResumido());
-	}
-
-	@Test
 	public void testaToString() {
 		assertEquals("Descrição: Bolsa PIBIC"
 				+ "\nData de Inserção: " + data1 + "\nValor: 400.0"
