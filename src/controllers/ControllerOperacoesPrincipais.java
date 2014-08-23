@@ -3,8 +3,12 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -31,6 +35,10 @@ public class ControllerOperacoesPrincipais {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
+	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
+    private GerenteDeTransacoes gerente;  
+    private Tabela tabela;
 
 		@FXML
 	    private Button editarTransacao;
@@ -71,11 +79,6 @@ public class ControllerOperacoesPrincipais {
 	    @FXML
 	    private ComboBox<String> CBmes;
 	    
-	    private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-	    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-	    
-	    private GerenteDeTransacoes gerente;  
-	    
     @FXML
 	void initialize() {
     	adicionarTransacao.setOnAction(eventos);
@@ -85,73 +88,122 @@ public class ControllerOperacoesPrincipais {
     	removerCategoria.setOnAction(eventos);
     	editarCategoria.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
+    	tabela = new Tabela();
     	CBmes.getItems().addAll(meses);
+    	CBmes.valueProperty().addListener(tabela);
     }
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
     	labelSaldo.setText(usuarioAtivo.getConta().toString());
-    	
     	gerente = new GerenteDeTransacoes(usuarioAtivo);
-    	List<Transacao> transacoesExistentes = gerente.getTransacoesExistentes();
-    	ObservableList<Transacao> transacoes = FXCollections.observableArrayList();
+    	tabela.criarTabela();
+    }
+    
+    private class Tabela implements ChangeListener<String>{
     	
-    	for (Transacao transacao : transacoesExistentes) 
- 		    transacoes.add(transacao);
+    	private List<Transacao> transacoes = null;
+    	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
+    	private String valor;
+    	private ObservableList<Transacao> transacoes2;
+    	private TableColumn<Transacao, LocalDate> colunaData = new TableColumn<Transacao, LocalDate>("Data");
+    	private TableColumn<Transacao, Double> colunaValor = new TableColumn<Transacao, Double>("Valor");
     	
-    	TableColumn<Transacao, Double> colunaValor = new TableColumn<Transacao, Double>("Valor");
-    	colunaValor.setCellValueFactory(new PropertyValueFactory<Transacao, Double>("valor"));
-    	colunaValor.setCellFactory(new Callback<TableColumn<Transacao, Double>, TableCell<Transacao,Double>>(){
-
-            @Override
-            public TableCell<Transacao, Double> call(TableColumn<Transacao, Double> param) {
-
-                TableCell<Transacao, Double> cell = new TableCell<Transacao, Double>(){
-
-                	protected void updateItem(Double item, boolean empty) {
-                        if (item != null) {
-                        	if (item < 0)
-                        		setTextFill(Color.RED);
-                        	else
-                        		setTextFill(Color.GREEN);
-                            setText(String.valueOf(item));
-                        }
-                    }                    
-                };               
-                
-                cell.setAlignment(Pos.CENTER);
-                return cell;        
-            }
-
-        });
+    	public Tabela() {
+    		mapaMeses.put("Janeiro", 1);
+        	mapaMeses.put("Fevereiro", 2);
+        	mapaMeses.put("Março", 3);
+        	mapaMeses.put("Abril", 4);
+        	mapaMeses.put("Maio", 5);
+        	mapaMeses.put("Junho", 6);
+        	mapaMeses.put("Julho", 7);
+        	mapaMeses.put("Agosto", 8);
+        	mapaMeses.put("Setembro", 9);
+        	mapaMeses.put("Outubro", 10);
+        	mapaMeses.put("Novembro", 11);
+        	mapaMeses.put("Dezembro", 12);
+		}
     	
+    	@Override 
+        public void changed(ObservableValue ov, String t, String t1) {  
+    		transacoes = gerente.listaTransacoesPeloMes(mapaMeses.get(t1));
+        	criarTabela();
+        }  
     	
-    	TableColumn<Transacao, LocalDate> colunaData = new TableColumn<Transacao, LocalDate>("Data");
-    	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, LocalDate>("dataDeInsercao"));
-    	colunaData.setCellFactory(new Callback<TableColumn<Transacao, LocalDate>, TableCell<Transacao, LocalDate>>(){
+    	public void criarTabela(){
+    		transacoes2 = FXCollections.observableArrayList();
+    		
+    		if (transacoes == null){
+    			int c = 0;
+    			transacoes = gerente.getTransacoesExistentes();
+    			
+    			for (Transacao transacao : transacoes){
+    				transacoes2.add(transacao);
+    				c++;
+    				if (c == 9)
+    					break;
+    			}
+         		    
+    		} else {
+    			for (Transacao transacao : transacoes) 
+         		    transacoes2.add(transacao);
+    		}
+        	
+        	colunaValor.setCellValueFactory(new PropertyValueFactory<Transacao, Double>("valor"));
+        	colunaValor.setCellFactory(new Callback<TableColumn<Transacao, Double>, TableCell<Transacao,Double>>(){
 
-            @Override
-            public TableCell<Transacao, LocalDate> call(TableColumn<Transacao, LocalDate> param) {
+                @Override
+                public TableCell<Transacao, Double> call(TableColumn<Transacao, Double> param) {
 
-                TableCell<Transacao, LocalDate> cell = new TableCell<Transacao, LocalDate>(){
+                    TableCell<Transacao, Double> cell = new TableCell<Transacao, Double>(){
 
-                	protected void updateItem(LocalDate item, boolean empty) {
-                        if (item != null) {
-                        	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-                            setText(item.format(formatter));
-                        }
-                    }                    
-                };               
-                
-                cell.setAlignment(Pos.CENTER);
-                return cell;        
-            }
+                    	protected void updateItem(Double item, boolean empty) {
+                            if (item != null) {
+                            	valor = String.format("R$ %,.2f", item);
+                            	
+                            	if (item < 0)
+                            		setTextFill(Color.RED);
+                            	else
+                            		setTextFill(Color.GREEN);
+                            	
+                                setText(valor);
+                            }
+                        }                    
+                    };               
+                    
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;        
+                }
 
-        });
-    	
-    	table.setTableMenuButtonVisible(true);
-    	table.getColumns().addAll(colunaData, colunaValor);
-    	table.setItems(transacoes);
+            });
+        	
+        	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, LocalDate>("dataDeInsercao"));
+        	colunaData.setCellFactory(new Callback<TableColumn<Transacao, LocalDate>, TableCell<Transacao, LocalDate>>(){
+
+                @Override
+                public TableCell<Transacao, LocalDate> call(TableColumn<Transacao, LocalDate> param) {
+
+                    TableCell<Transacao, LocalDate> cell = new TableCell<Transacao, LocalDate>(){
+
+                    	protected void updateItem(LocalDate item, boolean empty) {
+                            if (item != null) {
+                            	DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+                                setText(item.format(formatter));
+                            }
+                        }                    
+                    };               
+                    
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;        
+                }
+
+            });
+        	
+        	table.getColumns().clear();
+        	table.setTableMenuButtonVisible(false);
+        	table.getColumns().addAll(colunaData, colunaValor);
+        	table.setItems(transacoes2);
+    	}
     }
     	
     private class Eventos implements EventHandler<ActionEvent> {
