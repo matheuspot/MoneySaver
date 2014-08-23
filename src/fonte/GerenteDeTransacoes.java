@@ -316,7 +316,7 @@ public class GerenteDeTransacoes {
 	private boolean descricaoValida(String descricao) {
 		if (descricao == null || descricao.trim().length() == 0)
 			return false;
-		if (descricao.length() > 50)
+		if (descricao.length() > 25)
 			return false;
 		return true;
 	}
