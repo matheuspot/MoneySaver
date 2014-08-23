@@ -20,6 +20,7 @@ import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
+import javafx.scene.control.SplitPane;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -63,9 +64,9 @@ public class ControllerOperacoesPrincipais {
 
 	    @FXML
 	    private Button botaoSair;
-
+	    
 	    @FXML
-	    private AnchorPane content;
+	    private SplitPane content;
 	    
 	    @FXML
 	    private TableView<Transacao> table;
@@ -74,10 +75,11 @@ public class ControllerOperacoesPrincipais {
 	    private TableColumn<Transacao, Double> colunaValor;
 	    
 	    @FXML
-	    private TableColumn<Transacao, String> colunaData;
+	    private TableColumn<Transacao, LocalDate> colunaData;
 	    
 	    @FXML
 	    private ComboBox<String> CBmes;
+	   
 	    
     @FXML
 	void initialize() {
@@ -104,10 +106,7 @@ public class ControllerOperacoesPrincipais {
     	
     	private List<Transacao> transacoes = null;
     	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
-    	private String valor;
     	private ObservableList<Transacao> transacoes2;
-    	private TableColumn<Transacao, LocalDate> colunaData = new TableColumn<Transacao, LocalDate>("Data");
-    	private TableColumn<Transacao, Double> colunaValor = new TableColumn<Transacao, Double>("Valor");
     	
     	public Tabela() {
     		mapaMeses.put("Janeiro", 1);
@@ -140,7 +139,7 @@ public class ControllerOperacoesPrincipais {
     			for (Transacao transacao : transacoes){
     				transacoes2.add(transacao);
     				c++;
-    				if (c == 9)
+    				if (c == 10)
     					break;
     			}
          		    
@@ -159,14 +158,12 @@ public class ControllerOperacoesPrincipais {
 
                     	protected void updateItem(Double item, boolean empty) {
                             if (item != null) {
-                            	valor = String.format("R$ %,.2f", item);
-                            	
                             	if (item < 0)
                             		setTextFill(Color.RED);
                             	else
                             		setTextFill(Color.GREEN);
                             	
-                                setText(valor);
+                                setText(String.format("R$ %,.2f", item));
                             }
                         }                    
                     };               
@@ -199,9 +196,7 @@ public class ControllerOperacoesPrincipais {
 
             });
         	
-        	table.getColumns().clear();
         	table.setTableMenuButtonVisible(false);
-        	table.getColumns().addAll(colunaData, colunaValor);
         	table.setItems(transacoes2);
     	}
     }
@@ -216,13 +211,13 @@ public class ControllerOperacoesPrincipais {
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionarTransacao controller = fxmlLoader.<ControllerAdicionarTransacao>getController();
 					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
+					content.getItems().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
 			} else if (evento.getSource() == botaoSair) {
 				try {
-					content.getChildren().setAll(
+					content.getItems().setAll(
 							FXMLLoader.load(getClass().getResource(
 									"../gui/TelaPrincipal.fxml")));
 				} catch (IOException e) {
@@ -234,7 +229,7 @@ public class ControllerOperacoesPrincipais {
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionaCategoria controller = fxmlLoader.<ControllerAdicionaCategoria>getController();
 					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
+					content.getItems().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -244,7 +239,7 @@ public class ControllerOperacoesPrincipais {
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
 					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
+					content.getItems().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -254,7 +249,17 @@ public class ControllerOperacoesPrincipais {
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerEditarCategoria controller = fxmlLoader.<ControllerEditarCategoria>getController();
 					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
+					content.getItems().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == removerTransacao) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverTransacao.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerRemoverTransacao controller = fxmlLoader.<ControllerRemoverTransacao>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getItems().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}

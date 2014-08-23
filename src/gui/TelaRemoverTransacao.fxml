@@ -5,21 +5,30 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRemoverTransacao">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Transação" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <TableView layoutX="25.0" layoutY="94.0" prefHeight="230.0" prefWidth="550.0" />
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+      <TableView fx:id="table" layoutX="19.0" layoutY="96.0" prefHeight="214.0" prefWidth="566.0">
+         <columns>
+            <TableColumn fx:id="colunaData" prefWidth="84.0" resizable="false" text="Data" />
+            <TableColumn fx:id="colunaValor" prefWidth="93.0" text="Valor" />
+            <TableColumn fx:id="colunaDescricao" prefWidth="180.0" text="Descrição" />
+            <TableColumn fx:id="colunaCategoria" prefWidth="98.0" text="Categoria" />
+            <TableColumn fx:id="colunaRecorrencia" prefWidth="110.0" text="Recorrência" />
+         </columns>
+         <columnResizePolicy>
+            <TableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
+         </columnResizePolicy></TableView>
+      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
@@ -29,5 +38,7 @@
             <Font name="Calibri" size="18.0" />
          </font>
       </Label>
+      <ComboBox fx:id="cbMes" layoutX="472.0" layoutY="61.0" prefHeight="25.0" prefWidth="114.0" promptText="Mês" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="235.0" layoutY="317.0" prefHeight="17.0" prefWidth="150.0" text="Aviso" textFill="#d01515" visible="false" />
    </children>
 </AnchorPane>
