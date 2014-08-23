@@ -7,6 +7,10 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import fonte.Categoria;
+import fonte.GerenteDeTransacoes;
+import fonte.Transacao;
+import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -27,11 +31,8 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import fonte.GerenteDeTransacoes;
-import fonte.Transacao;
-import fonte.Usuario;
 
-public class ControllerOperacoesPrincipais {
+public class ControllerEditarTransacaoInicial {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
@@ -40,63 +41,50 @@ public class ControllerOperacoesPrincipais {
     private GerenteDeTransacoes gerente;  
     private Tabela tabela;
 
-		@FXML
-	    private Button editarTransacao;
+    @FXML
+    private ComboBox<String> cbMes;
+    
+    @FXML
+    private Button botaoEditar;
 
-	    @FXML
-	    private Button adicionarCategoria;
+    @FXML
+    private Button botaoCancelar;
+    
+    @FXML
+    private TableView<Transacao> table;
+    
+    @FXML
+    private AnchorPane content;
+    
+    @FXML
+    private Label labelAviso;
+    
+    @FXML
+    private TableColumn<Transacao, Categoria> colunaCategoria;
 
-	    @FXML
-	    private Label labelSaldo;
+    @FXML
+    private TableColumn<Transacao, Double> colunaValor;
+    
+    @FXML
+    private TableColumn<Transacao, LocalDate> colunaData;
+    
+    @FXML
+    private TableColumn<Transacao, String> colunaRecorrencia;
 
-	    @FXML
-	    private Button removerTransacao;
-
-	    @FXML
-	    private Button removerCategoria;
-
-	    @FXML
-	    private Button adicionarTransacao;
-
-	    @FXML
-	    private Button editarCategoria;
-
-	    @FXML
-	    private Button botaoSair;
-	    
-	    @FXML
-	    private AnchorPane content;
-	    
-	    @FXML
-	    private TableView<Transacao> table;
-	    
-	    @FXML
-	    private TableColumn<Transacao, Double> colunaValor;
-	    
-	    @FXML
-	    private TableColumn<Transacao, LocalDate> colunaData;
-	    
-	    @FXML
-	    private ComboBox<String> CBmes;
-	   
-	    
+    @FXML
+    private TableColumn<Transacao, String> colunaDescricao;
+    
     @FXML
 	void initialize() {
-    	adicionarTransacao.setOnAction(eventos);
-    	removerTransacao.setOnAction(eventos);
-    	editarTransacao.setOnAction(eventos);
-    	adicionarCategoria.setOnAction(eventos);
-    	removerCategoria.setOnAction(eventos);
-    	editarCategoria.setOnAction(eventos);
-    	botaoSair.setOnAction(eventos);
+    	botaoCancelar.setOnAction(eventos);
+    	botaoEditar.setOnAction(eventos);
     	tabela = new Tabela();
-    	CBmes.getItems().addAll(meses);
-    	CBmes.valueProperty().addListener(tabela);
+    	cbMes.getItems().addAll(meses);
+    	cbMes.valueProperty().addListener(tabela);
     }
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	labelSaldo.setText(usuarioAtivo.getConta().toString());
     	gerente = new GerenteDeTransacoes(usuarioAtivo);
     	tabela.criarTabela();
     }
@@ -166,11 +154,9 @@ public class ControllerOperacoesPrincipais {
                             }
                         }                    
                     };               
-                    
                     cell.setAlignment(Pos.CENTER);
                     return cell;        
                 }
-
             });
         	
         	colunaData.setCellValueFactory(new PropertyValueFactory<Transacao, LocalDate>("dataDeInsercao"));
@@ -188,11 +174,67 @@ public class ControllerOperacoesPrincipais {
                             }
                         }                    
                     };               
-                    
                     cell.setAlignment(Pos.CENTER);
                     return cell;        
                 }
+            });
+        	
+        	colunaDescricao.setCellValueFactory(new PropertyValueFactory<Transacao, String>("descricao"));
+        	colunaDescricao.setCellFactory(new Callback<TableColumn<Transacao, String>, TableCell<Transacao, String>>(){
 
+                @Override
+                public TableCell<Transacao, String> call(TableColumn<Transacao, String> param) {
+
+                    TableCell<Transacao, String> cell = new TableCell<Transacao, String>(){
+
+                    	protected void updateItem(String item, boolean empty) {
+                            if (item != null) {
+                                setText(item);
+                            }
+                        }                    
+                    };               
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;        
+                }
+            });
+        	
+        	colunaCategoria.setCellValueFactory(new PropertyValueFactory<Transacao, Categoria>("categoria"));
+        	colunaCategoria.setCellFactory(new Callback<TableColumn<Transacao, Categoria>, TableCell<Transacao, Categoria>>(){
+
+                @Override
+                public TableCell<Transacao, Categoria> call(TableColumn<Transacao, Categoria> param) {
+
+                    TableCell<Transacao, Categoria> cell = new TableCell<Transacao, Categoria>(){
+
+                    	protected void updateItem(Categoria item, boolean empty) {
+                            if (item != null) {
+                                setText(item.getNome());
+                                setTextFill(Color.valueOf(item.getCor()));
+                            }
+                        }                    
+                    };               
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;        
+                }
+            });
+        	
+        	colunaRecorrencia.setCellValueFactory(new PropertyValueFactory<Transacao, String>("recorrencia"));
+        	colunaRecorrencia.setCellFactory(new Callback<TableColumn<Transacao, String>, TableCell<Transacao, String>>(){
+
+                @Override
+                public TableCell<Transacao, String> call(TableColumn<Transacao, String> param) {
+
+                    TableCell<Transacao, String> cell = new TableCell<Transacao, String>(){
+
+                    	protected void updateItem(String item, boolean empty) {
+                            if (item != null) {
+                                setText(item);
+                            }
+                        }                    
+                    };               
+                    cell.setAlignment(Pos.CENTER);
+                    return cell;        
+                }
             });
         	
         	table.setTableMenuButtonVisible(false);
@@ -204,75 +246,33 @@ public class ControllerOperacoesPrincipais {
 
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == adicionarTransacao) {
+			if (evento.getSource() == botaoCancelar) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarTransacao.fxml"));     
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
-					ControllerAdicionarTransacao controller = fxmlLoader.<ControllerAdicionarTransacao>getController();
+					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
+				}		
+			} else if (evento.getSource() == botaoEditar) {
+				if (table.getSelectionModel().getSelectedItem() == null){
+					labelAviso.setText("Selecione uma transação.");
+					labelAviso.setVisible(true);
+					
+				} else {
+					try {
+						FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarTransacaoFinal.fxml"));     
+						Parent root = (Parent)fxmlLoader.load();          
+						ControllerEditarTransacaoFinal controller = fxmlLoader.<ControllerEditarTransacaoFinal>getController();
+						controller.setUsuario(usuarioAtivo, table.getSelectionModel().getSelectedItem());
+						content.getChildren().setAll(root);
+					} catch (IOException e) {
+						e.printStackTrace();
+					}
 				}
-			} else if (evento.getSource() == botaoSair) {
-				try {
-					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"../gui/TelaPrincipal.fxml")));
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (evento.getSource() == adicionarCategoria) {
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarCategoria.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerAdicionaCategoria controller = fxmlLoader.<ControllerAdicionaCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (evento.getSource() == removerCategoria) {
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverCategoria.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (evento.getSource() == editarCategoria) {
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarCategoria.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerEditarCategoria controller = fxmlLoader.<ControllerEditarCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (evento.getSource() == removerTransacao) {
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverTransacao.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerRemoverTransacao controller = fxmlLoader.<ControllerRemoverTransacao>getController();
-					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			} else if (evento.getSource() == editarTransacao) {
-				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarTransacaoInicial.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerEditarTransacaoInicial controller = fxmlLoader.<ControllerEditarTransacaoInicial>getController();
-					controller.setUsuario(usuarioAtivo);
-					content.getChildren().setAll(root);
-				} catch (IOException e) {
-					e.printStackTrace();
-				}
-			}
+			} 
 		}
     }
 }

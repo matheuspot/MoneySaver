@@ -5,46 +5,46 @@
 <?import java.lang.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerEditarTransacaoFinal">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Editar Transação" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <TextArea layoutX="200.0" layoutY="140.0" prefHeight="120.0" prefWidth="200.0" promptText="Descrição">
+      <TextArea fx:id="descricao" layoutX="200.0" layoutY="140.0" prefHeight="120.0" prefWidth="200.0" promptText="Descrição">
          <font>
             <Font name="Calibri Light" size="14.0" />
          </font>
       </TextArea>
-      <DatePicker layoutX="411.0" layoutY="140.0" prefHeight="30.0" prefWidth="175.0" promptText="Data" />
-      <TextField layoutX="31.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Valor">
+      <DatePicker fx:id="data" layoutX="411.0" layoutY="140.0" prefHeight="30.0" prefWidth="175.0" promptText="Data" />
+      <TextField fx:id="tfValor" layoutX="31.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Valor">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </TextField>
-      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Editar" textAlignment="CENTER">
+      <Button fx:id="botaoEditar" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Editar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <Button layoutX="325.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar">
+      <Button fx:id="botaoCancelar" layoutX="325.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <RadioButton layoutX="430.0" layoutY="224.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
+      <RadioButton fx:id="rbProvento" layoutX="430.0" layoutY="224.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </RadioButton>
-      <RadioButton layoutX="430.0" layoutY="193.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
+      <RadioButton fx:id="rbDespesa" layoutX="430.0" layoutY="193.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </RadioButton>
-      <ComboBox layoutX="31.0" layoutY="188.0" prefHeight="30.0" prefWidth="150.0" promptText="Recorrência" />
-      <Label alignment="CENTER" layoutX="199.0" layoutY="300.0" prefHeight="17.0" prefWidth="200.0" text="Label" textFill="#e42121" visible="false" />
-      <ComboBox layoutX="31.0" layoutY="234.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <ComboBox fx:id="cbRecorrencia" layoutX="31.0" layoutY="188.0" prefHeight="30.0" prefWidth="150.0" promptText="Recorrência" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="199.0" layoutY="300.0" prefHeight="17.0" prefWidth="200.0" text="Aviso" textFill="#e42121" visible="false" />
+      <ComboBox fx:id="cbCategoria" layoutX="31.0" layoutY="234.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
    </children>
 </AnchorPane>
