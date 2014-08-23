@@ -1,8 +1,11 @@
 package fonte;
 
 import java.time.LocalDate;
+import java.time.chrono.ChronoLocalDate;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
@@ -23,6 +26,8 @@ public class GerenteDeTransacoes {
 	private Usuario usuario;
 	private List<Usuario> usuariosDoSistema;
 	private Transacao transacaoQueSeraAdicionada;
+	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
+	private LocalDate dataAtual;
 
 	/**
 	 * Construtor da classe GerenteDeTransacoes, que leva um usuário como
@@ -296,6 +301,8 @@ public class GerenteDeTransacoes {
 	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
 		if (dataDeInsercao == null)
 			return false;
+		if (dataDeInsercao.isAfter(dataAtual.now()))
+			return false;
 		return true;
 	}
 
@@ -308,6 +315,8 @@ public class GerenteDeTransacoes {
 	 */
 	private boolean descricaoValida(String descricao) {
 		if (descricao == null || descricao.trim().length() == 0)
+			return false;
+		if (descricao.length() > 50)
 			return false;
 		return true;
 	}
