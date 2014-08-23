@@ -68,7 +68,7 @@ public class ControllerTelaPrincipal {
 				try {
 					usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
 					try {
-						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
+						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 						Parent root = (Parent)fxmlLoader.load();          
 						ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 						controller.setUsuario(usuarioAtivo);
@@ -91,7 +91,7 @@ public class ControllerTelaPrincipal {
 	        	 try {
 						usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 							controller.setUsuario(usuarioAtivo);

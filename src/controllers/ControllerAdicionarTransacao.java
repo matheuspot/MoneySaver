@@ -123,7 +123,7 @@ public class ControllerAdicionarTransacao {
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCancelar) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 					controller.setUsuario(usuarioAtivo);
@@ -155,7 +155,7 @@ public class ControllerAdicionarTransacao {
 					}
 					else if (resposta == Dialog.Actions.NO){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaDeOperacoesPrincipais.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
 							controller.setUsuario(usuarioAtivo);
