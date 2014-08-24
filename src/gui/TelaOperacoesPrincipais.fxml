@@ -81,7 +81,7 @@
                                  <items>
                                     <MenuItem mnemonicParsing="false" text="Despesa" />
                                     <MenuItem mnemonicParsing="false" text="Provento" />
-                                    <MenuItem mnemonicParsing="false" text="Categoria" />
+                                    <MenuItem fx:id="histoCategoria" mnemonicParsing="false" text="Categoria" />
                                     <MenuItem mnemonicParsing="false" text="Data" />
                                  </items>
                               </MenuButton>

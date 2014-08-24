@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.chart.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
+
+<AnchorPane fx:id="content" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerHistograma">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="143.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Histograma" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="206.0" layoutY="234.0" prefHeight="17.0" prefWidth="184.0" text="Label" textFill="#e11919" visible="false" />
+      <Button fx:id="botaoAdicionar" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="333.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="318.0" layoutY="333.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <BarChart fx:id="histograma" layoutX="22.0" layoutY="62.0" prefHeight="258.0" prefWidth="559.0">
+        <xAxis>
+          <CategoryAxis fx:id="eixoX" side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="eixoY" side="LEFT" />
+        </yAxis>
+      </BarChart>
+   </children>
+</AnchorPane>
