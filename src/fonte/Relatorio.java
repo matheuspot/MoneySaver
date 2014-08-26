@@ -1,15 +1,17 @@
 package fonte;
 
+import java.util.List;
+
 public interface Relatorio {
 
-	public double[] valoresDespesaPorMes();
+	public List<Despesa> valoresDespesaPorMes(int mes);
 	
-	public double[] valoresProventoPorMes();
+	public List<Provento> valoresProventoPorMes(int mes);
 	
-	public double[] valoresCategoriasPorMes();
+	public double[] valoresCategoriasDeUmMes(int mes);
 	
-	public double[] valoresCategoriasDeUmMes();
+	public double[] valoresDeUmaCategoria();
 	
-	public double[] valoresProventoDespesaDeUmaData();
+	public double[] valoresDeUmMes(int mes);
 	
 }

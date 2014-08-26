@@ -1,9 +1,16 @@
 package fonte;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class Histograma implements Relatorio{
 	
+	private List<Provento> listaProventos;
+	private List<Despesa> listaDespesas;
+	private Provento provento;
+	private Despesa despesa;
 	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};;
+    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private String[] categorias; 
 	private GerenteDeCategorias gerenteCategorias;
 	private GerenteDeTransacoes gerenteTransacoes;
@@ -12,34 +19,30 @@ public class Histograma implements Relatorio{
 		gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 		categorias = gerenteCategorias.listaCategorias();
 		gerenteTransacoes = new GerenteDeTransacoes(usuarioAtivo);
+		listaProventos = new ArrayList<>();
+		listaDespesas = new ArrayList<>();
 	}
 
 	@Override
-	public double[] valoresDespesaPorMes() {
+	public List<Despesa> valoresDespesaPorMes(int mes) {
+				
+		return listaDespesas;
+	}
+
+	@Override
+	public List<Provento> valoresProventoPorMes(int mes) {
 		
-		return null;
+		return listaProventos;
 	}
 
 	@Override
-	public double[] valoresProventoPorMes() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
-	@Override
-	public double[] valoresCategoriasPorMes() {
-		
-		return null;
-	}
-
-	@Override
-	public double[] valoresCategoriasDeUmMes() {
+	public double[] valoresCategoriasDeUmMes(int mes) {
 		return null;
 	}
 
 
 	@Override
-	public double[] valoresProventoDespesaDeUmaData() {
+	public double[] valoresDeUmMes(int mes) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -56,6 +59,12 @@ public class Histograma implements Relatorio{
 	 */
 	public String[] getMESES() {
 		return MESES;
+	}
+
+	@Override
+	public double[] valoresDeUmaCategoria() {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }
