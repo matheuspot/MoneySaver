@@ -4,14 +4,14 @@ import java.util.List;
 
 public interface Relatorio {
 
-	public List<Despesa> valoresDespesaPorMes(int mes);
+	public List<Double> valoresDespesaPorMes();
 	
-	public List<Provento> valoresProventoPorMes(int mes);
+	public List<Double> valoresProventoPorMes();
 	
-	public List<Transacao> valoresCategoriasDeUmMes(int mes);
+	public List<Double> valoresCategoriasDeUmMes();
 	
-	public List<Transacao> valoresDeUmaCategoria();
+	public List<Double> valoresDeUmaCategoria();
 	
-	public List<Transacao> valoresDeUmMes(int mes);
+	public List<Double> valoresDeUmMes();
 	
 }

@@ -5,42 +5,61 @@ import java.util.List;
 
 public class Histograma implements Relatorio{
 	
-	private List<Provento> listaProventos;
-	private List<Despesa> listaDespesas;
 	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private String[] categorias; 
-	private GerenteDeCategorias gerenteCategorias;
+	private Usuario usuarioAtivo;
+	private GerenteDeCategorias gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 	private GerenteDeTransacoes gerenteTransacoes;
+	private List<Transacao> transacoesDoMes;
 	
-	public Histograma(Usuario usuarioAtivo){
-		gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
-		categorias = gerenteCategorias.listaCategorias();
+	public Histograma(Usuario usuario){
+		usuarioAtivo = usuario;
 		gerenteTransacoes = new GerenteDeTransacoes(usuarioAtivo);
-		listaProventos = new ArrayList<>();
-		listaDespesas = new ArrayList<>();
 	}
 
 	@Override
-	public List<Despesa> valoresDespesaPorMes(int mes) {
-				
-		return listaDespesas;
-	}
-
-	@Override
-	public List<Provento> valoresProventoPorMes(int mes) {
+	public List<Double> valoresDespesaPorMes() {
+		List<Double> despesasDoAno = new ArrayList<Double>();
+		double total;
 		
-		return listaProventos;
+		for (int i=1; i<13; i++){
+			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
+			total = 0;
+			for (Transacao transacao : transacoesDoMes) {
+				if (transacao.getValor() < 0)
+					total += Math.abs(transacao.getValor());
+			}
+			despesasDoAno.add(total);
+		}
+		return despesasDoAno;
 	}
 
 	@Override
-	public List<Transacao> valoresCategoriasDeUmMes(int mes) {
+	public List<Double> valoresProventoPorMes() {
+		List<Double> proventosDoAno = new ArrayList<Double>();
+		double total;
+		
+		for (int i=1; i<13; i++){
+			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
+			total = 0;
+			for (Transacao transacao : transacoesDoMes) {
+				if (transacao.getValor() > 0)
+					total += transacao.getValor();
+			}
+			proventosDoAno.add(total);
+		}
+		return proventosDoAno;
+	}
+
+	@Override
+	public List<Double> valoresCategoriasDeUmMes() {
 		return null;
 	}
 
 
 	@Override
-	public List<Transacao> valoresDeUmMes(int mes) {
+	public List<Double> valoresDeUmMes() {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -60,7 +79,7 @@ public class Histograma implements Relatorio{
 	}
 
 	@Override
-	public List<Transacao> valoresDeUmaCategoria() {
+	public List<Double> valoresDeUmaCategoria() {
 		// TODO Auto-generated method stub
 		return null;
 	}

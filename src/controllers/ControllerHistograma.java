@@ -9,6 +9,8 @@ import org.junit.internal.runners.model.EachTestNotifier;
 
 import fonte.Categoria;
 import fonte.GerenteDeCategorias;
+import fonte.GerenteDeTransacoes;
+import fonte.Histograma;
 import fonte.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -28,16 +30,13 @@ import javafx.scene.layout.AnchorPane;
 public class ControllerHistograma {
 
     @FXML
-    private BarChart<String, Number> histograma;
+    private BarChart<String, Number> tabelaHistograma;
 
     @FXML
     private Button botaoAdicionar;
 
     @FXML
     private Button botaoCancelar;
-
-    @FXML
-    private Label labelAviso;
 
     @FXML
     private CategoryAxis eixoX;
@@ -48,11 +47,9 @@ public class ControllerHistograma {
     @FXML
     private NumberAxis eixoY;
     
-    Usuario usuarioAtivo;
-    GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
-    
-    
-    
+    private Usuario usuarioAtivo;
+    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
+    private Histograma histo; 
     private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 
     @FXML
@@ -63,7 +60,7 @@ public class ControllerHistograma {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-
+    	histo = new Histograma(usuarioAtivo);
     }
     
     private class Eventos implements EventHandler<ActionEvent> {
@@ -71,23 +68,22 @@ public class ControllerHistograma {
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoAdicionar) {
+				double maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-		        series1.setName("XYChart.Series 1");
-		        XYChart.Series series2 = new XYChart.Series();
-		        series2.setName("XYChart.Series 2");
-				ObservableList categorias = FXCollections.observableArrayList();
-				eixoX.setCategories(FXCollections.observableArrayList(gerente.listaCategorias()));
-				int c = 5;
-				for(String categoria : gerente.listaCategorias()){
-               	 series1.getData().add(new XYChart.Data(categoria, c));
-               	 c+=10;
-               }
-				c=5;
-				for(String categoria : gerente.listaCategorias()){
-	               	 series2.getData().add(new XYChart.Data(categoria, c));
-	               	 c+=5;
-	               }
-				histograma.getData().addAll(series1, series2);
+		        series1.setName("Provento");
+				eixoX.setCategories(FXCollections.observableArrayList(histo.getMESES()));
+				
+				for (int i=0; i<12; i++){
+					series1.getData().add(new XYChart.Data<String, Number>(histo.getMESES()[i], histo.valoresDespesaPorMes().get(i)));
+					if  (histo.valoresDespesaPorMes().get(i) > maiorValor)
+						maiorValor = histo.valoresDespesaPorMes().get(i);
+				}
+				
+				eixoY.setAutoRanging(false);
+				eixoY.setUpperBound(maiorValor);
+				eixoY.setTickUnit(10);
+               	 	
+				tabelaHistograma.getData().addAll(series1);
 			} else if (evento.getSource() == botaoCancelar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
@@ -99,7 +95,7 @@ public class ControllerHistograma {
 					e.printStackTrace();
 				}	
 		}
-		}
+	}
 
     }
 }
