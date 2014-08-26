@@ -81,7 +81,7 @@ public class ControllerOperacoesPrincipais {
 	    private ComboBox<String> CBmes;
 	    
 	    @FXML
-	    private MenuItem histoCategoria;
+	    private Button botaoHistograma;
 	   
 	    
     @FXML
@@ -96,7 +96,7 @@ public class ControllerOperacoesPrincipais {
     	tabela = new Tabela();
     	CBmes.getItems().addAll(meses);
     	CBmes.valueProperty().addListener(tabela);
-    	histoCategoria.setOnAction(eventos);
+    	botaoHistograma.setOnAction(eventos);
     }
     
     public void setUsuario(Usuario usuario){
@@ -277,7 +277,7 @@ public class ControllerOperacoesPrincipais {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			} else if (evento.getSource() == histoCategoria) {
+			} else if (evento.getSource() == botaoHistograma) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

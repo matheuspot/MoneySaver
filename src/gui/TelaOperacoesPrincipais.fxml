@@ -74,28 +74,16 @@
                                     <Font name="Calibri" size="34.0" />
                                  </font>
                               </Label>
-                              <MenuButton layoutX="14.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Histograma">
+                              <Button fx:id="botaoHistograma" layoutX="32.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Histograma">
                                  <font>
                                     <Font name="Calibri" size="14.0" />
                                  </font>
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Despesa" />
-                                    <MenuItem mnemonicParsing="false" text="Provento" />
-                                    <MenuItem fx:id="histoCategoria" mnemonicParsing="false" text="Categoria" />
-                                    <MenuItem mnemonicParsing="false" text="Data" />
-                                 </items>
-                              </MenuButton>
-                              <MenuButton layoutX="169.0" layoutY="60.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="110.0" text="Lista">
+                              </Button>
+                              <Button fx:id="adicionarCategoria11" layoutX="158.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Lista">
                                  <font>
                                     <Font name="Calibri" size="14.0" />
                                  </font>
-                                 <items>
-                                    <MenuItem mnemonicParsing="false" text="Despesa" />
-                                    <MenuItem mnemonicParsing="false" text="Provento" />
-                                    <MenuItem mnemonicParsing="false" text="Categoria" />
-                                    <MenuItem mnemonicParsing="false" text="Data" />
-                                 </items>
-                              </MenuButton>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>

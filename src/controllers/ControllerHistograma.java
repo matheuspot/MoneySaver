@@ -70,7 +70,7 @@ public class ControllerHistograma {
 			if (evento.getSource() == botaoAdicionar) {
 				double maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-		        series1.setName("Provento");
+		        series1.setName("Despesa");
 				eixoX.setCategories(FXCollections.observableArrayList(histo.getMESES()));
 				
 				for (int i=0; i<12; i++){
@@ -78,11 +78,11 @@ public class ControllerHistograma {
 					if  (histo.valoresDespesaPorMes().get(i) > maiorValor)
 						maiorValor = histo.valoresDespesaPorMes().get(i);
 				}
-				
 				eixoY.setAutoRanging(false);
 				eixoY.setUpperBound(maiorValor);
 				eixoY.setTickUnit(10);
-               	 	
+				
+				tabelaHistograma.getData().clear();
 				tabelaHistograma.getData().addAll(series1);
 			} else if (evento.getSource() == botaoCancelar) {
 				try {
