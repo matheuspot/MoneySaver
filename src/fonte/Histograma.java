@@ -5,8 +5,6 @@ import java.util.List;
 
 public class Histograma implements Relatorio{
 	
-	private List<Provento> listaProventos;
-	private List<Despesa> listaDespesas;
 	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private String[] categorias; 
@@ -17,31 +15,29 @@ public class Histograma implements Relatorio{
 		gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 		categorias = gerenteCategorias.listaCategorias();
 		gerenteTransacoes = new GerenteDeTransacoes(usuarioAtivo);
-		listaProventos = new ArrayList<>();
-		listaDespesas = new ArrayList<>();
 	}
 
 	@Override
-	public List<Despesa> valoresDespesaPorMes(int mes) {
+	public List<Double> valoresDespesaPorMes(int mes) {
 				
-		return listaDespesas;
+		return null;
 	}
 
 	@Override
-	public List<Provento> valoresProventoPorMes(int mes) {
+	public List<Double> valoresProventoPorMes(int mes) {
 		
-		return listaProventos;
+		return null;
 	}
 
 	@Override
-	public List<Transacao> valoresCategoriasDeUmMes(int mes) {
+	public List<Double> valoresCategoriasDeUmMes(int mes) {
 		return null;
 	}
 
 
 	@Override
-	public List<Transacao> valoresDeUmMes(int mes) {
-		// TODO Auto-generated method stub
+	public List<Double> valoresDeUmMes(int mes) {
+		
 		return null;
 	}
 	
@@ -60,7 +56,7 @@ public class Histograma implements Relatorio{
 	}
 
 	@Override
-	public List<Transacao> valoresDeUmaCategoria() {
+	public List<Double> valoresDeUmaCategoria() {
 		// TODO Auto-generated method stub
 		return null;
 	}
