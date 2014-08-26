@@ -8,10 +8,10 @@ public interface Relatorio {
 	
 	public List<Provento> valoresProventoPorMes(int mes);
 	
-	public double[] valoresCategoriasDeUmMes(int mes);
+	public List<Transacao> valoresCategoriasDeUmMes(int mes);
 	
-	public double[] valoresDeUmaCategoria();
+	public List<Transacao> valoresDeUmaCategoria();
 	
-	public double[] valoresDeUmMes(int mes);
+	public List<Transacao> valoresDeUmMes(int mes);
 	
 }

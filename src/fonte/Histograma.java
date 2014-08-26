@@ -7,8 +7,6 @@ public class Histograma implements Relatorio{
 	
 	private List<Provento> listaProventos;
 	private List<Despesa> listaDespesas;
-	private Provento provento;
-	private Despesa despesa;
 	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private String[] categorias; 
@@ -36,13 +34,13 @@ public class Histograma implements Relatorio{
 	}
 
 	@Override
-	public double[] valoresCategoriasDeUmMes(int mes) {
+	public List<Transacao> valoresCategoriasDeUmMes(int mes) {
 		return null;
 	}
 
 
 	@Override
-	public double[] valoresDeUmMes(int mes) {
+	public List<Transacao> valoresDeUmMes(int mes) {
 		// TODO Auto-generated method stub
 		return null;
 	}
@@ -62,7 +60,7 @@ public class Histograma implements Relatorio{
 	}
 
 	@Override
-	public double[] valoresDeUmaCategoria() {
+	public List<Transacao> valoresDeUmaCategoria() {
 		// TODO Auto-generated method stub
 		return null;
 	}
