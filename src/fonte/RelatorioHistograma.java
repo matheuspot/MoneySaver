@@ -9,12 +9,14 @@ public class RelatorioHistograma {
 			"Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
 			"Novembro", "Dezembro" };
 
-	private GerenteDeCategorias gerenteCategorias;
+	private Usuario usuarioAtivo;
+	private GerenteDeCategorias gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 	private GerenteDeTransacoes gerenteTransacoes;
+	private String[] listaCategorias = null;
 
 	public RelatorioHistograma(Usuario usuario) {
+		usuarioAtivo = usuario;
 		gerenteTransacoes = new GerenteDeTransacoes(usuario);
-		gerenteCategorias = new GerenteDeCategorias(usuario);
 	}
 
 	public List<Double> valoresDespesas() {
@@ -55,6 +57,7 @@ public class RelatorioHistograma {
 				.listaTransacoesPeloMes(mes);
 		List<Double> valoresProvento = new ArrayList<>();
 		List<Double> valoresDespesa = new ArrayList<>();
+		listaCategorias = gerenteCategorias.listaCategorias();
 
 		for (int i = 0; i < categorias.size(); i++) {
 			double totalProventos = 0;
@@ -86,4 +89,12 @@ public class RelatorioHistograma {
 	public static String[] getMeses() {
 		return MESES;
 	}
+
+	/**
+	 * @return the categorias
+	 */
+	public String[] getCategorias() {
+		return listaCategorias;
+	}
+	
 }

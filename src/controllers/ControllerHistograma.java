@@ -14,6 +14,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import fonte.GerenteDeCategorias;
@@ -45,6 +46,9 @@ public class ControllerHistograma {
 
 	@FXML
 	private NumberAxis eixoY;
+	
+	@FXML
+    private ComboBox<String> cbMeses;
 
 	private Usuario usuarioAtivo;
 	private GerenteDeCategorias gerenteDeCategorias = new GerenteDeCategorias(
@@ -54,8 +58,10 @@ public class ControllerHistograma {
 
 	@FXML
 	void initialize() {
-		botaoAdicionar.setOnAction(eventos);
 		botaoCancelar.setOnAction(eventos);
+		menuCategoria.setOnAction(eventos);
+		menuDespesa.setOnAction(eventos);
+		menuProvento.setOnAction(eventos);
 	}
 
 	public void setUsuario(Usuario usuario) {
@@ -104,7 +110,7 @@ public class ControllerHistograma {
 							new XYChart.Data<String, Number>(
 									RelatorioHistograma.getMeses()[i], histo
 											.valoresProventos().get(i)));
-					if (histo.valoresDespesas().get(i) > maiorValor)
+					if (histo.valoresProventos().get(i) > maiorValor)
 						maiorValor = histo.valoresProventos().get(i);
 				}
 				
@@ -118,22 +124,14 @@ public class ControllerHistograma {
 			} else if (evento.getSource() == menuCategoria) {
 				maiorValor = 0;
 				ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
+				eixoX.setCategories(FXCollections.observableArrayList(histo.getCategorias()));
 				
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-				
-				
 				series1.setName("Provento");
-				eixoX.setCategories(FXCollections
-						.observableArrayList(RelatorioHistograma.get()));
-
 				for (int i = 0; i < 12; i++) {
-					series1.getData().add(
-							new XYChart.Data<String, Number>(
-									RelatorioHistograma.getMeses()[i], histo
-											.valoresProventos().get(i)));
-					if (histo.valoresDespesas().get(i) > maiorValor)
-						maiorValor = histo.valoresProvento().get(i);
+					histo.valoresCategorias(mes).get(0);
 				}
+				
 				
 				eixoY.setAutoRanging(false);
 				eixoY.setUpperBound(maiorValor);
