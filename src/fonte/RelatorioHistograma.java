@@ -10,14 +10,13 @@ public class RelatorioHistograma implements Relatorio {
 			"Novembro", "Dezembro" };
 
 	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerenteCategorias;
+	private GerenteDeCategorias gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 	private GerenteDeTransacoes gerenteTransacoes;
 	private List<Transacao> transacoesDoMes;
 
 	public RelatorioHistograma(Usuario usuario) {
 		usuarioAtivo = usuario;
 		gerenteTransacoes = new GerenteDeTransacoes(usuarioAtivo);
-		gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
 	}
 
 	@Override
