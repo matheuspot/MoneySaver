@@ -10,7 +10,7 @@ import org.junit.internal.runners.model.EachTestNotifier;
 import fonte.Categoria;
 import fonte.GerenteDeCategorias;
 import fonte.GerenteDeTransacoes;
-import fonte.Histograma;
+import fonte.RelatorioHistograma;
 import fonte.Usuario;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -49,7 +49,7 @@ public class ControllerHistograma {
     
     private Usuario usuarioAtivo;
     private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
-    private Histograma histo; 
+    private RelatorioHistograma histo; 
     private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 
     @FXML
@@ -60,7 +60,7 @@ public class ControllerHistograma {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	histo = new Histograma(usuarioAtivo);
+    	histo = new RelatorioHistograma(usuarioAtivo);
     }
     
     private class Eventos implements EventHandler<ActionEvent> {
