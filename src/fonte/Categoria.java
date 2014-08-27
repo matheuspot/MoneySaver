@@ -11,7 +11,7 @@ public class Categoria implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String cor;
-	private Orcamento orcamento;
+	private double orcamento;
 
 	/**
 	 * Construtor da classe Categoria.
@@ -51,8 +51,15 @@ public class Categoria implements Serializable {
 		return cor;
 	}
 	
+	public void geraOrcamento(double valorLimite) throws Exception {
+		if (valorLimite <= 0)
+			throw new Exception("Valor limite tem que ser positivo!");
+		
+		orcamento = valorLimite;
+	}
+	
 	public double getOrcamento() {
-		return orcamento.getValorOrcamento();
+		return orcamento;
 	}
 	
 	/**

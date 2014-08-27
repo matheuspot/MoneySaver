@@ -96,11 +96,6 @@ public class GerenteDeTransacoes {
 			transacaoQueSeraAdicionada = new Provento(descricao,
 					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
-		
-		if(categoria.getOrcamento()>0) {
-			if(categoria.getOrcamento() < valorNovo)
-				throw new Exception("Orçamento excedido para essa categoria.");
-		}
 
 		usuariosDoSistema.remove(usuario);
 		usuario.getConta().moveDinheiroNaConta(
@@ -342,6 +337,18 @@ public class GerenteDeTransacoes {
 				.filter(t -> t.getDataDeInsercao().getMonthValue() == mes)
 				.collect(Collectors.toList());
 		return listaFiltradaPorMes;
+	}
+	
+	public double calculaGastosPorCategoria(Categoria categoria) throws Exception {
+		double valor=0;
+		
+		for (Transacao transacao : this.getTransacoesExistentes()) 
+			if (categoria.equals(transacao.getCategoria()))
+				valor += transacao.getValor();
+		
+		if (valor > categoria.getOrcamento())
+			throw new Exception("Valor limite excedido para esta categoria.");
+		return valor;
 	}
 
 }
