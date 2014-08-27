@@ -157,6 +157,15 @@ public class Usuario implements Serializable {
 	}
 
 	/**
+	 * Método de acesso à senha criptografada.
+	 * 
+	 * @return A senha criptografada.
+	 */
+	public String getSenha() {
+		return senha;
+	}
+
+	/**
 	 * Override do método toString da classe Object.
 	 */
 	@Override

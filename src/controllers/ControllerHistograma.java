@@ -128,8 +128,8 @@ public class ControllerHistograma {
 				
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 				series1.setName("Provento");
-				for (int i = 0; i < 12; i++) {
-					histo.valoresCategorias(mes).get(0);
+				for (int i = 1; i < 13; i++) {
+					histo.valoresCategorias(i).get(0);
 				}
 				
 				
