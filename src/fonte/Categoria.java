@@ -1,12 +1,11 @@
 package fonte;
 
 import java.io.Serializable;
-import java.util.List;
 
 /**
  * Classe usada para representar uma categoria.
  */
-public class Categoria implements Serializable {
+public class Categoria implements Serializable, Comparable<Categoria> {
 
 	private static final long serialVersionUID = 1L;
 	private String nome;
@@ -50,18 +49,18 @@ public class Categoria implements Serializable {
 	public String getCor() {
 		return cor;
 	}
-	
+
 	public void geraOrcamento(double valorLimite) throws Exception {
 		if (valorLimite <= 0)
 			throw new Exception("Valor limite tem que ser positivo!");
-		
+
 		orcamento = valorLimite;
 	}
-	
+
 	public double getOrcamento() {
 		return orcamento;
 	}
-	
+
 	/**
 	 * Override do método toString da classe Object.
 	 */
@@ -106,5 +105,14 @@ public class Categoria implements Serializable {
 		} else if (!nome.equals(other.nome))
 			return false;
 		return true;
+	}
+
+	/**
+	 * Override do método compareTo da classe Object. Agora compara categorias
+	 * com base em seus nomes.
+	 */
+	@Override
+	public int compareTo(Categoria outraCategoria) {
+		return nome.compareTo(outraCategoria.getNome());
 	}
 }

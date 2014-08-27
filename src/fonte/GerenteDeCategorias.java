@@ -1,9 +1,11 @@
 package fonte;
 
 import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
+
 import auxiliar.ArquivadorCategorias;
 
 /**
@@ -67,8 +69,8 @@ public class GerenteDeCategorias {
 	 */
 	private void adicionaCategoriasDefault() {
 		try {
-			categoriasExistentes.add(new Categoria("Lazer", "669966"));
 			categoriasExistentes.add(new Categoria("Alimentação", "334db3"));
+			categoriasExistentes.add(new Categoria("Lazer", "669966"));
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
@@ -125,6 +127,7 @@ public class GerenteDeCategorias {
 
 		Categoria novaCategoria = new Categoria(nomeCategoria, corCategoria);
 		categoriasExistentes.add(novaCategoria);
+		Collections.sort(categoriasExistentes);
 		categoriasDoSistema.put(usuario, categoriasExistentes);
 
 		arquivador.escreveCategorias(categoriasDoSistema);

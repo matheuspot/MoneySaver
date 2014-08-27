@@ -3,30 +3,27 @@ package fonte;
 import java.util.ArrayList;
 import java.util.List;
 
-public class RelatorioHistograma implements Relatorio {
+public class RelatorioHistograma {
 
 	private final static String[] MESES = { "Janeiro", "Fevereiro", "Março",
 			"Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
 			"Novembro", "Dezembro" };
 
-	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
+	private GerenteDeCategorias gerenteCategorias;
 	private GerenteDeTransacoes gerenteTransacoes;
-	private List<Transacao> transacoesDoMes;
 
 	public RelatorioHistograma(Usuario usuario) {
-		usuarioAtivo = usuario;
-		gerenteTransacoes = new GerenteDeTransacoes(usuarioAtivo);
+		gerenteTransacoes = new GerenteDeTransacoes(usuario);
+		gerenteCategorias = new GerenteDeCategorias(usuario);
 	}
 
-	@Override
 	public List<Double> valoresDespesas() {
 		List<Double> despesas = new ArrayList<>();
-		double total;
+		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
 			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
-			total = 0;
+			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() < 0)
 					total += Math.abs(transacao.getValor());
@@ -36,14 +33,13 @@ public class RelatorioHistograma implements Relatorio {
 		return despesas;
 	}
 
-	@Override
 	public List<Double> valoresProventos() {
 		List<Double> proventos = new ArrayList<>();
-		double total;
+		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
 			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
-			total = 0;
+			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() > 0)
 					total += transacao.getValor();
@@ -53,12 +49,36 @@ public class RelatorioHistograma implements Relatorio {
 		return proventos;
 	}
 
-	@Override
-	public List<Double> valoresCategorias(int mes) {
-		return null;
+	public List<List<Double>> valoresCategorias(int mes) {
+		List<Categoria> categorias = gerenteCategorias.getCategorias();
+		List<Transacao> transacoesDoMes = gerenteTransacoes
+				.listaTransacoesPeloMes(mes);
+		List<Double> valoresProvento = new ArrayList<>();
+		List<Double> valoresDespesa = new ArrayList<>();
+
+		for (int i = 0; i < categorias.size(); i++) {
+			double totalProventos = 0;
+			double totalDespesas = 0;
+			Categoria categoriaAtual = categorias.get(i);
+
+			for (Transacao transacao : transacoesDoMes) {
+				if (transacao.getCategoria().equals(categoriaAtual)
+						&& transacao.getValor() > 0)
+					totalProventos += transacao.getValor();
+				else if (transacao.getCategoria().equals(categoriaAtual)
+						&& transacao.getValor() < 0)
+					totalDespesas += Math.abs(transacao.getValor());
+			}
+			valoresProvento.add(totalProventos);
+			valoresDespesa.add(totalDespesas);
+		}
+
+		List<List<Double>> valoresFinais = new ArrayList<>();
+		valoresFinais.add(valoresProvento);
+		valoresFinais.add(valoresDespesa);
+		return valoresFinais;
 	}
 
-	@Override
 	public List<Double> valoresDeUmMes(int mes) {
 		return null;
 	}
