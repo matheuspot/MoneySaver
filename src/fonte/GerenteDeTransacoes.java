@@ -84,7 +84,7 @@ public class GerenteDeTransacoes {
 	public void adicionaTransacao(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
-
+		
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
@@ -348,8 +348,7 @@ public class GerenteDeTransacoes {
 		
 		if (valor > categoria.getOrcamento())
 			throw new Exception("Valor limite excedido para esta categoria.");
-		if (valor == categoria.getOrcamento())
-			throw new Exception("Valor limite atingido para esta categoria.");
 		return valor;
 	}
+
 }

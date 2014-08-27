@@ -132,4 +132,6 @@ public class TestaCategoria {
 		categoria1.geraOrcamento(552.6);
 		assertEquals(552.6, categoria1.getOrcamento(), 1);
 	}
+	
+	
 }
