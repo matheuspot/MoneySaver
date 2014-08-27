@@ -1,19 +1,7 @@
 package controllers;
 
 import java.io.IOException;
-import java.util.ArrayList;
-
-import javax.swing.text.StyledEditorKit.ForegroundAction;
-
-import org.junit.internal.runners.model.EachTestNotifier;
-
-import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.GerenteDeTransacoes;
-import fonte.RelatorioHistograma;
-import fonte.Usuario;
 import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -24,78 +12,87 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import fonte.GerenteDeCategorias;
+import fonte.RelatorioHistograma;
+import fonte.Usuario;
 
 public class ControllerHistograma {
 
-    @FXML
-    private BarChart<String, Number> tabelaHistograma;
+	@FXML
+	private BarChart<String, Number> tabelaHistograma;
 
-    @FXML
-    private Button botaoAdicionar;
+	@FXML
+	private Button botaoAdicionar;
 
-    @FXML
-    private Button botaoCancelar;
+	@FXML
+	private Button botaoCancelar;
 
-    @FXML
-    private CategoryAxis eixoX;
+	@FXML
+	private CategoryAxis eixoX;
 
-    @FXML
-    private AnchorPane content;
+	@FXML
+	private AnchorPane content;
 
-    @FXML
-    private NumberAxis eixoY;
-    
-    private Usuario usuarioAtivo;
-    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
-    private RelatorioHistograma histo; 
-    private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	@FXML
+	private NumberAxis eixoY;
 
-    @FXML
+	private Usuario usuarioAtivo;
+	private GerenteDeCategorias gerenteDeCategorias = new GerenteDeCategorias(
+			usuarioAtivo);
+	private RelatorioHistograma histo;
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+
+	@FXML
 	void initialize() {
-    	botaoAdicionar.setOnAction(eventos);
-    	botaoCancelar.setOnAction(eventos);
-    }
-    
-    public void setUsuario(Usuario usuario){
-    	usuarioAtivo = usuario;
-    	histo = new RelatorioHistograma(usuarioAtivo);
-    }
-    
-    private class Eventos implements EventHandler<ActionEvent> {
+		botaoAdicionar.setOnAction(eventos);
+		botaoCancelar.setOnAction(eventos);
+	}
+
+	public void setUsuario(Usuario usuario) {
+		usuarioAtivo = usuario;
+		histo = new RelatorioHistograma(usuarioAtivo);
+	}
+
+	private class Eventos implements EventHandler<ActionEvent> {
 
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoAdicionar) {
 				double maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-		        series1.setName("Despesa");
-				eixoX.setCategories(FXCollections.observableArrayList(histo.getMESES()));
-				
-				for (int i=0; i<12; i++){
-					series1.getData().add(new XYChart.Data<String, Number>(histo.getMESES()[i], histo.valoresDespesaPorMes().get(i)));
-					if  (histo.valoresDespesaPorMes().get(i) > maiorValor)
-						maiorValor = histo.valoresDespesaPorMes().get(i);
+				series1.setName("Despesa");
+				eixoX.setCategories(FXCollections
+						.observableArrayList(RelatorioHistograma.getMeses()));
+
+				for (int i = 0; i < 12; i++) {
+					series1.getData().add(
+							new XYChart.Data<String, Number>(
+									RelatorioHistograma.getMeses()[i], histo
+											.valoresDespesas().get(i)));
+					if (histo.valoresDespesas().get(i) > maiorValor)
+						maiorValor = histo.valoresDespesas().get(i);
 				}
 				eixoY.setAutoRanging(false);
 				eixoY.setUpperBound(maiorValor);
 				eixoY.setTickUnit(10);
-				
+
 				tabelaHistograma.getData().clear();
 				tabelaHistograma.getData().addAll(series1);
 			} else if (evento.getSource() == botaoCancelar) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
-					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass()
+							.getResource("../gui/TelaOperacoesPrincipais.fxml"));
+					Parent root = (Parent) fxmlLoader.load();
+					ControllerOperacoesPrincipais controller = fxmlLoader
+							.<ControllerOperacoesPrincipais> getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
-				}	
+				}
+			}
 		}
-	}
 
-    }
+	}
 }

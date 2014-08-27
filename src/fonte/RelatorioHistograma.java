@@ -9,7 +9,6 @@ public class RelatorioHistograma implements Relatorio {
 			"Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
 			"Novembro", "Dezembro" };
 
-	private String[] categorias;
 	private Usuario usuarioAtivo;
 	private GerenteDeCategorias gerenteCategorias;
 	private GerenteDeTransacoes gerenteTransacoes;
@@ -22,7 +21,7 @@ public class RelatorioHistograma implements Relatorio {
 	}
 
 	@Override
-	public List<Double> valoresDespesaPorMes() {
+	public List<Double> valoresDespesas() {
 		List<Double> despesas = new ArrayList<>();
 		double total;
 
@@ -39,7 +38,7 @@ public class RelatorioHistograma implements Relatorio {
 	}
 
 	@Override
-	public List<Double> valoresProventoPorMes() {
+	public List<Double> valoresProventos() {
 		List<Double> proventos = new ArrayList<>();
 		double total;
 
@@ -56,34 +55,16 @@ public class RelatorioHistograma implements Relatorio {
 	}
 
 	@Override
-	public List<Double> valoresCategoriasPorMes() {
+	public List<Double> valoresCategorias(int mes) {
 		return null;
 	}
 
 	@Override
 	public List<Double> valoresDeUmMes(int mes) {
-		// TODasdsdsaO Auto-generated method stub
 		return null;
 	}
 
-	/**
-	 * @return the categorias
-	 */
-	public String[] getCategorias() {
-		return categorias;
-	}
-
-	/**
-	 * @return the mESES
-	 */
-	public String[] getMESES() {
+	public static String[] getMeses() {
 		return MESES;
 	}
-
-	@Override
-	public List<Double> valoresDeUmaCategoria() {
-		// TODO Auto-generated method stub
-		return null;
-	}
-
 }
