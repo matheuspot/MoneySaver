@@ -28,9 +28,9 @@
       </BarChart>
       <MenuButton alignment="BOTTOM_LEFT" layoutX="453.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Tipo">
         <items>
-          <MenuItem mnemonicParsing="false" text="Despesa" />
-          <MenuItem mnemonicParsing="false" text="Provento" />
-            <MenuItem mnemonicParsing="false" text="Categoria" />
+          <MenuItem fx:id="menuDespesa" mnemonicParsing="false" text="Despesa" />
+          <MenuItem fx:id="menuProvento" mnemonicParsing="false" text="Provento" />
+            <MenuItem fx:id="menuCategoria" mnemonicParsing="false" text="Categoria" />
             <MenuItem mnemonicParsing="false" text="Data" />
         </items>
       </MenuButton>

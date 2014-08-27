@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+
 import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -12,6 +14,7 @@ import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.NumberAxis;
 import javafx.scene.chart.XYChart;
 import javafx.scene.control.Button;
+import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import fonte.GerenteDeCategorias;
 import fonte.RelatorioHistograma;
@@ -23,8 +26,14 @@ public class ControllerHistograma {
 	private BarChart<String, Number> tabelaHistograma;
 
 	@FXML
-	private Button botaoAdicionar;
+	private MenuItem menuDespesa;
 
+	@FXML
+	private MenuItem menuCategoria;
+
+	@FXML
+	private MenuItem menuProvento;
+	
 	@FXML
 	private Button botaoCancelar;
 
@@ -56,10 +65,12 @@ public class ControllerHistograma {
 
 	private class Eventos implements EventHandler<ActionEvent> {
 
+		double maiorValor;
+		
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoAdicionar) {
-				double maiorValor = 0;
+			if (evento.getSource() == menuDespesa) {
+				maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 				series1.setName("Despesa");
 				eixoX.setCategories(FXCollections
@@ -73,12 +84,63 @@ public class ControllerHistograma {
 					if (histo.valoresDespesas().get(i) > maiorValor)
 						maiorValor = histo.valoresDespesas().get(i);
 				}
+				
 				eixoY.setAutoRanging(false);
 				eixoY.setUpperBound(maiorValor);
 				eixoY.setTickUnit(10);
 
 				tabelaHistograma.getData().clear();
 				tabelaHistograma.getData().addAll(series1);
+				
+			} else if (evento.getSource() == menuProvento) {
+				maiorValor = 0;
+				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
+				series1.setName("Provento");
+				eixoX.setCategories(FXCollections
+						.observableArrayList(RelatorioHistograma.getMeses()));
+
+				for (int i = 0; i < 12; i++) {
+					series1.getData().add(
+							new XYChart.Data<String, Number>(
+									RelatorioHistograma.getMeses()[i], histo
+											.valoresProventos().get(i)));
+					if (histo.valoresDespesas().get(i) > maiorValor)
+						maiorValor = histo.valoresProventos().get(i);
+				}
+				
+				eixoY.setAutoRanging(false);
+				eixoY.setUpperBound(maiorValor);
+				eixoY.setTickUnit(10);
+
+				tabelaHistograma.getData().clear();
+				tabelaHistograma.getData().addAll(series1);
+				
+			} else if (evento.getSource() == menuCategoria) {
+				maiorValor = 0;
+				ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
+				
+				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
+				
+				
+				series1.setName("Provento");
+				eixoX.setCategories(FXCollections
+						.observableArrayList(RelatorioHistograma.get()));
+
+				for (int i = 0; i < 12; i++) {
+					series1.getData().add(
+							new XYChart.Data<String, Number>(
+									RelatorioHistograma.getMeses()[i], histo
+											.valoresProventos().get(i)));
+					if (histo.valoresDespesas().get(i) > maiorValor)
+						maiorValor = histo.valoresProvento().get(i);
+				}
+				
+				eixoY.setAutoRanging(false);
+				eixoY.setUpperBound(maiorValor);
+				eixoY.setTickUnit(10);
+
+				tabelaHistograma.getData().clear();
+				tabelaHistograma.getData().addAll(series);	
 			} else if (evento.getSource() == botaoCancelar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass()
