@@ -97,9 +97,9 @@ public class GerenteDeTransacoes {
 					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 		
-		if(categoria.valorLimite>0) {
-			if(valorNovo > categoria.valorLimite)
-				throw new Exception("Valor limite excedido para esta categoria.");
+		if(categoria.getOrcamento()>0) {
+			if(categoria.getOrcamento() < valorNovo)
+				throw new Exception("Orçamento excedido para essa categoria.");
 		}
 
 		usuariosDoSistema.remove(usuario);
