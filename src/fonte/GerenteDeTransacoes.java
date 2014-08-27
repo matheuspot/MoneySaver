@@ -84,7 +84,7 @@ public class GerenteDeTransacoes {
 	public void adicionaTransacao(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
-
+		
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
@@ -95,6 +95,11 @@ public class GerenteDeTransacoes {
 		} else if (tipoDeTransacao.equals("provento")) {
 			transacaoQueSeraAdicionada = new Provento(descricao,
 					dataDeInsercao, valorNovo, categoria, recorrencia);
+		}
+		
+		if(categoria.valorLimite>0) {
+			if(valorNovo > categoria.valorLimite)
+				throw new Exception("Valor limite excedido para esta categoria.");
 		}
 
 		usuariosDoSistema.remove(usuario);
@@ -338,18 +343,5 @@ public class GerenteDeTransacoes {
 				.collect(Collectors.toList());
 		return listaFiltradaPorMes;
 	}
-	
-	public double calculaGastosPorCategoria(Categoria categoria) throws Exception {
-		double valor=0;
-		
-		for (Transacao transacao : this.getTransacoesExistentes()) 
-			if (categoria.equals(transacao.getCategoria()))
-				valor += transacao.getValor();
-		
-		if (valor > categoria.getOrcamento())
-			throw new Exception("Valor limite excedido para esta categoria.");
-		if (valor == categoria.getOrcamento())
-			throw new Exception("Valor limite atingido para esta categoria.");
-		return valor;
-	}
+
 }
