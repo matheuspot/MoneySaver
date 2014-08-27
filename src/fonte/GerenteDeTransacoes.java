@@ -7,6 +7,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
+
 import auxiliar.ArquivadorTransacoes;
 import auxiliar.ArquivadorUsuarios;
 
@@ -336,5 +337,19 @@ public class GerenteDeTransacoes {
 				.filter(t -> t.getDataDeInsercao().getMonthValue() == mes)
 				.collect(Collectors.toList());
 		return listaFiltradaPorMes;
+	}
+	
+	public double calculaGastosPorCategoria(Categoria categoria) throws Exception {
+		double valor=0;
+		
+		for (Transacao transacao : this.getTransacoesExistentes()) 
+			if (categoria.equals(transacao.getCategoria()))
+				valor += transacao.getValor();
+		
+		if (valor > categoria.getOrcamento())
+			throw new Exception("Valor limite excedido para esta categoria.");
+		if (valor == categoria.getOrcamento())
+			throw new Exception("Valor limite atingido para esta categoria.");
+		return valor;
 	}
 }
