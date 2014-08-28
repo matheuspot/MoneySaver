@@ -15,12 +15,18 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 	private double saldo;
 	private List<Transacao> transacoesExistentes;
-
+	private String nome;
+	
 	/**
 	 * Construtor da classe Conta, que não recebe nenhum parâmetro e começa com
 	 * saldo igual a zero.
+	 * @throws Exception 
 	 */
-	public Conta() {
+	public Conta(String nome) throws Exception {
+		if (nome == null || nome.equals(""))
+			throw new Exception("Nome da conta invalida");
+		
+		this.nome = nome;
 		saldo = 0.0;
 		transacoesExistentes = new ArrayList<>();
 	}

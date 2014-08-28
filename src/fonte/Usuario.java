@@ -3,8 +3,11 @@ package fonte;
 import java.io.IOException;
 import java.io.Serializable;
 import java.security.GeneralSecurityException;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import auxiliar.Criptografia;
 
 /**
@@ -22,7 +25,7 @@ public class Usuario implements Serializable {
 	private String email;
 	private String senha;
 	private String dicaSenha;
-	private Conta conta;
+	private List<Conta> contas;
 
 	/**
 	 * Construtor da classe Usuario, que começa com uma conta de saldo zero.
@@ -59,7 +62,7 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.senha = senha;
 		this.dicaSenha = dicaSenha;
-		conta = new Conta();
+		contas = new ArrayList<>();
 	}
 
 	/**
@@ -148,12 +151,68 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Método para pegar a conta do usuário.
+	 * Método para pegar as contas do usuário.
 	 * 
-	 * @return A conta do usuário.
+	 * @return As contas do usuário.
 	 */
-	public Conta getConta() {
-		return conta;
+	public List<Conta> getContas() {
+		return contas;
+	}
+	
+	/**
+	 * Método para adicionar uma conta ao usuário
+	 * 
+	 * @param nome
+	 * 		nome da conta
+	 * @throws Exception
+	 * 		lanca excecao se nome de conta 
+	 * 		passado for invalido
+	 */
+	public void adicionaConta(String nome) throws Exception {
+		Conta conta = new Conta(nome);
+		contas.add(conta);
+	}
+	
+	/**
+	 * Método para remover uma conta do usuário
+	 * 
+	 * @param conta
+	 * 		conta a ser removida
+	 */
+	public void removeConta(Conta conta) {
+		contas.remove(conta);
+	}
+	
+	/**
+	 * Método para editar uma conta do usuário
+	 * 
+	 * @param contaAEditar
+	 * 		Conta a ser editada
+	 * @param nome
+	 * 		Novo nome para conta
+	 * @throws Exception
+	 * 		lanca excecao se nome de conta 
+	 * 		passado for invalido
+	 */
+	public void editaConta(Conta contaAEditar, String nome) throws Exception {
+		validaNomeDeConta(nome);
+		Conta conta = new Conta(nome);
+		contas.remove(contaAEditar);
+		contas.add(conta);
+	}
+	
+	/**
+	 * Checa se o nome da conta é valido
+	 * 
+	 * @param nome
+	 * 		nome da conta
+	 * @throws Exception
+	 * 		lanca excecao se nome de conta 
+	 * 		passado for invalido
+	 */
+	private void validaNomeDeConta(String nome) throws Exception {
+		if (nome == null || nome.equals(""))
+			throw new Exception("Nome de conta invalido!");
 	}
 
 	/**
@@ -170,8 +229,14 @@ public class Usuario implements Serializable {
 	 */
 	@Override
 	public String toString() {
+		String stringContas="";
+		
+		for (Conta conta : contas) {
+			stringContas += conta.toString();
+		}
+		
 		return "Nome: " + nome + "\nE-mail: " + email + "\nDica de senha: "
-				+ dicaSenha + "\n" + conta.toString();
+				+ dicaSenha + "\n" + stringContas;
 	}
 
 	/**
