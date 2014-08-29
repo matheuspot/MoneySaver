@@ -35,6 +35,8 @@ public class ControllerCadastro {
 	private Label labelAviso;
 	@FXML
 	private AnchorPane content;
+	@FXML
+	private TextField tfConta;
 
 	@FXML
 	void initialize() {
@@ -45,6 +47,7 @@ public class ControllerCadastro {
 		PFconfirmacaoSenha.setOnAction(eventos);
 		botaoCadastrar.setOnAction(eventos);
 		botaoVoltar.setOnAction(eventos);
+		tfConta.setOnAction(eventos);
 		labelAviso.setVisible(false);
 	}
 
