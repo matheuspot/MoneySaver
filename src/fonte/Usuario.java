@@ -7,7 +7,6 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import auxiliar.Criptografia;
 
 /**
@@ -158,41 +157,39 @@ public class Usuario implements Serializable {
 	public List<Conta> getContas() {
 		return contas;
 	}
-	
+
 	/**
 	 * Método para adicionar uma conta ao usuário
 	 * 
 	 * @param nome
-	 * 		nome da conta
+	 *            nome da conta
 	 * @throws Exception
-	 * 		lanca excecao se nome de conta 
-	 * 		passado for invalido
+	 *             lanca excecao se nome de conta passado for invalido
 	 */
 	public void adicionaConta(String nome) throws Exception {
 		Conta conta = new Conta(nome);
 		contas.add(conta);
 	}
-	
+
 	/**
 	 * Método para remover uma conta do usuário
 	 * 
 	 * @param conta
-	 * 		conta a ser removida
+	 *            conta a ser removida
 	 */
 	public void removeConta(Conta conta) {
 		contas.remove(conta);
 	}
-	
+
 	/**
 	 * Método para editar uma conta do usuário
 	 * 
 	 * @param contaAEditar
-	 * 		Conta a ser editada
+	 *            Conta a ser editada
 	 * @param nome
-	 * 		Novo nome para conta
+	 *            Novo nome para conta
 	 * @throws Exception
-	 * 		lanca excecao se nome de conta 
-	 * 		passado for invalido
+	 *             lanca excecao se nome de conta passado for invalido
 	 */
 	public void editaConta(Conta contaAEditar, String nome) throws Exception {
 		validaNomeDeConta(nome);
@@ -200,15 +197,14 @@ public class Usuario implements Serializable {
 		contas.remove(contaAEditar);
 		contas.add(conta);
 	}
-	
+
 	/**
 	 * Checa se o nome da conta é valido
 	 * 
 	 * @param nome
-	 * 		nome da conta
+	 *            nome da conta
 	 * @throws Exception
-	 * 		lanca excecao se nome de conta 
-	 * 		passado for invalido
+	 *             lanca excecao se nome de conta passado for invalido
 	 */
 	private void validaNomeDeConta(String nome) throws Exception {
 		if (nome == null || nome.equals(""))
@@ -229,12 +225,12 @@ public class Usuario implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		String stringContas="";
-		
+		String stringContas = "";
+
 		for (Conta conta : contas) {
 			stringContas += conta.toString();
 		}
-		
+
 		return "Nome: " + nome + "\nE-mail: " + email + "\nDica de senha: "
 				+ dicaSenha + "\n" + stringContas;
 	}

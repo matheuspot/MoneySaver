@@ -13,22 +13,26 @@ import java.util.stream.Collectors;
 public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
+
 	private double saldo;
-	private List<Transacao> transacoesExistentes;
-	private String nome;
-	
+	private final String nome;
+	private List<Transacao> transacoes;
+
 	/**
-	 * Construtor da classe Conta, que não recebe nenhum parâmetro e começa com
-	 * saldo igual a zero.
-	 * @throws Exception 
+	 * Construtor da classe conta, que recebe seu nome como parâmetro.
+	 * 
+	 * @param nome
+	 *            O nome da conta.
+	 * @throws Exception
+	 *             Lança exceção se o nome da conta for inválido.
 	 */
 	public Conta(String nome) throws Exception {
-		if (nome == null || nome.equals(""))
-			throw new Exception("Nome da conta invalida");
-		
+		if (nome == null || nome.trim().length() == 0)
+			throw new Exception("Nome da conta inválido.");
+
 		this.nome = nome;
 		saldo = 0.0;
-		transacoesExistentes = new ArrayList<>();
+		transacoes = new ArrayList<>();
 	}
 
 	/**
@@ -42,55 +46,7 @@ public class Conta implements Serializable {
 	}
 
 	/**
-	 * Método para pegar o saldo da conta.
-	 * 
-	 * @return O saldo da conta.
-	 */
-	public double getSaldo() {
-		return saldo;
-	}
-
-	/**
-	 * Override do método toString da classe Object
-	 */
-	@Override
-	public String toString() {
-		return String.format("R$ %.2f", saldo);
-	}
-
-	/**
-	 * Override do método hashCode da classe Object.
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		long temp;
-		temp = Double.doubleToLongBits(saldo);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		return result;
-	}
-
-	/**
-	 * Override do método equals da classe Object.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Conta other = (Conta) obj;
-		if (Double.doubleToLongBits(saldo) != Double
-				.doubleToLongBits(other.saldo))
-			return false;
-		return true;
-	}
-	
-	/**
-	 * Método que irá adicionar uma transação às transações que o usuário têm.
+	 * Método usado para adicionar uma transação.
 	 * 
 	 * @param descricao
 	 *            A descrição da transação.
@@ -104,15 +60,18 @@ public class Conta implements Serializable {
 	 *            A recorrência da transação.
 	 * @param tipoDeTransacao
 	 *            O tipo de transação.
+	 * @return Retorna true se o valor da transação passar do orçamento da
+	 *         categoria selecionada, e false caso contrário. Também retornará
+	 *         false caso a categoria não tenha orçamento.
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public void adicionaTransacao(String descricao, LocalDate dataDeInsercao,
-			String valor, Categoria categoria, String recorrencia,
-			String tipoDeTransacao) throws Exception {
-		
+	public boolean adicionaTransacao(String descricao,
+			LocalDate dataDeInsercao, String valor, Categoria categoria,
+			String recorrencia, String tipoDeTransacao) throws Exception {
+
 		Transacao transacaoQueSeraAdicionada = null;
-		
+
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
@@ -125,13 +84,141 @@ public class Conta implements Serializable {
 					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 
-		transacoesExistentes.add(transacaoQueSeraAdicionada);
-		Collections.sort(transacoesExistentes);
-		
-		this.moveDinheiroNaConta(
-				transacaoQueSeraAdicionada.getValor());
+		transacoes.add(transacaoQueSeraAdicionada);
+		Collections.sort(transacoes);
+		moveDinheiroNaConta(transacaoQueSeraAdicionada.getValor());
+
+		return calculaGastosPorCategoria(categoria);
 	}
-	
+
+	/**
+	 * Método usado para remover uma transação.
+	 * 
+	 * @param transacao
+	 *            A transação que deseja-se remover.
+	 * @throws Exception
+	 *             Lança exceção se a transação não existir.
+	 */
+	public void removeTransacao(Transacao transacao) throws Exception {
+		if (!transacoes.contains(transacao))
+			throw new Exception("Transação inexistente.");
+
+		this.moveDinheiroNaConta(-transacao.getValor());
+		transacoes.remove(transacao);
+	}
+
+	/**
+	 * Método usado para editar uma transação.
+	 * 
+	 * @param transacaoParaEditar
+	 *            A transação que deseja-se editar.
+	 * @param descricao
+	 *            A nova descrição da transação.
+	 * @param dataDeInsercao
+	 *            A nova data de inserção da transação.
+	 * @param valor
+	 *            O novo valor da transação.
+	 * @param categoria
+	 *            A nova categoria da transação.
+	 * @param recorrencia
+	 *            A nova recorrência da transação.
+	 * @param tipoDeTransacao
+	 *            O novo tipo de transação.
+	 * @return Retorna true se o novo valor da transação passar do orçamento da
+	 *         nova categoria, e false caso contrário. Também retornará false
+	 *         caso a nova categoria não tenha orçamento.
+	 * @throws Exception
+	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 */
+	public boolean editaTransacao(Transacao transacaoParaEditar,
+			String descricao, LocalDate dataDeInsercao, String valor,
+			Categoria categoria, String recorrencia, String tipoDeTransacao)
+			throws Exception {
+
+		Transacao transacaoQueSeraAdicionada = null;
+
+		if (transacaoParaEditar == null
+				|| !transacoes.contains(transacaoParaEditar))
+			throw new Exception("Transação inexistente.");
+
+		transacaoValida(descricao, dataDeInsercao, valor, categoria,
+				recorrencia, tipoDeTransacao);
+		Double novoValor = Double.parseDouble(valor);
+
+		if (tipoDeTransacao.equals("despesa")) {
+			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+					novoValor, categoria, recorrencia);
+		} else if (tipoDeTransacao.equals("provento")) {
+			transacaoQueSeraAdicionada = new Provento(descricao,
+					dataDeInsercao, novoValor, categoria, recorrencia);
+		}
+
+		moveDinheiroNaConta(-transacaoParaEditar.getValor());
+		moveDinheiroNaConta(transacaoQueSeraAdicionada.getValor());
+
+		transacoes.remove(transacaoParaEditar);
+		transacoes.add(transacaoQueSeraAdicionada);
+
+		return calculaGastosPorCategoria(categoria);
+	}
+
+	/**
+	 * Método usado para ter acesso às transações de um determinado mês.
+	 * 
+	 * @param mes
+	 *            O mês que deseja-se filtrar as transações; um inteiro de 1 à
+	 *            12, onde 1 representa Janeiro e 12 Dezembro.
+	 * @return Retorna uma lista com todas as transações do mês selecionado.
+	 * @throws Exception
+	 *             Lança exceção se o mês fornecido for inválido.
+	 */
+	public List<Transacao> listaTransacoesPeloMes(int mes) throws Exception {
+		if (mes < 1 || mes > 12)
+			throw new Exception("Forneça um mês entre 1 e 12.");
+
+		List<Transacao> listaFiltradaPorMes = transacoes
+				.stream()
+				.filter(t -> t.getDataDeInsercao().getMonthValue() == mes
+						&& t.getDataDeInsercao().getYear() == LocalDate.now()
+								.getYear()).collect(Collectors.toList());
+		return listaFiltradaPorMes;
+	}
+
+	/**
+	 * Método que dá acesso ao saldo da conta.
+	 * 
+	 * @return O saldo da conta.
+	 */
+	public double getSaldo() {
+		return saldo;
+	}
+
+	/**
+	 * Método que dá acesso ao nome da conta.
+	 * 
+	 * @return O nome da conta.
+	 */
+	public String getNome() {
+		return nome;
+	}
+
+	/**
+	 * Método que dá acesso as transações da conta.
+	 * 
+	 * @return As transações da conta.
+	 */
+	public List<Transacao> getTransacoesExistentes() {
+		return transacoes;
+	}
+
+	/**
+	 * Método toString da conta.
+	 */
+	@Override
+	public String toString() {
+		return String.format("R$ %.2f", saldo);
+	}
+
 	/**
 	 * Método que verifica se uma transação é válida.
 	 * 
@@ -153,7 +240,7 @@ public class Conta implements Serializable {
 	private void transacaoValida(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
 			String tipoDeTransacao) throws Exception {
-		
+
 		if (!descricaoValida(descricao)) {
 			throw new Exception("Descrição inválida.");
 		}
@@ -173,53 +260,39 @@ public class Conta implements Serializable {
 			throw new Exception("Tipo de transação inválido.");
 		}
 	}
-	
+
 	/**
-	 * Método que checa se o tipo de transação é válido.
+	 * Método que verifica se uma descrição é válida.
 	 * 
-	 * @param tipoDeTransacao
-	 *            O tipo de transação.
-	 * @return Retorna true se for válido, e false caso contrário.
-	 */
-	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
-		if (tipoDeTransacao == null
-				|| (!tipoDeTransacao.equals("despesa") && !tipoDeTransacao
-						.equals("provento")))
-			return false;
-		return true;
-	}
-	
-	/**
-	 * Método que checa se a recorrência da transação é válida.
-	 * 
-	 * @param recorrencia
-	 *            A recorrência da transação.
+	 * @param descricao
+	 *            Uma descrição.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-	private boolean recorrenciaValida(String recorrencia) {
-		if (recorrencia == null || recorrencia.trim().length() == 0)
+	private boolean descricaoValida(String descricao) {
+		if (descricao == null || descricao.trim().length() == 0
+				|| descricao.length() > 25)
 			return false;
 		return true;
 	}
-	
+
 	/**
-	 * Método que verifica se a categoria da transação é válida.
+	 * Método que verifica se uma data de inserção é válida.
 	 * 
-	 * @param categoria
-	 *            A categoria da transação.
+	 * @param dataDeInsercao
+	 *            Uma data de inserção.
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
-	private boolean categoriaValida(Categoria categoria) {
-		if (categoria == null)
+	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
+		if (dataDeInsercao == null || dataDeInsercao.isAfter(LocalDate.now()))
 			return false;
 		return true;
 	}
-	
+
 	/**
-	 * Método que verifica se o valor da transação é válido.
+	 * Método que verifica se um valor é válido.
 	 * 
 	 * @param valor
-	 *            O valor da transação.
+	 *            Um valor.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean valorValido(String valor) {
@@ -232,145 +305,114 @@ public class Conta implements Serializable {
 			return false;
 		}
 	}
-	
+
 	/**
-	 * Método que verifica se a data de inserção da transação é válida.
+	 * Método que verifica se uma categoria é válida.
 	 * 
-	 * @param dataDeInsercao
-	 *            A data de inserção da transação.
-	 * @return Retorna true se for válida, e false caso contrário.
-	 */
-	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
-		if (dataDeInsercao == null || dataDeInsercao.isAfter(LocalDate.now()))
-			return false;
-		return true;
-	}
-	
-	/**
-	 * Método que verifica se a descrição da transação é válida.
-	 * 
-	 * @param descricao
-	 *            A descrição da transação.
-	 * @return Retorna true se for válida, e false caso contrário.
-	 */
-	private boolean descricaoValida(String descricao) {
-		if (descricao == null || descricao.trim().length() == 0
-				|| descricao.length() > 25)
-			return false;
-		return true;
-	}
-	
-	/**
-	 * Método que irá remover uma transação das transações que o usuário têm.
-	 * 
-	 * @param transacao
-	 *            A transação que deseja-se remover.
-	 * @throws Exception
-	 *             Lança exceção se a transação não existir.
-	 */
-	public void removeTransacao(Transacao transacao) throws Exception {
-		if (!transacoesExistentes.contains(transacao))
-			throw new Exception("Transação inexistente.");
-		
-		this.moveDinheiroNaConta(-transacao.getValor());
-		transacoesExistentes.remove(transacao);
-	}
-	
-	/**
-	 * Método que irá editar uma transação das transações que o usuário têm.
-	 * 
-	 * @param transacaoParaEditar
-	 *            A transação que deseja-se editar.
-	 * @param descricao
-	 *            A descrição da transação nova.
-	 * @param dataDeInsercao
-	 *            A data de inserção da transação nova.
-	 * @param valor
-	 *            O valor da transação nova.
 	 * @param categoria
-	 *            A categoria da transação nova.
+	 *            Uma categoria.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+	private boolean categoriaValida(Categoria categoria) {
+		if (categoria == null)
+			return false;
+		return true;
+	}
+
+	/**
+	 * Método que verifica se uma recorrência é válida.
+	 * 
 	 * @param recorrencia
-	 *            A recorrência da transação nova.
+	 *            Uma recorrência.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+	private boolean recorrenciaValida(String recorrencia) {
+		if (recorrencia == null || recorrencia.trim().length() == 0)
+			return false;
+		return true;
+	}
+
+	/**
+	 * Método que verifica se um tipo de transação é válido.
+	 * 
 	 * @param tipoDeTransacao
-	 *            O tipo de transação nova.
-	 * @throws Exception
-	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 *            Um tipo de transação.
+	 * @return Retorna true se for válido, e false caso contrário.
 	 */
-	public void editaTransacao(Transacao transacaoParaEditar, String descricao,
-			LocalDate dataDeInsercao, String valor, Categoria categoria,
-			String recorrencia, String tipoDeTransacao) throws Exception {
-		
-		Transacao transacaoQueSeraAdicionada = null;
-		this.moveDinheiroNaConta(-transacaoParaEditar.getValor());
-		
-		if (transacaoParaEditar == null
-				|| !transacoesExistentes.contains(transacaoParaEditar))
-			throw new Exception("Transação inexistente.");
+	private boolean tipoDeTransacaoValido(String tipoDeTransacao) {
+		if (tipoDeTransacao == null
+				|| (!tipoDeTransacao.equals("despesa") && !tipoDeTransacao
+						.equals("provento")))
+			return false;
+		return true;
+	}
 
-		transacaoValida(descricao, dataDeInsercao, valor, categoria,
-				recorrencia, tipoDeTransacao);
-		Double novoValor = Double.parseDouble(valor);
-		
-		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
-					novoValor, categoria, recorrencia);
-		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, novoValor, categoria, recorrencia);
-		}
-
-		this.moveDinheiroNaConta(
-				transacaoQueSeraAdicionada.getValor());
-		
-		transacoesExistentes.remove(transacaoParaEditar);
-		transacoesExistentes.add(transacaoQueSeraAdicionada);
-	}
-	
 	/**
-	 * Método de acesso a lista de transações existentes do usuário que está
-	 * logado.
-	 * 
-	 * @return Retorna uma lista com as transações existentes do usuário que
-	 *         está logado.
-	 */
-	public List<Transacao> getTransacoesExistentes() {
-		return transacoesExistentes;
-	}
-	
-	/**
-	 * Método que recebe um inteiro de 1 até 12, que representa o mês, e filtra
-	 * as transações baseado no mês de entrada.
-	 * 
-	 * @param mes
-	 *            O mês que deseja-se usar para o filtro.
-	 * @return Retorna uma List de Transacao somente do mês desejado.
-	 */
-	public List<Transacao> listaTransacoesPeloMes(int mes) {
-		List<Transacao> listaFiltradaPorMes = transacoesExistentes.stream()
-				.filter(t -> t.getDataDeInsercao().getMonthValue() == mes)
-				.collect(Collectors.toList());
-		return listaFiltradaPorMes;
-	}
-	
-	/**
-	 * Checa se os gastos de uma determinada categoria passou dos limites do orcamento
+	 * Método que irá verificar se os gastos de uma categoria já passaram de seu
+	 * orçamento, caso ele exista.
 	 * 
 	 * @param categoria
-	 * 		categoria que deseja checar se passou do limite
-	 * @return
-	 * 		valor gasto numa categoria
-	 * @throws Exception
-	 * 		lanca excecao se o valor atingiu ou ultrapassou o limite
+	 *            A categoria que deseja-se verificar.
+	 * @return Retorna true se os gastos passaram do orçamento, e false caso
+	 *         contrário. Também retornará false caso a categoria não tenha
+	 *         orçamento.
 	 */
-	public double calculaGastosPorCategoria(Categoria categoria) throws Exception {
-		double valor=0;
-		
-		for (Transacao transacao : this.getTransacoesExistentes()) 
+	private boolean calculaGastosPorCategoria(Categoria categoria) {
+		if (categoria.getOrcamento() == 0)
+			return false;
+		double valor = 0;
+
+		for (Transacao transacao : transacoes)
 			if (categoria.equals(transacao.getCategoria()))
 				valor += transacao.getValor();
-		
+
 		if (valor > categoria.getOrcamento())
-			throw new Exception("Valor limite excedido para esta categoria.");
-		return valor;
+			return true;
+		return false;
+	}
+
+	/**
+	 * Método hashCode.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(saldo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((transacoes == null) ? 0 : transacoes.hashCode());
+		return result;
+	}
+
+	/**
+	 * Método equals. Duas contas serão iguais se todos seus atributos forem
+	 * iguais.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (Double.doubleToLongBits(saldo) != Double
+				.doubleToLongBits(other.saldo))
+			return false;
+		if (transacoes == null) {
+			if (other.transacoes != null)
+				return false;
+		} else if (!transacoes.equals(other.transacoes))
+			return false;
+		return true;
 	}
 }
