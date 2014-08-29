@@ -40,27 +40,10 @@ public class ControllerOperacoesPrincipais {
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private GerenteDeTransacoes gerente;  
     private Tabela tabela;
-
-		@FXML
-	    private Button editarTransacao;
-
-	    @FXML
-	    private Button adicionarCategoria;
+	
 
 	    @FXML
 	    private Label labelSaldo;
-
-	    @FXML
-	    private Button removerTransacao;
-
-	    @FXML
-	    private Button removerCategoria;
-
-	    @FXML
-	    private Button adicionarTransacao;
-
-	    @FXML
-	    private Button editarCategoria;
 
 	    @FXML
 	    private Button botaoSair;
@@ -81,7 +64,43 @@ public class ControllerOperacoesPrincipais {
 	    private ComboBox<String> CBmes;
 	    
 	    @FXML
-	    private Button botaoHistograma;
+	    private MenuItem editarTransacao;
+
+	    @FXML
+	    private MenuItem adicionarConta;
+	    
+	    @FXML
+	    private MenuItem removerTransacao;
+
+	    @FXML
+	    private MenuItem adicionarTransacao;
+
+	    @FXML
+	    private MenuItem editarCategoria;
+
+	    @FXML
+	    private MenuItem botaoHistograma;
+	    
+	    @FXML
+	    private MenuItem removerConta;
+
+	    @FXML
+	    private MenuItem botaoLista;
+
+	    @FXML
+	    private MenuItem adicionarCategoria;
+
+	    @FXML
+	    private ComboBox<?> cbContas;
+	    
+	    @FXML
+	    private MenuItem adicionarOrcamento;
+
+	    @FXML
+	    private MenuItem editarConta;
+
+	    @FXML
+	    private MenuItem removerCategoria;
 	   
 	    
     @FXML
@@ -92,6 +111,10 @@ public class ControllerOperacoesPrincipais {
     	adicionarCategoria.setOnAction(eventos);
     	removerCategoria.setOnAction(eventos);
     	editarCategoria.setOnAction(eventos);
+    	editarConta.setOnAction(eventos);
+    	adicionarConta.setOnAction(eventos);
+    	removerConta.setOnAction(eventos);
+    	adicionarOrcamento.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
     	tabela = new Tabela();
     	CBmes.getItems().addAll(meses);
