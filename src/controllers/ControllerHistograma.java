@@ -1,7 +1,12 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -19,9 +24,17 @@ import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
 import fonte.GerenteDeCategorias;
 import fonte.RelatorioHistograma;
+import fonte.Transacao;
 import fonte.Usuario;
 
 public class ControllerHistograma {
+	
+	private Usuario usuarioAtivo;
+	private GerenteDeCategorias gerenteDeCategorias = new GerenteDeCategorias(
+			usuarioAtivo);
+	private RelatorioHistograma histo;
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private Tabela tabela;
 
 	@FXML
 	private BarChart<String, Number> tabelaHistograma;
@@ -50,23 +63,43 @@ public class ControllerHistograma {
 	@FXML
     private ComboBox<String> cbMeses;
 
-	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerenteDeCategorias = new GerenteDeCategorias(
-			usuarioAtivo);
-	private RelatorioHistograma histo;
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-
 	@FXML
 	void initialize() {
 		botaoCancelar.setOnAction(eventos);
 		menuCategoria.setOnAction(eventos);
 		menuDespesa.setOnAction(eventos);
 		menuProvento.setOnAction(eventos);
+		cbMeses.getItems().addAll(RelatorioHistograma.getMeses());
+		cbMeses.valueProperty().addListener(tabela);
 	}
 
 	public void setUsuario(Usuario usuario) {
 		usuarioAtivo = usuario;
 		histo = new RelatorioHistograma(usuarioAtivo);
+		
+	}
+	
+	private class Tabela implements ChangeListener<String>{
+    	
+    	@Override 
+        public void changed(ObservableValue ov, String t, String t1) {  
+    		double maiorValor = 0;
+			ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
+			eixoX.setCategories(FXCollections.observableArrayList(histo.getCategorias()));
+			
+			XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
+			series1.setName("Provento");
+			for (int i = 0; i < 12; i++) {
+				histo.valoresCategorias(t1).get(0);
+			}
+			
+			
+			eixoY.setAutoRanging(false);
+			eixoY.setUpperBound(maiorValor);
+			eixoY.setTickUnit(10);
+			
+			tabelaHistograma.getData().addAll(series);	
+        }  
 	}
 
 	private class Eventos implements EventHandler<ActionEvent> {
@@ -76,6 +109,7 @@ public class ControllerHistograma {
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == menuDespesa) {
+				cbMeses.setVisible(false);
 				maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 				series1.setName("Despesa");
@@ -99,6 +133,7 @@ public class ControllerHistograma {
 				tabelaHistograma.getData().addAll(series1);
 				
 			} else if (evento.getSource() == menuProvento) {
+				cbMeses.setVisible(false);
 				maiorValor = 0;
 				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 				series1.setName("Provento");
@@ -122,23 +157,9 @@ public class ControllerHistograma {
 				tabelaHistograma.getData().addAll(series1);
 				
 			} else if (evento.getSource() == menuCategoria) {
-				maiorValor = 0;
-				ObservableList<XYChart.Series<String, Number>> series = FXCollections.observableArrayList();
-				eixoX.setCategories(FXCollections.observableArrayList(histo.getCategorias()));
-				
-				XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
-				series1.setName("Provento");
-				for (int i = 0; i < 12; i++) {
-					histo.valoresCategorias(mes).get(0);
-				}
-				
-				
-				eixoY.setAutoRanging(false);
-				eixoY.setUpperBound(maiorValor);
-				eixoY.setTickUnit(10);
-
+				cbMeses.setVisible(true);
 				tabelaHistograma.getData().clear();
-				tabelaHistograma.getData().addAll(series);	
+				
 			} else if (evento.getSource() == botaoCancelar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass()
@@ -154,5 +175,6 @@ public class ControllerHistograma {
 			}
 		}
 
+	
 	}
 }
