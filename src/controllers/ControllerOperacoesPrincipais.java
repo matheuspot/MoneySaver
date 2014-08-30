@@ -21,8 +21,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
-import javafx.scene.control.SelectionModel;
-import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -318,6 +316,16 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == adicionarOrcamento) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {

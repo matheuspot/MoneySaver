@@ -7,7 +7,6 @@ import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
-import controllers.ControllerRemoverCategoria.Eventos;
 import fonte.Categoria;
 import fonte.Usuario;
 import javafx.event.ActionEvent;
@@ -80,7 +79,7 @@ public class ControllerAdicionarOrcamento {
     	    });
     }
     
-private class Eventos implements EventHandler<ActionEvent> {
+    private class Eventos implements EventHandler<ActionEvent> {
 		
 		@Override
 		public void handle(ActionEvent evento) {
@@ -94,9 +93,9 @@ private class Eventos implements EventHandler<ActionEvent> {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}		
-			} else if (evento.getSource() == botaoRemover) {
+			} else if (evento.getSource() == botaoAdicionar) {
 				
-				if (CBcategorias.getSelectionModel().getSelectedItem() == null){
+				if (cbCategorias.getSelectionModel().getSelectedItem() == null){
 					labelAviso.setText("Selecione uma categoria.");
 					labelAviso.setVisible(true);
 					
@@ -104,16 +103,16 @@ private class Eventos implements EventHandler<ActionEvent> {
 					labelAviso.setVisible(false);
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
-							.masthead(null).message("Deseja remover a categoria selecionada?")
+							.masthead(null).message("Deseja adicionar orçamento para a categoria selecionada?")
 							.showConfirm();
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							usuarioAtivo.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
+							cbCategorias.getSelectionModel().getSelectedItem().setOrcamento(Double.parseDouble(tfValor.getText()));
 							try {
-								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
-								ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
+								ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
 								controller.setUsuario(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
@@ -125,9 +124,9 @@ private class Eventos implements EventHandler<ActionEvent> {
 						}
 					} else if (resposta == Dialog.Actions.NO){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdiconarOrcamento.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
-							ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
+							ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
 							controller.setUsuario(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
