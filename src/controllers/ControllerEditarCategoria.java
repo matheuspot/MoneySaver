@@ -26,12 +26,14 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 
 public class ControllerEditarCategoria {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
+	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoCancelar;
@@ -124,6 +126,7 @@ public class ControllerEditarCategoria {
 					if (resposta == Dialog.Actions.YES){
 						try{						
 							usuarioAtivo.editaCategoria(CBcategoria.getSelectionModel().getSelectedItem(), TFnome.getText(), cor.getValue().toString());
+							gerente.atualizaSistema(usuarioAtivo);
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          

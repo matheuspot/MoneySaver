@@ -8,6 +8,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Transacao;
 import fonte.Usuario;
 import javafx.collections.FXCollections;
@@ -79,6 +80,8 @@ public class ControllerEditarTransacaoFinal {
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
     
+    private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
+    
     @FXML
 	void initialize() {
     	botaoCancelar.setOnAction(eventos);
@@ -148,6 +151,8 @@ public class ControllerEditarTransacaoFinal {
 							cbCategoria.getSelectionModel().getSelectedItem(), 
 							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
+					
+					gerente.atualizaSistema(usuarioAtivo);
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Transação modificada. Deseja editar uma nova transação?")

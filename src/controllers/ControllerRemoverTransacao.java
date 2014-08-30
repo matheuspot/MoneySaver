@@ -12,6 +12,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Transacao;
 import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
@@ -42,6 +43,7 @@ public class ControllerRemoverTransacao {
 	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private Tabela tabela;
+    private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private ComboBox<String> cbMes;
@@ -277,6 +279,7 @@ public class ControllerRemoverTransacao {
 					if (resposta == Dialog.Actions.YES){
 						try{						
 							usuarioAtivo.getContaAtiva().removeTransacao(table.getSelectionModel().getSelectedItem());
+							gerente.atualizaSistema(usuarioAtivo);
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverTransacao.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          

@@ -8,6 +8,7 @@ import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -28,6 +29,7 @@ public class ControllerAdicionarOrcamento {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
+	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoAdicionar;
@@ -109,6 +111,7 @@ public class ControllerAdicionarOrcamento {
 					if (resposta == Dialog.Actions.YES){
 						try{						
 							cbCategorias.getSelectionModel().getSelectedItem().setOrcamento(Double.parseDouble(tfValor.getText()));
+							gerente.atualizaSistema(usuarioAtivo);
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          

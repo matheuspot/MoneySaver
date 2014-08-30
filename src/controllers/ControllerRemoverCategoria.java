@@ -22,12 +22,14 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 
 public class ControllerRemoverCategoria {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
+	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoCancelar;
@@ -106,6 +108,7 @@ public class ControllerRemoverCategoria {
 					if (resposta == Dialog.Actions.YES){
 						try{						
 							usuarioAtivo.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
+							gerente.atualizaSistema(usuarioAtivo);
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
