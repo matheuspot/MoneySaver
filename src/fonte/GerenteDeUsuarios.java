@@ -1,5 +1,6 @@
 package fonte;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
@@ -99,6 +100,7 @@ public class GerenteDeUsuarios {
 		if (!usuario.checaLogin(senha))
 			throw new Exception("Senha incorreta!");
 
+		usuario.atualizaOrcamentoDeCategorias(LocalDate.now().getMonthValue());
 		return usuario;
 	}
 

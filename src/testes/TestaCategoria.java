@@ -107,14 +107,14 @@ public class TestaCategoria {
 	@Test
 	public void testaGeraOrcamentoInvalido() {
 		try {
-			categoria1.geraOrcamento(-55.63);
+			categoria1.setOrcamento(-55.63);
 			fail("Esperava excecao!");
 		} catch (Exception e) {
 			assertEquals("Valor limite tem que ser positivo!", e.getMessage());
 		}
 		
 		try {
-			categoria1.geraOrcamento(0);
+			categoria1.setOrcamento(0);
 			fail("Esperava excecao!");
 		} catch (Exception e) {
 			assertEquals("Valor limite tem que ser positivo!", e.getMessage());
@@ -123,13 +123,13 @@ public class TestaCategoria {
 	
 	@Test
 	public void testaGeraOrcamentoValido() throws Exception {
-		categoria1.geraOrcamento(55.96);
+		categoria1.setOrcamento(55.96);
 		assertEquals(55.96, categoria1.getOrcamento(), 2);
 		
-		categoria1.geraOrcamento(7.85);
+		categoria1.setOrcamento(7.85);
 		assertEquals(7.85, categoria1.getOrcamento(), 2);
 		
-		categoria1.geraOrcamento(552.6);
+		categoria1.setOrcamento(552.6);
 		assertEquals(552.6, categoria1.getOrcamento(), 1);
 	}
 	

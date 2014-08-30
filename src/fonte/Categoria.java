@@ -10,10 +10,10 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	private static final long serialVersionUID = 1L;
 	private String nome;
 	private String cor;
-	private double orcamento;
+	private Orcamento orcamento;
 
 	/**
-	 * Construtor da classe Categoria.
+	 * Construtor de categoria sem orçamento.
 	 * 
 	 * @param nome
 	 *            O nome da categoria.
@@ -23,9 +23,9 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public Categoria(String nome, String cor) throws Exception {
-		if (nome == null || nome.trim().length() == 0)
+		if (!validaNome(nome))
 			throw new Exception("Nome inválido.");
-		if (cor == null || cor.trim().length() == 0)
+		if (!validaNome(cor))
 			throw new Exception("Cor inválida.");
 
 		this.nome = nome;
@@ -33,7 +33,7 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	}
 
 	/**
-	 * Método de acesso ao nome da categoria.
+	 * Método que dá acesso ao nome da categoria.
 	 * 
 	 * @return O nome da categoria.
 	 */
@@ -42,7 +42,7 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	}
 
 	/**
-	 * Método de acesso à cor da categoria.
+	 * Método que dá acesso à cor da categoria.
 	 * 
 	 * @return A cor da categoria.
 	 */
@@ -50,27 +50,77 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 		return cor;
 	}
 
-	public void geraOrcamento(double valorLimite) throws Exception {
-		if (valorLimite <= 0)
-			throw new Exception("Valor limite tem que ser positivo!");
-
-		orcamento = valorLimite;
-	}
-
-	public double getOrcamento() {
+	/**
+	 * Método que dá acesso ao orçamento da categoria.
+	 * 
+	 * @return O orçamento da categoria.
+	 */
+	public Orcamento getOrcamento() {
 		return orcamento;
 	}
 
 	/**
-	 * Override do método toString da classe Object.
+	 * Método para adicionar um orçamento à categoria.
+	 * 
+	 * @param limite
+	 *            O limite do orçamento.
+	 * @throws Exception
+	 *             Lança exceção se o limite for menor ou igual a zero.
 	 */
-	@Override
-	public String toString() {
-		return nome;
+	public void setOrcamento(double limite) throws Exception {
+		if (limite <= 0)
+			throw new Exception("Valor limite tem que ser positivo!");
+
+		orcamento = new Orcamento(limite);
 	}
 
 	/**
-	 * Override do método hashCode da classe Object.
+	 * Método que irá remover o orçamento da categoria atribuindo-o como null.
+	 */
+	public void removeOrcamento() {
+		orcamento = null;
+	}
+
+	/**
+	 * Método para modificar o nome da categoria.
+	 * 
+	 * @param nome
+	 *            O novo nome da categoria.
+	 * @throws Exception
+	 *             Lança exceção se o nome for inválido.
+	 */
+	public void setNome(String nome) throws Exception {
+		if (!validaNome(nome))
+			throw new Exception("Nome inválido.");
+
+		this.nome = nome;
+	}
+
+	/**
+	 * Método para modificar a cor da categoria.
+	 * 
+	 * @param cor
+	 *            A cor da categoria.
+	 * @throws Exception
+	 *             Lança exceção se a cor for inválida.
+	 */
+	public void setCor(String cor) throws Exception {
+		if (!validaNome(cor))
+			throw new Exception("Cor inválida.");
+
+		this.cor = cor;
+	}
+
+	/**
+	 * Método toString.
+	 */
+	@Override
+	public String toString() {
+		return String.format("Nome: %s", nome);
+	}
+
+	/**
+	 * Método hashCode.
 	 */
 	@Override
 	public int hashCode() {
@@ -78,12 +128,14 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 		int result = 1;
 		result = prime * result + ((cor == null) ? 0 : cor.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		result = prime * result
+				+ ((orcamento == null) ? 0 : orcamento.hashCode());
 		return result;
 	}
 
 	/**
-	 * Override do método equals da classe Object. Duas categorias são iguais se
-	 * elas tem mesma cor e mesmo nome.
+	 * Método equals, duas categorias serão iguais se todos os seus atributos
+	 * forem iguais.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -104,15 +156,37 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 				return false;
 		} else if (!nome.equals(other.nome))
 			return false;
+		if (orcamento == null) {
+			if (other.orcamento != null)
+				return false;
+		} else if (!orcamento.equals(other.orcamento))
+			return false;
 		return true;
 	}
 
 	/**
-	 * Override do método compareTo da classe Object. Agora compara categorias
-	 * com base em seus nomes.
+	 * Método compareTo irá comparar duas categorias baseado em seus nomes.
+	 * 
+	 * @param outraCategoria
+	 *            A outra categoria que será comparada.
+	 * @return Retorna um inteiro negativo, zero ou um inteiro positivo,
+	 *         dependendo da ordem dos nomes.
 	 */
 	@Override
 	public int compareTo(Categoria outraCategoria) {
 		return nome.compareTo(outraCategoria.getNome());
+	}
+
+	/**
+	 * Método que irá verificar se um nome é válido ou não.
+	 * 
+	 * @param nome
+	 *            Um nome.
+	 * @return Retorna true se for válido, e false caso contrário.
+	 */
+	private boolean validaNome(String nome) {
+		if (nome == null || nome.trim().length() == 0)
+			return false;
+		return true;
 	}
 }

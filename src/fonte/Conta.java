@@ -15,7 +15,7 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private double saldo;
-	private final String nome;
+	private String nome;
 	private List<Transacao> transacoes;
 
 	/**
@@ -212,11 +212,71 @@ public class Conta implements Serializable {
 	}
 
 	/**
+	 * Método que modifica o nome da conta.
+	 * 
+	 * @param nome
+	 *            O novo nome da conta.
+	 * @throws Exception
+	 *             Lança exceção se o nome for inválido.
+	 */
+	public void setNome(String nome) throws Exception {
+		if (nome == null || nome.trim().length() == 0)
+			throw new Exception("Nome da conta inválido.");
+
+		this.nome = nome;
+	}
+
+	/**
 	 * Método toString da conta.
 	 */
 	@Override
 	public String toString() {
-		return String.format("R$ %.2f", saldo);
+		return String.format("Nome: %s; Saldo: R$ %.2f", nome, saldo);
+	}
+
+	/**
+	 * Método hashCode.
+	 */
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
+		long temp;
+		temp = Double.doubleToLongBits(saldo);
+		result = prime * result + (int) (temp ^ (temp >>> 32));
+		result = prime * result
+				+ ((transacoes == null) ? 0 : transacoes.hashCode());
+		return result;
+	}
+
+	/**
+	 * Método equals. Duas contas serão iguais se todos seus atributos forem
+	 * iguais.
+	 */
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Conta other = (Conta) obj;
+		if (nome == null) {
+			if (other.nome != null)
+				return false;
+		} else if (!nome.equals(other.nome))
+			return false;
+		if (Double.doubleToLongBits(saldo) != Double
+				.doubleToLongBits(other.saldo))
+			return false;
+		if (transacoes == null) {
+			if (other.transacoes != null)
+				return false;
+		} else if (!transacoes.equals(other.transacoes))
+			return false;
+		return true;
 	}
 
 	/**
@@ -358,7 +418,7 @@ public class Conta implements Serializable {
 	 *         orçamento.
 	 */
 	private boolean calculaGastosPorCategoria(Categoria categoria) {
-		if (categoria.getOrcamento() == 0)
+		if (categoria.getOrcamento() == null)
 			return false;
 		double valor = 0;
 
@@ -366,53 +426,8 @@ public class Conta implements Serializable {
 			if (categoria.equals(transacao.getCategoria()))
 				valor += transacao.getValor();
 
-		if (valor > categoria.getOrcamento())
+		if (valor > categoria.getOrcamento().getLimite())
 			return true;
 		return false;
-	}
-
-	/**
-	 * Método hashCode.
-	 */
-	@Override
-	public int hashCode() {
-		final int prime = 31;
-		int result = 1;
-		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(saldo);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
-		result = prime * result
-				+ ((transacoes == null) ? 0 : transacoes.hashCode());
-		return result;
-	}
-
-	/**
-	 * Método equals. Duas contas serão iguais se todos seus atributos forem
-	 * iguais.
-	 */
-	@Override
-	public boolean equals(Object obj) {
-		if (this == obj)
-			return true;
-		if (obj == null)
-			return false;
-		if (getClass() != obj.getClass())
-			return false;
-		Conta other = (Conta) obj;
-		if (nome == null) {
-			if (other.nome != null)
-				return false;
-		} else if (!nome.equals(other.nome))
-			return false;
-		if (Double.doubleToLongBits(saldo) != Double
-				.doubleToLongBits(other.saldo))
-			return false;
-		if (transacoes == null) {
-			if (other.transacoes != null)
-				return false;
-		} else if (!transacoes.equals(other.transacoes))
-			return false;
-		return true;
 	}
 }
