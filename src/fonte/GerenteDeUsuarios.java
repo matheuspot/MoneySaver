@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import auxiliar.ArquivadorUsuarios;
 
 /**
@@ -14,6 +15,7 @@ public class GerenteDeUsuarios {
 
 	private List<Usuario> usuariosDoSistema;
 	private ArquivadorUsuarios arquivador;
+	private Usuario usuarioLogado;
 
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
 			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
@@ -105,8 +107,25 @@ public class GerenteDeUsuarios {
 		if (!usuario.checaLogin(senha))
 			throw new Exception("Senha incorreta!");
 
+		usuarioLogado = usuario;
+
 		usuario.atualizaOrcamentoDeCategorias(LocalDate.now().getMonthValue());
-		return usuario;
+		return usuarioLogado;
+	}
+
+	/**
+	 * Método que serve para atualizar a movimentação de um usuário em um
+	 * arquivo.
+	 * 
+	 * @param usuario
+	 *            O usuário que estava movimentando a conta.
+	 * @throws Exception
+	 *             Lança exceção se houver problema com o arquivador.
+	 */
+	public void atualizaSistema(Usuario usuario) throws Exception {
+		usuariosDoSistema.remove(usuarioLogado);
+		usuariosDoSistema.add(usuario);
+		arquivador.escreveUsuarios(usuariosDoSistema);
 	}
 
 	/**
