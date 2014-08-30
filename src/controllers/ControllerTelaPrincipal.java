@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+
 import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 import javafx.event.ActionEvent;
@@ -35,7 +36,6 @@ public class ControllerTelaPrincipal {
 	private AnchorPane content;
 	@FXML
 	private Label labelAviso;
-	
 
 	@FXML
 	void initialize() {
@@ -77,8 +77,8 @@ public class ControllerTelaPrincipal {
 						e.printStackTrace();
 					}
 				} catch (Exception e) {
-					
-					e.printStackTrace();
+					labelAviso.setText(e.getMessage());
+					labelAviso.setVisible(true);
 				}
 			}
 		}

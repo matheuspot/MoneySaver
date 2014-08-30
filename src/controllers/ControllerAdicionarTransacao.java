@@ -29,12 +29,14 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
+import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 
 public class ControllerAdicionarTransacao {
 
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
+	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
 	@FXML
     private RadioButton RBprovento;
@@ -132,6 +134,8 @@ public class ControllerAdicionarTransacao {
 							CBcategoria.getSelectionModel().getSelectedItem(), 
 							CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
+					
+					gerente.atualizaSistema(usuarioAtivo);
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
