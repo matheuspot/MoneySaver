@@ -26,13 +26,16 @@
             <NumberAxis fx:id="eixoY" autoRanging="false" side="LEFT" />
          </yAxis>
       </BarChart>
-      <MenuButton alignment="BOTTOM_LEFT" layoutX="453.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Tipo">
+      <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="453.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Tipo" textAlignment="CENTER">
         <items>
           <MenuItem mnemonicParsing="false" text="Despesa" />
           <MenuItem mnemonicParsing="false" text="Provento" />
             <MenuItem mnemonicParsing="false" text="Categoria" />
             <MenuItem mnemonicParsing="false" text="Data" />
         </items>
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
       </MenuButton>
       <ComboBox fx:id="cbMeses" layoutX="453.0" layoutY="62.0" prefHeight="25.0" prefWidth="107.0" promptText="Meses" visible="false" />
    </children>

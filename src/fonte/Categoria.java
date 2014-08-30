@@ -116,7 +116,7 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Nome: %s", nome);
+		return nome;
 	}
 
 	/**
