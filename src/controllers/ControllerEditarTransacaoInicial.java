@@ -8,7 +8,6 @@ import java.util.List;
 import java.util.Map;
 
 import fonte.Categoria;
-import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
@@ -38,7 +37,6 @@ public class ControllerEditarTransacaoInicial {
 	private Usuario usuarioAtivo;
 	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-    private GerenteDeTransacoes gerente;  
     private Tabela tabela;
 
     @FXML
@@ -85,7 +83,6 @@ public class ControllerEditarTransacaoInicial {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	gerente = new GerenteDeTransacoes(usuarioAtivo);
     	tabela.criarTabela();
     }
     
@@ -112,7 +109,12 @@ public class ControllerEditarTransacaoInicial {
     	
     	@Override 
         public void changed(ObservableValue ov, String t, String t1) {  
-    		transacoes = gerente.listaTransacoesPeloMes(mapaMeses.get(t1));
+    		try {
+				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	criarTabela();
         }  
     	
@@ -121,7 +123,7 @@ public class ControllerEditarTransacaoInicial {
     		
     		if (transacoes == null){
     			int c = 0;
-    			transacoes = gerente.getTransacoesExistentes();
+    			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
     			
     			for (Transacao transacao : transacoes){
     				transacoes2.add(transacao);

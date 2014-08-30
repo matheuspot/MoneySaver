@@ -29,8 +29,6 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.GerenteDeTransacoes;
 import fonte.Usuario;
 
 public class ControllerAdicionarTransacao {
@@ -73,11 +71,7 @@ public class ControllerAdicionarTransacao {
     
     private ToggleGroup group = new ToggleGroup();
     
-    private GerenteDeTransacoes transacao;
-    
-    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
-    
-    private List<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias;
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
@@ -93,6 +87,12 @@ public class ControllerAdicionarTransacao {
     	RBprovento.setUserData("provento");
     	RBprovento.setSelected(true);
     	CBrecorrencia.setItems(recorrencias);
+    }
+    
+    public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
+    	
+    	categorias = usuarioAtivo.getCategorias();
     	CBcategoria.getItems().addAll(categorias);
     	CBcategoria.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
@@ -112,11 +112,6 @@ public class ControllerAdicionarTransacao {
     	    });
     }
     
-    public void setUsuario(Usuario usuario){
-    	usuarioAtivo = usuario;
-    	transacao = new GerenteDeTransacoes(usuarioAtivo);
-    }
-    
 	private class Eventos implements EventHandler<ActionEvent> {
 
 		@Override
@@ -133,7 +128,7 @@ public class ControllerAdicionarTransacao {
 				}	
 			} else if (evento.getSource() == botaoAdicionar) {
 				try{
-					transacao.adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
+					usuarioAtivo.getContaAtiva().adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
 							CBcategoria.getSelectionModel().getSelectedItem(), 
 							CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());

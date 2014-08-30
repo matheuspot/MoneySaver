@@ -44,14 +44,19 @@ public class ControllerRemoverCategoria {
     @FXML
     private AnchorPane content;  
     
-    private List<Categoria> categorias = usuarioAtivo.getCategorias();
+    private List<Categoria> categorias;
     
     @FXML
 	void initialize() {
 		botaoCancelar.setOnAction(eventos);
     	botaoRemover.setOnAction(eventos);
-    	
     	labelAviso.setVisible(false);
+	}
+    
+    public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
+    	
+    	categorias = usuarioAtivo.getCategorias();
     	CBcategorias.getItems().addAll(categorias);
     	CBcategorias.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
@@ -69,10 +74,6 @@ public class ControllerRemoverCategoria {
     	            return cell;
     	        }
     	    });
-	}
-    
-    public void setUsuario(Usuario usuario){
-    	usuarioAtivo = usuario;
     }
 	
 	private class Eventos implements EventHandler<ActionEvent> {

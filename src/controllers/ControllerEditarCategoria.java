@@ -26,7 +26,6 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
-import fonte.GerenteDeCategorias;
 import fonte.Usuario;
 
 public class ControllerEditarCategoria {
@@ -55,9 +54,7 @@ public class ControllerEditarCategoria {
     @FXML
     private Label labelAviso;
     
-    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
-    
-    private List<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias;
     
     private ChangeListener<Categoria> changeListener = new ChangeListener<Categoria>() {
         @Override 
@@ -71,7 +68,12 @@ public class ControllerEditarCategoria {
 	void initialize() {
 		botaoCancelar.setOnAction(eventos);
     	botaoEditar.setOnAction(eventos);
+	}
+    
+    public void setUsuario(Usuario usuario){
+    	usuarioAtivo = usuario;
     	
+    	categorias = usuarioAtivo.getCategorias();
     	CBcategoria.valueProperty().addListener(changeListener);
     	CBcategoria.getItems().addAll(categorias);
     	CBcategoria.setCellFactory(
@@ -90,10 +92,6 @@ public class ControllerEditarCategoria {
     	            return cell;
     	        }
     	    });
-	}
-    
-    public void setUsuario(Usuario usuario){
-    	usuarioAtivo = usuario;
     }
     
     private class Eventos implements EventHandler<ActionEvent> {
@@ -125,7 +123,7 @@ public class ControllerEditarCategoria {
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							gerente.editaCategoria(CBcategoria.getSelectionModel().getSelectedItem(), TFnome.getText(), cor.getValue().toString());
+							usuarioAtivo.editaCategoria(CBcategoria.getSelectionModel().getSelectedItem(), TFnome.getText(), cor.getValue().toString());
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          

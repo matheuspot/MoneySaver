@@ -22,7 +22,6 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
-import fonte.GerenteDeCategorias;
 import fonte.RelatorioHistograma;
 import fonte.Transacao;
 import fonte.Usuario;
@@ -30,8 +29,6 @@ import fonte.Usuario;
 public class ControllerHistograma {
 	
 	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerenteDeCategorias = new GerenteDeCategorias(
-			usuarioAtivo);
 	private RelatorioHistograma histo;
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Tabela tabela;

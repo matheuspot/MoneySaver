@@ -8,8 +8,6 @@ import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
-import fonte.GerenteDeCategorias;
-import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
 import javafx.collections.FXCollections;
@@ -76,11 +74,7 @@ public class ControllerEditarTransacaoFinal {
 
     private ToggleGroup group = new ToggleGroup();
     
-    private GerenteDeTransacoes gerenteTransacao;
-    
-    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
-    
-    private List<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias;
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
@@ -95,6 +89,13 @@ public class ControllerEditarTransacaoFinal {
     	rbProvento.setToggleGroup(group);
     	rbProvento.setUserData("provento");
     	cbRecorrencia.setItems(recorrencias);
+    }
+    
+    public void setUsuario(Usuario usuario, Transacao transacao){
+    	usuarioAtivo = usuario;
+    	transacaoParaEditar = transacao;
+    	
+    	categorias = usuarioAtivo.getCategorias();
     	cbCategoria.getItems().addAll(categorias);
     	cbCategoria.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
@@ -112,12 +113,6 @@ public class ControllerEditarTransacaoFinal {
     	            return cell;
     	        }
     	    });
-    }
-    
-    public void setUsuario(Usuario usuario, Transacao transacao){
-    	usuarioAtivo = usuario;
-    	gerenteTransacao = new GerenteDeTransacoes(usuarioAtivo);
-    	transacaoParaEditar = transacao;
     	
     	descricao.setText(transacao.getDescricao());
     	data.setValue(transacao.getDataDeInsercao());
@@ -149,7 +144,7 @@ public class ControllerEditarTransacaoFinal {
 			} else if (evento.getSource() == botaoEditar) {
 				try{
 					
-					gerenteTransacao.editaTransacao(transacaoParaEditar, descricao.getText(), data.getValue(),tfValor.getText(), 
+					usuarioAtivo.getContaAtiva().editaTransacao(transacaoParaEditar, descricao.getText(), data.getValue(),tfValor.getText(), 
 							cbCategoria.getSelectionModel().getSelectedItem(), 
 							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());

@@ -6,7 +6,6 @@ import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
-import fonte.GerenteDeCategorias;
 import fonte.Usuario;
 
 import javafx.event.ActionEvent;
@@ -24,7 +23,6 @@ public class ControllerAdicionaCategoria {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo);
 	
 	@FXML
     private Button botaoAdicionar;
@@ -70,7 +68,7 @@ public class ControllerAdicionaCategoria {
 				}		
 			} else if (evento.getSource() == botaoAdicionar) {
 				try {
-					gerente.adicionaCategoria(nome.getText(), cor.getValue().toString());
+					usuarioAtivo.adicionaCategoria(nome.getText(), cor.getValue().toString());
 					
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Categoria Adicionada. Deseja adicionar uma nova Categoria?")

@@ -77,8 +77,8 @@ public class ControllerTelaPrincipal {
 						e.printStackTrace();
 					}
 				} catch (Exception e) {
-					labelAviso.setText(e.getMessage());
-					labelAviso.setVisible(true);
+					
+					e.printStackTrace();
 				}
 			}
 		}
