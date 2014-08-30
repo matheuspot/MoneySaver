@@ -122,7 +122,7 @@ public class GerenteDeUsuarios {
 	 *             Lança exceção se houver problema com o arquivador.
 	 */
 	public void atualizaSistema(Usuario usuario) throws Exception {
-		usuariosDoSistema.remove(usuarioLogado);
+		usuariosDoSistema.remove(usuario);
 		usuariosDoSistema.add(usuario);
 		arquivador.escreveUsuarios(usuariosDoSistema);
 	}

@@ -112,7 +112,7 @@ public class Usuario implements Serializable {
 
 		checaContaJaExiste(contaParaEditar);
 		
-		this.pesquisaConta(contaParaEditar.getNome()).setNome(nome);;
+		this.pesquisaConta(contaParaEditar.getNome()).setNome(nome);
 	}
 
 	/**
