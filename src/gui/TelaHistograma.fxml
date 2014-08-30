@@ -28,12 +28,12 @@
       </BarChart>
       <MenuButton alignment="BOTTOM_LEFT" layoutX="453.0" layoutY="22.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="107.0" text="Tipo">
         <items>
-          <MenuItem fx:id="menuDespesa" mnemonicParsing="false" text="Despesa" />
-          <MenuItem fx:id="menuProvento" mnemonicParsing="false" text="Provento" />
-            <MenuItem fx:id="menuCategoria" mnemonicParsing="false" text="Categoria" />
+          <MenuItem mnemonicParsing="false" text="Despesa" />
+          <MenuItem mnemonicParsing="false" text="Provento" />
+            <MenuItem mnemonicParsing="false" text="Categoria" />
             <MenuItem mnemonicParsing="false" text="Data" />
         </items>
       </MenuButton>
-      <ComboBox layoutX="453.0" layoutY="62.0" prefHeight="25.0" prefWidth="107.0" promptText="Meses" visible="false" />
+      <ComboBox fx:id="cbMeses" layoutX="453.0" layoutY="62.0" prefHeight="25.0" prefWidth="107.0" promptText="Meses" visible="false" />
    </children>
 </AnchorPane>

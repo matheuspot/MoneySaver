@@ -14,76 +14,57 @@
                <children>
                   <VBox layoutX="8.0" layoutY="14.0" prefHeight="398.0" prefWidth="296.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Transações" textAlignment="CENTER">
+                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Opções" textAlignment="CENTER">
                            <font>
                               <Font name="Calibri" size="34.0" />
                            </font>
                         </Label>
-                        <HBox prefHeight="35.0" prefWidth="286.0">
+                        <AnchorPane prefHeight="327.0" prefWidth="286.0">
                            <children>
-                              <Button fx:id="adicionarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="removerTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="editarTransacao" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="40.0" prefWidth="296.0" text="Categorias" textAlignment="CENTER">
-                           <font>
-                              <Font name="Calibri" size="34.0" />
-                           </font>
-                        </Label>
-                        <HBox prefHeight="35.0" prefWidth="286.0">
-                           <children>
-                              <Button fx:id="adicionarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Adicionar">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="removerCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Remover">
-                                 <font>
-                                    <Font size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="editarCategoria" mnemonicParsing="false" prefHeight="62.0" prefWidth="95.0" text="Editar">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
-                           </children>
-                        </HBox>
-                        <AnchorPane prefHeight="200.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="112.0" layoutY="122.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
+                              <MenuButton layoutX="28.0" layoutY="70.0" mnemonicParsing="false" text="Orçamento">
+                                 <items>
+                                    <MenuItem fx:id="adicionarOrcamento" mnemonicParsing="false" text="Adicionar" />
+                                 </items>
+                              </MenuButton>
+                              <MenuButton layoutX="97.0" layoutY="124.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="92.0" text="Conta">
+                                 <items>
+                                    <MenuItem fx:id="adicionarConta" mnemonicParsing="false" text="Adicionar" />
+                                    <MenuItem fx:id="removerConta" mnemonicParsing="false" text="Remover" />
+                                    <MenuItem fx:id="editarConta" mnemonicParsing="false" text="Editar" />
+                                 </items>
+                              </MenuButton>
+                              <MenuButton layoutX="28.0" layoutY="14.0" mnemonicParsing="false" text="Transações">
+                                <items>
+                                  <MenuItem fx:id="adicionarTransacao" mnemonicParsing="false" text="Adicionar" />
+                                  <MenuItem fx:id="removerTransacao" mnemonicParsing="false" text="Remover" />
+                                    <MenuItem fx:id="editarTransacao" mnemonicParsing="false" text="Editar" />
+                                </items>
+                              </MenuButton>
+                              <MenuButton layoutX="158.0" layoutY="70.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="89.0" text="Relatório">
+                                 <items>
+                                    <MenuItem fx:id="botaoHistograma" mnemonicParsing="false" text="Histograma" />
+                                    <MenuItem fx:id="botaoLista" mnemonicParsing="false" text="Lista" />
+                                 </items>
+                              </MenuButton>
+                              <MenuButton layoutX="158.0" layoutY="14.0" mnemonicParsing="false" text="Categorias">
+                                 <items>
+                                    <MenuItem fx:id="adicionarCategoria" mnemonicParsing="false" text="Adicionar" />
+                                    <MenuItem fx:id="removerCategoria" mnemonicParsing="false" text="Remover" />
+                                    <MenuItem fx:id="editarCategoria" mnemonicParsing="false" text="Editar" />
+                                 </items>
+                              </MenuButton>
+                              <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="278.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
                                  <font>
                                     <Font name="Calibri" size="22.0" />
                                  </font>
                               </Button>
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="-3.0" prefHeight="40.0" prefWidth="296.0" text="Relatórios" textAlignment="CENTER">
+                              <ComboBox fx:id="cbContas" layoutX="88.0" layoutY="201.0" prefHeight="25.0" prefWidth="111.0" promptText="Contas" />
+                              <Separator layoutX="19.0" layoutY="161.0" prefHeight="4.0" prefWidth="249.0" />
+                              <Label layoutX="108.0" layoutY="175.0" text="Conta Ativa">
                                  <font>
-                                    <Font name="Calibri" size="34.0" />
+                                    <Font size="14.0" />
                                  </font>
                               </Label>
-                              <Button fx:id="botaoHistograma" layoutX="32.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Histograma">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
-                              <Button fx:id="adicionarCategoria11" layoutX="158.0" layoutY="59.0" mnemonicParsing="false" prefHeight="30.0" prefWidth="95.0" text="Lista">
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
