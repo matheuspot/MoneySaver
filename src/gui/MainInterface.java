@@ -22,5 +22,6 @@ public class MainInterface extends Application {
 		primaryStage.setScene(scene);
 		primaryStage.setTitle("MoneySaver");
 		primaryStage.show();
+		primaryStage.setResizable(false);
 	}
 }
