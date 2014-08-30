@@ -21,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.MenuItem;
+import javafx.scene.control.SelectionModel;
+import javafx.scene.control.SingleSelectionModel;
 import javafx.scene.control.TableCell;
 import javafx.scene.control.TableColumn;
 import javafx.scene.control.TableView;
@@ -28,7 +30,6 @@ import javafx.scene.control.cell.PropertyValueFactory;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.paint.Color;
 import javafx.util.Callback;
-import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
 
@@ -36,9 +37,8 @@ public class ControllerOperacoesPrincipais {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-    private GerenteDeTransacoes gerente;  
     private Tabela tabela;
 	
 
@@ -91,7 +91,7 @@ public class ControllerOperacoesPrincipais {
 	    private MenuItem adicionarCategoria;
 
 	    @FXML
-	    private ComboBox<?> cbContas;
+	    private ComboBox<String> cbContas;
 	    
 	    @FXML
 	    private MenuItem adicionarOrcamento;
@@ -117,15 +117,17 @@ public class ControllerOperacoesPrincipais {
     	adicionarOrcamento.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
     	tabela = new Tabela();
-    	CBmes.getItems().addAll(meses);
+    	CBmes.getItems().addAll(MESES);
     	CBmes.valueProperty().addListener(tabela);
     	botaoHistograma.setOnAction(eventos);
     }
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	labelSaldo.setText(usuarioAtivo.getConta().toString());
-    	gerente = new GerenteDeTransacoes(usuarioAtivo);
+    	labelSaldo.setText(String.format("R$ %,.2", usuarioAtivo.getContaAtiva().getSaldo()));
+    	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
+    	cbContas.getSelectionModel().select(usuarioAtivo.getContaAtiva().getNome());
+    	cbContas.valueProperty().addListener(tabela);
     	tabela.criarTabela();
     }
     
@@ -151,8 +153,9 @@ public class ControllerOperacoesPrincipais {
 		}
     	
     	@Override 
-        public void changed(ObservableValue ov, String t, String t1) {  
-    		transacoes = gerente.listaTransacoesPeloMes(mapaMeses.get(t1));
+        public void changed(ObservableValue ov, String t, String t1) { 
+    		usuarioAtivo.pesquisaConta(t1);
+    		transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
         	criarTabela();
         }  
     	
@@ -161,7 +164,7 @@ public class ControllerOperacoesPrincipais {
     		
     		if (transacoes == null){
     			int c = 0;
-    			transacoes = gerente.getTransacoesExistentes();
+    			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
     			
     			for (Transacao transacao : transacoes){
     				transacoes2.add(transacao);

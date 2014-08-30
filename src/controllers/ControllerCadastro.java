@@ -1,7 +1,9 @@
 package controllers;
 
 import java.io.IOException;
+
 import org.controlsfx.dialog.Dialogs;
+
 import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -16,6 +18,7 @@ import javafx.scene.layout.AnchorPane;
 public class ControllerCadastro {
 
 	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	GerenteDeUsuarios gerenteUsuario = new GerenteDeUsuarios();
 
 	@FXML
 	private PasswordField PFsenha;
@@ -53,16 +56,14 @@ public class ControllerCadastro {
 
 	private class Eventos implements EventHandler<ActionEvent> {
 
-		GerenteDeUsuarios gerente = new GerenteDeUsuarios();
-
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoCadastrar) {
 
 				try {
-					gerente.adicionaUsuario(TFnome.getText(),
+					gerenteUsuario.adicionaUsuario(TFnome.getText(),
 							TFemail.getText(), PFsenha.getText(),
-							PFconfirmacaoSenha.getText(), TFdicaSenha.getText());
+							PFconfirmacaoSenha.getText(), TFdicaSenha.getText(), tfConta.getText());
 					Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Cadastro efetuado!")
 							.showInformation();
