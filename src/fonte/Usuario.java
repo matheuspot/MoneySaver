@@ -111,8 +111,8 @@ public class Usuario implements Serializable {
 			throw new Exception("Nome da conta inválido.");
 
 		checaContaJaExiste(contaParaEditar);
-
-		contaParaEditar.setNome(nome);
+		
+		this.pesquisaConta(contaParaEditar.getNome()).setNome(nome);;
 	}
 
 	/**
@@ -130,11 +130,11 @@ public class Usuario implements Serializable {
 			throw new Exception("Nome da conta inválido.");
 
 		for (Conta conta : contas) {
-			if (conta.getNome().equals(nome))
+			if (conta.getNome().equals(nome)) {
 				contaAtiva = conta;
-			return conta;
-		}
-		return null;
+				return conta;
+			}
+		} return null;
 	}
 
 	/**
@@ -216,9 +216,10 @@ public class Usuario implements Serializable {
 		categoriaValida(nomeCategoria, corCategoria);
 
 		checaCategoriaJaExiste(categoriaParaEditar);
-
-		categoriaParaEditar.setNome(nomeCategoria);
-		categoriaParaEditar.setCor(corCategoria);
+		
+		Categoria categoria = this.pesquisaCategoria(categoriaParaEditar.getNome());
+		categoria.setNome(nomeCategoria);
+		categoria.setCor(corCategoria);
 	}
 
 	/**
@@ -340,7 +341,7 @@ public class Usuario implements Serializable {
 		for (Conta conta : contas) {
 			stringContas.append(conta.toString());
 		}
-
+		
 		return String.format(
 				"Nome: %s\nE-mail: %s\nDica de senha: %s\nContas: %s", nome,
 				email, dicaSenha, stringContas.toString());

@@ -124,13 +124,13 @@ public class TestaCategoria {
 	@Test
 	public void testaGeraOrcamentoValido() throws Exception {
 		categoria1.setOrcamento(55.96);
-		assertEquals(55.96, categoria1.getOrcamento(), 2);
+		assertEquals(55.96, categoria1.getOrcamento().getLimite(), 2.0);
 		
 		categoria1.setOrcamento(7.85);
-		assertEquals(7.85, categoria1.getOrcamento(), 2);
+		assertEquals(7.85, categoria1.getOrcamento().getLimite(), 2.0);
 		
 		categoria1.setOrcamento(552.6);
-		assertEquals(552.6, categoria1.getOrcamento(), 1);
+		assertEquals(552.6, categoria1.getOrcamento().getLimite(), 1.0);
 	}
 	
 	

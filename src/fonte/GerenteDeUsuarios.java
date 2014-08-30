@@ -82,8 +82,7 @@ public class GerenteDeUsuarios {
 		for (Usuario usuario : usuariosDoSistema) {
 			if (usuario.getEmail().equals(email))
 				return usuario;
-		}
-		return null;
+		} return null;
 	}
 
 	/**
