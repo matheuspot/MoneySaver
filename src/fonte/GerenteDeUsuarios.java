@@ -24,7 +24,7 @@ public class GerenteDeUsuarios {
 	 */
 	public GerenteDeUsuarios() {
 		try {
-			arquivador = new ArquivadorUsuarios("data1.mos");
+			arquivador = new ArquivadorUsuarios("data.mos");
 		} catch (Exception e) {
 			System.err.println(e.getMessage());
 		}
@@ -49,16 +49,21 @@ public class GerenteDeUsuarios {
 	 *            Confirmação da senha inserida pelo usuário.
 	 * @param dicaDeSenha
 	 *            Dica de senha do usuário.
+	 * @param nomeDaConta
+	 *            Nome da conta desejada.
 	 * @throws Exception
 	 *             Lança exceção caso algum parâmetro seja inválido ou se o
 	 *             usuário já estiver cadastrado no sistema.
 	 */
 	public void adicionaUsuario(String nome, String email, String senha,
-			String confirmacaoDeSenha, String dicaDeSenha) throws Exception {
+			String confirmacaoDeSenha, String dicaDeSenha, String nomeDaConta)
+			throws Exception {
 
-		usuarioValido(nome, email, senha, confirmacaoDeSenha, dicaDeSenha);
+		usuarioValido(nome, email, senha, confirmacaoDeSenha, dicaDeSenha,
+				nomeDaConta);
 
-		Usuario novoUsuario = new Usuario(nome, email, senha, dicaDeSenha);
+		Usuario novoUsuario = new Usuario(nome, email, senha, dicaDeSenha,
+				nomeDaConta);
 		usuariosDoSistema.add(novoUsuario);
 
 		arquivador.escreveUsuarios(usuariosDoSistema);
@@ -117,13 +122,16 @@ public class GerenteDeUsuarios {
 	 *            Confirmação de senha do usuário.
 	 * @param dicaDeSenha
 	 *            Dica de senha do usuário.
+	 * @param nomeDaConta
+	 *            Nome da conta desejada.
 	 * @throws Exception
 	 *             Lança exceção se o usuário não for valido, ou seja, pelo
 	 *             menos um dos parâmetros estiver incorreto ou usuário já
 	 *             existir.
 	 */
 	private void usuarioValido(String nome, String email, String senha,
-			String confirmacaoDeSenha, String dicaDeSenha) throws Exception {
+			String confirmacaoDeSenha, String dicaDeSenha, String nomeDaConta)
+			throws Exception {
 
 		if (!nomeValido(nome))
 			throw new Exception("Nome inválido.");
@@ -134,13 +142,15 @@ public class GerenteDeUsuarios {
 					"Senha inválida ou não confere com confirmação.");
 		if (!dicaDeSenhaValida(dicaDeSenha))
 			throw new Exception("Dica de senha inválida.");
+		if (!nomeValido(nomeDaConta))
+			throw new Exception("Nome da conta inválido.");
 	}
 
 	/**
-	 * Método para verificar se o nome do usuário é válido.
+	 * Método para verificar se um nome é válido.
 	 * 
 	 * @param nome
-	 *            Nome do usuário.
+	 *            Um nome.
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean nomeValido(String nome) {

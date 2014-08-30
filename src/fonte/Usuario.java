@@ -6,6 +6,7 @@ import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
+
 import auxiliar.Criptografia;
 
 /**
@@ -23,6 +24,7 @@ public class Usuario implements Serializable {
 	private final String email;
 	private final String senha;
 	private final String dicaSenha;
+	private Conta contaAtiva;
 	private List<Conta> contas;
 	private List<Categoria> categorias;
 
@@ -50,10 +52,11 @@ public class Usuario implements Serializable {
 		this.email = email;
 		this.senha = Criptografia.encrypt(senha);
 		this.dicaSenha = dicaSenha;
+		contaAtiva = new Conta(nomeDaConta);
 		contas = new ArrayList<>();
 		categorias = new ArrayList<>();
 
-		contas.add(new Conta(nomeDaConta));
+		contas.add(contaAtiva);
 		categorias.add(new Categoria("Alimentação", "334db3"));
 		categorias.add(new Categoria("Lazer", "669966"));
 	}
@@ -67,7 +70,8 @@ public class Usuario implements Serializable {
 	 *             Lança exceção se o nome da conta for inválido.
 	 */
 	public void adicionaConta(String nome) throws Exception {
-		validaNome(nome);
+		if (!validaNome(nome))
+			throw new Exception("Nome da conta inválido.");
 
 		for (Conta conta : contas) {
 			if (conta.getNome().equals(nome))
@@ -103,10 +107,34 @@ public class Usuario implements Serializable {
 	 *             não existir.
 	 */
 	public void editaConta(Conta contaParaEditar, String nome) throws Exception {
-		validaNome(nome);
+		if (!validaNome(nome))
+			throw new Exception("Nome da conta inválido.");
+
 		checaContaJaExiste(contaParaEditar);
 
 		contaParaEditar.setNome(nome);
+	}
+
+	/**
+	 * Método usado para pesquisar uma conta a partir do seu nome.
+	 * 
+	 * @param nome
+	 *            O nome da conta.
+	 * @return Retorna a conta se ela existir, e retorna null se a conta com
+	 *         esse nome não existir.
+	 * @throws Exception
+	 *             Lança exceção se o nome for inválido.
+	 */
+	public Conta pesquisaConta(String nome) throws Exception {
+		if (!validaNome(nome))
+			throw new Exception("Nome da conta inválido.");
+
+		for (Conta conta : contas) {
+			if (conta.getNome().equals(nome))
+				contaAtiva = conta;
+			return conta;
+		}
+		return null;
 	}
 
 	/**
@@ -195,13 +223,28 @@ public class Usuario implements Serializable {
 	/**
 	 * Método que irá listar o nome das categorias em um array de String.
 	 * 
-	 * @return Retorna um array de String com o nome das categorias.
+	 * @return Retorna um array de String com os nomes das categorias.
 	 */
 	public String[] listaNomeCategorias() {
 		List<String> nomes = new ArrayList<>();
 
 		for (Categoria categoria : categorias) {
 			nomes.add(categoria.getNome());
+		}
+
+		return (String[]) nomes.toArray();
+	}
+
+	/**
+	 * Método que irá listar o nome das contas em um array de String.
+	 * 
+	 * @return Retorna um array de String com os nomes das contas.
+	 */
+	public String[] listaNomeContas() {
+		List<String> nomes = new ArrayList<>();
+
+		for (Conta conta : contas) {
+			nomes.add(conta.getNome());
 		}
 
 		return (String[]) nomes.toArray();
@@ -257,6 +300,15 @@ public class Usuario implements Serializable {
 	 */
 	public String getDicaSenha() {
 		return dicaSenha;
+	}
+
+	/**
+	 * Método que dá acesso à conta ativa do usuário.
+	 * 
+	 * @return A conta ativa do usuário.
+	 */
+	public Conta getContaAtiva() {
+		return contaAtiva;
 	}
 
 	/**
