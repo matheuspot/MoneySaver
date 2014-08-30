@@ -124,7 +124,7 @@ public class ControllerOperacoesPrincipais {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	labelSaldo.setText(String.format("R$ %,.2", usuarioAtivo.getContaAtiva().getSaldo()));
+    	labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().getSaldo()));
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
     	cbContas.getSelectionModel().select(usuarioAtivo.getContaAtiva().getNome());
     	cbContas.valueProperty().addListener(tabela);

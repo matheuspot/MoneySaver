@@ -160,7 +160,8 @@ public class Usuario implements Serializable {
 	 */
 	public void atualizaOrcamentoDeCategorias(int mes) {
 		for (Categoria categoria : categorias) {
-			if (categoria.getOrcamento().getDataDeCriacao() - mes != 0)
+			if (categoria.getOrcamento() != null
+					&& categoria.getOrcamento().getDataDeCriacao() - mes != 0)
 				categoria.removeOrcamento();
 		}
 	}
@@ -232,7 +233,7 @@ public class Usuario implements Serializable {
 			nomes.add(categoria.getNome());
 		}
 
-		return (String[]) nomes.toArray();
+		return nomes.toArray(new String[nomes.size()]);
 	}
 
 	/**
@@ -247,7 +248,7 @@ public class Usuario implements Serializable {
 			nomes.add(conta.getNome());
 		}
 
-		return (String[]) nomes.toArray();
+		return nomes.toArray(new String[nomes.size()]);
 	}
 
 	/**
