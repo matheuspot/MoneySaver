@@ -12,7 +12,6 @@ import org.controlsfx.dialog.Dialogs;
 import org.controlsfx.dialog.Dialog.Actions;
 
 import fonte.Categoria;
-import fonte.GerenteDeTransacoes;
 import fonte.Transacao;
 import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
@@ -42,7 +41,6 @@ public class ControllerRemoverTransacao {
 	private Usuario usuarioAtivo;
 	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
-    private GerenteDeTransacoes gerente;  
     private Tabela tabela;
 
     @FXML
@@ -89,7 +87,6 @@ public class ControllerRemoverTransacao {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	gerente = new GerenteDeTransacoes(usuarioAtivo);
     	tabela.criarTabela();
     }
     
@@ -116,7 +113,12 @@ public class ControllerRemoverTransacao {
     	
     	@Override 
         public void changed(ObservableValue ov, String t, String t1) {  
-    		transacoes = gerente.listaTransacoesPeloMes(mapaMeses.get(t1));
+    		try {
+				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+			} catch (Exception e) {
+				// TODO Auto-generated catch block
+				e.printStackTrace();
+			}
         	criarTabela();
         }  
     	
@@ -125,7 +127,7 @@ public class ControllerRemoverTransacao {
     		
     		if (transacoes == null){
     			int c = 0;
-    			transacoes = gerente.getTransacoesExistentes();
+    			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
     			
     			for (Transacao transacao : transacoes){
     				transacoes2.add(transacao);
@@ -274,7 +276,7 @@ public class ControllerRemoverTransacao {
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							gerente.removeTransacao(table.getSelectionModel().getSelectedItem());
+							usuarioAtivo.getContaAtiva().removeTransacao(table.getSelectionModel().getSelectedItem());
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverTransacao.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          

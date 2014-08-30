@@ -10,21 +10,17 @@ public class RelatorioHistograma {
 			"Novembro", "Dezembro" };
 
 	private Usuario usuarioAtivo;
-	private GerenteDeCategorias gerenteCategorias = new GerenteDeCategorias(usuarioAtivo);
-	private GerenteDeTransacoes gerenteTransacoes;
-	private String[] listaCategorias = null;
 
 	public RelatorioHistograma(Usuario usuario) {
 		usuarioAtivo = usuario;
-		gerenteTransacoes = new GerenteDeTransacoes(usuario);
 	}
 
-	public List<Double> valoresDespesas() {
+	public List<Double> valoresDespesas() throws Exception {
 		List<Double> despesas = new ArrayList<>();
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
-			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
+			transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(i);
 			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() < 0)
@@ -35,12 +31,12 @@ public class RelatorioHistograma {
 		return despesas;
 	}
 
-	public List<Double> valoresProventos() {
+	public List<Double> valoresProventos() throws Exception {
 		List<Double> proventos = new ArrayList<>();
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
-			transacoesDoMes = gerenteTransacoes.listaTransacoesPeloMes(i);
+			transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(i);
 			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() > 0)
@@ -51,13 +47,11 @@ public class RelatorioHistograma {
 		return proventos;
 	}
 
-	public List<List<Double>> valoresCategorias(int mes) {
-		List<Categoria> categorias = gerenteCategorias.getCategorias();
-		List<Transacao> transacoesDoMes = gerenteTransacoes
-				.listaTransacoesPeloMes(mes);
+	public List<List<Double>> valoresCategorias(int mes) throws Exception {
+		List<Categoria> categorias = usuarioAtivo.getCategorias();
+		List<Transacao> transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mes);
 		List<Double> valoresProvento = new ArrayList<>();
 		List<Double> valoresDespesa = new ArrayList<>();
-		listaCategorias = gerenteCategorias.listaCategorias();
 
 		for (int i = 0; i < categorias.size(); i++) {
 			double totalProventos = 0;
@@ -88,13 +82,6 @@ public class RelatorioHistograma {
 
 	public static String[] getMeses() {
 		return MESES;
-	}
-
-	/**
-	 * @return the categorias
-	 */
-	public String[] getCategorias() {
-		return listaCategorias;
 	}
 	
 }

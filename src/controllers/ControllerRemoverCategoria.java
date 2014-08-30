@@ -22,7 +22,6 @@ import org.controlsfx.dialog.Dialog.Actions;
 import org.controlsfx.dialog.Dialogs;
 
 import fonte.Categoria;
-import fonte.GerenteDeCategorias;
 import fonte.Usuario;
 
 public class ControllerRemoverCategoria {
@@ -45,9 +44,7 @@ public class ControllerRemoverCategoria {
     @FXML
     private AnchorPane content;  
     
-    private GerenteDeCategorias gerente = new GerenteDeCategorias(usuarioAtivo); 
-    
-    private List<Categoria> categorias = gerente.getCategorias();
+    private List<Categoria> categorias = usuarioAtivo.getCategorias();
     
     @FXML
 	void initialize() {
@@ -107,7 +104,7 @@ public class ControllerRemoverCategoria {
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							gerente.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
+							usuarioAtivo.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
