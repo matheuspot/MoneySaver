@@ -73,12 +73,12 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoValida() throws Exception {
 		
-		conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.0", categoria, 
-					"Mensal", "provento");
+		assertFalse(conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.0", categoria, 
+					"Mensal", "provento"));
 		assertEquals(1, conta.getTransacoesExistentes().size());
 		
-		conta.adicionaTransacao("Feira", dataDeInsercao, "152.32", categoria, 
-					"Mensal", "despesa");
+		assertFalse(conta.adicionaTransacao("Feira", dataDeInsercao, "152.32", categoria, 
+					"Mensal", "despesa"));
 		assertEquals(2, conta.getTransacoesExistentes().size());
 	}
 	
