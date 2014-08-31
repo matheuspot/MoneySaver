@@ -154,12 +154,7 @@ public class ControllerOperacoesPrincipais {
         public void changed(ObservableValue ov, String t, String t1) { 
     		boolean conta = false;
     		
-    		try {
-				usuarioAtivo.pesquisaConta(t1);
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		usuarioAtivo.pesquisaConta(t1);
     		
     		for(String nomeConta : usuarioAtivo.listaNomeContas()){
     			if (ov.getValue().equals(nomeConta)){
@@ -169,21 +164,10 @@ public class ControllerOperacoesPrincipais {
     		}
     			
     		if (conta){
-    			try {
-    				transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
-    			} catch (Exception e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-    		} else {
-    			try {
-    				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(
-    						mapaMeses.get(CBmes.getSelectionModel().getSelectedItem()));
-    			} catch (Exception e) {
-    				// TODO Auto-generated catch block
-    				e.printStackTrace();
-    			}
-    		}
+    			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
+    			labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().getSaldo()));
+    		} else
+				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
     		
         	criarTabela();
         }  

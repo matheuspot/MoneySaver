@@ -115,12 +115,7 @@ public class ControllerRemoverTransacao {
     	
     	@Override 
         public void changed(ObservableValue ov, String t, String t1) {  
-    		try {
-				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
         	criarTabela();
         }  
     	

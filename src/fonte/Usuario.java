@@ -90,9 +90,14 @@ public class Usuario implements Serializable {
 	 *             Lança exceção se a conta não existir.
 	 */
 	public void removeConta(Conta conta) throws Exception {
-		checaContaJaExiste(conta);
-
-		contas.remove(conta);
+		if (contas.size() > 1){
+			checaContaJaExiste(conta);
+			contas.remove(conta);
+			if (conta == contaAtiva)
+				contaAtiva = contas.get(0);
+		} else {
+			throw new Exception("Deve existir pelo menos uma conta ativa.");
+		}
 	}
 
 	/**
@@ -125,10 +130,7 @@ public class Usuario implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se o nome for inválido.
 	 */
-	public Conta pesquisaConta(String nome) throws Exception {
-		if (!validaNome(nome))
-			throw new Exception("Nome da conta inválido.");
-
+	public Conta pesquisaConta(String nome) {
 		for (Conta conta : contas) {
 			if (conta.getNome().equals(nome)) {
 				contaAtiva = conta;

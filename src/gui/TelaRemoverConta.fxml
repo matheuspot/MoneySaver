@@ -23,7 +23,7 @@
          </font>
       </Button>
       <ComboBox fx:id="cbContas" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Conta" />
-      <Label fx:id="labelAviso" alignment="CENTER" layoutX="208.0" layoutY="287.0" prefHeight="17.0" prefWidth="189.0" text="Aviso" textFill="#d71111" visible="false" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="161.0" layoutY="287.0" prefHeight="17.0" prefWidth="275.0" text="Aviso" textFill="#d71111" visible="false" />
       <Label layoutX="224.0" layoutY="128.0" text="Selecione uma conta">
          <font>
             <Font name="Calibri" size="18.0" />

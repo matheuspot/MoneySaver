@@ -172,9 +172,7 @@ public class Conta implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se o mês fornecido for inválido.
 	 */
-	public List<Transacao> listaTransacoesPeloMes(int mes) throws Exception {
-		if (mes < 1 || mes > 12)
-			throw new Exception("Forneça um mês entre 1 e 12.");
+	public List<Transacao> listaTransacoesPeloMes(int mes) {
 
 		List<Transacao> listaFiltradaPorMes = transacoes
 				.stream()
