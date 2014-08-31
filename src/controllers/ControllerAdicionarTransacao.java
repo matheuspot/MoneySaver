@@ -129,14 +129,22 @@ public class ControllerAdicionarTransacao {
 					e.printStackTrace();
 				}	
 			} else if (evento.getSource() == botaoAdicionar) {
+				boolean passouOrcamento = false;
+				
 				try{
-					usuarioAtivo.getContaAtiva().adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
+					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
 							CBcategoria.getSelectionModel().getSelectedItem(), 
 							CBrecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
 					
 					gerente.atualizaSistema(usuarioAtivo);
 					
+					if (passouOrcamento){
+						Dialogs.create().owner(null).title("MoneySaver")
+								.masthead(null).message("O valor do orçamento de despesa desta categoria foi ultrapassado.")
+								.showInformation();
+					}
+						
 					Dialog.Actions resposta = (Actions) Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Transação efetuada. Deseja adicionar uma nova transação?")
 							.showConfirm();
