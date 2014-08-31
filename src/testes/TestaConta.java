@@ -77,7 +77,9 @@ public class TestaConta {
 					"Mensal", "provento"));
 		assertEquals(1, conta.getTransacoesExistentes().size());
 		
-		assertFalse(conta.adicionaTransacao("Feira", dataDeInsercao, "152.32", categoria, 
+		categoria.setOrcamento(500.00);
+		
+		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "550.0", categoria, 
 					"Mensal", "despesa"));
 		assertEquals(2, conta.getTransacoesExistentes().size());
 	}
@@ -279,5 +281,13 @@ public class TestaConta {
 				"Mensal", "provento");
 		
 		assertTrue(conta.equals(conta2));
+	}
+	
+	@Test
+	public void testaCalculaGastoPorCategoria() throws Exception {
+		categoria.setOrcamento(200.00);
+		
+		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "250.00", 
+				categoria, "Mensal", "despesa"));
 	}
 }
