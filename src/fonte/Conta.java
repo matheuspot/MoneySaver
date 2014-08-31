@@ -424,7 +424,8 @@ public class Conta implements Serializable {
 
 		for (Transacao transacao : transacoes)
 			if (categoria.equals(transacao.getCategoria()))
-				valor += transacao.getValor();
+				if (transacao.getValor() < 0)
+					valor += transacao.getValor();
 
 		if (valor > categoria.getOrcamento().getLimite())
 			return true;
