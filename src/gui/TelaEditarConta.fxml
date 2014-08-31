@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerEditarConta">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Editar Conta" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <ComboBox fx:id="cbContas" layoutX="225.0" layoutY="155.0" prefHeight="30.0" prefWidth="150.0" promptText="Conta" />
+      <TextField fx:id="tfNome" layoutX="224.0" layoutY="220.0" prefHeight="30.0" prefWidth="152.0" promptText="Nome da conta">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </TextField>
+      <Button fx:id="botaoEditar" alignment="CENTER" contentDisplay="CENTER" layoutX="135.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Editar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="330.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="220.0" layoutY="292.0" prefHeight="17.0" prefWidth="166.0" text="Label" textFill="#cd1919" visible="false" />
+      <Label layoutX="224.0" layoutY="108.0" text="Selecione uma conta">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>

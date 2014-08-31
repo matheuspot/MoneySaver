@@ -152,18 +152,39 @@ public class ControllerOperacoesPrincipais {
     	
     	@Override 
         public void changed(ObservableValue ov, String t, String t1) { 
+    		boolean conta = false;
+    		
     		try {
 				usuarioAtivo.pesquisaConta(t1);
 			} catch (Exception e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
-    		try {
-				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
-			} catch (Exception e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+    		
+    		for(String nomeConta : usuarioAtivo.listaNomeContas()){
+    			if (ov.getValue().equals(nomeConta)){
+    				conta = true;
+    				break;
+    			}
+    		}
+    			
+    		if (conta){
+    			try {
+    				transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
+    			} catch (Exception e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    		} else {
+    			try {
+    				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(
+    						mapaMeses.get(CBmes.getSelectionModel().getSelectedItem()));
+    			} catch (Exception e) {
+    				// TODO Auto-generated catch block
+    				e.printStackTrace();
+    			}
+    		}
+    		
         	criarTabela();
         }  
     	
@@ -326,6 +347,36 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == adicionarConta) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarConta.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerAdicionarConta controller = fxmlLoader.<ControllerAdicionarConta>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == removerConta) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverConta.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerRemoverConta controller = fxmlLoader.<ControllerRemoverConta>getController();
+					controller.setUsuario(usuarioAtivo);
+					content.getChildren().setAll(root);
+				} catch (IOException e) {
+					e.printStackTrace();
+				}
+			} else if (evento.getSource() == editarConta) {
+				try {
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarConta.fxml"));     
+					Parent root = (Parent)fxmlLoader.load();          
+					ControllerEditarConta controller = fxmlLoader.<ControllerEditarConta>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {

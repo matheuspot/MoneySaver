@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane fx:id="content" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerRemoverConta">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Remover Conta" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="318.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="131.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <ComboBox fx:id="cbContas" layoutX="225.0" layoutY="185.0" prefHeight="30.0" prefWidth="150.0" promptText="Conta" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="208.0" layoutY="287.0" prefHeight="17.0" prefWidth="189.0" text="Aviso" textFill="#d71111" visible="false" />
+      <Label layoutX="224.0" layoutY="128.0" text="Selecione uma conta">
+         <font>
+            <Font name="Calibri" size="18.0" />
+         </font>
+      </Label>
+   </children>
+</AnchorPane>
