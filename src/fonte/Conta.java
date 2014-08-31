@@ -436,12 +436,15 @@ public class Conta implements Serializable {
 		int mesesAnteriores = 0;
 		for (int i = 0; i < 12; i++) {
 			for (Transacao transacao : listaTransacoesPeloMes(i)) {
-				if (transacao.getRecorrencia() == "Mensal") {	
-					if (dataAtual.getMonth() >= transacao.getDataDeInsercao().getMonthValue()) 
+				if (dataAtual.getMonth() >= transacao.getDataDeInsercao().getMonthValue()) {
+					if (transacao.getRecorrencia() == "Mensal")
 						mesesAnteriores = dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue();
-						saldo += transacao.getValor() * mesesAnteriores;
+					else if (transacao.getRecorrencia() == "Semanal")
+						mesesAnteriores = 4 * (dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue());
 				}
+				
+				saldo += transacao.getValor() * mesesAnteriores;
 			}
 		} return saldo;
-	}
+	} 
 }
