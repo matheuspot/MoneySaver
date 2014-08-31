@@ -77,11 +77,17 @@ public class TestaConta {
 					"Mensal", "provento"));
 		assertEquals(1, conta.getTransacoesExistentes().size());
 		
-		categoria.setOrcamento(500.00);
+		categoria.setOrcamento(200.00);
 		
-		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "550.0", categoria, 
+		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "220.00", categoria, 
 					"Mensal", "despesa"));
 		assertEquals(2, conta.getTransacoesExistentes().size());
+		
+		categoria.setOrcamento(600.00);
+		
+		assertFalse(conta.adicionaTransacao("Feira", dataDeInsercao, "120.00", categoria, 
+				"Mensal", "despesa"));
+		assertEquals(3, conta.getTransacoesExistentes().size());
 	}
 	
 	@Test
@@ -289,5 +295,20 @@ public class TestaConta {
 		
 		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "250.00", 
 				categoria, "Mensal", "despesa"));
+	}
+	
+	@Test
+	public void testaSaldoRecorrenteMensal() throws Exception {
+		dataDeInsercao = LocalDate.parse("06/05/2014", formatter);
+		conta.adicionaTransacao("Bolsa", dataDeInsercao, "200.00", categoria, 
+				"Mensal", "provento");
+		
+		assertEquals(600.00, conta.calculaSaldoRecorrente(), 0);
+		
+		dataDeInsercao = LocalDate.parse("06/07/2014", formatter);
+		conta.adicionaTransacao("Feira", dataDeInsercao, "50.00", categoria, 
+				"Semanal", "despesa");
+		
+		assertEquals(400.00, conta.calculaSaldoRecorrente(), 0);
 	}
 }

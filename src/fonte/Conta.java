@@ -432,19 +432,19 @@ public class Conta implements Serializable {
 		return false;
 	}
 	
-	private double calculaSaldoRecorrente() {
+	public double calculaSaldoRecorrente() {
 		double saldo = 0;
 		int mesesAnteriores = 0;
 		for (int i = 0; i < 12; i++) {
 			for (Transacao transacao : listaTransacoesPeloMes(i)) {
 				if (dataAtual.getMonth() >= transacao.getDataDeInsercao().getMonthValue()) {
-					if (transacao.getRecorrencia() == "Mensal")
-						mesesAnteriores = dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue();
-					else if (transacao.getRecorrencia() == "Semanal")
-						mesesAnteriores = 4 * (dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue());
+					mesesAnteriores = (dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue()) + 1;
 				}
-				
-				saldo += transacao.getValor() * mesesAnteriores;
+
+				if (transacao.getRecorrencia() == "Mensal")
+					saldo += transacao.getValor() * mesesAnteriores;
+				else if (transacao.getRecorrencia() == "Semanal")
+					saldo += transacao.getValor() * (mesesAnteriores * 4);
 			}
 		} return saldo;
 	} 
