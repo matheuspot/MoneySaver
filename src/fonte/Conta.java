@@ -4,6 +4,7 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.Date;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,6 +18,7 @@ public class Conta implements Serializable {
 	private double saldo;
 	private String nome;
 	private List<Transacao> transacoes;
+	private Date dataAtual = new Date();
 
 	/**
 	 * Construtor da classe conta, que recebe seu nome como parâmetro.
@@ -427,5 +429,19 @@ public class Conta implements Serializable {
 		if (valor > categoria.getOrcamento().getLimite())
 			return true;
 		return false;
+	}
+	
+	private double calculaSaldoRecorrente() {
+		double saldo = 0;
+		int mesesAnteriores = 0;
+		for (int i = 0; i < 12; i++) {
+			for (Transacao transacao : listaTransacoesPeloMes(i)) {
+				if (transacao.getRecorrencia() == "Mensal") {	
+					if (dataAtual.getMonth() >= transacao.getDataDeInsercao().getMonthValue()) 
+						mesesAnteriores = dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue();
+						saldo += transacao.getValor() * mesesAnteriores;
+				}
+			}
+		} return saldo;
 	}
 }
