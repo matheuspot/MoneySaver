@@ -54,7 +54,7 @@
                         <Font name="Calibri" size="28.0" />
                      </font>
                   </Button>
-                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="175.0" layoutY="297.0" prefHeight="17.0" prefWidth="241.0" text="Label" textFill="#dd1111" visible="false" />
+                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="130.0" layoutY="297.0" prefHeight="17.0" prefWidth="331.0" text="Label" textFill="#dd1111" visible="false" />
                   <Label alignment="CENTER" contentDisplay="CENTER" layoutX="140.0" prefHeight="40.0" prefWidth="310.0" text="Novo Usuário" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="36.0" />

@@ -9,16 +9,20 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
+import javafx.scene.input.KeyCode;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
 
 public class ControllerCadastro {
 
-	EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-	GerenteDeUsuarios gerenteUsuario = new GerenteDeUsuarios();
+	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private EventHandler<KeyEvent> eventosTeclado = (EventHandler<KeyEvent>) new EventosTeclado();
+	private GerenteDeUsuarios gerenteUsuario = new GerenteDeUsuarios();
 
 	@FXML
 	private PasswordField PFsenha;
@@ -51,7 +55,42 @@ public class ControllerCadastro {
 		botaoCadastrar.setOnAction(eventos);
 		botaoVoltar.setOnAction(eventos);
 		tfConta.setOnAction(eventos);
+		
 		labelAviso.setVisible(false);
+		
+		TFdicaSenha.setOnKeyPressed(eventosTeclado);
+		TFemail.setOnKeyPressed(eventosTeclado);
+		TFnome.setOnKeyPressed(eventosTeclado);
+		tfConta.setOnKeyPressed(eventosTeclado);
+		PFsenha.setOnKeyPressed(eventosTeclado);
+		PFconfirmacaoSenha.setOnKeyPressed(eventosTeclado);
+	}
+	
+	private class EventosTeclado implements EventHandler<KeyEvent> {
+		@Override
+		public void handle(KeyEvent keyEvent) {
+	         if (keyEvent.getCode() == KeyCode.ENTER) {
+	        	 try {
+	        		 gerenteUsuario.adicionaUsuario(TFnome.getText(),
+								TFemail.getText(), PFsenha.getText(),
+								PFconfirmacaoSenha.getText(), TFdicaSenha.getText(), tfConta.getText());
+						
+	        		 Dialogs.create().owner(null).title("MoneySaver")
+								.masthead(null).message("Cadastro efetuado!")
+								.showInformation();
+	        		 	try {
+							content.getChildren().setAll(
+									FXMLLoader.load(getClass().getResource(
+											"../gui/TelaPrincipal.fxml")));
+						} catch (IOException e) {
+							e.printStackTrace();
+						}
+					} catch (Exception e) {
+						labelAviso.setText(e.getMessage());
+						labelAviso.setVisible(true);
+					}
+	         }
+		}
 	}
 
 	private class Eventos implements EventHandler<ActionEvent> {
