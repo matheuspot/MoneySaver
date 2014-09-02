@@ -5,17 +5,13 @@ import java.util.List;
 
 public class RelatorioHistograma {
 
-	private final static String[] MESES = { "Janeiro", "Fevereiro", "Março",
-			"Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
-			"Novembro", "Dezembro" };
-
 	private Usuario usuarioAtivo;
 
 	public RelatorioHistograma(Usuario usuario) {
 		usuarioAtivo = usuario;
 	}
 
-	public List<Double> valoresDespesas() throws Exception {
+	public List<Double> valoresDespesas() {
 		List<Double> despesas = new ArrayList<>();
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
@@ -31,7 +27,7 @@ public class RelatorioHistograma {
 		return despesas;
 	}
 
-	public List<Double> valoresProventos() throws Exception {
+	public List<Double> valoresProventos() {
 		List<Double> proventos = new ArrayList<>();
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
@@ -47,7 +43,7 @@ public class RelatorioHistograma {
 		return proventos;
 	}
 
-	public List<List<Double>> valoresCategorias(int mes) throws Exception {
+	public List<List<Double>> valoresCategorias(int mes) {
 		List<Categoria> categorias = usuarioAtivo.getCategorias();
 		List<Transacao> transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mes);
 		List<Double> valoresProvento = new ArrayList<>();
@@ -66,6 +62,7 @@ public class RelatorioHistograma {
 						&& transacao.getValor() < 0)
 					totalDespesas += Math.abs(transacao.getValor());
 			}
+			
 			valoresProvento.add(totalProventos);
 			valoresDespesa.add(totalDespesas);
 		}
@@ -78,10 +75,6 @@ public class RelatorioHistograma {
 
 	public List<Double> valoresDeUmMes(int mes) {
 		return null;
-	}
-
-	public static String[] getMeses() {
-		return MESES;
 	}
 	
 }

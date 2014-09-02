@@ -171,8 +171,7 @@ public class Conta implements Serializable {
 	 *            O mês que deseja-se filtrar as transações; um inteiro de 1 à
 	 *            12, onde 1 representa Janeiro e 12 Dezembro.
 	 * @return Retorna uma lista com todas as transações do mês selecionado.
-	 * @throws Exception
-	 *             Lança exceção se o mês fornecido for inválido.
+	 * 
 	 */
 	public List<Transacao> listaTransacoesPeloMes(int mes) {
 

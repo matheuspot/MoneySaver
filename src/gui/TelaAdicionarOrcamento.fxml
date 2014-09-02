@@ -24,13 +24,13 @@
       </Button>
       <ComboBox fx:id="cbCategorias" layoutX="131.0" layoutY="215.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
       <Label fx:id="labelAviso" alignment="CENTER" layoutX="208.0" layoutY="287.0" prefHeight="17.0" prefWidth="189.0" text="Aviso" textFill="#d71111" visible="false" />
-      <Label layoutX="91.0" layoutY="111.0" prefHeight="17.0" prefWidth="419.0" text="Selecione uma categoria que deseja adicionar orçamento">
+      <Label layoutX="53.0" layoutY="111.0" prefHeight="22.0" prefWidth="494.0" text="Para controlar os seus gastos, selecione uma categoria e determine">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
       </Label>
       <TextField fx:id="tfValor" layoutX="319.0" layoutY="215.0" prefHeight="30.0" prefWidth="149.0" promptText="Valor" />
-      <Label layoutX="53.0" layoutY="133.0" prefHeight="22.0" prefWidth="494.0" text="para o mês atual e o valor de despesa que não deseja ultrapassar.">
+      <Label layoutX="63.0" layoutY="133.0" prefHeight="22.0" prefWidth="494.0" text="o valor máximo que pretende gastar, de agora até o final do mês.">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
