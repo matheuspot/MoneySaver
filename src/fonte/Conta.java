@@ -15,7 +15,6 @@ public class Conta implements Serializable {
 
 	private static final long serialVersionUID = 1L;
 
-	private double saldo;
 	private String nome;
 	private List<Transacao> transacoes;
 	private Date dataAtual = new Date();
@@ -33,18 +32,7 @@ public class Conta implements Serializable {
 			throw new Exception("Nome da conta inválido.");
 
 		this.nome = nome;
-		saldo = 0.0;
 		transacoes = new ArrayList<>();
-	}
-
-	/**
-	 * Método para mover dinheiro na conta. Pode ser para adicionar ou retirar.
-	 * 
-	 * @param dinheiro
-	 *            O valor que será adicionado ou retirado da conta.
-	 */
-	public void moveDinheiroNaConta(double dinheiro) {
-		saldo += dinheiro;
 	}
 
 	/**
@@ -88,7 +76,6 @@ public class Conta implements Serializable {
 
 		transacoes.add(transacaoQueSeraAdicionada);
 		Collections.sort(transacoes);
-		moveDinheiroNaConta(transacaoQueSeraAdicionada.getValor());
 
 		return calculaGastosPorCategoria(categoria);
 	}
@@ -105,7 +92,6 @@ public class Conta implements Serializable {
 		if (!transacoes.contains(transacao))
 			throw new Exception("Transação inexistente.");
 
-		this.moveDinheiroNaConta(-transacao.getValor());
 		transacoes.remove(transacao);
 	}
 
@@ -155,9 +141,6 @@ public class Conta implements Serializable {
 					dataDeInsercao, novoValor, categoria, recorrencia);
 		}
 
-		moveDinheiroNaConta(-transacaoParaEditar.getValor());
-		moveDinheiroNaConta(transacaoQueSeraAdicionada.getValor());
-
 		transacoes.remove(transacaoParaEditar);
 		transacoes.add(transacaoQueSeraAdicionada);
 
@@ -184,12 +167,19 @@ public class Conta implements Serializable {
 	}
 
 	/**
-	 * Método que dá acesso ao saldo da conta.
+	 * Método usado para calcular o saldo do mês escolhido.
 	 * 
-	 * @return O saldo da conta.
+	 * @param mes
+	 *            O mês que deseja-se calcular o saldo.
+	 * @return Retorna o saldo desse mês.
 	 */
-	public double getSaldo() {
-		return saldo;
+	public double pegaSaldoDoMes(int mes) {
+		double saldoDoMes = 0;
+		List<Transacao> transacoesDoMes = listaTransacoesPeloMes(mes);
+		for (Transacao transacao : transacoesDoMes) {
+			saldoDoMes += transacao.getValor();
+		}
+		return saldoDoMes;
 	}
 
 	/**
@@ -230,7 +220,7 @@ public class Conta implements Serializable {
 	 */
 	@Override
 	public String toString() {
-		return String.format("Nome: %s; Saldo: R$ %.2f", nome, saldo);
+		return String.format("Nome: %s", nome);
 	}
 
 	/**
@@ -240,18 +230,16 @@ public class Conta implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
+		result = prime * result
+				+ ((dataAtual == null) ? 0 : dataAtual.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
-		long temp;
-		temp = Double.doubleToLongBits(saldo);
-		result = prime * result + (int) (temp ^ (temp >>> 32));
 		result = prime * result
 				+ ((transacoes == null) ? 0 : transacoes.hashCode());
 		return result;
 	}
 
 	/**
-	 * Método equals. Duas contas serão iguais se todos seus atributos forem
-	 * iguais.
+	 * Método equals. Duas contas serão iguais se tiverem os mesmos atributos.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -262,13 +250,15 @@ public class Conta implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Conta other = (Conta) obj;
+		if (dataAtual == null) {
+			if (other.dataAtual != null)
+				return false;
+		} else if (!dataAtual.equals(other.dataAtual))
+			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
 		} else if (!nome.equals(other.nome))
-			return false;
-		if (Double.doubleToLongBits(saldo) != Double
-				.doubleToLongBits(other.saldo))
 			return false;
 		if (transacoes == null) {
 			if (other.transacoes != null)
@@ -430,14 +420,16 @@ public class Conta implements Serializable {
 			return true;
 		return false;
 	}
-	
+
 	public double calculaSaldoRecorrente() {
 		double saldo = 0;
 		int mesesAnteriores = 0;
 		for (int i = 0; i < 12; i++) {
 			for (Transacao transacao : listaTransacoesPeloMes(i)) {
-				if (dataAtual.getMonth() >= transacao.getDataDeInsercao().getMonthValue()) {
-					mesesAnteriores = (dataAtual.getMonth() - transacao.getDataDeInsercao().getMonthValue()) + 1;
+				if (dataAtual.getMonth() >= transacao.getDataDeInsercao()
+						.getMonthValue()) {
+					mesesAnteriores = (dataAtual.getMonth() - transacao
+							.getDataDeInsercao().getMonthValue()) + 1;
 				}
 
 				if (transacao.getRecorrencia() == "Mensal")
@@ -445,6 +437,7 @@ public class Conta implements Serializable {
 				else if (transacao.getRecorrencia() == "Semanal")
 					saldo += transacao.getValor() * (mesesAnteriores * 4);
 			}
-		} return saldo;
-	} 
+		}
+		return saldo;
+	}
 }
