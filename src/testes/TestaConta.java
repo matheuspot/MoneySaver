@@ -30,9 +30,8 @@ public class TestaConta {
 		conta2 = new Conta("Bradesco");
 		assertEquals("Saldo inicial errado.", 0.0, conta.getSaldo(), 0.0);
 		categoria = new Categoria("Trabalho", "Marrom");
-		dataDeInsercao = LocalDate.parse("06/08/2014", formatter);
-		transacao1 = new Provento("Bolsa", dataDeInsercao, 400.00, categoria, "Mensal");
-		transacao2 = new Despesa("Feira", dataDeInsercao, 152.32, categoria, "Mensal");
+		transacao1 = new Provento("Bolsa", 400.00, categoria, "Mensal");
+		transacao2 = new Despesa("Feira", 152.32, categoria, "Mensal");
 	}
 
 	@Test
@@ -73,19 +72,19 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoValida() throws Exception {
 		
-		assertFalse(conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.0", categoria, 
+		assertFalse(conta.adicionaTransacao("Bolsa", "400.0", categoria, 
 					"Mensal", "provento"));
 		assertEquals(1, conta.getTransacoesExistentes().size());
 		
 		categoria.setOrcamento(200.00);
 		
-		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "220.00", categoria, 
+		assertTrue(conta.adicionaTransacao("Feira", "220.00", categoria, 
 					"Mensal", "despesa"));
 		assertEquals(2, conta.getTransacoesExistentes().size());
 		
 		categoria.setOrcamento(600.00);
 		
-		assertFalse(conta.adicionaTransacao("Feira", dataDeInsercao, "120.00", categoria, 
+		assertFalse(conta.adicionaTransacao("Feira", "120.00", categoria, 
 				"Mensal", "despesa"));
 		assertEquals(3, conta.getTransacoesExistentes().size());
 	}
@@ -93,7 +92,7 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoComDescricaoInvalida() {
 		try {
-			conta.adicionaTransacao(null, dataDeInsercao, "400.0", categoria, 
+			conta.adicionaTransacao(null, "400.0", categoria, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -101,7 +100,7 @@ public class TestaConta {
 		}
 		
 		try {
-			conta.adicionaTransacao("", dataDeInsercao, "400.0", categoria, 
+			conta.adicionaTransacao("", "400.0", categoria, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -110,7 +109,7 @@ public class TestaConta {
 		
 		try {
 			conta.adicionaTransacao("aaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaa", 
-					dataDeInsercao, "400.0", categoria, 
+					 "400.0", categoria, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -119,20 +118,9 @@ public class TestaConta {
 	}
 	
 	@Test
-	public void testaAdicionaTransacaoComDataInvalida() {
-		try {
-			conta.adicionaTransacao("Bolsa", null, "400.0", categoria, 
-					"Mensal", "provento");
-			fail("Esperava excecao");
-		} catch (Exception e) {
-			assertEquals("Data de inserção inválida.", e.getMessage());
-		}
-	}
-	
-	@Test
 	public void testaAdicionaTransacaoComValorInvalido() {
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "-354.6", categoria, 
+			conta.adicionaTransacao("Bolsa", "-354.6", categoria, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -140,7 +128,7 @@ public class TestaConta {
 		}
 		
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "0", categoria, 
+			conta.adicionaTransacao("Bolsa", "0", categoria, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -151,7 +139,7 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoComCategoriaInvalida() {
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", null, 
+			conta.adicionaTransacao("Bolsa", "564.8", null, 
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -162,7 +150,7 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoComRecorrenciaInvalida() {
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+			conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 					"", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -170,7 +158,7 @@ public class TestaConta {
 		}
 		
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+			conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 					null, "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -181,7 +169,7 @@ public class TestaConta {
 	@Test
 	public void testaAdicionaTransacaoComTipoInvalido() {
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+			conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 					"Mensal", null);
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -189,7 +177,7 @@ public class TestaConta {
 		}
 		
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+			conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 					"Mensal", "");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -197,7 +185,7 @@ public class TestaConta {
 		}
 		
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+			conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 					"Mensal", "outroTipo");
 			fail("Esperava excecao");
 		} catch (Exception e) {
@@ -207,11 +195,11 @@ public class TestaConta {
 	
 	@Test
 	public void testaGetSaldo() throws Exception {
-		conta.adicionaTransacao("Bolsa", dataDeInsercao, "564.8", categoria, 
+		conta.adicionaTransacao("Bolsa", "564.8", categoria, 
 				"Mensal", "provento");
 		assertEquals(564.8, conta.getSaldo(), 1);
 		
-		conta.adicionaTransacao("Feira", dataDeInsercao, "63.65", categoria, 
+		conta.adicionaTransacao("Feira", "63.65", categoria, 
 				"Mensal", "despesa");
 		assertEquals(501.15, conta.getSaldo(), 2);
 	}
@@ -249,7 +237,7 @@ public class TestaConta {
 	
 	@Test
 	public void removeTransacaoValida() throws Exception {
-		conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.00", categoria, 
+		conta.adicionaTransacao("Bolsa", "400.00", categoria, 
 				"Mensal", "provento");
 		assertEquals(1, conta.getTransacoesExistentes().size());
 		
@@ -270,9 +258,9 @@ public class TestaConta {
 	@Test
 	public void testaEditaTransacao() {
 		try {
-			conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.00", categoria, 
+			conta.adicionaTransacao("Bolsa", "400.00", categoria, 
 					"Mensal", "provento");
-			conta.editaTransacao(transacao1, "Cobranca", dataDeInsercao, "79.8", categoria, 
+			conta.editaTransacao(transacao1, "Cobranca", "79.8", categoria, 
 					"Semanal", "provento");
 		} catch (Exception e) {
 			e.printStackTrace();
@@ -281,9 +269,9 @@ public class TestaConta {
 	
 	@Test
 	public void testaEquals() throws Exception {
-		conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.00", categoria, 
+		conta.adicionaTransacao("Bolsa", "400.00", categoria, 
 				"Mensal", "provento");
-		conta2.adicionaTransacao("Bolsa", dataDeInsercao, "400.00", categoria, 
+		conta2.adicionaTransacao("Bolsa", "400.00", categoria, 
 				"Mensal", "provento");
 		
 		assertTrue(conta.equals(conta2));
@@ -293,20 +281,18 @@ public class TestaConta {
 	public void testaCalculaGastoPorCategoria() throws Exception {
 		categoria.setOrcamento(200.00);
 		
-		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "250.00", 
+		assertTrue(conta.adicionaTransacao("Feira", "250.00", 
 				categoria, "Mensal", "despesa"));
 	}
 	
 	@Test
 	public void testaSaldoRecorrenteMensal() throws Exception {
-		dataDeInsercao = LocalDate.parse("06/05/2014", formatter);
-		conta.adicionaTransacao("Bolsa", dataDeInsercao, "200.00", categoria, 
+		conta.adicionaTransacao("Bolsa", "200.00", categoria, 
 				"Mensal", "provento");
 		
 		assertEquals(600.00, conta.calculaSaldoRecorrente(), 0);
 		
-		dataDeInsercao = LocalDate.parse("06/07/2014", formatter);
-		conta.adicionaTransacao("Feira", dataDeInsercao, "50.00", categoria, 
+		conta.adicionaTransacao("Feira", "50.00", categoria, 
 				"Semanal", "despesa");
 		
 		assertEquals(400.00, conta.calculaSaldoRecorrente(), 0);

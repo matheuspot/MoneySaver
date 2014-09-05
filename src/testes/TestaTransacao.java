@@ -22,17 +22,17 @@ public class TestaTransacao {
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private LocalDate data1;
 	private LocalDate data2;
+	private LocalDate dataAtual;
 	
 	@Before
 	public void iniciaTransacao() throws Exception {
+		dataAtual = LocalDate.now();
 		categoria1 = new Categoria("Trabalho", "verde");
 		categoria2 = new Categoria("Universidade", "Roxo");
-		data1 = LocalDate.parse("06/08/2014", formatter);
-		data2 = LocalDate.parse("07/08/2014", formatter);
 		
-		transacao1 = new Provento("Bolsa PIBIC", data1, 400.00,
+		transacao1 = new Provento("Bolsa PIBIC", 400.00,
 				categoria1, "Mensal");
-		transacao2 = new Despesa("Gastos com material", data2, 65.40,
+		transacao2 = new Despesa("Gastos com material", 65.40,
 				categoria2, "Semestral");
 	}
 
@@ -44,8 +44,8 @@ public class TestaTransacao {
 
 	@Test
 	public void testaGetDataDeInsercao() {
-		assertEquals(data1, transacao1.getDataDeInsercao());
-		assertEquals(data2, transacao2.getDataDeInsercao());
+		assertEquals(dataAtual, transacao1.getDataDeInsercao());
+		assertEquals(dataAtual, transacao2.getDataDeInsercao());
 	}
 
 	@Test
@@ -57,7 +57,7 @@ public class TestaTransacao {
 	@Test
 	public void testaValorInvalido() {
 		try {
-			transacao1 = new Provento("Bolsa PIBIC", data1, 0,
+			transacao1 = new Provento("Bolsa PIBIC", 0,
 					categoria1, "Mensal");
 			fail("Esperava exceção.");
 		} catch (Exception e) {
@@ -65,7 +65,7 @@ public class TestaTransacao {
 		}
 
 		try {
-			transacao1 = new Provento("Bolsa PIBIC", data1, -568.9,
+			transacao1 = new Provento("Bolsa PIBIC", -568.9,
 					categoria1, "Mensal");
 			fail("Esperava exceção.");
 		} catch (Exception e) {
@@ -82,7 +82,7 @@ public class TestaTransacao {
 	@Test
 	public void testaCategoriaInvalida() {
 		try {
-			transacao1 = new Provento("Bolsa PIBIC", data1, 400.00,
+			transacao1 = new Provento("Bolsa PIBIC", 400.00,
 					null, "Mensal");
 			fail("Esperava exceção.");
 		} catch (Exception e) {
@@ -90,7 +90,7 @@ public class TestaTransacao {
 		}
 
 		try {
-			transacao2 = new Despesa("Gastos com material", data2,
+			transacao2 = new Despesa("Gastos com material",
 					65.40, null, "Semestral");
 			fail("Esperava exceção.");
 		} catch (Exception e) {
@@ -107,12 +107,12 @@ public class TestaTransacao {
 	@Test
 	public void testaToString() {
 		assertEquals("Descrição: Bolsa PIBIC"
-				+ "\nData de Inserção: " + data1 + "\nValor: 400.0"
+				+ "\nData de Inserção: " + dataAtual + "\nValor: 400.0"
 				+ "\nCategoria: Trabalho\nRecorrência: Mensal",
 				transacao1.toString());
 
 		assertEquals("Descrição: Gastos com material"
-				+ "\nData de Inserção: " + data2 + "\nValor: 65.4"
+				+ "\nData de Inserção: " + dataAtual + "\nValor: 65.4"
 				+ "\nCategoria: Universidade\nRecorrência: Semestral",
 				transacao2.toString());
 	}
@@ -123,11 +123,11 @@ public class TestaTransacao {
 		assertFalse(transacao2.equals(transacao1));
 		assertTrue(transacao1.equals(transacao1));
 
-		transacao2 = new Provento("Bolsa PIBIC", data1, 400.00,
+		transacao2 = new Provento("Bolsa PIBIC", 400.00,
 				categoria1, "Mensal");
 		assertTrue(transacao1.equals(transacao2));
 
-		transacao2 = new Despesa("Bolsa PIBIC", data1, 400.00,
+		transacao2 = new Despesa("Bolsa PIBIC", 400.00,
 				categoria1, "Mensal");
 		assertFalse(transacao1.equals(transacao2));
 	}
