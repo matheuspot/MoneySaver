@@ -17,7 +17,7 @@ public class Conta implements Serializable {
 
 	private String nome;
 	private List<Transacao> transacoes;
-	private Date dataAtual = new Date();
+	private LocalDate dataAtual;
 
 	/**
 	 * Construtor da classe conta, que recebe seu nome como parâmetro.
@@ -409,9 +409,9 @@ public class Conta implements Serializable {
 		int mesesAnteriores = 0;
 		for (int i = 0; i < 12; i++) {
 			for (Transacao transacao : listaTransacoesPeloMes(i)) {
-				if (dataAtual.getMonth() >= transacao.getDataDeInsercao()
+				if (dataAtual.getMonthValue() >= transacao.getDataDeInsercao()
 						.getMonthValue()) {
-					mesesAnteriores = (dataAtual.getMonth() - transacao
+					mesesAnteriores = (dataAtual.getMonthValue() - transacao
 							.getDataDeInsercao().getMonthValue()) + 1;
 				}
 
