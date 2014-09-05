@@ -24,7 +24,7 @@ public class TestaDespesa {
 	@Before
 	public void iniciaDespesa() throws Exception {
 		categoria = new Categoria("Contas", "Azul");
-		despesa = new Despesa("Conta de água", data, 241.6, categoria, "Mensal");
+		despesa = new Despesa("Conta de água", 241.6, categoria, "Mensal");
 	}
 	
 	@Test
@@ -32,7 +32,7 @@ public class TestaDespesa {
 		assertEquals(-241.6, despesa.getValor(), 0.01);
 		
 		data = LocalDate.parse("26/09/2014", formatter);
-		despesa = new Despesa("Conta de energia", data, 186.79, categoria, "Mensal");
+		despesa = new Despesa("Conta de energia", 186.79, categoria, "Mensal");
 		assertEquals(-186.79, despesa.getValor(), 0.01);
 	}
 

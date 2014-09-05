@@ -22,7 +22,7 @@ public class TestaProvento {
 	@Before
 	public void iniciaProvento() throws Exception {
 		categoria = new Categoria("Trabalho", "Vermelho");
-		provento = new Provento("Salário", data, 4863.50, categoria, "Mensal");
+		provento = new Provento("Salário", 4863.50, categoria, "Mensal");
 	}
 	
 	@Test
@@ -30,7 +30,7 @@ public class TestaProvento {
 		assertEquals(4863.5, provento.getValor(), 0.01);
 		
 		data = LocalDate.parse("12/11/2014", formatter);
-		provento = new Provento("Bolsa", data, 468.90, categoria, "Bimestral");
+		provento = new Provento("Bolsa", 468.90, categoria, "Bimestral");
 		assertEquals(468.9, provento.getValor(), 0.01);
 	}
 }

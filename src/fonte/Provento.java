@@ -25,9 +25,9 @@ public class Provento extends Transacao {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public Provento(String descricao, LocalDate dataDeInsercao, double valor,
+	public Provento(String descricao, double valor,
 			Categoria categoria, String recorrencia) throws Exception {
-		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
+		super(descricao, valor, categoria, recorrencia);
 	}
 
 	/**
