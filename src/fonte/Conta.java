@@ -56,22 +56,22 @@ public class Conta implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public boolean adicionaTransacao(String descricao,
-			 String valor, Categoria categoria,
-			String recorrencia, String tipoDeTransacao) throws Exception {
+	public boolean adicionaTransacao(String descricao, String valor,
+			Categoria categoria, String recorrencia, String tipoDeTransacao)
+			throws Exception {
 
 		Transacao transacaoQueSeraAdicionada = null;
 
-		transacaoValida(descricao, valor, categoria,
-				recorrencia, tipoDeTransacao);
+		transacaoValida(descricao, valor, categoria, recorrencia,
+				tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao,
-					valorNovo, categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Despesa(descricao, valorNovo,
+					categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao,
-					valorNovo, categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Provento(descricao, valorNovo,
+					categoria, recorrencia);
 		}
 
 		transacoes.add(transacaoQueSeraAdicionada);
@@ -119,9 +119,8 @@ public class Conta implements Serializable {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public boolean editaTransacao(Transacao transacaoParaEditar,
-			String descricao, String valor,
-			Categoria categoria, String recorrencia, String tipoDeTransacao)
-			throws Exception {
+			String descricao, String valor, Categoria categoria,
+			String recorrencia, String tipoDeTransacao) throws Exception {
 
 		Transacao transacaoQueSeraAdicionada = null;
 
@@ -129,16 +128,16 @@ public class Conta implements Serializable {
 				|| !transacoes.contains(transacaoParaEditar))
 			throw new Exception("Transação inexistente.");
 
-		transacaoValida(descricao, valor, categoria,
-				recorrencia, tipoDeTransacao);
+		transacaoValida(descricao, valor, categoria, recorrencia,
+				tipoDeTransacao);
 		Double novoValor = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao,
-					novoValor, categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Despesa(descricao, novoValor,
+					categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao,
-					novoValor, categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Provento(descricao, novoValor,
+					categoria, recorrencia);
 		}
 
 		transacoes.remove(transacaoParaEditar);
@@ -286,9 +285,9 @@ public class Conta implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	private void transacaoValida(String descricao,
-			String valor, Categoria categoria, String recorrencia,
-			String tipoDeTransacao) throws Exception {
+	private void transacaoValida(String descricao, String valor,
+			Categoria categoria, String recorrencia, String tipoDeTransacao)
+			throws Exception {
 
 		if (!descricaoValida(descricao)) {
 			throw new Exception("Descrição inválida.");
