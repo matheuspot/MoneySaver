@@ -32,8 +32,8 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public Transacao(String descricao, double valor,
-			Categoria categoria, String recorrencia) throws Exception {
+	public Transacao(String descricao, double valor, Categoria categoria,
+			String recorrencia) throws Exception {
 		if (descricao == null)
 			throw new Exception("Descrição inválida.");
 		if (valor <= 0)
@@ -106,7 +106,7 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 	}
 
 	/**
-	 * Override do método hashCode da classe Object.
+	 * Método hashCode.
 	 */
 	@Override
 	public int hashCode() {
@@ -114,8 +114,6 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 		int result = 1;
 		result = prime * result
 				+ ((categoria == null) ? 0 : categoria.hashCode());
-		result = prime * result
-				+ ((dataDeInsercao == null) ? 0 : dataDeInsercao.hashCode());
 		result = prime * result
 				+ ((descricao == null) ? 0 : descricao.hashCode());
 		result = prime * result
@@ -127,8 +125,8 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 	}
 
 	/**
-	 * Override do método equals da classe Object. Duas transações são iguais se
-	 * todos os seus atributos são os mesmos.
+	 * Método equals. Duas transações serão iguais se tiverem todos os atributos
+	 * iguais, com exceção da data de inserção.
 	 */
 	@Override
 	public boolean equals(Object obj) {
@@ -143,11 +141,6 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 			if (other.categoria != null)
 				return false;
 		} else if (!categoria.equals(other.categoria))
-			return false;
-		if (dataDeInsercao == null) {
-			if (other.dataDeInsercao != null)
-				return false;
-		} else if (!dataDeInsercao.equals(other.dataDeInsercao))
 			return false;
 		if (descricao == null) {
 			if (other.descricao != null)

@@ -4,7 +4,9 @@ import java.io.Serializable;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.HashSet;
 import java.util.List;
+import java.util.Set;
 import java.util.stream.Collectors;
 
 /**
@@ -403,23 +405,74 @@ public class Conta implements Serializable {
 		return false;
 	}
 
-	public double calculaSaldoRecorrente() {
-		double saldo = 0;
-		int mesesAnteriores = 0;
-		for (int i = 0; i < 12; i++) {
-			for (Transacao transacao : listaTransacoesPeloMes(i)) {
-				if (dataAtual.getMonthValue() >= transacao.getDataDeInsercao()
-						.getMonthValue()) {
-					mesesAnteriores = (dataAtual.getMonthValue() - transacao
-							.getDataDeInsercao().getMonthValue()) + 1;
-				}
+	/**
+	 * Método usado para atualizar as transações a partir das suas recorrências.
+	 */
+	public void atualizaRecorrencias() {
+		Set<Transacao> transacoesDoMes = new HashSet<>(
+				listaTransacoesPeloMes(LocalDate.now().getMonthValue()));
+		String tipoDeTransacao;
 
-				if (transacao.getRecorrencia() == "Mensal")
-					saldo += transacao.getValor() * mesesAnteriores;
-				else if (transacao.getRecorrencia() == "Semanal")
-					saldo += transacao.getValor() * (mesesAnteriores * 4);
+		for (Transacao transacao : transacoesDoMes) {
+			if (transacao.getValor() < 0)
+				tipoDeTransacao = "despesa";
+			else
+				tipoDeTransacao = "provento";
+
+			switch (transacao.getRecorrencia()) {
+			case "mensal":
+				atualizaMensal(tipoDeTransacao, transacao);
+				break;
+			case "semanal":
+				atualizaSemanal(tipoDeTransacao, transacao);
+				break;
+			default:
+				break;
 			}
 		}
-		return saldo;
+	}
+
+	/**
+	 * Método usado para atualizar as transações que tem recorrência mensal.
+	 * 
+	 * @param tipoDeTransacao
+	 *            O tipo de transação.
+	 * @param transacao
+	 *            A transação.
+	 */
+	private void atualizaMensal(String tipoDeTransacao, Transacao transacao) {
+		if (dataAtual.getMonthValue()
+				- transacao.getDataDeInsercao().getMonthValue() >= 30) {
+			try {
+				adicionaTransacao(transacao.getDescricao(),
+						Double.toString(transacao.getValor()),
+						transacao.getCategoria(), transacao.getRecorrencia(),
+						tipoDeTransacao);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+	}
+
+	/**
+	 * Método usado para atualizar as transações que tem recorrência semanal.
+	 * 
+	 * @param tipoDeTransacao
+	 *            O tipo de transação.
+	 * @param transacao
+	 *            A transação.
+	 */
+	private void atualizaSemanal(String tipoDeTransacao, Transacao transacao) {
+		if (dataAtual.getDayOfMonth()
+				- transacao.getDataDeInsercao().getDayOfMonth() >= 7) {
+			try {
+				adicionaTransacao(transacao.getDescricao(),
+						Double.toString(transacao.getValor()),
+						transacao.getCategoria(), transacao.getRecorrencia(),
+						tipoDeTransacao);
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
 	}
 }
