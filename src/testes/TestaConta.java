@@ -28,28 +28,14 @@ public class TestaConta {
 	public void inicializaContaParaTestes() throws Exception {
 		conta = new Conta("Bradesco");
 		conta2 = new Conta("Bradesco");
-		assertEquals("Saldo inicial errado.", 0.0, conta.getSaldo(), 0.0);
 		categoria = new Categoria("Trabalho", "Marrom");
 		transacao1 = new Provento("Bolsa", 400.00, categoria, "Mensal");
 		transacao2 = new Despesa("Feira", 152.32, categoria, "Mensal");
 	}
 
 	@Test
-	public void testaMoveDinheiroNaConta() {
-		assertEquals(0.0, conta.getSaldo(), 0.0);
-		conta.moveDinheiroNaConta(5);
-		assertEquals(5.0, conta.getSaldo(), 0.0);
-		conta.moveDinheiroNaConta(10);
-		assertEquals(15.0, conta.getSaldo(), 0.0);
-		conta.moveDinheiroNaConta(-15);
-		assertEquals(0.0, conta.getSaldo(), 0.0);
-		conta.moveDinheiroNaConta(-15);
-		assertEquals(-15.0, conta.getSaldo(), 0.0);
-	}
-
-	@Test
 	public void testaToString() {
-		assertEquals("ToString errado.", "Nome: Bradesco; Saldo: R$ 0,00", conta.toString());
+		assertEquals("ToString errado.", "Nome: Bradesco", conta.toString());
 	}
 	
 	@Test
@@ -194,17 +180,6 @@ public class TestaConta {
 	}
 	
 	@Test
-	public void testaGetSaldo() throws Exception {
-		conta.adicionaTransacao("Bolsa", "564.8", categoria, 
-				"Mensal", "provento");
-		assertEquals(564.8, conta.getSaldo(), 1);
-		
-		conta.adicionaTransacao("Feira", "63.65", categoria, 
-				"Mensal", "despesa");
-		assertEquals(501.15, conta.getSaldo(), 2);
-	}
-	
-	@Test
 	public void testaGetNome() {
 		assertEquals("Bradesco", conta.getNome());
 	}
@@ -283,18 +258,5 @@ public class TestaConta {
 		
 		assertTrue(conta.adicionaTransacao("Feira", "250.00", 
 				categoria, "Mensal", "despesa"));
-	}
-	
-	@Test
-	public void testaSaldoRecorrenteMensal() throws Exception {
-		conta.adicionaTransacao("Bolsa", "200.00", categoria, 
-				"Mensal", "provento");
-		
-		assertEquals(600.00, conta.calculaSaldoRecorrente(), 0);
-		
-		conta.adicionaTransacao("Feira", "50.00", categoria, 
-				"Semanal", "despesa");
-		
-		assertEquals(400.00, conta.calculaSaldoRecorrente(), 0);
 	}
 }
