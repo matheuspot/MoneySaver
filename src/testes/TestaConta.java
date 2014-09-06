@@ -240,6 +240,15 @@ public class TestaConta {
 		} catch (Exception e) {
 			e.printStackTrace();
 		}
+		
+		try {
+			conta.adicionaTransacao("Bolsa", "400.00", categoria, 
+					"Mensal", "provento");
+			conta.editaTransacao(transacao1, "Cobranca", "79.8", categoria, 
+					"Semanal", "despesa");
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
 	}
 	
 	@Test
