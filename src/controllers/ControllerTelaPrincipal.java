@@ -1,6 +1,13 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
+import org.controlsfx.control.action.Action;
+import org.controlsfx.dialog.Dialog;
+import org.controlsfx.dialog.Dialogs;
+import org.controlsfx.dialog.Dialogs.CommandLink;
 
 import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
@@ -10,12 +17,14 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
+import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import auxiliar.MoneySaverMail;
 
 public class ControllerTelaPrincipal {
 
@@ -36,6 +45,8 @@ public class ControllerTelaPrincipal {
 	private AnchorPane content;
 	@FXML
 	private Label labelAviso;
+	@FXML
+    private Hyperlink recuperarSenha;
 
 	@FXML
 	void initialize() {
@@ -43,6 +54,7 @@ public class ControllerTelaPrincipal {
 		botaoConectar.setOnAction(eventos);
 		PFsenha.setOnAction(eventos);
 		TFemail.setOnAction(eventos);
+		recuperarSenha.setOnAction(eventos);
 		
 		labelAviso.setVisible(false);
 		
@@ -79,6 +91,60 @@ public class ControllerTelaPrincipal {
 				} catch (Exception e) {
 					labelAviso.setText(e.getMessage());
 					labelAviso.setVisible(true);
+				}
+			} else if (evento.getSource() == recuperarSenha) {
+				List<CommandLink> links = new ArrayList<>();
+				links.add(new CommandLink("Dica de senha", "Lembre sua senha com auxílio da sua dica de senha."));
+				links.add(new CommandLink("Enviar senha por email", "Receba a sua senha no seu email cadastrado."));
+				links.add(new CommandLink("Voltar", "Retorne para a tela principal."));
+
+				Action resposta = Dialogs.create()
+				        .owner(null)
+				        .title("MoneySaver")
+				        .masthead(null)
+				        .message("Escolha uma opção para recuperar a sua senha")
+				        .showCommandLinks(links.get(2), links);
+				
+				if (resposta.textProperty().getValue().equals("Dica de senha")){
+					if (TFemail.getText() == null || TFemail.getText().trim().length() == 0){
+						Dialogs.create().owner(null).title("MoneySaver")
+						.masthead(null).message("Preencha seu email no campo de login.")
+						.showInformation();
+					}
+					else {
+						if (gerente.pesquisaUsuario(TFemail.getText()) == null){
+							Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Usuário não cadastrado.")
+							.showInformation();
+						} else {
+							Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Dica de senha: " + gerente.pesquisaUsuario(TFemail.getText()).getDicaSenha())
+							.showInformation();
+						}
+					}
+				} else if (resposta.textProperty().getValue().equals("Enviar senha por email")){
+					if (TFemail.getText() == null || TFemail.getText().trim().length() == 0){
+						Dialogs.create().owner(null).title("MoneySaver")
+						.masthead(null).message("Preencha seu email no campo de login.")
+						.showInformation();
+					}
+					else {
+						if (gerente.pesquisaUsuario(TFemail.getText()) == null){
+							Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Usuário não cadastrado.")
+							.showInformation();
+						} else {
+							try {
+								MoneySaverMail.EnviarEmail(TFemail.getText());
+								
+								Dialogs.create().owner(null).title("MoneySaver")
+								.masthead(null).message("A senha foi enviada para seu email.")
+								.showInformation();
+							} catch (Exception e) {
+								e.printStackTrace();
+							}
+						}
+					}
 				}
 			}
 		}

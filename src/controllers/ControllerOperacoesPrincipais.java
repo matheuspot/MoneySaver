@@ -319,7 +319,7 @@ public class ControllerOperacoesPrincipais {
 			} else if (evento.getSource() == botaoHistograma) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
-					Parent root = (Parent)fxmlLoader.load();          
+bicho 
 					ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);

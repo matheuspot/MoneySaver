@@ -34,7 +34,7 @@
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font></PasswordField>
-                  <Label alignment="CENTER" layoutX="149.0" layoutY="6.0" prefHeight="17.0" prefWidth="261.0" text="Aviso" textFill="#c31717" visible="false" />
+                  <Label fx:id="labelAviso" alignment="CENTER" layoutX="149.0" layoutY="6.0" prefHeight="17.0" prefWidth="261.0" text="Aviso" textFill="#c31717" visible="false" />
                </children>
             </AnchorPane>
          </children>
@@ -65,11 +65,10 @@
                </image></ImageView>
          </children>
       </HBox>
-      <Hyperlink alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="291.0" text="Recuperar senha" textAlignment="CENTER" underline="true">
+      <Hyperlink fx:id="recuperarSenha" alignment="CENTER" contentDisplay="CENTER" layoutX="247.0" layoutY="291.0" text="Recuperar senha" textAlignment="CENTER" underline="true">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </Hyperlink>
-      <Label fx:id="labelAviso" alignment="CENTER" prefHeight="17.0" prefWidth="272.0" text="Aviso" textAlignment="CENTER" textFill="#e81c1c" visible="false" />
    </children>
 </AnchorPane>
