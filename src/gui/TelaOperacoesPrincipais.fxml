@@ -109,7 +109,7 @@
                               <TableColumn fx:id="colunaValor" prefWidth="145.0" text="Valor" />
                            </columns>
                         </TableView>
-                        <Label alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="296.0" text="Saldo da conta">
+                        <Label fx:id="saldoMes" alignment="CENTER" contentDisplay="CENTER" prefHeight="35.0" prefWidth="296.0" text="Saldo do mês" visible="false">
                            <font>
                               <Font name="Calibri" size="30.0" />
                            </font>

@@ -25,7 +25,6 @@ import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -60,12 +59,12 @@ public class ControllerEditarTransacaoFinal {
 
     @FXML
     private RadioButton rbProvento;
-
-    @FXML
-    private TextArea descricao;
     
     @FXML
     private AnchorPane content;
+    
+    @FXML
+    private TextField tfDescricao;
     
     private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
     
@@ -117,8 +116,7 @@ public class ControllerEditarTransacaoFinal {
     	        }
     	    });
     	
-    	descricao.setText(transacao.getDescricao());
-    	data.setValue(transacao.getDataDeInsercao());
+    	tfDescricao.setText(transacao.getDescricao());
     	cbCategoria.setValue(transacao.getCategoria());
     	cbRecorrencia.setValue(transacao.getRecorrencia());
     	if (transacao.getValor() < 0){
@@ -147,7 +145,7 @@ public class ControllerEditarTransacaoFinal {
 			} else if (evento.getSource() == botaoEditar) {
 				try{
 					
-					usuarioAtivo.getContaAtiva().editaTransacao(transacaoParaEditar, descricao.getText(), data.getValue(),tfValor.getText(), 
+					usuarioAtivo.getContaAtiva().editaTransacao(transacaoParaEditar, tfDescricao.getText(), tfValor.getText(), 
 							cbCategoria.getSelectionModel().getSelectedItem(), 
 							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());

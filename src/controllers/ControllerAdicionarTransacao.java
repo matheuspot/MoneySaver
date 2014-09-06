@@ -12,12 +12,10 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
-import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
 import javafx.scene.control.RadioButton;
-import javafx.scene.control.TextArea;
 import javafx.scene.control.TextField;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.layout.AnchorPane;
@@ -39,37 +37,34 @@ public class ControllerAdicionarTransacao {
 	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
 	@FXML
-    private RadioButton RBprovento;
+    private RadioButton rbProvento;
 
     @FXML
     private Button botaoCancelar;
 
     @FXML
-    private DatePicker tabelaData;
+    private ComboBox<String> cbRecorrencia;
 
     @FXML
-    private ComboBox<String> CBrecorrencia;
+    private TextField tfValor;
 
     @FXML
-    private TextField valor;
-
-    @FXML
-    private ComboBox<Categoria> CBcategoria;
+    private ComboBox<Categoria> cbCategoria;
 
     @FXML
     private AnchorPane content;
 
     @FXML
-    private TextArea descricao;
-
-    @FXML
-    private RadioButton RBdespesa;
+    private RadioButton rbDespesa;
     
     @FXML
     private Label labelAviso;
     
     @FXML
     private Button botaoAdicionar;
+    
+    @FXML
+    private TextField tfDescricao;
     
     private ToggleGroup group = new ToggleGroup();
     
@@ -83,20 +78,20 @@ public class ControllerAdicionarTransacao {
     	botaoCancelar.setOnAction(eventos);
     	botaoAdicionar.setOnAction(eventos);
     	labelAviso.setVisible(false);
-    	RBdespesa.setToggleGroup(group);
-    	RBdespesa.setUserData("despesa");
-    	RBprovento.setToggleGroup(group);
-    	RBprovento.setUserData("provento");
-    	RBprovento.setSelected(true);
-    	CBrecorrencia.setItems(recorrencias);
+    	rbDespesa.setToggleGroup(group);
+    	rbDespesa.setUserData("despesa");
+    	rbProvento.setToggleGroup(group);
+    	rbProvento.setUserData("provento");
+    	rbProvento.setSelected(true);
+    	cbRecorrencia.setItems(recorrencias);
     }
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
-    	CBcategoria.getItems().addAll(categorias);
-    	CBcategoria.setCellFactory(
+    	cbCategoria.getItems().addAll(categorias);
+    	cbCategoria.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
     	            @Override public ListCell<Categoria> call(ListView<Categoria> param) {
     	                final ListCell<Categoria> cell = new ListCell<Categoria>() {
@@ -132,9 +127,9 @@ public class ControllerAdicionarTransacao {
 				boolean passouOrcamento = false;
 				
 				try{
-					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(descricao.getText(), tabelaData.getValue(), valor.getText(), 
-							CBcategoria.getSelectionModel().getSelectedItem(), 
-							CBrecorrencia.getSelectionModel().getSelectedItem(), 
+					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(tfDescricao.getText(), tfValor.getText(), 
+							cbCategoria.getSelectionModel().getSelectedItem(), 
+							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
 					
 					gerente.atualizaSistema(usuarioAtivo);
@@ -176,7 +171,6 @@ public class ControllerAdicionarTransacao {
 					labelAviso.setVisible(true);
 				}
 			}
-			
 		}
 	}
 }
