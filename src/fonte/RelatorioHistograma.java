@@ -16,7 +16,8 @@ public class RelatorioHistograma {
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
-			transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(i);
+			transacoesDoMes = usuarioAtivo.getContaAtiva()
+					.listaTransacoesPeloMes(i);
 			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() < 0)
@@ -32,7 +33,8 @@ public class RelatorioHistograma {
 		List<Transacao> transacoesDoMes = new ArrayList<>();
 
 		for (int i = 1; i < 13; i++) {
-			transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(i);
+			transacoesDoMes = usuarioAtivo.getContaAtiva()
+					.listaTransacoesPeloMes(i);
 			double total = 0;
 			for (Transacao transacao : transacoesDoMes) {
 				if (transacao.getValor() > 0)
@@ -45,7 +47,8 @@ public class RelatorioHistograma {
 
 	public List<List<Double>> valoresCategorias(int mes) {
 		List<Categoria> categorias = usuarioAtivo.getCategorias();
-		List<Transacao> transacoesDoMes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mes);
+		List<Transacao> transacoesDoMes = usuarioAtivo.getContaAtiva()
+				.listaTransacoesPeloMes(mes);
 		List<Double> valoresProvento = new ArrayList<>();
 		List<Double> valoresDespesa = new ArrayList<>();
 
@@ -62,7 +65,7 @@ public class RelatorioHistograma {
 						&& transacao.getValor() < 0)
 					totalDespesas += Math.abs(transacao.getValor());
 			}
-			
+
 			valoresProvento.add(totalProventos);
 			valoresDespesa.add(totalDespesas);
 		}
@@ -73,8 +76,31 @@ public class RelatorioHistograma {
 		return valoresFinais;
 	}
 
-	public List<Double> valoresDeUmMes(int mes) {
-		return null;
+	public List<List<Double>> valoresIntervaloMes(int mesInicial, int mesFinal) {
+		List<Transacao> transacoesDoMes = new ArrayList<>();
+		List<Double> valoresProvento = new ArrayList<>();
+		List<Double> valoresDespesa = new ArrayList<>();
+
+		for (int i = mesInicial; i <= mesFinal; i++) {
+			transacoesDoMes = usuarioAtivo.getContaAtiva()
+					.listaTransacoesPeloMes(i);
+			double totalProventos = 0;
+			double totalDespesas = 0;
+
+			for (Transacao transacao : transacoesDoMes) {
+				if (transacao.getValor() > 0)
+					totalProventos += transacao.getValor();
+				else if (transacao.getValor() < 0)
+					totalDespesas += Math.abs(transacao.getValor());
+			}
+
+			valoresProvento.add(totalProventos);
+			valoresDespesa.add(totalDespesas);
+		}
+
+		List<List<Double>> valoresFinais = new ArrayList<>();
+		valoresFinais.add(valoresProvento);
+		valoresFinais.add(valoresDespesa);
+		return valoresFinais;
 	}
-	
 }
