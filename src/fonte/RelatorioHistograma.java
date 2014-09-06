@@ -13,7 +13,7 @@ public class RelatorioHistograma {
 
 	public List<Double> valoresDespesas() {
 		List<Double> despesas = new ArrayList<>();
-		List<Transacao> transacoesDoMes = new ArrayList<>();
+		List<Transacao> transacoesDoMes;
 
 		for (int i = 1; i < 13; i++) {
 			transacoesDoMes = usuarioAtivo.getContaAtiva()
@@ -30,7 +30,7 @@ public class RelatorioHistograma {
 
 	public List<Double> valoresProventos() {
 		List<Double> proventos = new ArrayList<>();
-		List<Transacao> transacoesDoMes = new ArrayList<>();
+		List<Transacao> transacoesDoMes;
 
 		for (int i = 1; i < 13; i++) {
 			transacoesDoMes = usuarioAtivo.getContaAtiva()
@@ -77,9 +77,9 @@ public class RelatorioHistograma {
 	}
 
 	public List<List<Double>> valoresIntervaloMes(int mesInicial, int mesFinal) {
-		List<Transacao> transacoesDoMes = new ArrayList<>();
 		List<Double> valoresProvento = new ArrayList<>();
 		List<Double> valoresDespesa = new ArrayList<>();
+		List<Transacao> transacoesDoMes;
 
 		for (int i = mesInicial; i <= mesFinal; i++) {
 			transacoesDoMes = usuarioAtivo.getContaAtiva()
