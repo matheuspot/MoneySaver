@@ -99,6 +99,9 @@ public class ControllerOperacoesPrincipais {
 
 	    @FXML
 	    private MenuItem removerCategoria;
+	    
+	    @FXML
+	    private Label saldoMes;
 	   
 	    
     @FXML
@@ -122,7 +125,6 @@ public class ControllerOperacoesPrincipais {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
-    	labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().getSaldo()));
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
     	cbContas.getSelectionModel().select(usuarioAtivo.getContaAtiva().getNome());
     	cbContas.valueProperty().addListener(tabela);
@@ -165,9 +167,15 @@ public class ControllerOperacoesPrincipais {
     			
     		if (conta){
     			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
-    			labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().getSaldo()));
-    		} else
-				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+    			labelSaldo.setVisible(false);
+    			saldoMes.setVisible(false);
+    			
+    		} else {
+    			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+    			labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().pegaSaldoDoMes(mapaMeses.get(t1))));
+    			labelSaldo.setVisible(true);
+    			saldoMes.setVisible(true);
+    		}
     		
         	criarTabela();
         }  
@@ -319,7 +327,7 @@ public class ControllerOperacoesPrincipais {
 			} else if (evento.getSource() == botaoHistograma) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
-bicho 
+					Parent root = (Parent)fxmlLoader.load();  
 					ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
