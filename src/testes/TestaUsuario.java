@@ -110,15 +110,15 @@ public class TestaUsuario {
 	public void testaToString() {
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário1\nE-mail: meu_usuario@gmail.com\nDica de senha: menor senha\nContas: Nome: Bradesco; Saldo: R$ 0,00",
+				"Nome: Usuário1\nE-mail: meu_usuario@gmail.com\nDica de senha: menor senha\nContas: Nome: Bradesco",
 				usuario1.toString());
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário2\nE-mail: meu_usuario@gmail.com\nDica de senha: senha média\nContas: Nome: Banco do Brasil; Saldo: R$ 0,00",
+				"Nome: Usuário2\nE-mail: meu_usuario@gmail.com\nDica de senha: senha média\nContas: Nome: Banco do Brasil",
 				usuario2.toString());
 		assertEquals(
 				"ToString errado.",
-				"Nome: Usuário3\nE-mail: usuario3@hotmail.com\nDica de senha: maior senha\nContas: Nome: Santander; Saldo: R$ 0,00",
+				"Nome: Usuário3\nE-mail: usuario3@hotmail.com\nDica de senha: maior senha\nContas: Nome: Santander",
 				usuario3.toString());
 	}
 
@@ -171,7 +171,8 @@ public class TestaUsuario {
 	
 	@Test
 	public void testaRemoveContaNaoExistente() throws Exception {
-		Conta conta = new Conta("Santander");		
+		Conta conta = new Conta("Santander");
+		usuario1.adicionaConta("Banco do brasil");
 		try {
 			usuario1.removeConta(conta);
 			fail("Esperava Excecao!");
