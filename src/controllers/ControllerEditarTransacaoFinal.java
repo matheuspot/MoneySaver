@@ -37,7 +37,7 @@ public class ControllerEditarTransacaoFinal {
     private ComboBox<Categoria> cbCategoria;
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private RadioButton rbDespesa;
@@ -83,7 +83,7 @@ public class ControllerEditarTransacaoFinal {
     
     @FXML
 	void initialize() {
-    	botaoCancelar.setOnAction(eventos);
+    	botaoVoltar.setOnAction(eventos);
     	botaoEditar.setOnAction(eventos);
     	labelAviso.setVisible(false);
     	rbDespesa.setToggleGroup(group);
@@ -132,7 +132,7 @@ public class ControllerEditarTransacaoFinal {
 
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarTransacaoInicial.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

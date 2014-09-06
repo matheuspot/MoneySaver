@@ -1,9 +1,9 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
-<?import javafx.scene.text.*?>
 <?import java.lang.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
 <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerAdicionarTransacao">
    <children>
@@ -12,38 +12,39 @@
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <TextField fx:id="tfValor" layoutX="57.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Valor">
+      <TextField fx:id="tfValor" layoutX="49.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Valor">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </TextField>
-      <Button fx:id="botaoAdicionar" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar" textAlignment="CENTER">
+      <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="botaoCancelar" layoutX="325.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar">
+      <Button fx:id="botaoAdicionar" layoutX="325.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Adicionar">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <RadioButton fx:id="rbProvento" layoutX="461.0" layoutY="190.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
+      <RadioButton fx:id="rbProvento" layoutX="453.0" layoutY="220.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </RadioButton>
-      <RadioButton fx:id="rbDespesa" layoutX="461.0" layoutY="155.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
+      <RadioButton fx:id="rbDespesa" layoutX="453.0" layoutY="190.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </RadioButton>
-      <ComboBox fx:id="cbRecorrencia" layoutX="256.0" layoutY="200.0" prefHeight="30.0" prefWidth="150.0" promptText="Recorrência" />
-      <Label fx:id="labelAviso" alignment="CENTER" layoutX="199.0" layoutY="300.0" prefHeight="17.0" prefWidth="200.0" text="Aviso" textFill="#e42121" visible="false" />
-      <ComboBox fx:id="cbCategoria" layoutX="57.0" layoutY="200.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
-      <TextField fx:id="tfDescricao" layoutX="256.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Descrição">
+      <ComboBox fx:id="cbRecorrencia" layoutX="240.0" layoutY="200.0" prefHeight="30.0" prefWidth="150.0" promptText="Recorrência" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="167.0" layoutY="300.0" prefHeight="17.0" prefWidth="268.0" text="Aviso" textFill="#e42121" visible="false" />
+      <ComboBox fx:id="cbCategoria" layoutX="49.0" layoutY="200.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <TextField fx:id="tfDescricao" layoutX="240.0" layoutY="140.0" prefHeight="30.0" prefWidth="150.0" promptText="Descrição">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>
       </TextField>
+      <DatePicker fx:id="data" layoutX="430.0" layoutY="140.0" prefHeight="25.0" prefWidth="135.0" promptText="Data" />
    </children>
 </AnchorPane>

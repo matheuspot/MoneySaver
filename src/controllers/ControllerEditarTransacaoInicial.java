@@ -46,7 +46,7 @@ public class ControllerEditarTransacaoInicial {
     private Button botaoEditar;
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
     
     @FXML
     private TableView<Transacao> table;
@@ -74,7 +74,7 @@ public class ControllerEditarTransacaoInicial {
     
     @FXML
 	void initialize() {
-    	botaoCancelar.setOnAction(eventos);
+    	botaoVoltar.setOnAction(eventos);
     	botaoEditar.setOnAction(eventos);
     	tabela = new Tabela();
     	cbMes.getItems().addAll(meses);
@@ -112,7 +112,6 @@ public class ControllerEditarTransacaoInicial {
     		try {
 				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
 			} catch (Exception e) {
-				// TODO Auto-generated catch block
 				e.printStackTrace();
 			}
         	criarTabela();
@@ -248,7 +247,7 @@ public class ControllerEditarTransacaoInicial {
 
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

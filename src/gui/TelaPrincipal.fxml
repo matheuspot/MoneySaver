@@ -43,12 +43,12 @@
          <children>
             <AnchorPane prefHeight="70.0" prefWidth="320.0">
                <children>
-                  <Button id="conectar" fx:id="botaoConectar" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Conectar">
+                  <Button id="conectar" fx:id="botaoCadastrar" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cadastrar">
                      <font>
                         <Font name="Calibri" size="28.0" />
                      </font>
                   </Button>
-                  <Button fx:id="botaoCadastrar" layoutX="170.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cadastrar">
+                  <Button fx:id="botaoConectar" layoutX="170.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Conectar">
                      <font>
                         <Font name="Calibri" size="28.0" />
                      </font>
@@ -70,5 +70,14 @@
             <Font name="Calibri" size="14.0" />
          </font>
       </Hyperlink>
+      <MenuBar layoutY="2.0">
+        <menus>
+          <Menu mnemonicParsing="false" text="Ajuda">
+            <items>
+              <MenuItem fx:id="itemSobre" mnemonicParsing="false" text="Sobre" />
+            </items>
+          </Menu>
+        </menus>
+      </MenuBar>
    </children>
 </AnchorPane>

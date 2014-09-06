@@ -291,7 +291,7 @@ public class Conta implements Serializable {
 			throws Exception {
 
 		if (!descricaoValida(descricao)) {
-			throw new Exception("Descrição inválida.");
+			throw new Exception("Descrição inválida. Máximo de 25 caracteres.");
 		}
 		if (!valorValido(valor)) {
 			throw new Exception("Valor inválido.");

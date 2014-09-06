@@ -20,12 +20,12 @@
             <TableColumn fx:id="colunaCategoria" prefWidth="98.0" text="Categoria" />
             <TableColumn fx:id="colunaRecorrencia" prefWidth="110.0" text="Recorrência" />
          </columns></TableView>
-      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
+      <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="125.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+      <Button fx:id="botaoRemover" alignment="CENTER" contentDisplay="CENTER" layoutX="336.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Remover" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>

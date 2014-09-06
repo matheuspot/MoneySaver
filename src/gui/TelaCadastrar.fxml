@@ -44,12 +44,12 @@
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <Button fx:id="botaoCadastrar" alignment="CENTER" contentDisplay="CENTER" layoutX="136.0" layoutY="324.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cadastrar" textAlignment="CENTER">
+                  <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="136.0" layoutY="324.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="28.0" />
                      </font>
                   </Button>
-                  <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="324.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
+                  <Button fx:id="botaoCadastrar" alignment="CENTER" contentDisplay="CENTER" layoutX="304.0" layoutY="324.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cadastrar" textAlignment="CENTER">
                      <font>
                         <Font name="Calibri" size="28.0" />
                      </font>

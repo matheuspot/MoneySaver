@@ -29,7 +29,7 @@ public class ControllerAdicionaCategoria {
     private Button botaoAdicionar;
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private ColorPicker cor;
@@ -45,7 +45,7 @@ public class ControllerAdicionaCategoria {
 	
 	@FXML
 	void initialize() {
-		botaoCancelar.setOnAction(eventos);
+		botaoVoltar.setOnAction(eventos);
     	botaoAdicionar.setOnAction(eventos);
 	}
 	
@@ -57,7 +57,7 @@ public class ControllerAdicionaCategoria {
 		
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

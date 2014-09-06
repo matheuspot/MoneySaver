@@ -15,14 +15,17 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.Hyperlink;
 import javafx.scene.control.Label;
+import javafx.scene.control.MenuItem;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.stage.Stage;
 import auxiliar.MoneySaverMail;
 
 public class ControllerTelaPrincipal {
@@ -46,6 +49,8 @@ public class ControllerTelaPrincipal {
 	private Label labelAviso;
 	@FXML
     private Hyperlink recuperarSenha;
+	@FXML
+	private MenuItem itemSobre;
 
 	@FXML
 	void initialize() {
@@ -54,6 +59,7 @@ public class ControllerTelaPrincipal {
 		PFsenha.setOnAction(eventos);
 		TFemail.setOnAction(eventos);
 		recuperarSenha.setOnAction(eventos);
+		itemSobre.setOnAction(eventos);
 		
 		labelAviso.setVisible(false);
 		
@@ -145,6 +151,20 @@ public class ControllerTelaPrincipal {
 						}
 					}
 				}
+			} else if (evento.getSource() == itemSobre) {
+				try {
+		            FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaSobre.fxml"));     
+					Parent root = (Parent)fxmlLoader.load(); 
+					ControllerTelaSobre controller = fxmlLoader.<ControllerTelaSobre>getController();
+					Stage stage = new Stage();
+		            stage.setTitle("MoneySaver");
+		            stage.setScene(new Scene(root));
+		            stage.show();
+					controller.setStage(stage);
+
+		        } catch (IOException e) {
+		            e.printStackTrace();
+		        }
 			}
 		}
 	}

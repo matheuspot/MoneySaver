@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerTelaSobre">
+   <children>
+      <Label alignment="CENTER" layoutX="34.0" layoutY="14.0" prefHeight="17.0" prefWidth="404.0" text="Software de controle de gastos desenvolvido para">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="13.0" layoutY="41.0" prefHeight="27.0" prefWidth="447.0" text="o projeto de Laboratório de Programaçao 2 da UFCG">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="42.0" layoutY="115.0" prefHeight="17.0" prefWidth="404.0" text="Equipe de desenvolvimento">
+         <font>
+            <Font name="System Bold" size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="47.0" layoutY="147.0" prefHeight="17.0" prefWidth="404.0" text="André Araujo">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="47.0" layoutY="174.0" prefHeight="17.0" prefWidth="404.0" text="Flábio Fagundes">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="47.0" layoutY="201.0" prefHeight="17.0" prefWidth="404.0" text="Roberto Matheus">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Label alignment="CENTER" layoutX="47.0" layoutY="228.0" prefHeight="17.0" prefWidth="404.0" text="Thales Souto">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoOk" layoutX="211.0" layoutY="281.0" mnemonicParsing="false" onAction="#fecharJanela" prefHeight="25.0" prefWidth="66.0" text="OK" />
+   </children>
+</AnchorPane>

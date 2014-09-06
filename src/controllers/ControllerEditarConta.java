@@ -28,7 +28,7 @@ public class ControllerEditarConta {
 	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private Label labelAviso;
@@ -55,7 +55,7 @@ public class ControllerEditarConta {
     @FXML
    	void initialize() {
     	botaoEditar.setOnAction(eventos);
-    	botaoCancelar.setOnAction(eventos);
+    	botaoVoltar.setOnAction(eventos);
     }
     
     public void setUsuario(Usuario usuario){
@@ -69,7 +69,7 @@ public class ControllerEditarConta {
 		
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

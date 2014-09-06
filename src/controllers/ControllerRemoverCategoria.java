@@ -32,7 +32,7 @@ public class ControllerRemoverCategoria {
 	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private ComboBox<Categoria> CBcategorias;
@@ -50,7 +50,7 @@ public class ControllerRemoverCategoria {
     
     @FXML
 	void initialize() {
-		botaoCancelar.setOnAction(eventos);
+		botaoVoltar.setOnAction(eventos);
     	botaoRemover.setOnAction(eventos);
     	labelAviso.setVisible(false);
 	}
@@ -82,7 +82,7 @@ public class ControllerRemoverCategoria {
 		
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          

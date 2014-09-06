@@ -49,7 +49,7 @@ public class ControllerRemoverTransacao {
     private ComboBox<String> cbMes;
     
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private Button botaoRemover;
@@ -81,7 +81,7 @@ public class ControllerRemoverTransacao {
     @FXML
 	void initialize() {
     	botaoRemover.setOnAction(eventos);
-    	botaoCancelar.setOnAction(eventos);
+    	botaoVoltar.setOnAction(eventos);
     	tabela = new Tabela();
     	cbMes.getItems().addAll(meses);
     	cbMes.valueProperty().addListener(tabela);
@@ -249,7 +249,7 @@ public class ControllerRemoverTransacao {
 
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
@@ -303,5 +303,4 @@ public class ControllerRemoverTransacao {
 			} 
 		}
     }
-
 }

@@ -12,6 +12,7 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
+import javafx.scene.control.DatePicker;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
 import javafx.scene.control.ListView;
@@ -40,7 +41,7 @@ public class ControllerAdicionarTransacao {
     private RadioButton rbProvento;
 
     @FXML
-    private Button botaoCancelar;
+    private Button botaoVoltar;
 
     @FXML
     private ComboBox<String> cbRecorrencia;
@@ -66,6 +67,9 @@ public class ControllerAdicionarTransacao {
     @FXML
     private TextField tfDescricao;
     
+    @FXML
+    private DatePicker data;
+    
     private ToggleGroup group = new ToggleGroup();
     
     private List<Categoria> categorias;
@@ -75,7 +79,7 @@ public class ControllerAdicionarTransacao {
     
     @FXML
 	void initialize() {
-    	botaoCancelar.setOnAction(eventos);
+    	botaoVoltar.setOnAction(eventos);
     	botaoAdicionar.setOnAction(eventos);
     	labelAviso.setVisible(false);
     	rbDespesa.setToggleGroup(group);
@@ -113,7 +117,7 @@ public class ControllerAdicionarTransacao {
 
 		@Override
 		public void handle(ActionEvent evento) {
-			if (evento.getSource() == botaoCancelar) {
+			if (evento.getSource() == botaoVoltar) {
 				try {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
