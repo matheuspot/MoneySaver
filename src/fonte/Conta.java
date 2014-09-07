@@ -328,7 +328,7 @@ public class Conta implements Serializable {
 		if (dataDeInsercao == null
 				|| dataDeInsercao.isAfter(LocalDate.now())
 				|| LocalDate.now().getDayOfYear()
-						- dataDeInsercao.getDayOfYear() > 30)
+						- dataDeInsercao.getDayOfYear() > 7)
 			return false;
 		return true;
 	}
