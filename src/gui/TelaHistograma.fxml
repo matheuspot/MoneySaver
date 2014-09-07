@@ -13,7 +13,7 @@
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="227.0" layoutY="328.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Cancelar" textAlignment="CENTER">
+      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="227.0" layoutY="328.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
@@ -26,17 +26,5 @@
             <NumberAxis fx:id="eixoY" autoRanging="false" side="LEFT" />
          </yAxis>
       </BarChart>
-      <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="453.0" layoutY="22.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Tipo" textAlignment="CENTER">
-        <items>
-          <MenuItem fx:id="menuDespesa" mnemonicParsing="false" text="Despesa" />
-          <MenuItem fx:id="menuProvento" mnemonicParsing="false" text="Provento" />
-            <MenuItem fx:id="menuCategoria" mnemonicParsing="false" text="Categoria" />
-            <MenuItem mnemonicParsing="false" text="Data" />
-        </items>
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-      </MenuButton>
-      <ComboBox fx:id="cbMeses" layoutX="453.0" layoutY="62.0" prefHeight="25.0" prefWidth="107.0" promptText="Meses" visible="false" />
    </children>
 </AnchorPane>
