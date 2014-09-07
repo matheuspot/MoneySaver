@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Lista" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <Button alignment="CENTER" contentDisplay="CENTER" layoutX="225.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <TableView layoutX="10.0" layoutY="75.0" prefHeight="250.0" prefWidth="580.0" />
+   </children>
+</AnchorPane>
