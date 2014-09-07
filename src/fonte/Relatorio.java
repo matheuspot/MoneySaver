@@ -15,7 +15,7 @@ public class Relatorio {
 
 	public void filtraPorCategoria(Categoria categoria) {
 		for (Transacao transacao : transacoes) {
-			if (!transacao.getCategoria().equals(categoria))
+			if (!categoria.equals(transacao.getCategoria()))
 				transacoes.remove(transacao);
 		}
 	}
@@ -33,7 +33,7 @@ public class Relatorio {
 			if (tipoDaTransacao == "despesa")
 				if (transacao.getValor() > 0)
 					transacoes.remove(transacao);
-			if (tipoDaTransacao == "provento")
+			else if (tipoDaTransacao == "provento")
 				if (transacao.getValor() < 0)
 					transacoes.remove(transacao);
 		}
