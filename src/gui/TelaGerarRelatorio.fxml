@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.*?>
+<?import java.lang.*?>
+<?import javafx.scene.layout.*?>
+
+
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+   <children>
+      <VBox layoutX="127.0" layoutY="79.0" prefHeight="24.0" prefWidth="100.0">
+         <children>
+            <ChoiceBox prefWidth="150.0" />
+         </children>
+      </VBox>
+      <Label layoutX="161.0" layoutY="62.0" text="Conta" />
+      <Label layoutX="376.0" layoutY="62.0" text="Categoria" />
+      <VBox layoutX="352.0" layoutY="79.0" prefHeight="25.0" prefWidth="100.0">
+         <children>
+            <ChoiceBox prefWidth="150.0" />
+         </children>
+      </VBox>
+      <Label layoutX="166.0" layoutY="163.0" text="Mês" />
+      <VBox layoutX="127.0" layoutY="180.0" prefHeight="25.0" prefWidth="100.0">
+         <children>
+            <ChoiceBox prefWidth="150.0" />
+         </children>
+      </VBox>
+      <Label layoutX="396.0" layoutY="154.0" text="Data" />
+      <DatePicker layoutX="287.0" layoutY="192.0" prefHeight="25.0" prefWidth="100.0" />
+      <DatePicker layoutX="421.0" layoutY="192.0" prefHeight="25.0" prefWidth="100.0" />
+      <Label layoutX="321.0" layoutY="171.0" text="Inicial" />
+      <Label layoutX="458.0" layoutY="171.0" text="Final" />
+      <Button layoutX="165.0" layoutY="327.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="85.0" text="Cancelar" />
+      <Button layoutX="343.0" layoutY="327.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="85.0" text="Gerar" />
+      <Label layoutX="260.0" layoutY="29.0" text="Gerar Relatorio" />
+      <VBox layoutX="168.0" layoutY="241.0" prefHeight="60.0" prefWidth="80.0">
+         <children>
+            <RadioButton mnemonicParsing="false" prefHeight="28.0" prefWidth="69.0" text="Provento" />
+            <RadioButton mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Despesa" />
+         </children>
+      </VBox>
+      <VBox layoutX="360.0" layoutY="241.0" prefHeight="68.0" prefWidth="85.0">
+         <children>
+            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="83.0" text="Histograma" />
+            <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Lista" />
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

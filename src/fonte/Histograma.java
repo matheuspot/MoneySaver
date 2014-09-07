@@ -4,19 +4,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Histograma implements Modo<List<Double>> {
-	private Usuario usuarioAtivo;
+	private List<Transacao> transacoes;
+	private List<Double> valores;
 	
-	public Histograma(Usuario usuario) {
-		usuarioAtivo = usuario;
+	public Histograma(List<Transacao> transacoesFiltrada) {
+		transacoes = transacoesFiltrada;
 	}
-	
+
 	@Override
-	public List<Double> vizualizar() {
-		List<Double> valores = new ArrayList<>();
+	public List<Double> getTransacoesPreparada(
+			List<Transacao> transacoesFiltrada) {
 		
-		for (Transacao transacao : usuarioAtivo.getContaAtiva().getTransacoesExistentes()) {
+		for (Transacao transacao : transacoesFiltrada) {
 			valores.add(transacao.getValor());
 		} return valores;
 	}
-
 }

@@ -3,15 +3,15 @@ package fonte;
 import java.util.List;
 
 public class Lista implements Modo<List<Transacao>> {
-	private Usuario usuarioAtivo;
+	private List<Transacao> transacoes;
 	
-	public Lista(Usuario usuario) {
-		usuarioAtivo = usuario;
-	}
-	
-	@Override
-	public List<Transacao> vizualizar() {
-		return usuarioAtivo.getContaAtiva().getTransacoesExistentes();
+	public Lista(List<Transacao> transacoesFiltrada) {
+		transacoes = transacoesFiltrada;
 	}
 
+	@Override
+	public List<Transacao> getTransacoesPreparada(
+			List<Transacao> transacoesFiltrada) {
+		return transacoes;
+	}
 }

@@ -1,7 +1,9 @@
 package fonte;
 
+import java.util.List;
+
 public interface Modo<TipoDaLista> {
 	
-	public TipoDaLista vizualizar();
+	public TipoDaLista getTransacoesPreparada(List<Transacao> transacoesFiltrada);
 	
 }
