@@ -38,8 +38,8 @@
          </children>
       </VBox>
       <ComboBox fx:id="cbMesInicial" layoutX="136.0" layoutY="155.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Inicial" />
-      <Label fx:id="labelAviso" alignment="CENTER" layoutX="167.0" layoutY="300.0" prefHeight="17.0" prefWidth="268.0" text="Aviso" textFill="#e42121" visible="false" />
-      <ComboBox fx:id="cbCategoria" layoutX="226.0" layoutY="93.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="132.0" layoutY="300.0" prefHeight="17.0" prefWidth="347.0" text="Aviso" textFill="#e42121" visible="false" />
+      <ComboBox fx:id="cbCategoria" layoutX="235.0" layoutY="98.0" prefHeight="30.0" prefWidth="131.0" promptText="Categoria" />
       <VBox layoutX="359.0" layoutY="225.0" spacing="10.0">
          <children>
             <RadioButton fx:id="rbHistograma" layoutX="359.0" layoutY="250.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Histograma">

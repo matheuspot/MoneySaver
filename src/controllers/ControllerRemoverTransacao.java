@@ -40,8 +40,6 @@ public class ControllerRemoverTransacao {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private Tabela tabela;
     private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
@@ -83,7 +81,7 @@ public class ControllerRemoverTransacao {
     	botaoRemover.setOnAction(eventos);
     	botaoVoltar.setOnAction(eventos);
     	tabela = new Tabela();
-    	cbMes.getItems().addAll(meses);
+    	cbMes.getItems().addAll(ControllerOperacoesPrincipais.MESES);
     	cbMes.valueProperty().addListener(tabela);
     }
     

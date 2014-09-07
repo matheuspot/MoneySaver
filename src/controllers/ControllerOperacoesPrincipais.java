@@ -35,7 +35,7 @@ public class ControllerOperacoesPrincipais {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	private final String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+	public final static String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
     		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private Tabela tabela;
 	

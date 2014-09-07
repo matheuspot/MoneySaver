@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import javafx.beans.value.ChangeListener;
@@ -20,6 +21,8 @@ import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.MenuItem;
 import javafx.scene.layout.AnchorPane;
+import fonte.Histograma;
+import fonte.Relatorio;
 import fonte.RelatorioHistograma;
 import fonte.Usuario;
 
@@ -30,25 +33,12 @@ public class ControllerHistograma {
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Tabela tabela;
 	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
-	
-	private final String[] MESES = { "Janeiro", "Fevereiro", "Março",
-		"Abril", "Maio", "Junho", "Julho", "Agosto", "Setembro", "Outubro",
-		"Novembro", "Dezembro" };
 
 	@FXML
 	private BarChart<String, Number> tabelaHistograma;
-
-	@FXML
-	private MenuItem menuDespesa;
-
-	@FXML
-	private MenuItem menuCategoria;
-
-	@FXML
-	private MenuItem menuProvento;
 	
 	@FXML
-	private Button botaoCancelar;
+	private Button botaoVoltar;
 
 	@FXML
 	private CategoryAxis eixoX;
@@ -59,36 +49,19 @@ public class ControllerHistograma {
 	@FXML
 	private NumberAxis eixoY;
 	
-	@FXML
-    private ComboBox<String> cbMeses;
+	private Relatorio relatorio;
 
 	@FXML
 	void initialize() {
-		botaoCancelar.setOnAction(eventos);
-		menuCategoria.setOnAction(eventos);
-		menuDespesa.setOnAction(eventos);
-		menuProvento.setOnAction(eventos);
+		botaoVoltar.setOnAction(eventos);
 		tabela = new Tabela();
-		cbMeses.getItems().addAll(MESES);
-    	cbMeses.valueProperty().addListener(tabela);
 	}
 
-	public void setUsuario(Usuario usuario) {
+	public void setUsuario(Usuario usuario, Relatorio relatorio) {
 		usuarioAtivo = usuario;
-		histo = new RelatorioHistograma(usuarioAtivo);
+		Histograma histograma = new Histograma();
+		List<Double> valores = (List<Double>) relatorio.getTransacoesPreparadas(histograma);
 		
-		mapaMeses.put("Janeiro", 1);
-    	mapaMeses.put("Fevereiro", 2);
-    	mapaMeses.put("Março", 3);
-    	mapaMeses.put("Abril", 4);
-    	mapaMeses.put("Maio", 5);
-    	mapaMeses.put("Junho", 6);
-    	mapaMeses.put("Julho", 7);
-    	mapaMeses.put("Agosto", 8);
-    	mapaMeses.put("Setembro", 9);
-    	mapaMeses.put("Outubro", 10);
-    	mapaMeses.put("Novembro", 11);
-    	mapaMeses.put("Dezembro", 12);
 	}
 	
 	private class Tabela implements ChangeListener<String>{

@@ -13,7 +13,7 @@
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <Button fx:id="botaoCancelar" alignment="CENTER" contentDisplay="CENTER" layoutX="227.0" layoutY="328.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
+      <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="227.0" layoutY="328.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
          <font>
             <Font name="Calibri" size="28.0" />
          </font>
