@@ -18,7 +18,6 @@ public class Conta implements Serializable {
 
 	private String nome;
 	private List<Transacao> transacoes;
-	private LocalDate dataAtual;
 
 	/**
 	 * Construtor da classe conta, que recebe seu nome como parâmetro.
@@ -231,8 +230,6 @@ public class Conta implements Serializable {
 	public int hashCode() {
 		final int prime = 31;
 		int result = 1;
-		result = prime * result
-				+ ((dataAtual == null) ? 0 : dataAtual.hashCode());
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result
 				+ ((transacoes == null) ? 0 : transacoes.hashCode());
@@ -251,11 +248,6 @@ public class Conta implements Serializable {
 		if (getClass() != obj.getClass())
 			return false;
 		Conta other = (Conta) obj;
-		if (dataAtual == null) {
-			if (other.dataAtual != null)
-				return false;
-		} else if (!dataAtual.equals(other.dataAtual))
-			return false;
 		if (nome == null) {
 			if (other.nome != null)
 				return false;
@@ -426,8 +418,7 @@ public class Conta implements Serializable {
 	 * Método usado para atualizar as transações a partir das suas recorrências.
 	 */
 	public void atualizaRecorrencias() {
-		Set<Transacao> transacoesDoMes = new HashSet<>(
-				listaTransacoesPeloMes(LocalDate.now().getMonthValue()));
+		Set<Transacao> transacoesDoMes = new HashSet<>(transacoes);
 		String tipoDeTransacao;
 
 		for (Transacao transacao : transacoesDoMes) {
@@ -458,8 +449,8 @@ public class Conta implements Serializable {
 	 *            A transação.
 	 */
 	private void atualizaMensal(String tipoDeTransacao, Transacao transacao) {
-		if (dataAtual.getMonthValue()
-				- transacao.getDataDeInsercao().getMonthValue() >= 30) {
+		if (LocalDate.now().getDayOfYear()
+				- transacao.getDataDeInsercao().getDayOfYear() >= 30) {
 			try {
 				adicionaTransacao(transacao.getDescricao(), LocalDate.now(),
 						Double.toString(transacao.getValor()),
@@ -480,8 +471,8 @@ public class Conta implements Serializable {
 	 *            A transação.
 	 */
 	private void atualizaSemanal(String tipoDeTransacao, Transacao transacao) {
-		if (dataAtual.getDayOfMonth()
-				- transacao.getDataDeInsercao().getDayOfMonth() >= 7) {
+		if (LocalDate.now().getDayOfYear()
+				- transacao.getDataDeInsercao().getDayOfYear() >= 7) {
 			try {
 				adicionaTransacao(transacao.getDescricao(), LocalDate.now(),
 						Double.toString(transacao.getValor()),
