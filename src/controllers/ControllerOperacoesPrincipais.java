@@ -75,15 +75,9 @@ public class ControllerOperacoesPrincipais {
 
 	    @FXML
 	    private MenuItem editarCategoria;
-
-	    @FXML
-	    private MenuItem botaoHistograma;
 	    
 	    @FXML
 	    private MenuItem removerConta;
-
-	    @FXML
-	    private MenuItem botaoLista;
 
 	    @FXML
 	    private MenuItem adicionarCategoria;
@@ -102,6 +96,9 @@ public class ControllerOperacoesPrincipais {
 	    
 	    @FXML
 	    private Label saldoMes;
+	    
+	    @FXML
+	    private Button botaoRelatorio;
 	   
 	    
     @FXML
@@ -120,7 +117,7 @@ public class ControllerOperacoesPrincipais {
     	tabela = new Tabela();
     	CBmes.getItems().addAll(MESES);
     	CBmes.valueProperty().addListener(tabela);
-    	botaoHistograma.setOnAction(eventos);
+    	botaoRelatorio.setOnAction(eventos);
     }
     
     public void setUsuario(Usuario usuario){
@@ -325,11 +322,11 @@ public class ControllerOperacoesPrincipais {
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
-			} else if (evento.getSource() == botaoHistograma) {
+			} else if (evento.getSource() == botaoRelatorio) {
 				try {
-					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
+					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaGerarRelatorio.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();  
-					ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
+					ControllerGerarRelatorio controller = fxmlLoader.<ControllerGerarRelatorio>getController();
 					controller.setUsuario(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {

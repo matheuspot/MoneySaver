@@ -6,7 +6,7 @@
 <?import javafx.scene.layout.*?>
 <?import javafx.scene.text.*?>
 
-<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerAdicionarTransacao">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerGerarRelatorio">
    <children>
       <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Relatório" textAlignment="CENTER">
          <font>
@@ -37,9 +37,9 @@
             </RadioButton>
          </children>
       </VBox>
-      <ComboBox fx:id="cbMeses" layoutX="135.0" layoutY="140.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Inicial" />
+      <ComboBox fx:id="cbMesInicial" layoutX="136.0" layoutY="155.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Inicial" />
       <Label fx:id="labelAviso" alignment="CENTER" layoutX="167.0" layoutY="300.0" prefHeight="17.0" prefWidth="268.0" text="Aviso" textFill="#e42121" visible="false" />
-      <ComboBox fx:id="cbCategoria" layoutX="226.0" layoutY="65.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <ComboBox fx:id="cbCategoria" layoutX="226.0" layoutY="93.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
       <VBox layoutX="359.0" layoutY="225.0" spacing="10.0">
          <children>
             <RadioButton fx:id="rbHistograma" layoutX="359.0" layoutY="250.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Histograma">
@@ -54,6 +54,6 @@
             </RadioButton>
          </children>
       </VBox>
-      <ComboBox fx:id="cbMeses1" layoutX="348.0" layoutY="140.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Final" />
+      <ComboBox fx:id="cbMesFinal" layoutX="348.0" layoutY="155.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Final" />
    </children>
 </AnchorPane>

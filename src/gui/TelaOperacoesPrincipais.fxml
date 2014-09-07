@@ -8,7 +8,7 @@
 
 <AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerOperacoesPrincipais">
    <children>
-      <SplitPane dividerPositions="0.5" prefHeight="414.0" prefWidth="613.0">
+      <SplitPane dividerPositions="0.5057283142389526" prefHeight="414.0" prefWidth="613.0">
          <items>
             <AnchorPane prefHeight="400.0" prefWidth="300.0">
                <children>
@@ -29,7 +29,7 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </MenuButton>
-                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="92.0" layoutY="117.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Conta" textAlignment="CENTER">
+                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="70.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Conta" textAlignment="CENTER">
                                  <items>
                                     <MenuItem fx:id="adicionarConta" mnemonicParsing="false" text="Adicionar" />
                                     <MenuItem fx:id="removerConta" mnemonicParsing="false" text="Remover" />
@@ -39,7 +39,7 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </MenuButton>
-                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Transações" textAlignment="CENTER">
+                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="28.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Transação" textAlignment="CENTER">
                                 <items>
                                   <MenuItem fx:id="adicionarTransacao" mnemonicParsing="false" text="Adicionar" />
                                   <MenuItem fx:id="removerTransacao" mnemonicParsing="false" text="Remover" />
@@ -49,16 +49,7 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </MenuButton>
-                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="70.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Relatório" textAlignment="CENTER">
-                                 <items>
-                                    <MenuItem fx:id="botaoHistograma" mnemonicParsing="false" text="Histograma" />
-                                    <MenuItem fx:id="botaoLista" mnemonicParsing="false" text="Lista" />
-                                 </items>
-                                 <font>
-                                    <Font name="Calibri" size="14.0" />
-                                 </font>
-                              </MenuButton>
-                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Categorias" textAlignment="CENTER">
+                              <MenuButton alignment="CENTER" contentDisplay="CENTER" layoutX="158.0" layoutY="14.0" mnemonicParsing="false" prefHeight="27.0" prefWidth="105.0" text="Categoria" textAlignment="CENTER">
                                  <items>
                                     <MenuItem fx:id="adicionarCategoria" mnemonicParsing="false" text="Adicionar" />
                                     <MenuItem fx:id="removerCategoria" mnemonicParsing="false" text="Remover" />
@@ -68,18 +59,23 @@
                                     <Font name="Calibri" size="14.0" />
                                  </font>
                               </MenuButton>
-                              <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="111.0" layoutY="278.0" mnemonicParsing="false" text="Sair" textAlignment="CENTER">
+                              <Button fx:id="botaoSair" alignment="CENTER" contentDisplay="CENTER" layoutX="107.0" layoutY="285.0" mnemonicParsing="false" prefHeight="42.0" prefWidth="76.0" text="Sair" textAlignment="CENTER">
                                  <font>
                                     <Font name="Calibri" size="22.0" />
                                  </font>
                               </Button>
                               <ComboBox fx:id="cbContas" layoutX="92.0" layoutY="211.0" prefHeight="27.0" prefWidth="105.0" promptText="Contas" />
-                              <Separator layoutX="19.0" layoutY="161.0" prefHeight="4.0" prefWidth="249.0" />
-                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="185.0" text="Conta Ativa" textAlignment="CENTER">
+                              <Separator layoutY="164.0" prefHeight="11.0" prefWidth="296.0" />
+                              <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="185.0" text="Conta ativa" textAlignment="CENTER">
                                  <font>
                                     <Font name="Calibri" size="18.0" />
                                  </font>
                               </Label>
+                              <Button fx:id="botaoRelatorio" layoutX="94.0" layoutY="122.0" mnemonicParsing="false" prefHeight="25.0" prefWidth="105.0" text="Relatório">
+                                 <font>
+                                    <Font name="Calibri" size="14.0" />
+                                 </font>
+                              </Button>
                            </children>
                         </AnchorPane>
                      </children>
