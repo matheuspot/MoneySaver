@@ -38,7 +38,11 @@ public class Relatorio {
 					transacoes.remove(transacao);
 		}
 	}
-
+	
+	public List<Transacao> getListaFiltrada() {
+		return transacoes;	
+	}
+	
 	public List<?> getTransacoesPreparadas(Modo<?> modo) {
 		return (List<?>) modo.getTransacoesPreparada(transacoes);
 	}
