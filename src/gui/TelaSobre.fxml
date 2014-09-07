@@ -22,7 +22,7 @@
             <Font name="System Bold" size="18.0" />
          </font>
       </Label>
-      <Label alignment="CENTER" layoutX="47.0" layoutY="147.0" prefHeight="17.0" prefWidth="404.0" text="André Araujo">
+      <Label alignment="CENTER" layoutX="47.0" layoutY="147.0" prefHeight="17.0" prefWidth="404.0" text="André Araújo">
          <font>
             <Font size="18.0" />
          </font>

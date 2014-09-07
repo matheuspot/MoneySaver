@@ -160,8 +160,8 @@ public class ControllerTelaPrincipal {
 		            stage.setTitle("MoneySaver");
 		            stage.setScene(new Scene(root));
 		            stage.show();
+		            stage.setResizable(false);
 					controller.setStage(stage);
-
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		        }
