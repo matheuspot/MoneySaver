@@ -117,6 +117,7 @@ public class ControllerEditarTransacaoFinal {
     	    });
     	
     	tfDescricao.setText(transacao.getDescricao());
+    	data.setValue(transacao.getDataDeInsercao());
     	cbCategoria.setValue(transacao.getCategoria());
     	cbRecorrencia.setValue(transacao.getRecorrencia());
     	if (transacao.getValor() < 0){
@@ -145,7 +146,8 @@ public class ControllerEditarTransacaoFinal {
 			} else if (evento.getSource() == botaoEditar) {
 				try{
 					
-					usuarioAtivo.getContaAtiva().editaTransacao(transacaoParaEditar, tfDescricao.getText(), tfValor.getText(), 
+					usuarioAtivo.getContaAtiva().editaTransacao(transacaoParaEditar, tfDescricao.getText(), data.getValue(),
+							tfValor.getText(), 
 							cbCategoria.getSelectionModel().getSelectedItem(), 
 							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());

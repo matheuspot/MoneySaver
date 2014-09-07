@@ -125,6 +125,7 @@ public class ControllerOperacoesPrincipais {
     
     public void setUsuario(Usuario usuario){
     	usuarioAtivo = usuario;
+    	usuarioAtivo.getContaAtiva().atualizaRecorrencias();
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
     	cbContas.getSelectionModel().select(usuarioAtivo.getContaAtiva().getNome());
     	cbContas.valueProperty().addListener(tabela);

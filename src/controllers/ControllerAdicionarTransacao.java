@@ -131,7 +131,8 @@ public class ControllerAdicionarTransacao {
 				boolean passouOrcamento = false;
 				
 				try{
-					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(tfDescricao.getText(), tfValor.getText(), 
+					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(tfDescricao.getText(), data.getValue(),
+							tfValor.getText(), 
 							cbCategoria.getSelectionModel().getSelectedItem(), 
 							cbRecorrencia.getSelectionModel().getSelectedItem(), 
 							(String) group.getSelectedToggle().getUserData());
