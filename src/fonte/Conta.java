@@ -325,7 +325,10 @@ public class Conta implements Serializable {
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
 	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
-		if (dataDeInsercao == null || dataDeInsercao.isAfter(LocalDate.now()))
+		if (dataDeInsercao == null
+				|| dataDeInsercao.isAfter(LocalDate.now())
+				|| LocalDate.now().getDayOfYear()
+						- dataDeInsercao.getDayOfYear() > 30)
 			return false;
 		return true;
 	}
