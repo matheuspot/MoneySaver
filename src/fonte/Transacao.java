@@ -32,10 +32,12 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public Transacao(String descricao, double valor, Categoria categoria,
-			String recorrencia) throws Exception {
+	public Transacao(String descricao, LocalDate dataDeInsercao, double valor,
+			Categoria categoria, String recorrencia) throws Exception {
 		if (descricao == null)
 			throw new Exception("Descrição inválida.");
+		if (dataDeInsercao == null)
+			throw new Exception("Data de inserção inválida.");
 		if (valor <= 0)
 			throw new Exception("Valor inválido.");
 		if (categoria == null)
@@ -44,7 +46,7 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 			throw new Exception("Recorrência inválida.");
 
 		this.descricao = descricao;
-		this.dataDeInsercao = LocalDate.now();
+		this.dataDeInsercao = dataDeInsercao;
 		this.valor = valor;
 		this.categoria = categoria;
 		this.recorrencia = recorrencia;

@@ -57,22 +57,22 @@ public class Conta implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public boolean adicionaTransacao(String descricao, String valor,
-			Categoria categoria, String recorrencia, String tipoDeTransacao)
-			throws Exception {
+	public boolean adicionaTransacao(String descricao,
+			LocalDate dataDeInsercao, String valor, Categoria categoria,
+			String recorrencia, String tipoDeTransacao) throws Exception {
 
 		Transacao transacaoQueSeraAdicionada = null;
 
-		transacaoValida(descricao, valor, categoria, recorrencia,
-				tipoDeTransacao);
+		transacaoValida(descricao, dataDeInsercao, valor, categoria,
+				recorrencia, tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao, valorNovo,
-					categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+					valorNovo, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao, valorNovo,
-					categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Provento(descricao,
+					dataDeInsercao, valorNovo, categoria, recorrencia);
 		}
 
 		transacoes.add(transacaoQueSeraAdicionada);
@@ -120,8 +120,9 @@ public class Conta implements Serializable {
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public boolean editaTransacao(Transacao transacaoParaEditar,
-			String descricao, String valor, Categoria categoria,
-			String recorrencia, String tipoDeTransacao) throws Exception {
+			String descricao, LocalDate dataDeInsercao, String valor,
+			Categoria categoria, String recorrencia, String tipoDeTransacao)
+			throws Exception {
 
 		Transacao transacaoQueSeraAdicionada = null;
 
@@ -129,16 +130,16 @@ public class Conta implements Serializable {
 				|| !transacoes.contains(transacaoParaEditar))
 			throw new Exception("Transação inexistente.");
 
-		transacaoValida(descricao, valor, categoria, recorrencia,
-				tipoDeTransacao);
+		transacaoValida(descricao, dataDeInsercao, valor, categoria,
+				recorrencia, tipoDeTransacao);
 		Double novoValor = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao, novoValor,
-					categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+					novoValor, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao, novoValor,
-					categoria, recorrencia);
+			transacaoQueSeraAdicionada = new Provento(descricao,
+					dataDeInsercao, novoValor, categoria, recorrencia);
 		}
 
 		transacoes.remove(transacaoParaEditar);
@@ -286,12 +287,15 @@ public class Conta implements Serializable {
 	 * @throws Exception
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	private void transacaoValida(String descricao, String valor,
-			Categoria categoria, String recorrencia, String tipoDeTransacao)
-			throws Exception {
+	private void transacaoValida(String descricao, LocalDate dataDeInsercao,
+			String valor, Categoria categoria, String recorrencia,
+			String tipoDeTransacao) throws Exception {
 
 		if (!descricaoValida(descricao)) {
 			throw new Exception("Descrição inválida. Máximo de 25 caracteres.");
+		}
+		if (!dataDeInsercaoValida(dataDeInsercao)) {
+			throw new Exception("Data de inserção inválida.");
 		}
 		if (!valorValido(valor)) {
 			throw new Exception("Valor inválido.");
@@ -317,6 +321,19 @@ public class Conta implements Serializable {
 	private boolean descricaoValida(String descricao) {
 		if (descricao == null || descricao.trim().length() == 0
 				|| descricao.length() > 25)
+			return false;
+		return true;
+	}
+
+	/**
+	 * Método que verifica se uma data de inserção é válida.
+	 *
+	 * @param dataDeInsercao
+	 *            Uma data de inserção.
+	 * @return Retorna true se for válida, e false caso contrário.
+	 */
+	private boolean dataDeInsercaoValida(LocalDate dataDeInsercao) {
+		if (dataDeInsercao == null || dataDeInsercao.isAfter(LocalDate.now()))
 			return false;
 		return true;
 	}
@@ -444,7 +461,7 @@ public class Conta implements Serializable {
 		if (dataAtual.getMonthValue()
 				- transacao.getDataDeInsercao().getMonthValue() >= 30) {
 			try {
-				adicionaTransacao(transacao.getDescricao(),
+				adicionaTransacao(transacao.getDescricao(), LocalDate.now(),
 						Double.toString(transacao.getValor()),
 						transacao.getCategoria(), transacao.getRecorrencia(),
 						tipoDeTransacao);
@@ -466,7 +483,7 @@ public class Conta implements Serializable {
 		if (dataAtual.getDayOfMonth()
 				- transacao.getDataDeInsercao().getDayOfMonth() >= 7) {
 			try {
-				adicionaTransacao(transacao.getDescricao(),
+				adicionaTransacao(transacao.getDescricao(), LocalDate.now(),
 						Double.toString(transacao.getValor()),
 						transacao.getCategoria(), transacao.getRecorrencia(),
 						tipoDeTransacao);
