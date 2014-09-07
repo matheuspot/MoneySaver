@@ -1,5 +1,7 @@
 package gui;
 
+import controllers.ControllerTelaPrincipal;
+import controllers.ControllerTelaSobre;
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
@@ -14,14 +16,14 @@ public class MainInterface extends Application {
 
 	@Override
 	public void start(Stage primaryStage) throws Exception {
-
-		Parent root = FXMLLoader.load(getClass().getResource(
-				"TelaPrincipal.fxml"));
-		Scene scene = new Scene(root, 600, 400);
-
-		primaryStage.setScene(scene);
-		primaryStage.setTitle("MoneySaver");
-		primaryStage.show();
-		primaryStage.setResizable(false);
+		
+		FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaPrincipal.fxml"));     
+		Parent root = (Parent)fxmlLoader.load(); 
+		ControllerTelaPrincipal controller = fxmlLoader.<ControllerTelaPrincipal>getController();
+        primaryStage.setTitle("MoneySaver");
+        primaryStage.setScene(new Scene(root));
+        primaryStage.show();
+        primaryStage.setResizable(false);
+		controller.setStage(primaryStage);
 	}
 }

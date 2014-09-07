@@ -51,6 +51,10 @@ public class ControllerTelaPrincipal {
     private Hyperlink recuperarSenha;
 	@FXML
 	private MenuItem itemSobre;
+	@FXML
+	private MenuItem itemSair;
+	
+	private Stage stage;
 
 	@FXML
 	void initialize() {
@@ -60,12 +64,17 @@ public class ControllerTelaPrincipal {
 		TFemail.setOnAction(eventos);
 		recuperarSenha.setOnAction(eventos);
 		itemSobre.setOnAction(eventos);
+		itemSair.setOnAction(eventos);
 		
 		labelAviso.setVisible(false);
 		
 		TFemail.setOnKeyPressed(eventosTeclado);
 		PFsenha.setOnKeyPressed(eventosTeclado);
 	}
+	
+	public void setStage(Stage stage){
+    	this.stage = stage;
+    }
 
 	private class Eventos implements EventHandler<ActionEvent> {
 
@@ -165,6 +174,8 @@ public class ControllerTelaPrincipal {
 		        } catch (IOException e) {
 		            e.printStackTrace();
 		        }
+			} else if (evento.getSource() == itemSair) {
+				stage.close();
 			}
 		}
 	}
