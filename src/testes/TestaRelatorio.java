@@ -63,11 +63,11 @@ public class TestaRelatorio {
 		assertTrue(relatorio.getListaFiltrada().get(0).equals(transacao1));
 	}
 	
-//	@Test
-//	public void testaFiltraPorData() {
-//		relatorio.filtraPorData(1, 7);
-//		System.out.println(relatorio.getListaFiltrada());
-//		assertEquals(null, relatorio.getListaFiltrada().get(0));
-//	}
+	@Test
+	public void testaFiltraPorData() {
+		relatorio.filtraPorData(1, 7);
+		System.out.println(relatorio.getListaFiltrada());
+		assertEquals(null, relatorio.getListaFiltrada().get(0));
+	}
 
 }

@@ -14,10 +14,14 @@ public class Relatorio {
 	}
 
 	public void filtraPorCategoria(Categoria categoria) {
+		List<Transacao> transacoesTemp = new ArrayList<>();
+		
 		for (Transacao transacao : transacoes) {
-			if (!categoria.equals(transacao.getCategoria()))
-				transacoes.remove(transacao);
+			if (categoria.equals(transacao.getCategoria()))
+				transacoesTemp.add(transacao);
 		}
+		
+		transacoes = transacoesTemp;
 	}
 
 	public void filtraPorData(int mesInicial, int mesFinal) {
