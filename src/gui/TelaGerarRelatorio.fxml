@@ -1,42 +1,50 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.scene.control.*?>
 <?import java.lang.*?>
+<?import javafx.scene.chart.*?>
+<?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
+<?import javafx.scene.text.*?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1">
+<AnchorPane fx:id="content" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerAdicionarTransacao">
    <children>
-      <VBox layoutX="127.0" layoutY="79.0" prefHeight="24.0" prefWidth="100.0">
-         <children>
-            <ChoiceBox prefWidth="150.0" />
-         </children>
-      </VBox>
-      <Label layoutX="161.0" layoutY="62.0" text="Conta" />
-      <Label layoutX="376.0" layoutY="62.0" text="Categoria" />
-      <VBox layoutX="352.0" layoutY="79.0" prefHeight="25.0" prefWidth="100.0">
-         <children>
-            <ChoiceBox prefWidth="150.0" />
-         </children>
-      </VBox>
-      <Label layoutX="288.0" layoutY="154.0" text="Data" />
-      <DatePicker layoutX="158.0" layoutY="188.0" prefHeight="25.0" prefWidth="100.0" />
-      <DatePicker layoutX="327.0" layoutY="188.0" prefHeight="25.0" prefWidth="100.0" />
-      <Label layoutX="192.0" layoutY="171.0" text="Inicial" />
-      <Label layoutX="364.0" layoutY="171.0" text="Final" />
-      <Button layoutX="165.0" layoutY="327.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="85.0" text="Cancelar" />
-      <Button layoutX="343.0" layoutY="327.0" mnemonicParsing="false" prefHeight="48.0" prefWidth="85.0" text="Gerar" />
-      <Label layoutX="260.0" layoutY="29.0" text="Gerar Relatorio" />
-      <VBox layoutX="168.0" layoutY="241.0" prefHeight="60.0" prefWidth="80.0">
-         <children>
-            <RadioButton mnemonicParsing="false" prefHeight="28.0" prefWidth="69.0" text="Provento" />
-            <RadioButton mnemonicParsing="false" prefHeight="31.0" prefWidth="66.0" text="Despesa" />
-         </children>
-      </VBox>
-      <VBox layoutX="360.0" layoutY="241.0" prefHeight="68.0" prefWidth="85.0">
-         <children>
-            <RadioButton mnemonicParsing="false" prefHeight="30.0" prefWidth="83.0" text="Histograma" />
-            <RadioButton mnemonicParsing="false" prefHeight="26.0" prefWidth="85.0" text="Lista" />
-         </children>
-      </VBox>
+      <Label alignment="CENTER" contentDisplay="CENTER" layoutX="145.0" layoutY="14.0" prefHeight="40.0" prefWidth="310.0" text="Relatório" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="36.0" />
+         </font>
+      </Label>
+      <Button fx:id="botaoVoltar" alignment="CENTER" contentDisplay="CENTER" layoutX="124.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Voltar" textAlignment="CENTER">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <Button fx:id="botaoGerar" layoutX="325.0" layoutY="334.0" mnemonicParsing="false" prefHeight="50.0" prefWidth="150.0" text="Gerar">
+         <font>
+            <Font name="Calibri" size="28.0" />
+         </font>
+      </Button>
+      <RadioButton fx:id="rbProvento" layoutX="266.0" layoutY="179.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="rbDespesa" layoutX="266.0" layoutY="149.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
+      <ComboBox fx:id="cbMeses" layoutX="49.0" layoutY="195.0" prefHeight="30.0" prefWidth="150.0" promptText="Mês" />
+      <Label fx:id="labelAviso" alignment="CENTER" layoutX="167.0" layoutY="300.0" prefHeight="17.0" prefWidth="268.0" text="Aviso" textFill="#e42121" visible="false" />
+      <ComboBox fx:id="cbCategoria" layoutX="49.0" layoutY="134.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <RadioButton fx:id="rbLista" layoutX="435.0" layoutY="174.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Lista">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
+      <RadioButton fx:id="rbHistograma" layoutX="435.0" layoutY="144.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Histograma">
+         <font>
+            <Font name="Calibri" size="14.0" />
+         </font>
+      </RadioButton>
    </children>
 </AnchorPane>
