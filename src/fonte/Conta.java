@@ -428,10 +428,10 @@ public class Conta implements Serializable {
 				tipoDeTransacao = "provento";
 
 			switch (transacao.getRecorrencia()) {
-			case "mensal":
+			case "Mensal":
 				atualizaMensal(tipoDeTransacao, transacao);
 				break;
-			case "semanal":
+			case "Semanal":
 				atualizaSemanal(tipoDeTransacao, transacao);
 				break;
 			default:
