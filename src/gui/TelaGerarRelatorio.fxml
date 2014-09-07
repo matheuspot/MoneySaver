@@ -23,28 +23,37 @@
             <Font name="Calibri" size="28.0" />
          </font>
       </Button>
-      <RadioButton fx:id="rbProvento" layoutX="266.0" layoutY="179.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="rbDespesa" layoutX="266.0" layoutY="149.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-      </RadioButton>
-      <ComboBox fx:id="cbMeses" layoutX="49.0" layoutY="195.0" prefHeight="30.0" prefWidth="150.0" promptText="Mês" />
+      <VBox layoutX="153.0" layoutY="225.0" spacing="10.0">
+         <children>
+            <RadioButton fx:id="rbDespesa" layoutX="152.0" layoutY="250.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Despesa">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbProvento" layoutX="152.0" layoutY="280.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Provento">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </VBox>
+      <ComboBox fx:id="cbMeses" layoutX="135.0" layoutY="140.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Inicial" />
       <Label fx:id="labelAviso" alignment="CENTER" layoutX="167.0" layoutY="300.0" prefHeight="17.0" prefWidth="268.0" text="Aviso" textFill="#e42121" visible="false" />
-      <ComboBox fx:id="cbCategoria" layoutX="49.0" layoutY="134.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
-      <RadioButton fx:id="rbLista" layoutX="435.0" layoutY="174.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Lista">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-      </RadioButton>
-      <RadioButton fx:id="rbHistograma" layoutX="435.0" layoutY="144.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Histograma">
-         <font>
-            <Font name="Calibri" size="14.0" />
-         </font>
-      </RadioButton>
+      <ComboBox fx:id="cbCategoria" layoutX="226.0" layoutY="65.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <VBox layoutX="359.0" layoutY="225.0" spacing="10.0">
+         <children>
+            <RadioButton fx:id="rbHistograma" layoutX="359.0" layoutY="250.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="103.0" text="Histograma">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </RadioButton>
+            <RadioButton fx:id="rbLista" layoutX="355.0" layoutY="280.0" mnemonicParsing="false" prefHeight="20.0" prefWidth="90.0" text="Lista">
+               <font>
+                  <Font name="Calibri" size="14.0" />
+               </font>
+            </RadioButton>
+         </children>
+      </VBox>
+      <ComboBox fx:id="cbMeses1" layoutX="348.0" layoutY="140.0" prefHeight="30.0" prefWidth="125.0" promptText="Mês Final" />
    </children>
 </AnchorPane>
