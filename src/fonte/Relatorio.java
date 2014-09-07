@@ -21,15 +21,19 @@ public class Relatorio {
 				transacoesTemp.add(transacao);
 		}
 		
-		transacoes = transacoesTemp;
+		transacoes = transacoesTemp.subList(0, transacoesTemp.size());
 	}
 
 	public void filtraPorData(int mesInicial, int mesFinal) {
+		List<Transacao> transacoesTemp = new ArrayList<>();
+
 		for (Transacao transacao : transacoes) {
-			if (transacao.getDataDeInsercao().getMonthValue() < mesInicial
-					|| transacao.getDataDeInsercao().getMonthValue() > mesFinal)
-				transacoes.remove(transacao);
+			if (transacao.getDataDeInsercao().getMonthValue() >= mesInicial
+					|| transacao.getDataDeInsercao().getMonthValue() <= mesFinal)
+				transacoesTemp.add(transacao);
 		}
+		
+		transacoes = transacoesTemp.subList(0, transacoesTemp.size());
 	}
 
 	public void filtraPorTipo(String tipoDaTransacao) {
