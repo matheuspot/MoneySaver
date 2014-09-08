@@ -127,7 +127,7 @@ public class ControllerAdicionarOrcamento {
 						}
 					} else if (resposta == Dialog.Actions.NO){
 						try {
-							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdiconarOrcamento.fxml"));     
+							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
 							controller.setUsuario(usuarioAtivo);
