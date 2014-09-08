@@ -1,6 +1,7 @@
 package fonte;
 
 import java.io.Serializable;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar uma categoria.
@@ -8,27 +9,80 @@ import java.io.Serializable;
 public class Categoria implements Serializable, Comparable<Categoria> {
 
 	private static final long serialVersionUID = 1L;
+
 	private String nome;
 	private String cor;
 	private Orcamento orcamento;
 
 	/**
-	 * Construtor de categoria sem orçamento.
+	 * Construtor de categoria.
 	 * 
 	 * @param nome
 	 *            O nome da categoria.
 	 * @param cor
 	 *            A cor da categoria.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
-	public Categoria(String nome, String cor) throws Exception {
+	public Categoria(String nome, String cor) throws MoneySaverException {
 		if (!validaNome(nome))
-			throw new Exception("Nome inválido.");
+			throw new MoneySaverException("Nome inválido.");
 		if (!validaNome(cor))
-			throw new Exception("Cor inválida.");
+			throw new MoneySaverException("Cor inválida.");
 
 		this.nome = nome;
+		this.cor = cor;
+	}
+
+	/**
+	 * Método usado para adicionar um orçamento à categoria.
+	 * 
+	 * @param limite
+	 *            O limite do orçamento.
+	 * @throws MoneySaverException
+	 *             Lança exceção se o limite for menor ou igual a zero.
+	 */
+	public void setOrcamento(double limite) throws MoneySaverException {
+		if (limite <= 0)
+			throw new MoneySaverException("Valor limite tem que ser positivo.");
+
+		orcamento = new Orcamento(limite);
+	}
+
+	/**
+	 * Método que irá remover o orçamento da categoria atribuindo-o como null.
+	 */
+	public void removeOrcamento() {
+		orcamento = null;
+	}
+
+	/**
+	 * Método para modificar o nome da categoria.
+	 * 
+	 * @param nome
+	 *            O novo nome da categoria.
+	 * @throws MoneySaverException
+	 *             Lança exceção se o nome for inválido.
+	 */
+	public void setNome(String nome) throws MoneySaverException {
+		if (!validaNome(nome))
+			throw new MoneySaverException("Nome inválido.");
+
+		this.nome = nome;
+	}
+
+	/**
+	 * Método para modificar a cor da categoria.
+	 * 
+	 * @param cor
+	 *            A cor da categoria.
+	 * @throws MoneySaverException
+	 *             Lança exceção se a cor for inválida.
+	 */
+	public void setCor(String cor) throws MoneySaverException {
+		if (!validaNome(cor))
+			throw new MoneySaverException("Cor inválida.");
+
 		this.cor = cor;
 	}
 
@@ -57,58 +111,6 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	 */
 	public Orcamento getOrcamento() {
 		return orcamento;
-	}
-
-	/**
-	 * Método para adicionar um orçamento à categoria.
-	 * 
-	 * @param limite
-	 *            O limite do orçamento.
-	 * @throws Exception
-	 *             Lança exceção se o limite for menor ou igual a zero.
-	 */
-	public void setOrcamento(double limite) throws Exception {
-		if (limite <= 0)
-			throw new Exception("Valor limite tem que ser positivo!");
-
-		orcamento = new Orcamento(limite);
-	}
-
-	/**
-	 * Método que irá remover o orçamento da categoria atribuindo-o como null.
-	 */
-	public void removeOrcamento() {
-		orcamento = null;
-	}
-
-	/**
-	 * Método para modificar o nome da categoria.
-	 * 
-	 * @param nome
-	 *            O novo nome da categoria.
-	 * @throws Exception
-	 *             Lança exceção se o nome for inválido.
-	 */
-	public void setNome(String nome) throws Exception {
-		if (!validaNome(nome))
-			throw new Exception("Nome inválido.");
-
-		this.nome = nome;
-	}
-
-	/**
-	 * Método para modificar a cor da categoria.
-	 * 
-	 * @param cor
-	 *            A cor da categoria.
-	 * @throws Exception
-	 *             Lança exceção se a cor for inválida.
-	 */
-	public void setCor(String cor) throws Exception {
-		if (!validaNome(cor))
-			throw new Exception("Cor inválida.");
-
-		this.cor = cor;
 	}
 
 	/**
@@ -185,7 +187,7 @@ public class Categoria implements Serializable, Comparable<Categoria> {
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean validaNome(String nome) {
-		if (nome == null || nome.trim().length() == 0)
+		if (nome == null || nome.trim().isEmpty())
 			return false;
 		return true;
 	}

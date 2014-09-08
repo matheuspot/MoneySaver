@@ -9,17 +9,18 @@ import javax.mail.Session;
 import javax.mail.Transport;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import excecao.MoneySaverException;
 import fonte.GerenteDeUsuarios;
 
 /**
  * Classe usada para mandar um e-mail para um usuário cadastrado com sua senha.
  */
-public class MoneySaverMail {
+public abstract class MoneySaverMail {
 
 	private static final String MONEY_SAVER_USUARIO = "moneysaverufcg@gmail.com";
 	private static final String MONEY_SAVER_SENHA = "moneysaverufcg123456";
 	private static final String ASSUNTO = "Recuperação de senha.";
-	private static final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
+	private static final GerenteDeUsuarios GERENTE = new GerenteDeUsuarios();
 
 	/**
 	 * Método que irá receber o e-mail do usuário como parâmetro e enviá-lo sua
@@ -27,13 +28,14 @@ public class MoneySaverMail {
 	 * 
 	 * @param emailDoUsuario
 	 *            O e-mail do usuário.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção caso o usuário não esteja cadastrado.
 	 */
-	public static void EnviarEmail(String emailDoUsuario) throws Exception {
+	public static void enviarEmail(String emailDoUsuario)
+			throws MoneySaverException {
 
-		if (gerente.pesquisaUsuario(emailDoUsuario) == null)
-			throw new Exception("Usuário não está cadastrado.");
+		if (GERENTE.pesquisaUsuario(emailDoUsuario) == null)
+			throw new MoneySaverException("Usuário não está cadastrado.");
 
 		final String CORPO_EMAIL = String
 				.format("Olá, %s\n\nSua senha é: %s\n\nEssa é uma mensagem automática, não responda para este e-mail.",
@@ -78,7 +80,7 @@ public class MoneySaverMail {
 	 * @return Retorna o nome do usuário.
 	 */
 	private static String pegaNomeUsuario(String emailDoUsuario) {
-		return gerente.pesquisaUsuario(emailDoUsuario).getNome();
+		return GERENTE.pesquisaUsuario(emailDoUsuario).getNome();
 	}
 
 	/**
@@ -93,7 +95,7 @@ public class MoneySaverMail {
 	private static String pegaSenhaUsuario(String emailDoUsuario) {
 		String senha = "";
 		try {
-			senha = Criptografia.decrypt(gerente
+			senha = Criptografia.decrypt(GERENTE
 					.pesquisaUsuario(emailDoUsuario).getSenha());
 		} catch (GeneralSecurityException | IOException e) {
 			e.printStackTrace();

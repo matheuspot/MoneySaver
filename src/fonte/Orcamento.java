@@ -2,6 +2,7 @@ package fonte;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar um orçamento.
@@ -9,7 +10,8 @@ import java.time.LocalDate;
 public class Orcamento implements Serializable {
 
 	private static final long serialVersionUID = 1L;
-	private double limite;
+
+	private final double limite;
 	private final int dataDeCriacao;
 
 	/**
@@ -17,12 +19,12 @@ public class Orcamento implements Serializable {
 	 * 
 	 * @param limite
 	 *            Limite máximo do orçamento.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o limite for menor ou igual a zero.
 	 */
-	public Orcamento(double limite) throws Exception {
+	public Orcamento(double limite) throws MoneySaverException {
 		if (limite <= 0)
-			throw new Exception("Valor do orçamento inválido.");
+			throw new MoneySaverException("Valor limite tem que ser positivo.");
 
 		this.limite = limite;
 		dataDeCriacao = LocalDate.now().getMonthValue();

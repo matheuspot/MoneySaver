@@ -2,6 +2,7 @@ package fonte;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar uma transação.
@@ -10,11 +11,11 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 
 	private static final long serialVersionUID = 1L;
 
-	private String descricao;
-	private LocalDate dataDeInsercao;
-	private double valor;
-	private Categoria categoria;
-	private String recorrencia;
+	private final String descricao;
+	private final LocalDate dataDeInsercao;
+	private final double valor;
+	private final Categoria categoria;
+	private final String recorrencia;
 
 	/**
 	 * Construtor da classe Transacao.
@@ -29,21 +30,21 @@ public class Transacao implements Serializable, Comparable<Transacao> {
 	 *            A categoria da transação.
 	 * @param recorrencia
 	 *            A recorrência desse tipo de transação.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public Transacao(String descricao, LocalDate dataDeInsercao, double valor,
-			Categoria categoria, String recorrencia) throws Exception {
+			Categoria categoria, String recorrencia) throws MoneySaverException {
 		if (descricao == null)
-			throw new Exception("Descrição inválida.");
+			throw new MoneySaverException("Descrição inválida.");
 		if (dataDeInsercao == null)
-			throw new Exception("Data de inserção inválida.");
+			throw new MoneySaverException("Data de inserção inválida.");
 		if (valor <= 0)
-			throw new Exception("Valor inválido.");
+			throw new MoneySaverException("Valor inválido.");
 		if (categoria == null)
-			throw new Exception("Categoria inválida.");
+			throw new MoneySaverException("Categoria inválida.");
 		if (recorrencia == null)
-			throw new Exception("Recorrência inválida.");
+			throw new MoneySaverException("Recorrência inválida.");
 
 		this.descricao = descricao;
 		this.dataDeInsercao = dataDeInsercao;

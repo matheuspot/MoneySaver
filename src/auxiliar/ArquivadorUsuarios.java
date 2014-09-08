@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.ObjectInputStream;
 import java.io.ObjectOutputStream;
 import java.util.List;
+import excecao.MoneySaverException;
 import fonte.Usuario;
 
 /**
@@ -13,7 +14,7 @@ import fonte.Usuario;
  * arquivo.
  */
 public class ArquivadorUsuarios {
-	private String nomeDoArquivo;
+	private final String nomeDoArquivo;
 	private FileOutputStream fos;
 	private ObjectOutputStream oos;
 	private FileInputStream fis;
@@ -27,12 +28,12 @@ public class ArquivadorUsuarios {
 	 * @param nomeDoArquivo
 	 *            Nome desejado para o arquivo no qual será armazenado os
 	 *            usuários.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção caso o nome do arquivo seja inválido.
 	 */
-	public ArquivadorUsuarios(String nomeDoArquivo) throws Exception {
-		if (nomeDoArquivo == null || nomeDoArquivo.trim().length() == 0) {
-			throw new Exception("Nome do arquivo inválido.");
+	public ArquivadorUsuarios(String nomeDoArquivo) throws MoneySaverException {
+		if (nomeDoArquivo == null || nomeDoArquivo.trim().isEmpty()) {
+			throw new MoneySaverException("Nome do arquivo inválido.");
 		}
 
 		this.nomeDoArquivo = nomeDoArquivo;
@@ -43,12 +44,14 @@ public class ArquivadorUsuarios {
 	 * 
 	 * @param listaDeUsuarios
 	 *            Um List de usuários para escrever no arquivo.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o List estiver vazio.
 	 */
-	public void escreveUsuarios(List<Usuario> listaDeUsuarios) throws Exception {
+	public void escreveUsuarios(List<Usuario> listaDeUsuarios)
+			throws MoneySaverException {
 		if (listaDeUsuarios.isEmpty()) {
-			throw new Exception("Lista de usuários para escrever está vazia.");
+			throw new MoneySaverException(
+					"Lista de usuários para escrever está vazia.");
 		}
 
 		try {

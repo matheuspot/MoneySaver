@@ -1,6 +1,7 @@
 package fonte;
 
 import java.time.LocalDate;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar um provento.
@@ -22,19 +23,11 @@ public class Provento extends Transacao {
 	 *            A categoria do provento.
 	 * @param recorrencia
 	 *            A recorrência do provento.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public Provento(String descricao, LocalDate dataDeInsercao, double valor,
-			Categoria categoria, String recorrencia) throws Exception {
+			Categoria categoria, String recorrencia) throws MoneySaverException {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
-	}
-
-	/**
-	 * Método de acesso ao valor do provento.
-	 */
-	@Override
-	public double getValor() {
-		return super.getValor();
 	}
 }

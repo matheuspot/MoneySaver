@@ -1,11 +1,15 @@
 package fonte;
 
+import java.io.IOException;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
+import excecao.MoneySaverException;
 import auxiliar.ArquivadorUsuarios;
 
 /**
@@ -15,7 +19,6 @@ public class GerenteDeUsuarios {
 
 	private List<Usuario> usuariosDoSistema;
 	private ArquivadorUsuarios arquivador;
-	private Usuario usuarioLogado;
 
 	private static final Pattern VALID_EMAIL_ADDRESS_REGEX = Pattern.compile(
 			"^[A-Z0-9._%+-]+@[A-Z0-9.-]+\\.[A-Z]{2,6}$",
@@ -28,7 +31,7 @@ public class GerenteDeUsuarios {
 		try {
 			arquivador = new ArquivadorUsuarios("data.mos");
 		} catch (Exception e) {
-			System.err.println(e.getMessage());
+			e.printStackTrace();
 		}
 
 		if (arquivador.leUsuarios() == null) {
@@ -53,13 +56,20 @@ public class GerenteDeUsuarios {
 	 *            Dica de senha do usuário.
 	 * @param nomeDaConta
 	 *            Nome da conta desejada.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção caso algum parâmetro seja inválido ou se o
 	 *             usuário já estiver cadastrado no sistema.
+	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
+	 * @throws UnsupportedEncodingException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 */
 	public void adicionaUsuario(String nome, String email, String senha,
 			String confirmacaoDeSenha, String dicaDeSenha, String nomeDaConta)
-			throws Exception {
+			throws MoneySaverException, UnsupportedEncodingException,
+			GeneralSecurityException {
 
 		usuarioValido(nome, email, senha, confirmacaoDeSenha, dicaDeSenha,
 				nomeDaConta);
@@ -82,7 +92,8 @@ public class GerenteDeUsuarios {
 		for (Usuario usuario : usuariosDoSistema) {
 			if (usuario.getEmail().equals(email))
 				return usuario;
-		} return null;
+		}
+		return null;
 	}
 
 	/**
@@ -93,23 +104,29 @@ public class GerenteDeUsuarios {
 	 * @param senha
 	 *            Senha do usuário.
 	 * @return Retorna o usuário que está logando.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção caso o usuário não esteja cadastrado, ou a
 	 *             senha estiver errada.
+	 * @throws IOException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
+	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 */
-	public Usuario login(String login, String senha) throws Exception {
+	public Usuario login(String login, String senha)
+			throws MoneySaverException, GeneralSecurityException, IOException {
 		Usuario usuario = pesquisaUsuario(login);
 
 		if (usuario == null)
-			throw new Exception("Usuário não existe. Cadastre-se primeiro.");
+			throw new MoneySaverException(
+					"Usuário não existe. Cadastre-se primeiro.");
 
 		if (!usuario.checaLogin(senha))
-			throw new Exception("Senha incorreta!");
-
-		usuarioLogado = usuario;
+			throw new MoneySaverException("Senha incorreta!");
 
 		usuario.atualizaOrcamentoDeCategorias(LocalDate.now().getMonthValue());
-		return usuarioLogado;
+		return usuario;
 	}
 
 	/**
@@ -118,10 +135,10 @@ public class GerenteDeUsuarios {
 	 * 
 	 * @param usuario
 	 *            O usuário que estava movimentando a conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se houver problema com o arquivador.
 	 */
-	public void atualizaSistema(Usuario usuario) throws Exception {
+	public void atualizaSistema(Usuario usuario) throws MoneySaverException {
 		usuariosDoSistema.remove(usuario);
 		usuariosDoSistema.add(usuario);
 		arquivador.escreveUsuarios(usuariosDoSistema);
@@ -142,26 +159,26 @@ public class GerenteDeUsuarios {
 	 *            Dica de senha do usuário.
 	 * @param nomeDaConta
 	 *            Nome da conta desejada.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o usuário não for valido, ou seja, pelo
 	 *             menos um dos parâmetros estiver incorreto ou usuário já
 	 *             existir.
 	 */
 	private void usuarioValido(String nome, String email, String senha,
 			String confirmacaoDeSenha, String dicaDeSenha, String nomeDaConta)
-			throws Exception {
+			throws MoneySaverException {
 
 		if (!nomeValido(nome))
-			throw new Exception("Nome inválido.");
+			throw new MoneySaverException("Nome inválido.");
 		if (!emailValido(email))
-			throw new Exception("E-mail inválido ou já existe.");
+			throw new MoneySaverException("E-mail inválido ou já existe.");
 		if (!senhaValida(senha, confirmacaoDeSenha))
-			throw new Exception(
+			throw new MoneySaverException(
 					"Senha inválida ou não confere com confirmação.");
 		if (!dicaDeSenhaValida(dicaDeSenha))
-			throw new Exception("Dica de senha inválida.");
+			throw new MoneySaverException("Dica de senha inválida.");
 		if (!nomeValido(nomeDaConta))
-			throw new Exception("Nome da conta inválido.");
+			throw new MoneySaverException("Nome da conta inválido.");
 	}
 
 	/**
@@ -172,7 +189,7 @@ public class GerenteDeUsuarios {
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean nomeValido(String nome) {
-		if (nome == null || nome.trim().length() == 0)
+		if (nome == null || nome.trim().isEmpty())
 			return false;
 		return true;
 	}
@@ -185,7 +202,7 @@ public class GerenteDeUsuarios {
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean emailValido(String email) {
-		if (email == null || email.trim().length() == 0 || emailJaExiste(email))
+		if (email == null || email.trim().isEmpty() || emailJaExiste(email))
 			return false;
 
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
@@ -217,7 +234,7 @@ public class GerenteDeUsuarios {
 	 *         caso contrário.
 	 */
 	private boolean senhaValida(String senha, String confirmacaoDeSenha) {
-		if (senha == null || senha.trim().length() == 0)
+		if (senha == null || senha.trim().isEmpty())
 			return false;
 		if (!(senha.equals(confirmacaoDeSenha)))
 			return false;
@@ -233,7 +250,7 @@ public class GerenteDeUsuarios {
 	 *         contrário.
 	 */
 	private boolean dicaDeSenhaValida(String dicaDeSenha) {
-		if (dicaDeSenha == null || dicaDeSenha.trim().length() == 0)
+		if (dicaDeSenha == null || dicaDeSenha.trim().isEmpty())
 			return false;
 		return true;
 	}

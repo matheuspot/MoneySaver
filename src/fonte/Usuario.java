@@ -1,13 +1,16 @@
 package fonte;
 
+import java.io.IOException;
 import java.io.Serializable;
+import java.io.UnsupportedEncodingException;
+import java.security.GeneralSecurityException;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
 import java.util.regex.Matcher;
 import java.util.regex.Pattern;
-
 import auxiliar.Criptografia;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar um usuário.
@@ -25,7 +28,7 @@ public class Usuario implements Serializable {
 	private final String senha;
 	private final String dicaSenha;
 	private Conta contaAtiva;
-	private List<Conta> contas;
+	private final List<Conta> contas;
 	private List<Categoria> categorias;
 
 	/**
@@ -41,11 +44,16 @@ public class Usuario implements Serializable {
 	 *            A dica de senha.
 	 * @param nomeDaConta
 	 *            O nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
+	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problema com a criptografia da senha.
+	 * @throws UnsupportedEncodingException
+	 *             Lança exceção se houver problema com a criptografia da senha.
 	 */
 	public Usuario(String nome, String email, String senha, String dicaSenha,
-			String nomeDaConta) throws Exception {
+			String nomeDaConta) throws MoneySaverException,
+			UnsupportedEncodingException, GeneralSecurityException {
 		usuarioValido(nome, email, senha, dicaSenha, nomeDaConta);
 
 		this.nome = nome;
@@ -66,16 +74,16 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param nome
 	 *            O nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o nome da conta for inválido.
 	 */
-	public void adicionaConta(String nome) throws Exception {
+	public void adicionaConta(String nome) throws MoneySaverException {
 		if (!validaNome(nome))
-			throw new Exception("Nome da conta inválido.");
+			throw new MoneySaverException("Nome da conta inválido.");
 
 		for (Conta conta : contas) {
 			if (conta.getNome().equals(nome))
-				throw new Exception("Conta já existe.");
+				throw new MoneySaverException("Conta já existe.");
 		}
 
 		contas.add(new Conta(nome));
@@ -86,17 +94,18 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param conta
 	 *            A conta que deseja-se remover.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se a conta não existir.
 	 */
-	public void removeConta(Conta conta) throws Exception {
-		if (contas.size() > 1){
+	public void removeConta(Conta conta) throws MoneySaverException {
+		if (contas.size() > 1) {
 			checaContaJaExiste(conta);
 			contas.remove(conta);
 			if (conta == contaAtiva)
 				contaAtiva = contas.get(0);
 		} else {
-			throw new Exception("Deve existir pelo menos uma conta ativa.");
+			throw new MoneySaverException(
+					"Deve existir pelo menos uma conta ativa.");
 		}
 	}
 
@@ -107,16 +116,17 @@ public class Usuario implements Serializable {
 	 *            A conta que deseja-se editar.
 	 * @param nome
 	 *            O novo nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o nome for inválido ou a conta para editar
 	 *             não existir.
 	 */
-	public void editaConta(Conta contaParaEditar, String nome) throws Exception {
+	public void editaConta(Conta contaParaEditar, String nome)
+			throws MoneySaverException {
 		if (!validaNome(nome))
-			throw new Exception("Nome da conta inválido.");
+			throw new MoneySaverException("Nome da conta inválido.");
 
 		checaContaJaExiste(contaParaEditar);
-		
+
 		this.pesquisaConta(contaParaEditar.getNome()).setNome(nome);
 	}
 
@@ -127,8 +137,6 @@ public class Usuario implements Serializable {
 	 *            O nome da conta.
 	 * @return Retorna a conta se ela existir, e retorna null se a conta com
 	 *         esse nome não existir.
-	 * @throws Exception
-	 *             Lança exceção se o nome for inválido.
 	 */
 	public Conta pesquisaConta(String nome) {
 		for (Conta conta : contas) {
@@ -136,7 +144,8 @@ public class Usuario implements Serializable {
 				contaAtiva = conta;
 				return conta;
 			}
-		} return null;
+		}
+		return null;
 	}
 
 	/**
@@ -146,8 +155,13 @@ public class Usuario implements Serializable {
 	 *            A senha digitada pelo usuário.
 	 * @return Retorna true se a senha digitada for igual a senha salva no
 	 *         sistema, e false caso contrário.
+	 * @throws IOException
+	 *             Lança exceção se houver problema com a criptografia da senha.
+	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problema com a criptografia da senha.
 	 */
-	public boolean checaLogin(String senhaParaChecar) throws Exception {
+	public boolean checaLogin(String senhaParaChecar)
+			throws GeneralSecurityException, IOException {
 		if (senhaParaChecar.equals(Criptografia.decrypt(senha)))
 			return true;
 		return false;
@@ -172,14 +186,14 @@ public class Usuario implements Serializable {
 	 * Método que irá adicionar uma categoria.
 	 * 
 	 * @param nomeCategoria
-	 *            O nome.
+	 *            O nome da categoria.
 	 * @param corCategoria
-	 *            A cor.
-	 * @throws Exception
+	 *            A cor da categoria.
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public void adicionaCategoria(String nomeCategoria, String corCategoria)
-			throws Exception {
+			throws MoneySaverException {
 		categoriaValida(nomeCategoria, corCategoria);
 
 		Categoria novaCategoria = new Categoria(nomeCategoria, corCategoria);
@@ -192,10 +206,10 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param categoria
 	 *            A categoria que deseja-se remover.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se a categoria não existir.
 	 */
-	public void removeCategoria(Categoria categoria) throws Exception {
+	public void removeCategoria(Categoria categoria) throws MoneySaverException {
 		checaCategoriaJaExiste(categoria);
 
 		categorias.remove(categoria);
@@ -210,16 +224,18 @@ public class Usuario implements Serializable {
 	 *            O novo nome da categoria.
 	 * @param corCategoria
 	 *            A nova cor da categoria.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public void editaCategoria(Categoria categoriaParaEditar,
-			String nomeCategoria, String corCategoria) throws Exception {
+			String nomeCategoria, String corCategoria)
+			throws MoneySaverException {
 		categoriaValida(nomeCategoria, corCategoria);
 
 		checaCategoriaJaExiste(categoriaParaEditar);
-		
-		Categoria categoria = this.pesquisaCategoria(categoriaParaEditar.getNome());
+
+		Categoria categoria = this.pesquisaCategoria(categoriaParaEditar
+				.getNome());
 		categoria.setNome(nomeCategoria);
 		categoria.setCor(corCategoria);
 	}
@@ -343,7 +359,7 @@ public class Usuario implements Serializable {
 		for (Conta conta : contas) {
 			stringContas.append(conta.toString());
 		}
-		
+
 		return String.format(
 				"Nome: %s\nE-mail: %s\nDica de senha: %s\nContas: %s", nome,
 				email, dicaSenha, stringContas.toString());
@@ -381,7 +397,7 @@ public class Usuario implements Serializable {
 	}
 
 	/**
-	 * Método que irá veri ficar se um usuário é válido.
+	 * Método que irá verificar se um usuário é válido.
 	 * 
 	 * @param nome
 	 *            O nome.
@@ -393,22 +409,27 @@ public class Usuario implements Serializable {
 	 *            A dica de senha.
 	 * @param nomeDaConta
 	 *            O nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	private void usuarioValido(String nome, String email, String senha,
-			String dicaSenha, String nomeDaConta) throws Exception {
+			String dicaSenha, String nomeDaConta) throws MoneySaverException {
 		if (!validaNome(nome))
-			throw new Exception("O nome do usuário deve ser informado.");
+			throw new MoneySaverException(
+					"O nome do usuário deve ser informado.");
+
 		if (!validaSenha(senha))
-			throw new Exception(
+			throw new MoneySaverException(
 					"Senha inválida, deve conter de 6 à 8 caracteres.");
+
 		if (!validaEmail(email))
-			throw new Exception("E-mail inválido.");
+			throw new MoneySaverException("E-mail inválido.");
+
 		if (!validaNome(dicaSenha))
-			throw new Exception("Dica de senha inválida.");
+			throw new MoneySaverException("Dica de senha inválida.");
+
 		if (!validaNome(nomeDaConta))
-			throw new Exception("Nome da conta inválido.");
+			throw new MoneySaverException("Nome da conta inválido.");
 	}
 
 	/**
@@ -418,20 +439,21 @@ public class Usuario implements Serializable {
 	 *            O nome.
 	 * @param corCategoria
 	 *            A cor.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	private void categoriaValida(String nomeCategoria, String corCategoria)
-			throws Exception {
+			throws MoneySaverException {
 		if (!validaNome(nomeCategoria))
-			throw new Exception("Nome de categoria inválido.");
+			throw new MoneySaverException("Nome de categoria inválido.");
+
 		if (!validaNome(corCategoria))
-			throw new Exception("Cor de categoria inválida.");
+			throw new MoneySaverException("Cor de categoria inválida.");
 
 		for (Categoria categoria : categorias) {
 			if (categoria.getNome().equals(nomeCategoria)
 					&& categoria.getCor().equals(corCategoria))
-				throw new Exception("Categoria já existe.");
+				throw new MoneySaverException("Categoria já existe.");
 		}
 	}
 
@@ -443,7 +465,7 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean validaNome(String nome) {
-		if (nome == null || nome.trim().length() == 0)
+		if (nome == null || nome.trim().isEmpty())
 			return false;
 		return true;
 	}
@@ -469,7 +491,7 @@ public class Usuario implements Serializable {
 	 * @return Retorna true se for válido, e false caso contrário.
 	 */
 	private boolean validaEmail(String email) {
-		if (email == null || email.trim().length() == 0)
+		if (email == null || email.trim().isEmpty())
 			return false;
 
 		Matcher matcher = VALID_EMAIL_ADDRESS_REGEX.matcher(email);
@@ -481,12 +503,12 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param conta
 	 *            Uma conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se a conta não existir.
 	 */
-	private void checaContaJaExiste(Conta conta) throws Exception {
+	private void checaContaJaExiste(Conta conta) throws MoneySaverException {
 		if (!contas.contains(conta))
-			throw new Exception("Conta inexistente.");
+			throw new MoneySaverException("Conta inexistente.");
 	}
 
 	/**
@@ -494,11 +516,12 @@ public class Usuario implements Serializable {
 	 * 
 	 * @param categoria
 	 *            Uma categoria.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se a categoria não existir.
 	 */
-	private void checaCategoriaJaExiste(Categoria categoria) throws Exception {
+	private void checaCategoriaJaExiste(Categoria categoria)
+			throws MoneySaverException {
 		if (!categorias.contains(categoria))
-			throw new Exception("Categoria inexistente.");
+			throw new MoneySaverException("Categoria inexistente.");
 	}
 }

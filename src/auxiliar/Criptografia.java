@@ -26,9 +26,13 @@ public abstract class Criptografia {
 	 * 
 	 * @param property
 	 *            Senha que será criptografada.
-	 * @return A senha criptografada
+	 * @return A senha criptografada.
 	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 * @throws UnsupportedEncodingException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 */
 	public static String encrypt(String property)
 			throws GeneralSecurityException, UnsupportedEncodingException {
@@ -50,9 +54,13 @@ public abstract class Criptografia {
 	 * 
 	 * @param property
 	 *            Senha que será descriptografada.
-	 * @return Senha decriptografada
+	 * @return Senha decriptografada.
 	 * @throws GeneralSecurityException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 * @throws IOException
+	 *             Lança exceção se houver problemas com a criptografia da
+	 *             senha.
 	 */
 	public static String decrypt(String property)
 			throws GeneralSecurityException, IOException {
@@ -65,6 +73,9 @@ public abstract class Criptografia {
 		return new String(pbeCipher.doFinal(base64Decode(property)), "UTF-8");
 	}
 
+	/**
+	 * Decodificador.
+	 */
 	private static byte[] base64Decode(String property) throws IOException {
 		return new BASE64Decoder().decodeBuffer(property);
 	}

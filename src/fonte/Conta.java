@@ -8,6 +8,7 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar uma conta.
@@ -17,19 +18,19 @@ public class Conta implements Serializable {
 	private static final long serialVersionUID = 1L;
 
 	private String nome;
-	private List<Transacao> transacoes;
+	private final List<Transacao> transacoes;
 
 	/**
 	 * Construtor da classe conta, que recebe seu nome como parâmetro.
 	 * 
 	 * @param nome
 	 *            O nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o nome da conta for inválido.
 	 */
-	public Conta(String nome) throws Exception {
-		if (nome == null || nome.trim().length() == 0)
-			throw new Exception("Nome da conta inválido.");
+	public Conta(String nome) throws MoneySaverException {
+		if (nome == null || nome.trim().isEmpty())
+			throw new MoneySaverException("Nome da conta inválido.");
 
 		this.nome = nome;
 		transacoes = new ArrayList<>();
@@ -53,28 +54,29 @@ public class Conta implements Serializable {
 	 * @return Retorna true se o valor da transação passar do orçamento da
 	 *         categoria selecionada, e false caso contrário. Também retornará
 	 *         false caso a categoria não tenha orçamento.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public boolean adicionaTransacao(String descricao,
 			LocalDate dataDeInsercao, String valor, Categoria categoria,
-			String recorrencia, String tipoDeTransacao) throws Exception {
+			String recorrencia, String tipoDeTransacao)
+			throws MoneySaverException {
 
-		Transacao transacaoQueSeraAdicionada = null;
+		Transacao transacaoParaAdicionar = null;
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
 		Double valorNovo = Double.parseDouble(valor);
 
 		if (tipoDeTransacao.equals("despesa")) {
-			transacaoQueSeraAdicionada = new Despesa(descricao, dataDeInsercao,
+			transacaoParaAdicionar = new Despesa(descricao, dataDeInsercao,
 					valorNovo, categoria, recorrencia);
 		} else if (tipoDeTransacao.equals("provento")) {
-			transacaoQueSeraAdicionada = new Provento(descricao,
-					dataDeInsercao, valorNovo, categoria, recorrencia);
+			transacaoParaAdicionar = new Provento(descricao, dataDeInsercao,
+					valorNovo, categoria, recorrencia);
 		}
 
-		transacoes.add(transacaoQueSeraAdicionada);
+		transacoes.add(transacaoParaAdicionar);
 		Collections.sort(transacoes);
 
 		return calculaGastosPorCategoria(categoria);
@@ -85,12 +87,12 @@ public class Conta implements Serializable {
 	 * 
 	 * @param transacao
 	 *            A transação que deseja-se remover.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se a transação não existir.
 	 */
-	public void removeTransacao(Transacao transacao) throws Exception {
+	public void removeTransacao(Transacao transacao) throws MoneySaverException {
 		if (!transacoes.contains(transacao))
-			throw new Exception("Transação inexistente.");
+			throw new MoneySaverException("Transação inexistente.");
 
 		transacoes.remove(transacao);
 	}
@@ -115,19 +117,19 @@ public class Conta implements Serializable {
 	 * @return Retorna true se o novo valor da transação passar do orçamento da
 	 *         nova categoria, e false caso contrário. Também retornará false
 	 *         caso a nova categoria não tenha orçamento.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public boolean editaTransacao(Transacao transacaoParaEditar,
 			String descricao, LocalDate dataDeInsercao, String valor,
 			Categoria categoria, String recorrencia, String tipoDeTransacao)
-			throws Exception {
+			throws MoneySaverException {
 
 		Transacao transacaoQueSeraAdicionada = null;
 
 		if (transacaoParaEditar == null
 				|| !transacoes.contains(transacaoParaEditar))
-			throw new Exception("Transação inexistente.");
+			throw new MoneySaverException("Transação inexistente.");
 
 		transacaoValida(descricao, dataDeInsercao, valor, categoria,
 				recorrencia, tipoDeTransacao);
@@ -183,6 +185,32 @@ public class Conta implements Serializable {
 	}
 
 	/**
+	 * Método usado para atualizar as transações a partir das suas recorrências.
+	 */
+	public void atualizaRecorrencias() {
+		Set<Transacao> transacoesDoMes = new HashSet<>(transacoes);
+		String tipoDeTransacao;
+
+		for (Transacao transacao : transacoesDoMes) {
+			if (transacao.getValor() < 0)
+				tipoDeTransacao = "despesa";
+			else
+				tipoDeTransacao = "provento";
+
+			switch (transacao.getRecorrencia()) {
+			case "Mensal":
+				atualizaMensal(tipoDeTransacao, transacao);
+				break;
+			case "Semanal":
+				atualizaSemanal(tipoDeTransacao, transacao);
+				break;
+			default:
+				break;
+			}
+		}
+	}
+
+	/**
 	 * Método que dá acesso ao nome da conta.
 	 * 
 	 * @return O nome da conta.
@@ -205,12 +233,12 @@ public class Conta implements Serializable {
 	 * 
 	 * @param nome
 	 *            O novo nome da conta.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se o nome for inválido.
 	 */
-	public void setNome(String nome) throws Exception {
-		if (nome == null || nome.trim().length() == 0)
-			throw new Exception("Nome da conta inválido.");
+	public void setNome(String nome) throws MoneySaverException {
+		if (!stringValida(nome))
+			throw new MoneySaverException("Nome da conta inválido.");
 
 		this.nome = nome;
 	}
@@ -276,31 +304,31 @@ public class Conta implements Serializable {
 	 *            A recorrência da transação.
 	 * @param tipoDeTransacao
 	 *            O tipo de transação.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	private void transacaoValida(String descricao, LocalDate dataDeInsercao,
 			String valor, Categoria categoria, String recorrencia,
-			String tipoDeTransacao) throws Exception {
+			String tipoDeTransacao) throws MoneySaverException {
 
-		if (!descricaoValida(descricao)) {
-			throw new Exception("Descrição inválida. Máximo de 25 caracteres.");
-		}
-		if (!dataDeInsercaoValida(dataDeInsercao)) {
-			throw new Exception("Data de inserção inválida.");
-		}
-		if (!valorValido(valor)) {
-			throw new Exception("Valor inválido.");
-		}
-		if (!categoriaValida(categoria)) {
-			throw new Exception("Categoria inválida.");
-		}
-		if (!recorrenciaValida(recorrencia)) {
-			throw new Exception("Recorrência inválida.");
-		}
-		if (!tipoDeTransacaoValido(tipoDeTransacao)) {
-			throw new Exception("Tipo de transação inválido.");
-		}
+		if (!descricaoValida(descricao))
+			throw new MoneySaverException(
+					"Descrição inválida. Máximo de 25 caracteres.");
+
+		if (!dataDeInsercaoValida(dataDeInsercao))
+			throw new MoneySaverException("Data de inserção inválida.");
+
+		if (!valorValido(valor))
+			throw new MoneySaverException("Valor inválido.");
+
+		if (categoria == null)
+			throw new MoneySaverException("Categoria inválida.");
+
+		if (!stringValida(recorrencia))
+			throw new MoneySaverException("Recorrência inválida.");
+
+		if (!tipoDeTransacaoValido(tipoDeTransacao))
+			throw new MoneySaverException("Tipo de transação inválido.");
 	}
 
 	/**
@@ -311,7 +339,7 @@ public class Conta implements Serializable {
 	 * @return Retorna true se for válida, e false caso contrário.
 	 */
 	private boolean descricaoValida(String descricao) {
-		if (descricao == null || descricao.trim().length() == 0
+		if (descricao == null || descricao.trim().isEmpty()
 				|| descricao.length() > 25)
 			return false;
 		return true;
@@ -352,27 +380,15 @@ public class Conta implements Serializable {
 	}
 
 	/**
-	 * Método que verifica se uma categoria é válida.
+	 * Método que verifica se uma String é válida.
 	 * 
-	 * @param categoria
-	 *            Uma categoria.
-	 * @return Retorna true se for válida, e false caso contrário.
+	 * @param nomeString
+	 *            Um nome de uma String qualquer.
+	 * @return Retorna true se for válida, e false caso não tenha nenhuma letra
+	 *         ou número.
 	 */
-	private boolean categoriaValida(Categoria categoria) {
-		if (categoria == null)
-			return false;
-		return true;
-	}
-
-	/**
-	 * Método que verifica se uma recorrência é válida.
-	 * 
-	 * @param recorrencia
-	 *            Uma recorrência.
-	 * @return Retorna true se for válida, e false caso contrário.
-	 */
-	private boolean recorrenciaValida(String recorrencia) {
-		if (recorrencia == null || recorrencia.trim().length() == 0)
+	private boolean stringValida(String nomeString) {
+		if (nomeString == null || nomeString.trim().isEmpty())
 			return false;
 		return true;
 	}
@@ -415,32 +431,6 @@ public class Conta implements Serializable {
 		if (valor > categoria.getOrcamento().getLimite())
 			return true;
 		return false;
-	}
-
-	/**
-	 * Método usado para atualizar as transações a partir das suas recorrências.
-	 */
-	public void atualizaRecorrencias() {
-		Set<Transacao> transacoesDoMes = new HashSet<>(transacoes);
-		String tipoDeTransacao;
-
-		for (Transacao transacao : transacoesDoMes) {
-			if (transacao.getValor() < 0)
-				tipoDeTransacao = "despesa";
-			else
-				tipoDeTransacao = "provento";
-
-			switch (transacao.getRecorrencia()) {
-			case "Mensal":
-				atualizaMensal(tipoDeTransacao, transacao);
-				break;
-			case "Semanal":
-				atualizaSemanal(tipoDeTransacao, transacao);
-				break;
-			default:
-				break;
-			}
-		}
 	}
 
 	/**

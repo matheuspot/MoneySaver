@@ -1,6 +1,7 @@
 package fonte;
 
 import java.time.LocalDate;
+import excecao.MoneySaverException;
 
 /**
  * Classe usada para representar uma despesa.
@@ -22,11 +23,11 @@ public class Despesa extends Transacao {
 	 *            A categoria da despesa.
 	 * @param recorrencia
 	 *            A recorrência da despesa.
-	 * @throws Exception
+	 * @throws MoneySaverException
 	 *             Lança exceção se pelo menos um dos parâmetros for inválido.
 	 */
 	public Despesa(String descricao, LocalDate dataDeInsercao, double valor,
-			Categoria categoria, String recorrencia) throws Exception {
+			Categoria categoria, String recorrencia) throws MoneySaverException {
 		super(descricao, dataDeInsercao, valor, categoria, recorrencia);
 	}
 

@@ -149,7 +149,7 @@ public class ControllerTelaPrincipal {
 							.showInformation();
 						} else {
 							try {
-								MoneySaverMail.EnviarEmail(TFemail.getText());
+								MoneySaverMail.enviarEmail(TFemail.getText());
 								
 								Dialogs.create().owner(null).title("MoneySaver")
 								.masthead(null).message("A senha foi enviada para seu email.")
