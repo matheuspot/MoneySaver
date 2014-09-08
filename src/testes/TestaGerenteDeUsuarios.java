@@ -1,34 +1,25 @@
 package testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.fail;
 
 import java.io.File;
-import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import auxiliar.Criptografia;
-import fonte.Categoria;
 import fonte.GerenteDeUsuarios;
-import fonte.Usuario;
 
 public class TestaGerenteDeUsuarios {
 
 	private GerenteDeUsuarios gerente;
-	private LocalDate dataDeInsercao;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	private Categoria categoria;
 	
 	@Before
 	public void inicializaGerenteParaTestes() throws Exception {
 		File arquivo = new File("data.mos");
 		arquivo.delete();
 		gerente = new GerenteDeUsuarios();
-		dataDeInsercao = LocalDate.parse("06/08/2014", formatter);
-		categoria = new Categoria("Feira", "Verde");
 	}
 
 	@After
