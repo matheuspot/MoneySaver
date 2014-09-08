@@ -2,6 +2,7 @@ package controllers;
 
 import java.io.IOException;
 import java.util.List;
+
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -44,25 +45,26 @@ public class ControllerHistograma {
 		botaoVoltar.setOnAction(eventos);
 	}
 
-	public void setUsuario(Usuario usuario, Relatorio relatorio, Categoria categoria, String tipoTransacao, List<String> meses) {
+	public void setUsuario(Usuario usuario, Relatorio relatorio, Categoria categoria, String tipoTransacao, List<String> meses,
+			int posicaoInicial, int posicaoFinal) {
 		usuarioAtivo = usuario;
+		double maiorValor = 0;
 		
 		Histograma histograma = new Histograma();
 		List<Double> valores = (List<Double>) relatorio.getTransacoesPreparadas(histograma);
-		
-		double maiorValor = 0;
+		List<Double> valores2 = valores.subList(posicaoInicial, posicaoFinal+1);
 		
 		XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 		series1.setName(tipoTransacao + " / " + categoria.getNome());
 		eixoX.setCategories(FXCollections
 				.observableArrayList(meses));
-
+		
 		for (int i = 0; i < meses.size(); i++) {
 			series1.getData().add(
 					new XYChart.Data<String, Number>(
-							meses.get(i), valores.get(i).doubleValue()));
-			if (valores.get(i).doubleValue() > maiorValor)
-				maiorValor = valores.get(i).doubleValue();
+							meses.get(i), valores2.get(i).doubleValue()));
+			if (valores2.get(i).doubleValue() > maiorValor)
+				maiorValor = valores2.get(i).doubleValue();
 		}
 		
 		eixoY.setAutoRanging(false);
