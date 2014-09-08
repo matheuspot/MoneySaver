@@ -3,7 +3,6 @@ package testes;
 import static org.junit.Assert.*;
 
 import java.time.LocalDate;
-import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -20,7 +19,6 @@ import fonte.Transacao;
 public class TestaRelatorio {
 
 	private LocalDate dataDeInsercao;
-	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 	private Conta conta;
 	private Categoria categoria1;
 	private Categoria categoria2;
@@ -31,7 +29,7 @@ public class TestaRelatorio {
 
 	@Before
 	public void iniciaRelatorio() throws Exception {
-		dataDeInsercao = LocalDate.now(); //LocalDate.parse("06/09/2014", formatter);
+		dataDeInsercao = LocalDate.now();
 		
 		conta = new Conta("Bradesco");
 		categoria1 = new Categoria("Trabalho", "Marrom");
