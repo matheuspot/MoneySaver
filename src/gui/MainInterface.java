@@ -23,7 +23,7 @@ public class MainInterface extends Application {
         primaryStage.setTitle("MoneySaver");
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
-        primaryStage.setResizable(false);
+        primaryStage.setResizable(true);
 		controller.setStage(primaryStage);
 	}
 }

@@ -64,7 +64,7 @@
                                     <Font name="Calibri" size="22.0" />
                                  </font>
                               </Button>
-                              <ComboBox fx:id="cbContas" layoutX="92.0" layoutY="211.0" prefHeight="27.0" prefWidth="105.0" promptText="Contas" />
+                              <ComboBox fx:id="cbContas" layoutX="83.0" layoutY="211.0" prefHeight="27.0" prefWidth="126.0" promptText="Contas" />
                               <Separator layoutY="164.0" prefHeight="11.0" prefWidth="296.0" />
                               <Label alignment="CENTER" contentDisplay="CENTER" layoutX="102.0" layoutY="185.0" text="Conta ativa" textAlignment="CENTER">
                                  <font>

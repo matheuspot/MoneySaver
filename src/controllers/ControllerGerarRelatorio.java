@@ -163,9 +163,20 @@ public class ControllerGerarRelatorio {
 							} catch (IOException e) {
 								e.printStackTrace();
 							}	
+						} else if (tipoRelatorio.equals("lista")){
+							try {
+								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaLista.fxml"));     
+								Parent root = (Parent)fxmlLoader.load();          
+								ControllerLista controller = fxmlLoader.<ControllerLista>getController();
+								controller.setUsuario(usuarioAtivo, relatorio);
+								content.getChildren().setAll(root);
+							} catch (IOException e) {
+								e.printStackTrace();
+							}	
 						}
 					} catch (Exception e) {
-						e.printStackTrace();
+						labelAviso.setText(e.getMessage());
+						labelAviso.setVisible(true);
 					}
 				}
 			}
