@@ -24,6 +24,7 @@ public class MainInterface extends Application {
         primaryStage.setScene(new Scene(root));
         primaryStage.show();
         primaryStage.setResizable(false);
+        primaryStage.sizeToScene();
 		controller.setStage(primaryStage);
 	}
 }
