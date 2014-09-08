@@ -71,9 +71,9 @@ public class ControllerGerarRelatorio {
     	botaoGerar.setOnAction(eventos);
     	botaoVoltar.setOnAction(eventos);
     	rbDespesa.setToggleGroup(group);
-    	rbDespesa.setUserData("despesa");
+    	rbDespesa.setUserData("Despesa");
     	rbProvento.setToggleGroup(group);
-    	rbProvento.setUserData("provento");
+    	rbProvento.setUserData("Provento");
     	rbProvento.setSelected(true);
     	rbHistograma.setToggleGroup(group2);
     	rbHistograma.setUserData("histograma");
@@ -156,7 +156,9 @@ public class ControllerGerarRelatorio {
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
 								controller.setUsuario(usuarioAtivo, relatorio, cbCategoria.getSelectionModel().getSelectedItem(),
-										(String) group.getSelectedToggle().getUserData(), meses);
+										(String) group.getSelectedToggle().getUserData(), meses,
+										cbMesInicial.getSelectionModel().getSelectedIndex(),
+										cbMesFinal.getSelectionModel().getSelectedIndex());
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();

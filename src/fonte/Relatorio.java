@@ -37,10 +37,10 @@ public class Relatorio {
 	public void filtraPorTipo(String tipoDaTransacao) {
 		
 		for (Transacao transacao : transacoes) {
-			if (tipoDaTransacao == "despesa")
+			if (tipoDaTransacao == "Despesa")
 				if (transacao.getValor() > 0)
 					transacoesAuxiliar.remove(transacao);
-			else if (tipoDaTransacao == "provento")
+			else if (tipoDaTransacao == "Provento")
 				if (transacao.getValor() < 0)
 					transacoesAuxiliar.add(transacao);
 		}
