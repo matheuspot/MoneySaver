@@ -21,17 +21,17 @@ public class TestaRelatorio {
 
 	private LocalDate dataDeInsercao;
 	private DateTimeFormatter formatter = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-	Conta conta;
-	Categoria categoria1;
-	Categoria categoria2;
-	Transacao transacao1;
-	Transacao transacao2;
-	Relatorio relatorio;
-	List<Transacao> listaTemp = new ArrayList<>();
+	private Conta conta;
+	private Categoria categoria1;
+	private Categoria categoria2;
+	private Transacao transacao1;
+	private Transacao transacao2;
+	private Relatorio relatorio;
+	private List<Transacao> listaTemp = new ArrayList<>();
 
 	@Before
 	public void iniciaRelatorio() throws Exception {
-		dataDeInsercao = LocalDate.parse("06/09/2014", formatter);
+		dataDeInsercao = LocalDate.now(); //LocalDate.parse("06/09/2014", formatter);
 		
 		conta = new Conta("Bradesco");
 		categoria1 = new Categoria("Trabalho", "Marrom");
@@ -65,7 +65,13 @@ public class TestaRelatorio {
 	@Test
 	public void testaFiltraPorData() {
 		relatorio.filtraPorData(1, 3);
-		assertEquals(null, relatorio.getListaFiltrada().get(0));
+		assertTrue(relatorio.getListaFiltrada().isEmpty());
+	}
+	
+	@Test
+	public void testaFiltraPorTipo() {
+		relatorio.filtraPorTipo("despesa");
+		assertEquals(transacao2, relatorio.getListaFiltrada().get(0));
 	}
 
 }

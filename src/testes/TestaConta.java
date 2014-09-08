@@ -80,7 +80,7 @@ public class TestaConta {
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
-			assertEquals("Descrição inválida.", e.getMessage());
+			assertEquals("Descrição inválida. Máximo de 25 caracteres.", e.getMessage());
 		}
 		
 		try {
@@ -88,7 +88,7 @@ public class TestaConta {
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
-			assertEquals("Descrição inválida.", e.getMessage());
+			assertEquals("Descrição inválida. Máximo de 25 caracteres.", e.getMessage());
 		}
 		
 		try {
@@ -97,7 +97,7 @@ public class TestaConta {
 					"Mensal", "provento");
 			fail("Esperava excecao");
 		} catch (Exception e) {
-			assertEquals("Descrição inválida.", e.getMessage());
+			assertEquals("Descrição inválida. Máximo de 25 caracteres.", e.getMessage());
 		}
 	}
 	

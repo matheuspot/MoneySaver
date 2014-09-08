@@ -28,7 +28,7 @@ public class Relatorio {
 		
 		for (Transacao transacao : transacoes) {
 			if (transacao.getDataDeInsercao().getMonthValue() < mesInicial
-					&& transacao.getDataDeInsercao().getMonthValue() > mesFinal)
+					|| transacao.getDataDeInsercao().getMonthValue() > mesFinal)
 				transacoesAuxiliar.remove(transacao);
 		}
 		transacoes = (ArrayList<Transacao>) transacoesAuxiliar.clone();
@@ -37,11 +37,11 @@ public class Relatorio {
 	public void filtraPorTipo(String tipoDaTransacao) {
 		
 		for (Transacao transacao : transacoes) {
-
-			if (tipoDaTransacao.equals("Despesa"))
+			
+			if (tipoDaTransacao.equals("despesa"))
 				if (transacao.getValor() > 0)
 					transacoesAuxiliar.remove(transacao);
-			else if (tipoDaTransacao.equals("Provento"))
+			else if (tipoDaTransacao.equals("provento"))
 
 				if (transacao.getValor() < 0)
 					transacoesAuxiliar.add(transacao);

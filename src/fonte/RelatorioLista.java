@@ -40,7 +40,7 @@ public class RelatorioLista {
 		}
 		return transacoesFinais;
 	}
-
+	
 	public List<List<Transacao>> listaCategorias(int mes) {
 		List<Categoria> categorias = usuarioAtivo.getCategorias();
 		List<Transacao> transacoesDoMes = usuarioAtivo.getContaAtiva()
