@@ -50,13 +50,13 @@ public class TestaRelatorio {
 	
 	@Test
 	public void testaFiltraPorDespesa() {
-		relatorio.filtraPorTipo("despesa");
+		relatorio.filtraPorTipo("Despesa");
 		assertTrue(relatorio.getListaFiltrada().get(0).equals(transacao2));
 	}
 	
 	@Test
 	public void testaFiltraPorProvento() {
-		relatorio.filtraPorTipo("provento");
+		relatorio.filtraPorTipo("Provento");
 		assertTrue(relatorio.getListaFiltrada().get(0).equals(transacao1));
 	}
 	
@@ -68,7 +68,7 @@ public class TestaRelatorio {
 	
 	@Test
 	public void testaFiltraPorTipo() {
-		relatorio.filtraPorTipo("despesa");
+		relatorio.filtraPorTipo("Despesa");
 		assertEquals(transacao2, relatorio.getListaFiltrada().get(0));
 	}
 
