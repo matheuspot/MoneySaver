@@ -4,7 +4,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Histograma implements Modo<List<Double>> {
-	private List<Double> valores;
+	private List<Double> valores = new ArrayList<Double>();
 
 	@Override
 	public List<Double> getTransacoesPreparada(
@@ -13,7 +13,6 @@ public class Histograma implements Modo<List<Double>> {
 		
 		for (int i = 1; i < 13; i++) {
 			
-			valores = new ArrayList<>();
 			valorTotal = 0;
 			
 			for (Transacao transacao : transacoesFiltrada) {

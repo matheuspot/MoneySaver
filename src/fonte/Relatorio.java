@@ -5,42 +5,46 @@ import java.util.List;
 
 public class Relatorio {
 
-	private List<Transacao> transacoes = new ArrayList<>();
+	private ArrayList<Transacao> transacoes;
+	private ArrayList<Transacao> transacoesAuxiliar;
 
 	public Relatorio(Conta contaAtiva) throws Exception {
-		transacoes = contaAtiva.getTransacoesExistentes();
+		transacoes = (ArrayList<Transacao>) contaAtiva.getTransacoesExistentes();
+		transacoesAuxiliar = (ArrayList<Transacao>) transacoes.clone();
+		
 		if (transacoes == null || transacoes.isEmpty())
 			throw new Exception("Conta sem transações.");
 	}
 
 	public void filtraPorCategoria(Categoria categoria) {
-		List<Transacao> transacoesTemp = new ArrayList<>();
-		
 		for (Transacao transacao : transacoes) {
-			if (categoria.equals(transacao.getCategoria()))
-				transacoesTemp.add(transacao);
+			if (!categoria.equals(transacao.getCategoria()))
+				transacoesAuxiliar.remove(transacao);
 		}
-		
-		transacoes = transacoesTemp;
+		transacoes = (ArrayList<Transacao>) transacoesAuxiliar.clone();
 	}
 
 	public void filtraPorData(int mesInicial, int mesFinal) {
+		
 		for (Transacao transacao : transacoes) {
 			if (transacao.getDataDeInsercao().getMonthValue() < mesInicial
-					|| transacao.getDataDeInsercao().getMonthValue() > mesFinal)
-				transacoes.remove(transacao);
+					&& transacao.getDataDeInsercao().getMonthValue() > mesFinal)
+				transacoesAuxiliar.remove(transacao);
 		}
+		transacoes = (ArrayList<Transacao>) transacoesAuxiliar.clone();
 	}
 
 	public void filtraPorTipo(String tipoDaTransacao) {
+		
 		for (Transacao transacao : transacoes) {
 			if (tipoDaTransacao == "despesa")
 				if (transacao.getValor() > 0)
-					transacoes.remove(transacao);
+					transacoesAuxiliar.remove(transacao);
 			else if (tipoDaTransacao == "provento")
 				if (transacao.getValor() < 0)
-					transacoes.remove(transacao);
+					transacoesAuxiliar.add(transacao);
 		}
+		transacoes = (ArrayList<Transacao>) transacoesAuxiliar.clone();
 	}
 	
 	public List<Transacao> getListaFiltrada() {

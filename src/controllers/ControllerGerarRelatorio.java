@@ -1,6 +1,7 @@
 package controllers;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.List;
 
 import fonte.Categoria;
@@ -63,6 +64,7 @@ public class ControllerGerarRelatorio {
     private ToggleGroup group = new ToggleGroup();
     private ToggleGroup group2 = new ToggleGroup();
     private List<Categoria> categorias;
+    private Relatorio relatorio;
     
     @FXML
 	void initialize() {
@@ -129,7 +131,7 @@ public class ControllerGerarRelatorio {
 					labelAviso.setText("Selecione um mês final que seja igual ou posterior ao mês inicial.");
 					labelAviso.setVisible(true);
 				} else {
-					Relatorio relatorio;
+					
 					try {
 						relatorio = new Relatorio(usuarioAtivo.getContaAtiva());
 						relatorio.filtraPorCategoria(cbCategoria.getSelectionModel().getSelectedItem());
@@ -140,19 +142,28 @@ public class ControllerGerarRelatorio {
 						String tipoRelatorio = (String) group2.getSelectedToggle().getUserData();
 						
 						if (tipoRelatorio.equals("histograma")){
+							List<String> meses = new ArrayList<String>();
+							
+							for (int i=0; i<12; i++){
+								if (i >= cbMesInicial.getSelectionModel().getSelectedIndex() &&
+										i <= cbMesFinal.getSelectionModel().getSelectedIndex()){
+									meses.add(ControllerOperacoesPrincipais.MESES[i]);
+								}
+							}
+							
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
-								controller.setUsuario(usuarioAtivo, relatorio);
+								controller.setUsuario(usuarioAtivo, relatorio, cbCategoria.getSelectionModel().getSelectedItem(),
+										(String) group.getSelectedToggle().getUserData(), meses);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
 							}	
 						}
 					} catch (Exception e) {
-						labelAviso.setText(e.getMessage());
-						labelAviso.setVisible(true);
+						e.printStackTrace();
 					}
 				}
 			}
