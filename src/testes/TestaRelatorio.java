@@ -47,7 +47,6 @@ public class TestaRelatorio {
 	@Test
 	public void testaFiltraPorCategoria() {
 		relatorio.filtraPorCategoria(categoria1);
-		System.out.println(relatorio.getListaFiltrada());
 		assertTrue(relatorio.getListaFiltrada().get(0).equals(transacao1));
 	}
 	
@@ -65,8 +64,7 @@ public class TestaRelatorio {
 	
 	@Test
 	public void testaFiltraPorData() {
-		relatorio.filtraPorData(1, 7);
-		System.out.println(relatorio.getListaFiltrada());
+		relatorio.filtraPorData(1, 3);
 		assertEquals(null, relatorio.getListaFiltrada().get(0));
 	}
 
