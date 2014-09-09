@@ -7,7 +7,7 @@
 
 <AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="320.0" prefWidth="488.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="controllers.ControllerTelaSobre">
    <children>
-      <Label alignment="CENTER" layoutX="47.0" layoutY="14.0" prefHeight="17.0" prefWidth="404.0" text="Software de controle de gastos desenvolvido para">
+      <Label alignment="CENTER" layoutX="42.0" layoutY="14.0" prefHeight="17.0" prefWidth="404.0" text="Software de controle financeiro desenvolvido para">
          <font>
             <Font name="Calibri" size="18.0" />
          </font>
