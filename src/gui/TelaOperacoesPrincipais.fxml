@@ -115,6 +115,11 @@
                               <Font name="Calibri" size="22.0" />
                            </font>
                         </Label>
+                        <AnchorPane prefHeight="12.0" prefWidth="299.0">
+                           <children>
+                              <Separator layoutY="-19.0" prefHeight="22.0" prefWidth="299.0" visible="false" />
+                           </children>
+                        </AnchorPane>
                      </children>
                   </VBox>
                </children>
