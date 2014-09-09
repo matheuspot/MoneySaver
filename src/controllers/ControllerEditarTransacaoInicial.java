@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import fonte.Categoria;
 import fonte.Transacao;
@@ -33,10 +31,8 @@ import javafx.util.Callback;
 
 public class ControllerEditarTransacaoInicial {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	private String[] meses = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private Tabela tabela;
 
     @FXML
@@ -77,11 +73,11 @@ public class ControllerEditarTransacaoInicial {
     	botaoVoltar.setOnAction(eventos);
     	botaoEditar.setOnAction(eventos);
     	tabela = new Tabela();
-    	cbMes.getItems().addAll(meses);
+    	cbMes.getItems().addAll(ControllerOperacoesPrincipais.MESES);
     	cbMes.valueProperty().addListener(tabela);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	tabela.criarTabela();
     }
@@ -89,28 +85,13 @@ public class ControllerEditarTransacaoInicial {
     private class Tabela implements ChangeListener<String>{
     	
     	private List<Transacao> transacoes = null;
-    	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
     	private ObservableList<Transacao> transacoes2;
     	
-    	public Tabela() {
-    		mapaMeses.put("Janeiro", 1);
-        	mapaMeses.put("Fevereiro", 2);
-        	mapaMeses.put("Março", 3);
-        	mapaMeses.put("Abril", 4);
-        	mapaMeses.put("Maio", 5);
-        	mapaMeses.put("Junho", 6);
-        	mapaMeses.put("Julho", 7);
-        	mapaMeses.put("Agosto", 8);
-        	mapaMeses.put("Setembro", 9);
-        	mapaMeses.put("Outubro", 10);
-        	mapaMeses.put("Novembro", 11);
-        	mapaMeses.put("Dezembro", 12);
-		}
-    	
-    	@Override 
+    	@SuppressWarnings("rawtypes")
+		@Override 
         public void changed(ObservableValue ov, String t, String t1) {  
     		try {
-				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+				transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(cbMes.getSelectionModel().getSelectedIndex()+1);
 			} catch (Exception e) {
 				e.printStackTrace();
 			}
@@ -252,7 +233,7 @@ public class ControllerEditarTransacaoInicial {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -267,7 +248,7 @@ public class ControllerEditarTransacaoInicial {
 						FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarTransacaoFinal.fxml"));     
 						Parent root = (Parent)fxmlLoader.load();          
 						ControllerEditarTransacaoFinal controller = fxmlLoader.<ControllerEditarTransacaoFinal>getController();
-						controller.setUsuario(usuarioAtivo, table.getSelectionModel().getSelectedItem());
+						controller.inicializa(usuarioAtivo, table.getSelectionModel().getSelectedItem());
 						content.getChildren().setAll(root);
 					} catch (IOException e) {
 						e.printStackTrace();

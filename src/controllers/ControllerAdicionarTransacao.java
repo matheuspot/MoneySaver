@@ -33,9 +33,9 @@ import fonte.Usuario;
 
 public class ControllerAdicionarTransacao {
 
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
 	@FXML
     private RadioButton rbProvento;
@@ -81,7 +81,6 @@ public class ControllerAdicionarTransacao {
 	void initialize() {
     	botaoVoltar.setOnAction(eventos);
     	botaoAdicionar.setOnAction(eventos);
-    	labelAviso.setVisible(false);
     	rbDespesa.setToggleGroup(group);
     	rbDespesa.setUserData("despesa");
     	rbProvento.setToggleGroup(group);
@@ -90,7 +89,7 @@ public class ControllerAdicionarTransacao {
     	cbRecorrencia.setItems(recorrencias);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
@@ -122,13 +121,13 @@ public class ControllerAdicionarTransacao {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}	
 			} else if (evento.getSource() == botaoAdicionar) {
-				boolean passouOrcamento = false;
+				boolean passouOrcamento;
 				
 				try{
 					passouOrcamento = usuarioAtivo.getContaAtiva().adicionaTransacao(tfDescricao.getText(), data.getValue(),
@@ -154,7 +153,7 @@ public class ControllerAdicionarTransacao {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarTransacao.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerAdicionarTransacao controller = 	fxmlLoader.<ControllerAdicionarTransacao>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -165,7 +164,7 @@ public class ControllerAdicionarTransacao {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

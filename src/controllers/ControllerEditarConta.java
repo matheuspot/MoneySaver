@@ -9,7 +9,6 @@ import org.controlsfx.dialog.Dialog.Actions;
 import fonte.GerenteDeUsuarios;
 import fonte.Usuario;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -23,9 +22,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerEditarConta {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoVoltar;
@@ -45,12 +44,7 @@ public class ControllerEditarConta {
     @FXML
     private TextField tfNome;
     
-    private ChangeListener<String> changeListener = new ChangeListener<String>() {
-        @Override 
-        public void changed(ObservableValue ov, String t, String t1) {                
-            tfNome.setText(t1); 
-        }    
-    };
+    private ChangeListener<String> changeListener = (ov, t, t1) -> tfNome.setText(t1);
     
     @FXML
    	void initialize() {
@@ -58,12 +52,11 @@ public class ControllerEditarConta {
     	botaoVoltar.setOnAction(eventos);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
     	cbContas.valueProperty().addListener(changeListener);
     }
-
    
     private class Eventos implements EventHandler<ActionEvent> {
 		
@@ -74,7 +67,7 @@ public class ControllerEditarConta {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -98,11 +91,12 @@ public class ControllerEditarConta {
 									tfNome.getText());
 							
 							gerente.atualizaSistema(usuarioAtivo);
+							
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarConta.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerEditarConta controller = fxmlLoader.<ControllerEditarConta>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -116,7 +110,7 @@ public class ControllerEditarConta {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarConta.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerEditarConta controller = fxmlLoader.<ControllerEditarConta>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

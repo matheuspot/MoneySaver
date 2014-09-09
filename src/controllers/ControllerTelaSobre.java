@@ -7,6 +7,8 @@ import javafx.stage.Stage;
 
 public class ControllerTelaSobre {
 
+	private Stage stage;
+	
     @FXML
     private Button botaoOk;
     
@@ -15,8 +17,6 @@ public class ControllerTelaSobre {
     	if (event.getSource() == botaoOk)
     		stage.close();
     }
-    
-    private Stage stage;
     
     public void setStage(Stage stage){
     	this.stage = stage;

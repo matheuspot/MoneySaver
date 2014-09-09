@@ -4,7 +4,6 @@ import java.io.IOException;
 import java.util.List;
 
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -31,9 +30,9 @@ import fonte.Usuario;
 
 public class ControllerEditarCategoria {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoVoltar;
@@ -42,10 +41,10 @@ public class ControllerEditarCategoria {
     private ColorPicker cor;
 
     @FXML
-    private ComboBox<Categoria> CBcategoria;
+    private ComboBox<Categoria> cbCategoria;
 
     @FXML
-    private TextField TFnome;
+    private TextField tfNome;
 
     @FXML
     private Button botaoEditar;
@@ -58,13 +57,10 @@ public class ControllerEditarCategoria {
     
     private List<Categoria> categorias;
     
-    private ChangeListener<Categoria> changeListener = new ChangeListener<Categoria>() {
-        @Override 
-        public void changed(ObservableValue ov, Categoria t, Categoria t1) {                
-            TFnome.setText(t1.getNome()); 
-            cor.setValue(Color.valueOf(t1.getCor()));
-        }    
-    };
+    private ChangeListener<Categoria> changeListener = (ov, t, t1) -> {                
+	    tfNome.setText(t1.getNome()); 
+	    cor.setValue(Color.valueOf(t1.getCor()));
+	};
     
     @FXML
 	void initialize() {
@@ -72,13 +68,13 @@ public class ControllerEditarCategoria {
     	botaoEditar.setOnAction(eventos);
 	}
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
-    	CBcategoria.valueProperty().addListener(changeListener);
-    	CBcategoria.getItems().addAll(categorias);
-    	CBcategoria.setCellFactory(
+    	cbCategoria.valueProperty().addListener(changeListener);
+    	cbCategoria.getItems().addAll(categorias);
+    	cbCategoria.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
     	            @Override public ListCell<Categoria> call(ListView<Categoria> param) {
     	                final ListCell<Categoria> cell = new ListCell<Categoria>() {
@@ -105,14 +101,14 @@ public class ControllerEditarCategoria {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}		
 			} else if (evento.getSource() == botaoEditar) {
 				
-				if (CBcategoria.getSelectionModel().getSelectedItem() == null){
+				if (cbCategoria.getSelectionModel().getSelectedItem() == null){
 					labelAviso.setText("Selecione uma categoria.");
 					labelAviso.setVisible(true);
 					
@@ -125,13 +121,14 @@ public class ControllerEditarCategoria {
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							usuarioAtivo.editaCategoria(CBcategoria.getSelectionModel().getSelectedItem(), TFnome.getText(), cor.getValue().toString());
+							usuarioAtivo.editaCategoria(cbCategoria.getSelectionModel().getSelectedItem(), tfNome.getText(), cor.getValue().toString());
 							gerente.atualizaSistema(usuarioAtivo);
+							
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerEditarCategoria controller = fxmlLoader.<ControllerEditarCategoria>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -145,7 +142,7 @@ public class ControllerEditarCategoria {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerEditarCategoria controller = fxmlLoader.<ControllerEditarCategoria>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -155,5 +152,4 @@ public class ControllerEditarCategoria {
 			}
 		}
 	}
-
 }

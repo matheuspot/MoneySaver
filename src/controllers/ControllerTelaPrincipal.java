@@ -30,19 +30,20 @@ import auxiliar.MoneySaverMail;
 
 public class ControllerTelaPrincipal {
 
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-	private EventHandler<KeyEvent> eventosTeclado = (EventHandler<KeyEvent>) new EventosTeclado();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<KeyEvent> eventosTeclado = (EventHandler<KeyEvent>) new EventosTeclado();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
+	private Stage stage;
 
 	@FXML
 	private Button botaoCadastrar;
 	@FXML
 	private Button botaoConectar;
 	@FXML
-	private PasswordField PFsenha;
+	private PasswordField pfSenha;
 	@FXML
-	private TextField TFemail;
+	private TextField tfEmail;
 	@FXML
 	private AnchorPane content;
 	@FXML
@@ -53,23 +54,19 @@ public class ControllerTelaPrincipal {
 	private MenuItem itemSobre;
 	@FXML
 	private MenuItem itemSair;
-	
-	private Stage stage;
 
 	@FXML
 	void initialize() {
 		botaoCadastrar.setOnAction(eventos);
 		botaoConectar.setOnAction(eventos);
-		PFsenha.setOnAction(eventos);
-		TFemail.setOnAction(eventos);
+		pfSenha.setOnAction(eventos);
+		tfEmail.setOnAction(eventos);
 		recuperarSenha.setOnAction(eventos);
 		itemSobre.setOnAction(eventos);
 		itemSair.setOnAction(eventos);
 		
-		labelAviso.setVisible(false);
-		
-		TFemail.setOnKeyPressed(eventosTeclado);
-		PFsenha.setOnKeyPressed(eventosTeclado);
+		tfEmail.setOnKeyPressed(eventosTeclado);
+		pfSenha.setOnKeyPressed(eventosTeclado);
 	}
 	
 	public void setStage(Stage stage){
@@ -92,12 +89,12 @@ public class ControllerTelaPrincipal {
 
 			else if (evento.getSource() == botaoConectar) {
 				try {
-					usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
+					usuarioAtivo = gerente.login(tfEmail.getText(), pfSenha.getText());
 					try {
 						FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 						Parent root = (Parent)fxmlLoader.load();          
 						ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-						controller.setUsuario(usuarioAtivo);
+						controller.inicializa(usuarioAtivo);
 						content.getChildren().setAll(root);
 					} catch (IOException e) {
 						e.printStackTrace();
@@ -120,36 +117,36 @@ public class ControllerTelaPrincipal {
 				        .showCommandLinks(links.get(2), links);
 				
 				if (resposta.textProperty().getValue().equals("Dica de senha")){
-					if (TFemail.getText() == null || TFemail.getText().trim().length() == 0){
+					if (tfEmail.getText() == null || tfEmail.getText().trim().length() == 0){
 						Dialogs.create().owner(null).title("MoneySaver")
 						.masthead(null).message("Preencha seu email no campo de login.")
 						.showInformation();
 					}
 					else {
-						if (gerente.pesquisaUsuario(TFemail.getText()) == null){
+						if (gerente.pesquisaUsuario(tfEmail.getText()) == null){
 							Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Usuário não cadastrado.")
 							.showInformation();
 						} else {
 							Dialogs.create().owner(null).title("MoneySaver")
-							.masthead(null).message("Dica de senha: " + gerente.pesquisaUsuario(TFemail.getText()).getDicaSenha())
+							.masthead(null).message("Dica de senha: " + gerente.pesquisaUsuario(tfEmail.getText()).getDicaSenha())
 							.showInformation();
 						}
 					}
 				} else if (resposta.textProperty().getValue().equals("Enviar senha por email")){
-					if (TFemail.getText() == null || TFemail.getText().trim().length() == 0){
+					if (tfEmail.getText() == null || tfEmail.getText().trim().length() == 0){
 						Dialogs.create().owner(null).title("MoneySaver")
 						.masthead(null).message("Preencha seu email no campo de login.")
 						.showInformation();
 					}
 					else {
-						if (gerente.pesquisaUsuario(TFemail.getText()) == null){
+						if (gerente.pesquisaUsuario(tfEmail.getText()) == null){
 							Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Usuário não cadastrado.")
 							.showInformation();
 						} else {
 							try {
-								MoneySaverMail.enviarEmail(TFemail.getText());
+								MoneySaverMail.enviarEmail(tfEmail.getText());
 								
 								Dialogs.create().owner(null).title("MoneySaver")
 								.masthead(null).message("A senha foi enviada para seu email.")
@@ -185,12 +182,12 @@ public class ControllerTelaPrincipal {
 		public void handle(KeyEvent keyEvent) {
 	         if (keyEvent.getCode() == KeyCode.ENTER) {
 	        	 try {
-						usuarioAtivo = gerente.login(TFemail.getText(), PFsenha.getText());
+						usuarioAtivo = gerente.login(tfEmail.getText(), pfSenha.getText());
 						try {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

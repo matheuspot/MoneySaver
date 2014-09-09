@@ -26,12 +26,12 @@
                         <Font name="Calibri" size="40.0" />
                      </font>
                   </Label>
-                  <TextField fx:id="TFemail" layoutX="180.0" layoutY="78.0" prefHeight="30.0" prefWidth="190.0" promptText="E-mail">
+                  <TextField fx:id="tfEmail" layoutX="180.0" layoutY="78.0" prefHeight="30.0" prefWidth="190.0" promptText="E-mail">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>
                   </TextField>
-                  <PasswordField fx:id="PFsenha" layoutX="180.0" layoutY="163.0" prefHeight="30.0" prefWidth="190.0" promptText="Senha">
+                  <PasswordField fx:id="pfSenha" layoutX="180.0" layoutY="163.0" prefHeight="30.0" prefWidth="190.0" promptText="Senha">
                      <font>
                         <Font name="Calibri" size="14.0" />
                      </font>

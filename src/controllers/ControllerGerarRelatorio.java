@@ -25,7 +25,7 @@ import javafx.util.Callback;
 
 public class ControllerGerarRelatorio {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
 
     @FXML
@@ -61,8 +61,8 @@ public class ControllerGerarRelatorio {
     @FXML
     private RadioButton rbProvento;
     
-    private ToggleGroup group = new ToggleGroup();
-    private ToggleGroup group2 = new ToggleGroup();
+    private ToggleGroup grupoTipoTransacao = new ToggleGroup();
+    private ToggleGroup grupoTipoRelatorio = new ToggleGroup();
     private List<Categoria> categorias;
     private Relatorio relatorio;
     
@@ -70,21 +70,21 @@ public class ControllerGerarRelatorio {
 	void initialize() {
     	botaoGerar.setOnAction(eventos);
     	botaoVoltar.setOnAction(eventos);
-    	rbDespesa.setToggleGroup(group);
+    	rbDespesa.setToggleGroup(grupoTipoTransacao);
     	rbDespesa.setUserData("Despesa");
-    	rbProvento.setToggleGroup(group);
+    	rbProvento.setToggleGroup(grupoTipoTransacao);
     	rbProvento.setUserData("Provento");
     	rbProvento.setSelected(true);
-    	rbHistograma.setToggleGroup(group2);
+    	rbHistograma.setToggleGroup(grupoTipoRelatorio);
     	rbHistograma.setUserData("histograma");
-    	rbLista.setToggleGroup(group2);
+    	rbLista.setToggleGroup(grupoTipoRelatorio);
     	rbLista.setUserData("lista");
     	rbLista.setSelected(true);
     	cbMesFinal.getItems().addAll(ControllerOperacoesPrincipais.MESES);
     	cbMesInicial.getItems().addAll(ControllerOperacoesPrincipais.MESES);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
@@ -116,7 +116,7 @@ public class ControllerGerarRelatorio {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -125,6 +125,7 @@ public class ControllerGerarRelatorio {
 				if (cbCategoria.getSelectionModel().getSelectedItem() == null ||
 						cbMesInicial.getSelectionModel().getSelectedItem() == null ||
 						cbMesFinal.getSelectionModel().getSelectedItem() == null){
+					
 					labelAviso.setText("Selecione todas as opções.");
 					labelAviso.setVisible(true);
 				} else if (cbMesInicial.getSelectionModel().getSelectedIndex() > cbMesFinal.getSelectionModel().getSelectedIndex()){
@@ -137,9 +138,9 @@ public class ControllerGerarRelatorio {
 						relatorio.filtraPorCategoria(cbCategoria.getSelectionModel().getSelectedItem());
 						relatorio.filtraPorData(cbMesInicial.getSelectionModel().getSelectedIndex()+1, 
 								cbMesFinal.getSelectionModel().getSelectedIndex()+1);
-						relatorio.filtraPorTipo((String) group.getSelectedToggle().getUserData());
+						relatorio.filtraPorTipo((String) grupoTipoTransacao.getSelectedToggle().getUserData());
 						
-						String tipoRelatorio = (String) group2.getSelectedToggle().getUserData();
+						String tipoRelatorio = (String) grupoTipoRelatorio.getSelectedToggle().getUserData();
 						
 						if (tipoRelatorio.equals("histograma")){
 							List<String> meses = new ArrayList<String>();
@@ -155,8 +156,8 @@ public class ControllerGerarRelatorio {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaHistograma.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerHistograma controller = fxmlLoader.<ControllerHistograma>getController();
-								controller.setUsuario(usuarioAtivo, relatorio, cbCategoria.getSelectionModel().getSelectedItem(),
-										(String) group.getSelectedToggle().getUserData(), meses,
+								controller.inicializa(usuarioAtivo, relatorio, cbCategoria.getSelectionModel().getSelectedItem(),
+										(String) grupoTipoTransacao.getSelectedToggle().getUserData(), meses,
 										cbMesInicial.getSelectionModel().getSelectedIndex(),
 										cbMesFinal.getSelectionModel().getSelectedIndex());
 								content.getChildren().setAll(root);
@@ -168,7 +169,7 @@ public class ControllerGerarRelatorio {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaLista.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerLista controller = fxmlLoader.<ControllerLista>getController();
-								controller.setUsuario(usuarioAtivo, relatorio);
+								controller.inicializa(usuarioAtivo, relatorio);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();

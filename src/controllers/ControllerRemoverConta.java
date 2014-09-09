@@ -20,9 +20,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerRemoverConta {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoVoltar;
@@ -45,12 +45,12 @@ public class ControllerRemoverConta {
     	botaoVoltar.setOnAction(eventos);
     }
    
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
     }
     
-private class Eventos implements EventHandler<ActionEvent> {
+    private class Eventos implements EventHandler<ActionEvent> {
 		
 		@Override
 		public void handle(ActionEvent evento) {
@@ -59,7 +59,7 @@ private class Eventos implements EventHandler<ActionEvent> {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -87,7 +87,7 @@ private class Eventos implements EventHandler<ActionEvent> {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverConta.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerRemoverConta controller = fxmlLoader.<ControllerRemoverConta>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -101,7 +101,7 @@ private class Eventos implements EventHandler<ActionEvent> {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverConta.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerRemoverConta controller = fxmlLoader.<ControllerRemoverConta>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -111,5 +111,4 @@ private class Eventos implements EventHandler<ActionEvent> {
 			}
 		}
 	}
-
 }

@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -35,70 +33,69 @@ public class ControllerOperacoesPrincipais {
 	
 	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 	private Usuario usuarioAtivo;
-	public final static String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
-    		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
     private Tabela tabela;
-	
+    public final static String[] MESES = {"Janeiro", "Fevereiro", "Março", "Abril", "Maio", "Junho",
+		"Julho", "Agosto", "Setembro", "Outubro", "Novembro", "Dezembro"};
 
-	    @FXML
-	    private Label labelSaldo;
+	@FXML
+	private Label labelSaldo;
 
-	    @FXML
-	    private Button botaoSair;
+	@FXML
+	private Button botaoSair;
 	    
-	    @FXML
-	    private AnchorPane content;
+	@FXML
+	private AnchorPane content;
 	    
-	    @FXML
-	    private TableView<Transacao> table;
+	@FXML
+	private TableView<Transacao> table;
 	    
-	    @FXML
-	    private TableColumn<Transacao, Double> colunaValor;
+	@FXML
+	private TableColumn<Transacao, Double> colunaValor;
 	    
-	    @FXML
-	    private TableColumn<Transacao, LocalDate> colunaData;
+	@FXML
+	private TableColumn<Transacao, LocalDate> colunaData;
 	    
-	    @FXML
-	    private ComboBox<String> CBmes;
+	@FXML
+	private ComboBox<String> cbMes;
 	    
-	    @FXML
-	    private MenuItem editarTransacao;
+	@FXML
+	private MenuItem editarTransacao;
 
-	    @FXML
-	    private MenuItem adicionarConta;
+	@FXML
+	private MenuItem adicionarConta;
 	    
-	    @FXML
-	    private MenuItem removerTransacao;
+	@FXML
+	private MenuItem removerTransacao;
 
-	    @FXML
-	    private MenuItem adicionarTransacao;
+	@FXML
+	private MenuItem adicionarTransacao;
 
-	    @FXML
-	    private MenuItem editarCategoria;
+	@FXML
+	private MenuItem editarCategoria;
 	    
-	    @FXML
-	    private MenuItem removerConta;
+	@FXML
+	private MenuItem removerConta;
 
-	    @FXML
-	    private MenuItem adicionarCategoria;
+	@FXML
+	private MenuItem adicionarCategoria;
 
-	    @FXML
-	    private ComboBox<String> cbContas;
+	@FXML
+	private ComboBox<String> cbContas;
 	    
-	    @FXML
-	    private MenuItem adicionarOrcamento;
+	@FXML
+	private MenuItem adicionarOrcamento;
 
-	    @FXML
-	    private MenuItem editarConta;
+	@FXML
+	private MenuItem editarConta;
 
-	    @FXML
-	    private MenuItem removerCategoria;
-	    
-	    @FXML
-	    private Label saldoMes;
-	    
-	    @FXML
-	    private Button botaoRelatorio;
+	@FXML
+	private MenuItem removerCategoria;
+
+	@FXML
+	private Label saldoMes;
+
+	@FXML
+	private Button botaoRelatorio;
 	   
 	    
     @FXML
@@ -115,12 +112,12 @@ public class ControllerOperacoesPrincipais {
     	adicionarOrcamento.setOnAction(eventos);
     	botaoSair.setOnAction(eventos);
     	tabela = new Tabela();
-    	CBmes.getItems().addAll(MESES);
-    	CBmes.valueProperty().addListener(tabela);
+    	cbMes.getItems().addAll(MESES);
+    	cbMes.valueProperty().addListener(tabela);
     	botaoRelatorio.setOnAction(eventos);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	usuarioAtivo.getContaAtiva().atualizaRecorrencias();
     	cbContas.getItems().addAll(usuarioAtivo.listaNomeContas());
@@ -132,45 +129,30 @@ public class ControllerOperacoesPrincipais {
     private class Tabela implements ChangeListener<String>{
     	
     	private List<Transacao> transacoes = null;
-    	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
     	private ObservableList<Transacao> transacoes2;
     	
-    	public Tabela() {
-    		mapaMeses.put("Janeiro", 1);
-        	mapaMeses.put("Fevereiro", 2);
-        	mapaMeses.put("Março", 3);
-        	mapaMeses.put("Abril", 4);
-        	mapaMeses.put("Maio", 5);
-        	mapaMeses.put("Junho", 6);
-        	mapaMeses.put("Julho", 7);
-        	mapaMeses.put("Agosto", 8);
-        	mapaMeses.put("Setembro", 9);
-        	mapaMeses.put("Outubro", 10);
-        	mapaMeses.put("Novembro", 11);
-        	mapaMeses.put("Dezembro", 12);
-		}
-    	
-    	@Override 
+    	@SuppressWarnings("rawtypes")
+		@Override 
         public void changed(ObservableValue ov, String t, String t1) { 
-    		boolean conta = false;
+    		boolean contaSelecionada = false;
     		
     		usuarioAtivo.pesquisaConta(t1);
     		
     		for(String nomeConta : usuarioAtivo.listaNomeContas()){
     			if (ov.getValue().equals(nomeConta)){
-    				conta = true;
+    				contaSelecionada = true;
     				break;
     			}
     		}
     			
-    		if (conta){
+    		if (contaSelecionada){
     			transacoes = usuarioAtivo.getContaAtiva().getTransacoesExistentes();
     			labelSaldo.setVisible(false);
     			saldoMes.setVisible(false);
     			
     		} else {
-    			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
-    			labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().pegaSaldoDoMes(mapaMeses.get(t1))));
+    			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(cbMes.getSelectionModel().getSelectedIndex()+1);
+    			labelSaldo.setText(String.format("R$ %.2f", usuarioAtivo.getContaAtiva().pegaSaldoDoMes(cbMes.getSelectionModel().getSelectedIndex()+1)));
     			labelSaldo.setVisible(true);
     			saldoMes.setVisible(true);
     		}
@@ -259,7 +241,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarTransacao.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionarTransacao controller = fxmlLoader.<ControllerAdicionarTransacao>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -267,8 +249,7 @@ public class ControllerOperacoesPrincipais {
 			} else if (evento.getSource() == botaoSair) {
 				try {
 					content.getChildren().setAll(
-							FXMLLoader.load(getClass().getResource(
-									"../gui/TelaPrincipal.fxml")));
+							FXMLLoader.load(getClass().getResource("../gui/TelaPrincipal.fxml")));
 				} catch (IOException e) {
 					e.printStackTrace();
 				}
@@ -277,7 +258,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarCategoria.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionaCategoria controller = fxmlLoader.<ControllerAdicionaCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -287,7 +268,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverCategoria.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -297,7 +278,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarCategoria.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerEditarCategoria controller = fxmlLoader.<ControllerEditarCategoria>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -307,7 +288,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverTransacao.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerRemoverTransacao controller = fxmlLoader.<ControllerRemoverTransacao>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -317,7 +298,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarTransacaoInicial.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerEditarTransacaoInicial controller = fxmlLoader.<ControllerEditarTransacaoInicial>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -327,7 +308,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaGerarRelatorio.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();  
 					ControllerGerarRelatorio controller = fxmlLoader.<ControllerGerarRelatorio>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -337,7 +318,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -347,7 +328,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaAdicionarConta.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerAdicionarConta controller = fxmlLoader.<ControllerAdicionarConta>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -357,7 +338,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaRemoverConta.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerRemoverConta controller = fxmlLoader.<ControllerRemoverConta>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -367,7 +348,7 @@ public class ControllerOperacoesPrincipais {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarConta.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerEditarConta controller = fxmlLoader.<ControllerEditarConta>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();

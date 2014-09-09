@@ -96,7 +96,7 @@
                         </Label>
                         <Pane prefHeight="41.0" prefWidth="289.0">
                            <children>
-                              <ComboBox fx:id="CBmes" layoutX="85.0" layoutY="8.0" prefHeight="25.0" prefWidth="120.0" promptText="Mês" />
+                              <ComboBox fx:id="cbMes" layoutX="85.0" layoutY="8.0" prefHeight="25.0" prefWidth="120.0" promptText="Mês" />
                            </children>
                         </Pane>
                         <TableView fx:id="table" layoutX="15.0" layoutY="99.0" prefHeight="253.0" prefWidth="289.0">

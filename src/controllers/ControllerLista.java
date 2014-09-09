@@ -31,7 +31,7 @@ import javafx.util.Callback;
 public class ControllerLista {
 	
 	private Usuario usuarioAtivo;
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 
     @FXML
     private Label labelAviso;
@@ -66,10 +66,12 @@ public class ControllerLista {
 		botaoVoltar.setOnAction(eventos);
 	}
     
-    public void setUsuario(Usuario usuario, Relatorio relatorio){
+    public void inicializa(Usuario usuario, Relatorio relatorio){
     	usuarioAtivo = usuario;
     	Lista lista = new Lista();
-    	List<Transacao> transacoes = (List<Transacao>) relatorio.getTransacoesPreparadas(lista);
+    	
+    	@SuppressWarnings("unchecked")
+		List<Transacao> transacoes = (List<Transacao>) relatorio.getTransacoesPreparadas(lista);
     	
     	colunaValor.setCellValueFactory(new PropertyValueFactory<Transacao, Double>("valor"));
     	colunaValor.setCellFactory(new Callback<TableColumn<Transacao, Double>, TableCell<Transacao,Double>>(){
@@ -193,7 +195,7 @@ public class ControllerLista {
 					Parent root = (Parent) fxmlLoader.load();
 					ControllerGerarRelatorio controller = fxmlLoader
 							.<ControllerGerarRelatorio> getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -201,5 +203,4 @@ public class ControllerLista {
 			}
 		}
     }
-
 }

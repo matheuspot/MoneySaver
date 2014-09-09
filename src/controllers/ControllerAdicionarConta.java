@@ -20,9 +20,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerAdicionarConta {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoAdicionar;
@@ -45,7 +45,7 @@ public class ControllerAdicionarConta {
     	botaoVoltar.setOnAction(eventos);
     }
    
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     }
 
@@ -58,7 +58,7 @@ public class ControllerAdicionarConta {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -78,7 +78,7 @@ public class ControllerAdicionarConta {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarConta.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerAdicionarConta controller = 	fxmlLoader.<ControllerAdicionarConta>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -89,7 +89,7 @@ public class ControllerAdicionarConta {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -100,7 +100,6 @@ public class ControllerAdicionarConta {
 					labelAviso.setVisible(true);
 				}
 			}
-			
 		}
 	}
 }

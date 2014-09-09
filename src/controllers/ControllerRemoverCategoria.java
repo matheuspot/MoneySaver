@@ -27,15 +27,15 @@ import fonte.Usuario;
 
 public class ControllerRemoverCategoria {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoVoltar;
 
     @FXML
-    private ComboBox<Categoria> CBcategorias;
+    private ComboBox<Categoria> cbCategorias;
 
     @FXML
     private Label labelAviso;
@@ -52,15 +52,14 @@ public class ControllerRemoverCategoria {
 	void initialize() {
 		botaoVoltar.setOnAction(eventos);
     	botaoRemover.setOnAction(eventos);
-    	labelAviso.setVisible(false);
 	}
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
-    	CBcategorias.getItems().addAll(categorias);
-    	CBcategorias.setCellFactory(
+    	cbCategorias.getItems().addAll(categorias);
+    	cbCategorias.setCellFactory(
     	        new Callback<ListView<Categoria>, ListCell<Categoria>>() {
     	            @Override public ListCell<Categoria> call(ListView<Categoria> param) {
     	                final ListCell<Categoria> cell = new ListCell<Categoria>() {
@@ -87,14 +86,14 @@ public class ControllerRemoverCategoria {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
 				}		
 			} else if (evento.getSource() == botaoRemover) {
 				
-				if (CBcategorias.getSelectionModel().getSelectedItem() == null){
+				if (cbCategorias.getSelectionModel().getSelectedItem() == null){
 					labelAviso.setText("Selecione uma categoria.");
 					labelAviso.setVisible(true);
 					
@@ -107,13 +106,13 @@ public class ControllerRemoverCategoria {
 					
 					if (resposta == Dialog.Actions.YES){
 						try{						
-							usuarioAtivo.removeCategoria(CBcategorias.getSelectionModel().getSelectedItem());
+							usuarioAtivo.removeCategoria(cbCategorias.getSelectionModel().getSelectedItem());
 							gerente.atualizaSistema(usuarioAtivo);
 							try {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -127,7 +126,7 @@ public class ControllerRemoverCategoria {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerRemoverCategoria controller = fxmlLoader.<ControllerRemoverCategoria>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

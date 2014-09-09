@@ -23,7 +23,7 @@ import fonte.Usuario;
 public class ControllerHistograma {
 	
 	private Usuario usuarioAtivo;
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 
 	@FXML
 	private BarChart<String, Number> tabelaHistograma;
@@ -45,12 +45,14 @@ public class ControllerHistograma {
 		botaoVoltar.setOnAction(eventos);
 	}
 
-	public void setUsuario(Usuario usuario, Relatorio relatorio, Categoria categoria, String tipoTransacao, List<String> meses,
+	public void inicializa(Usuario usuario, Relatorio relatorio, Categoria categoria, String tipoTransacao, List<String> meses,
 			int posicaoInicial, int posicaoFinal) {
 		usuarioAtivo = usuario;
 		double maiorValor = 0;
 		
 		Histograma histograma = new Histograma();
+		
+		@SuppressWarnings("unchecked")
 		List<Double> valores = (List<Double>) relatorio.getTransacoesPreparadas(histograma);
 		List<Double> valores2 = valores.subList(posicaoInicial, posicaoFinal+1);
 		
@@ -71,7 +73,7 @@ public class ControllerHistograma {
 		eixoY.setUpperBound(maiorValor);
 		eixoY.setTickUnit(10);
 
-		tabelaHistograma.getData().addAll(series1);
+		tabelaHistograma.getData().add(series1);
 	}
 
 	private class Eventos implements EventHandler<ActionEvent> {
@@ -83,9 +85,8 @@ public class ControllerHistograma {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 							.getResource("../gui/TelaGerarRelatorio.fxml"));
 					Parent root = (Parent) fxmlLoader.load();
-					ControllerGerarRelatorio controller = fxmlLoader
-							.<ControllerGerarRelatorio> getController();
-					controller.setUsuario(usuarioAtivo);
+					ControllerGerarRelatorio controller = fxmlLoader.<ControllerGerarRelatorio> getController();
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();

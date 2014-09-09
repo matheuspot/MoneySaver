@@ -3,9 +3,7 @@ package controllers;
 import java.io.IOException;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.controlsfx.dialog.Dialog;
 import org.controlsfx.dialog.Dialogs;
@@ -38,10 +36,10 @@ import javafx.util.Callback;
 
 public class ControllerRemoverTransacao {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
     private Tabela tabela;
-    private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private ComboBox<String> cbMes;
@@ -85,7 +83,7 @@ public class ControllerRemoverTransacao {
     	cbMes.valueProperty().addListener(tabela);
     }
     
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	tabela.criarTabela();
     }
@@ -93,27 +91,12 @@ public class ControllerRemoverTransacao {
     private class Tabela implements ChangeListener<String>{
     	
     	private List<Transacao> transacoes = null;
-    	private Map<String, Integer> mapaMeses = new HashMap<String, Integer>();
     	private ObservableList<Transacao> transacoes2;
     	
-    	public Tabela() {
-    		mapaMeses.put("Janeiro", 1);
-        	mapaMeses.put("Fevereiro", 2);
-        	mapaMeses.put("Março", 3);
-        	mapaMeses.put("Abril", 4);
-        	mapaMeses.put("Maio", 5);
-        	mapaMeses.put("Junho", 6);
-        	mapaMeses.put("Julho", 7);
-        	mapaMeses.put("Agosto", 8);
-        	mapaMeses.put("Setembro", 9);
-        	mapaMeses.put("Outubro", 10);
-        	mapaMeses.put("Novembro", 11);
-        	mapaMeses.put("Dezembro", 12);
-		}
-    	
-    	@Override 
+    	@SuppressWarnings("rawtypes")
+		@Override 
         public void changed(ObservableValue ov, String t, String t1) {  
-			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(mapaMeses.get(t1));
+			transacoes = usuarioAtivo.getContaAtiva().listaTransacoesPeloMes(cbMes.getSelectionModel().getSelectedIndex()+1);
         	criarTabela();
         }  
     	
@@ -252,7 +235,7 @@ public class ControllerRemoverTransacao {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -277,7 +260,7 @@ public class ControllerRemoverTransacao {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverTransacao.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerRemoverTransacao controller = fxmlLoader.<ControllerRemoverTransacao>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -291,7 +274,7 @@ public class ControllerRemoverTransacao {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaRemoverTransacao.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerRemoverTransacao controller = fxmlLoader.<ControllerRemoverTransacao>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

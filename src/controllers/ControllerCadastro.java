@@ -19,20 +19,20 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerCadastro {
 
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
-	private EventHandler<KeyEvent> eventosTeclado = (EventHandler<KeyEvent>) new EventosTeclado();
-	private GerenteDeUsuarios gerenteUsuario = new GerenteDeUsuarios();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<KeyEvent> eventosTeclado = (EventHandler<KeyEvent>) new EventosTeclado();
+	private final GerenteDeUsuarios gerenteUsuario = new GerenteDeUsuarios();
 
 	@FXML
-	private PasswordField PFsenha;
+	private PasswordField pfSenha;
 	@FXML
-	private TextField TFdicaSenha;
+	private TextField tfDicaSenha;
 	@FXML
-	private PasswordField PFconfirmacaoSenha;
+	private PasswordField pfConfirmacaoSenha;
 	@FXML
-	private TextField TFnome;
+	private TextField tfNome;
 	@FXML
-	private TextField TFemail;
+	private TextField tfEmail;
 	@FXML
 	private Button botaoCadastrar;
 	@FXML
@@ -46,23 +46,21 @@ public class ControllerCadastro {
 
 	@FXML
 	void initialize() {
-		TFnome.setOnAction(eventos);
-		TFemail.setOnAction(eventos);
-		PFsenha.setOnAction(eventos);
-		TFdicaSenha.setOnAction(eventos);
-		PFconfirmacaoSenha.setOnAction(eventos);
+		tfNome.setOnAction(eventos);
+		tfEmail.setOnAction(eventos);
+		pfSenha.setOnAction(eventos);
+		tfDicaSenha.setOnAction(eventos);
+		pfConfirmacaoSenha.setOnAction(eventos);
 		botaoCadastrar.setOnAction(eventos);
 		botaoVoltar.setOnAction(eventos);
 		tfConta.setOnAction(eventos);
 		
-		labelAviso.setVisible(false);
-		
-		TFdicaSenha.setOnKeyPressed(eventosTeclado);
-		TFemail.setOnKeyPressed(eventosTeclado);
-		TFnome.setOnKeyPressed(eventosTeclado);
+		tfDicaSenha.setOnKeyPressed(eventosTeclado);
+		tfEmail.setOnKeyPressed(eventosTeclado);
+		tfNome.setOnKeyPressed(eventosTeclado);
 		tfConta.setOnKeyPressed(eventosTeclado);
-		PFsenha.setOnKeyPressed(eventosTeclado);
-		PFconfirmacaoSenha.setOnKeyPressed(eventosTeclado);
+		pfSenha.setOnKeyPressed(eventosTeclado);
+		pfConfirmacaoSenha.setOnKeyPressed(eventosTeclado);
 	}
 	
 	private class EventosTeclado implements EventHandler<KeyEvent> {
@@ -70,9 +68,9 @@ public class ControllerCadastro {
 		public void handle(KeyEvent keyEvent) {
 	         if (keyEvent.getCode() == KeyCode.ENTER) {
 	        	 try {
-	        		 gerenteUsuario.adicionaUsuario(TFnome.getText(),
-								TFemail.getText(), PFsenha.getText(),
-								PFconfirmacaoSenha.getText(), TFdicaSenha.getText(), tfConta.getText());
+	        		 gerenteUsuario.adicionaUsuario(tfNome.getText(),
+								tfEmail.getText(), pfSenha.getText(),
+								pfConfirmacaoSenha.getText(), tfDicaSenha.getText(), tfConta.getText());
 						
 	        		 Dialogs.create().owner(null).title("MoneySaver")
 								.masthead(null).message("Cadastro efetuado!")
@@ -99,9 +97,10 @@ public class ControllerCadastro {
 			if (evento.getSource() == botaoCadastrar) {
 
 				try {
-					gerenteUsuario.adicionaUsuario(TFnome.getText(),
-							TFemail.getText(), PFsenha.getText(),
-							PFconfirmacaoSenha.getText(), TFdicaSenha.getText(), tfConta.getText());
+					gerenteUsuario.adicionaUsuario(tfNome.getText(),
+							tfEmail.getText(), pfSenha.getText(),
+							pfConfirmacaoSenha.getText(), tfDicaSenha.getText(), tfConta.getText());
+					
 					Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Cadastro efetuado!")
 							.showInformation();

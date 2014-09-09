@@ -21,9 +21,9 @@ import javafx.scene.layout.AnchorPane;
 
 public class ControllerAdicionaCategoria {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	
 	@FXML
     private Button botaoAdicionar;
@@ -49,7 +49,7 @@ public class ControllerAdicionaCategoria {
     	botaoAdicionar.setOnAction(eventos);
 	}
 	
-	public void setUsuario(Usuario usuario){
+	public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     }
 	
@@ -62,7 +62,7 @@ public class ControllerAdicionaCategoria {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -81,8 +81,8 @@ public class ControllerAdicionaCategoria {
 						try {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarCategoria.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
-							ControllerAdicionaCategoria controller = 	fxmlLoader.<ControllerAdicionaCategoria>getController();
-							controller.setUsuario(usuarioAtivo);
+							ControllerAdicionaCategoria controller = fxmlLoader.<ControllerAdicionaCategoria>getController();
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -93,7 +93,7 @@ public class ControllerAdicionaCategoria {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

@@ -12,8 +12,8 @@
             <Font name="Calibri" size="36.0" />
          </font>
       </Label>
-      <ComboBox fx:id="CBcategoria" layoutX="225.0" layoutY="155.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
-      <TextField fx:id="TFnome" layoutX="135.0" layoutY="225.0" prefHeight="30.0" prefWidth="150.0" promptText="Nome">
+      <ComboBox fx:id="cbCategoria" layoutX="225.0" layoutY="155.0" prefHeight="30.0" prefWidth="150.0" promptText="Categoria" />
+      <TextField fx:id="tfNome" layoutX="135.0" layoutY="225.0" prefHeight="30.0" prefWidth="150.0" promptText="Nome">
          <font>
             <Font name="Calibri" size="14.0" />
          </font>

@@ -27,9 +27,9 @@ import javafx.util.Callback;
 
 public class ControllerAdicionarOrcamento {
 	
-	private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+	private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 	private Usuario usuarioAtivo;
-	private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
 
     @FXML
     private Button botaoAdicionar;
@@ -50,7 +50,6 @@ public class ControllerAdicionarOrcamento {
     private AnchorPane content;
     
     private List<Categoria> categorias;
-    
 
     @FXML
    	void initialize() {
@@ -58,7 +57,7 @@ public class ControllerAdicionarOrcamento {
        	botaoAdicionar.setOnAction(eventos);
    	}
    
-    public void setUsuario(Usuario usuario){
+    public void inicializa(Usuario usuario){
     	usuarioAtivo = usuario;
     	
     	categorias = usuarioAtivo.getCategorias();
@@ -90,7 +89,7 @@ public class ControllerAdicionarOrcamento {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -116,7 +115,7 @@ public class ControllerAdicionarOrcamento {
 								FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 								Parent root = (Parent)fxmlLoader.load();          
 								ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
-								controller.setUsuario(usuarioAtivo);
+								controller.inicializa(usuarioAtivo);
 								content.getChildren().setAll(root);
 							} catch (IOException e) {
 								e.printStackTrace();
@@ -130,7 +129,7 @@ public class ControllerAdicionarOrcamento {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaAdicionarOrcamento.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerAdicionarOrcamento controller = fxmlLoader.<ControllerAdicionarOrcamento>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();

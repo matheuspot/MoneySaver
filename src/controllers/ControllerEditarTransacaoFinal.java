@@ -66,26 +66,25 @@ public class ControllerEditarTransacaoFinal {
     @FXML
     private TextField tfDescricao;
     
-    private EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
+    private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
     
     private Transacao transacaoParaEditar;
     
     private Usuario usuarioAtivo;
 
-    private ToggleGroup group = new ToggleGroup();
+    private final ToggleGroup group = new ToggleGroup();
     
     private List<Categoria> categorias;
     
     private final ObservableList<String> recorrencias =
 		    FXCollections.observableArrayList("Nenhuma", "Semanal",	"Mensal");   
     
-    private GerenteDeUsuarios gerente = new GerenteDeUsuarios();
+    private final GerenteDeUsuarios gerente = new GerenteDeUsuarios();
     
     @FXML
 	void initialize() {
     	botaoVoltar.setOnAction(eventos);
     	botaoEditar.setOnAction(eventos);
-    	labelAviso.setVisible(false);
     	rbDespesa.setToggleGroup(group);
     	rbDespesa.setUserData("despesa");
     	rbProvento.setToggleGroup(group);
@@ -93,7 +92,7 @@ public class ControllerEditarTransacaoFinal {
     	cbRecorrencia.setItems(recorrencias);
     }
     
-    public void setUsuario(Usuario usuario, Transacao transacao){
+    public void inicializa(Usuario usuario, Transacao transacao){
     	usuarioAtivo = usuario;
     	transacaoParaEditar = transacao;
     	
@@ -120,6 +119,7 @@ public class ControllerEditarTransacaoFinal {
     	data.setValue(transacao.getDataDeInsercao());
     	cbCategoria.setValue(transacao.getCategoria());
     	cbRecorrencia.setValue(transacao.getRecorrencia());
+    	
     	if (transacao.getValor() < 0){
     		group.selectToggle(rbDespesa);
     		tfValor.setText(String.valueOf(Math.abs(transacao.getValor())));
@@ -138,7 +138,7 @@ public class ControllerEditarTransacaoFinal {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaEditarTransacaoInicial.fxml"));     
 					Parent root = (Parent)fxmlLoader.load();          
 					ControllerEditarTransacaoInicial controller = fxmlLoader.<ControllerEditarTransacaoInicial>getController();
-					controller.setUsuario(usuarioAtivo);
+					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {
 					e.printStackTrace();
@@ -163,7 +163,7 @@ public class ControllerEditarTransacaoFinal {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass	().getResource("../gui/TelaEditarTransacaoInicial.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerEditarTransacaoInicial controller = 	fxmlLoader.<ControllerEditarTransacaoInicial>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
@@ -174,7 +174,7 @@ public class ControllerEditarTransacaoFinal {
 							FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../gui/TelaOperacoesPrincipais.fxml"));     
 							Parent root = (Parent)fxmlLoader.load();          
 							ControllerOperacoesPrincipais controller = fxmlLoader.<ControllerOperacoesPrincipais>getController();
-							controller.setUsuario(usuarioAtivo);
+							controller.inicializa(usuarioAtivo);
 							content.getChildren().setAll(root);
 						} catch (IOException e) {
 							e.printStackTrace();
