@@ -2,7 +2,6 @@ package controllers;
 
 import java.io.IOException;
 import java.util.List;
-
 import javafx.collections.FXCollections;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -21,13 +20,13 @@ import fonte.Relatorio;
 import fonte.Usuario;
 
 public class ControllerHistograma {
-	
+
 	private Usuario usuarioAtivo;
 	private final EventHandler<ActionEvent> eventos = (EventHandler<ActionEvent>) new Eventos();
 
 	@FXML
 	private BarChart<String, Number> tabelaHistograma;
-	
+
 	@FXML
 	private Button botaoVoltar;
 
@@ -45,30 +44,32 @@ public class ControllerHistograma {
 		botaoVoltar.setOnAction(eventos);
 	}
 
-	public void inicializa(Usuario usuario, Relatorio relatorio, Categoria categoria, String tipoTransacao, List<String> meses,
+	public void inicializa(Usuario usuario, Relatorio relatorio,
+			Categoria categoria, String tipoTransacao, List<String> meses,
 			int posicaoInicial, int posicaoFinal) {
 		usuarioAtivo = usuario;
 		double maiorValor = 0;
-		
+
 		Histograma histograma = new Histograma();
-		
+
 		@SuppressWarnings("unchecked")
-		List<Double> valores = (List<Double>) relatorio.getTransacoesPreparadas(histograma);
-		List<Double> valores2 = valores.subList(posicaoInicial, posicaoFinal+1);
-		
+		List<Double> valores = (List<Double>) relatorio
+				.getTransacoesPreparadas(histograma);
+		List<Double> valores2 = valores.subList(posicaoInicial,
+				posicaoFinal + 1);
+
 		XYChart.Series<String, Number> series1 = new XYChart.Series<String, Number>();
 		series1.setName(tipoTransacao + " / " + categoria.getNome());
-		eixoX.setCategories(FXCollections
-				.observableArrayList(meses));
-		
+		eixoX.setCategories(FXCollections.observableArrayList(meses));
+
 		for (int i = 0; i < meses.size(); i++) {
 			series1.getData().add(
-					new XYChart.Data<String, Number>(
-							meses.get(i), valores2.get(i).doubleValue()));
+					new XYChart.Data<String, Number>(meses.get(i), valores2
+							.get(i).doubleValue()));
 			if (valores2.get(i).doubleValue() > maiorValor)
 				maiorValor = valores2.get(i).doubleValue();
 		}
-		
+
 		eixoY.setAutoRanging(false);
 		eixoY.setUpperBound(maiorValor);
 		eixoY.setTickUnit(10);
@@ -77,7 +78,7 @@ public class ControllerHistograma {
 	}
 
 	private class Eventos implements EventHandler<ActionEvent> {
-		
+
 		@Override
 		public void handle(ActionEvent evento) {
 			if (evento.getSource() == botaoVoltar) {
@@ -85,7 +86,8 @@ public class ControllerHistograma {
 					FXMLLoader fxmlLoader = new FXMLLoader(getClass()
 							.getResource("../gui/TelaGerarRelatorio.fxml"));
 					Parent root = (Parent) fxmlLoader.load();
-					ControllerGerarRelatorio controller = fxmlLoader.<ControllerGerarRelatorio> getController();
+					ControllerGerarRelatorio controller = fxmlLoader
+							.<ControllerGerarRelatorio> getController();
 					controller.inicializa(usuarioAtivo);
 					content.getChildren().setAll(root);
 				} catch (IOException e) {

@@ -1,10 +1,6 @@
 package controllers;
 
 import java.io.IOException;
-
-import org.controlsfx.dialog.Dialogs;
-
-import fonte.GerenteDeUsuarios;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -16,6 +12,8 @@ import javafx.scene.control.TextField;
 import javafx.scene.input.KeyCode;
 import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.AnchorPane;
+import org.controlsfx.dialog.Dialogs;
+import fonte.GerenteDeUsuarios;
 
 public class ControllerCadastro {
 
@@ -54,7 +52,7 @@ public class ControllerCadastro {
 		botaoCadastrar.setOnAction(eventos);
 		botaoVoltar.setOnAction(eventos);
 		tfConta.setOnAction(eventos);
-		
+
 		tfDicaSenha.setOnKeyPressed(eventosTeclado);
 		tfEmail.setOnKeyPressed(eventosTeclado);
 		tfNome.setOnKeyPressed(eventosTeclado);
@@ -62,31 +60,32 @@ public class ControllerCadastro {
 		pfSenha.setOnKeyPressed(eventosTeclado);
 		pfConfirmacaoSenha.setOnKeyPressed(eventosTeclado);
 	}
-	
+
 	private class EventosTeclado implements EventHandler<KeyEvent> {
 		@Override
 		public void handle(KeyEvent keyEvent) {
-	         if (keyEvent.getCode() == KeyCode.ENTER) {
-	        	 try {
-	        		 gerenteUsuario.adicionaUsuario(tfNome.getText(),
-								tfEmail.getText(), pfSenha.getText(),
-								pfConfirmacaoSenha.getText(), tfDicaSenha.getText(), tfConta.getText());
-						
-	        		 Dialogs.create().owner(null).title("MoneySaver")
-								.masthead(null).message("Cadastro efetuado!")
-								.showInformation();
-	        		 	try {
-							content.getChildren().setAll(
-									FXMLLoader.load(getClass().getResource(
-											"../gui/TelaPrincipal.fxml")));
-						} catch (IOException e) {
-							e.printStackTrace();
-						}
-					} catch (Exception e) {
-						labelAviso.setText(e.getMessage());
-						labelAviso.setVisible(true);
+			if (keyEvent.getCode() == KeyCode.ENTER) {
+				try {
+					gerenteUsuario.adicionaUsuario(tfNome.getText(),
+							tfEmail.getText(), pfSenha.getText(),
+							pfConfirmacaoSenha.getText(),
+							tfDicaSenha.getText(), tfConta.getText());
+
+					Dialogs.create().owner(null).title("MoneySaver")
+							.masthead(null).message("Cadastro efetuado!")
+							.showInformation();
+					try {
+						content.getChildren().setAll(
+								FXMLLoader.load(getClass().getResource(
+										"../gui/TelaPrincipal.fxml")));
+					} catch (IOException e) {
+						e.printStackTrace();
 					}
-	         }
+				} catch (Exception e) {
+					labelAviso.setText(e.getMessage());
+					labelAviso.setVisible(true);
+				}
+			}
 		}
 	}
 
@@ -99,8 +98,9 @@ public class ControllerCadastro {
 				try {
 					gerenteUsuario.adicionaUsuario(tfNome.getText(),
 							tfEmail.getText(), pfSenha.getText(),
-							pfConfirmacaoSenha.getText(), tfDicaSenha.getText(), tfConta.getText());
-					
+							pfConfirmacaoSenha.getText(),
+							tfDicaSenha.getText(), tfConta.getText());
+
 					Dialogs.create().owner(null).title("MoneySaver")
 							.masthead(null).message("Cadastro efetuado!")
 							.showInformation();
