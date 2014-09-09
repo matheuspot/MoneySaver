@@ -110,14 +110,14 @@ public class TestaCategoria {
 			categoria1.setOrcamento(-55.63);
 			fail("Esperava excecao!");
 		} catch (Exception e) {
-			assertEquals("Valor limite tem que ser positivo!", e.getMessage());
+			assertEquals("Valor limite tem que ser positivo.", e.getMessage());
 		}
 		
 		try {
 			categoria1.setOrcamento(0);
 			fail("Esperava excecao!");
 		} catch (Exception e) {
-			assertEquals("Valor limite tem que ser positivo!", e.getMessage());
+			assertEquals("Valor limite tem que ser positivo.", e.getMessage());
 		}
 	}
 	
