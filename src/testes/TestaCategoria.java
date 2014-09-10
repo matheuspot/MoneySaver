@@ -5,6 +5,7 @@ import static org.junit.Assert.*;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecao.MoneySaverException;
 import fonte.Categoria;
 
 public class TestaCategoria {
@@ -58,8 +59,48 @@ public class TestaCategoria {
 		categoria2 = new Categoria("lazer", "preto");
 		assertEquals("preto", categoria2.getCor());
 	}
-
+	
 	@Test
+	public void testaRemoveOrcamento() {
+		categoria1.removeOrcamento();
+		assertEquals(null, categoria1.getOrcamento());
+	}
+	
+	@Test
+	public void testaSetNomeInvalido() {
+		try {
+			categoria1.setNome(null);
+			fail("Esperava excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Nome inválido.", e.getMessage());
+		}
+		
+		try {
+			categoria1.setNome("");
+			fail("Esperava excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Nome inválido.", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testaSetCorInvalido() {
+		try {
+			categoria1.setCor(null);
+			fail("Esperava excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Cor inválida.", e.getMessage());
+		}
+		
+		try {
+			categoria1.setCor("");
+			fail("Esperava excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Cor inválida.", e.getMessage());
+		}
+	}
+	
+ 	@Test
 	public void testaGetCorInvalida() {
 		try {
 			categoria1 = new Categoria("Lazer", "");

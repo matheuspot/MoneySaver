@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecao.MoneySaverException;
 import fonte.Categoria;
 import fonte.Conta;
 import fonte.Despesa;
@@ -178,6 +179,17 @@ public class TestaConta {
 	}
 	
 	@Test
+	public void testaAdicionaTransacaoComDataInvalida() {
+		try {
+			conta.adicionaTransacao("Bolsa", null, "400.00", categoria, 
+					"Mensal", "Provento");
+			fail("Esperava Excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Data de inserção inválida.", e.getMessage());
+		}
+	}
+	
+	@Test
 	public void testaGetNome() {
 		assertEquals("Bradesco", conta.getNome());
 	}
@@ -246,6 +258,15 @@ public class TestaConta {
 					"Semanal", "despesa");
 		} catch (Exception e) {
 			e.printStackTrace();
+		}
+		
+		try {
+			conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.00", categoria, 
+					"Mensal", "provento");
+			conta.editaTransacao(null, "Bolso", dataDeInsercao, "400.00", categoria, "Mensal", "provento");
+			fail("Esperava Excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Transação inexistente.", e.getMessage());
 		}
 	}
 	

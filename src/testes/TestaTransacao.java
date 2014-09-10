@@ -7,6 +7,7 @@ import java.time.LocalDate;
 import org.junit.Before;
 import org.junit.Test;
 
+import excecao.MoneySaverException;
 import fonte.Categoria;
 import fonte.Despesa;
 import fonte.Provento;
@@ -126,5 +127,35 @@ public class TestaTransacao {
 		transacao2 = new Despesa("Bolsa PIBIC", dataAtual, 400.00,
 				categoria1, "Mensal");
 		assertFalse(transacao1.equals(transacao2));
+	}
+	
+	@Test
+	public void testaDescricaoInvalida() {
+		try {
+			transacao1 = new Transacao(null, dataAtual, 400.00, categoria1, "Mensal");
+			fail("Esperava Excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Descrição inválida.", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testaDataInvalida() {
+		try {
+			transacao1 = new Transacao("Coisa", null, 400.00, categoria1, "Mensal");
+			fail("Esperava Excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Data de inserção inválida.", e.getMessage());
+		}
+	}
+	
+	@Test
+	public void testaRecorrenciaInvalida() {
+		try {
+			transacao1 = new Transacao("Coisa", dataAtual, 400.00, categoria1, null);
+			fail("Esperava Excecao!");
+		} catch (MoneySaverException e) {
+			assertEquals("Recorrência inválida.", e.getMessage());
+		}
 	}
 }
