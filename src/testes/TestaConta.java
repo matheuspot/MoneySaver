@@ -287,4 +287,16 @@ public class TestaConta {
 		assertTrue(conta.adicionaTransacao("Feira", dataDeInsercao, "250.00", 
 				categoria, "Mensal", "despesa"));
 	}
+	
+	@Test
+	public void testaPegaSaldoDoMes() throws MoneySaverException {
+		conta.adicionaTransacao("Bolsa", dataDeInsercao, "400.0", categoria, 
+				"Mensal", "provento");
+		conta.adicionaTransacao("Mesada", dataDeInsercao, "40.0", categoria, 
+				"Mensal", "provento");
+		
+		assertEquals(440.0, conta.pegaSaldoDoMes(9), 0);
+		assertEquals(0, conta.pegaSaldoDoMes(1), 0);
+		assertEquals(0, conta.pegaSaldoDoMes(11), 0);
+	}
 }

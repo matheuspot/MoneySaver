@@ -143,6 +143,13 @@ public class TestaCategoria {
 
 		categoria2 = new Categoria("lazer", "verde");
 		assertTrue(categoria1.equals(categoria2));
+		
+		categoria1.setOrcamento(50);
+		categoria2.setOrcamento(86);
+		assertFalse(categoria1.equals(categoria2));
+		
+		categoria1 = null;
+		assertFalse(categoria2.equals(categoria1));
 	}
 	
 	@Test
