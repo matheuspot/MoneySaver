@@ -1,10 +1,11 @@
 package testes;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-
 import fonte.Categoria;
 import fonte.Conta;
 import fonte.Usuario;
@@ -47,7 +48,8 @@ public class TestaUsuario {
 	@Test
 	public void testaCriarUsuarioEmailInvalido() {
 		try {
-			new Usuario("usuário", "usuario@<gmail>.com", "123456", "dica", "Bradesco");
+			new Usuario("usuário", "usuario@<gmail>.com", "123456", "dica",
+					"Bradesco");
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.", "E-mail inválido.",
@@ -58,7 +60,8 @@ public class TestaUsuario {
 	@Test
 	public void testaCriarUsuarioSenhaInvalida() {
 		try {
-			new Usuario("usuário", "usuario@gmail.com", "1234", "dica", "Bradesco");
+			new Usuario("usuário", "usuario@gmail.com", "1234", "dica",
+					"Bradesco");
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.",
@@ -67,7 +70,8 @@ public class TestaUsuario {
 		}
 
 		try {
-			new Usuario("usuário", "usuario@gmail.com", "123456789010", "dica", "Bradesco");
+			new Usuario("usuário", "usuario@gmail.com", "123456789010", "dica",
+					"Bradesco");
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.",
@@ -79,33 +83,36 @@ public class TestaUsuario {
 	@Test
 	public void testaCriarUsuarioDicaDeSenhaInvalida() {
 		try {
-			new Usuario("usuário", "usuario@gmail.com", "1234567", "", "Bradesco");
+			new Usuario("usuário", "usuario@gmail.com", "1234567", "",
+					"Bradesco");
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.", "Dica de senha inválida.",
 					e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaCriarUsuarioNomeDeContaInvalida() {
 		try {
-			new Usuario("usuário", "usuario@gmail.com", "1234567", "sequencia", "");
+			new Usuario("usuário", "usuario@gmail.com", "1234567", "sequencia",
+					"");
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.", "Nome da conta inválido.",
 					e.getMessage());
 		}
-		
+
 		try {
-			new Usuario("usuário", "usuario@gmail.com", "1234567", "sequencia", null);
+			new Usuario("usuário", "usuario@gmail.com", "1234567", "sequencia",
+					null);
 			fail("Exceção deveria ter sido lançada.");
 		} catch (Exception e) {
 			assertEquals("Mensagem de erro errada.", "Nome da conta inválido.",
 					e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaToString() {
 		assertEquals(
@@ -128,14 +135,14 @@ public class TestaUsuario {
 		assertFalse("Usuários não deveriam ser iguais.",
 				usuario1.equals(usuario3));
 	}
-	
+
 	@Test
 	public void testaAdicionaContaValida() throws Exception {
 		assertEquals(1, usuario1.getContas().size());
 		usuario1.adicionaConta("Santander");
 		assertEquals(2, usuario1.getContas().size());
 	}
-	
+
 	@Test
 	public void testaAdicionaContaInvalida() {
 		try {
@@ -144,14 +151,14 @@ public class TestaUsuario {
 		} catch (Exception e) {
 			assertEquals("Conta já existe.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaConta("");
 			fail("Esperava Excecao!");
 		} catch (Exception e) {
 			assertEquals("Nome da conta inválido.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaConta(null);
 			fail("Esperava Excecao!");
@@ -159,7 +166,7 @@ public class TestaUsuario {
 			assertEquals("Nome da conta inválido.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaRemoveContaValida() throws Exception {
 		Conta conta = new Conta("Santander");
@@ -168,7 +175,7 @@ public class TestaUsuario {
 		usuario1.removeConta(conta);
 		assertEquals(1, usuario1.getContas().size());
 	}
-	
+
 	@Test
 	public void testaRemoveContaNaoExistente() throws Exception {
 		Conta conta = new Conta("Santander");
@@ -180,18 +187,18 @@ public class TestaUsuario {
 			assertEquals("Conta inexistente.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaPesquisaContaExistente() throws Exception {
 		Conta conta = new Conta("Bradesco");
 		assertEquals(conta, usuario1.pesquisaConta("Bradesco"));
 	}
-	
+
 	@Test
 	public void testaPesquisaContaInexistente() throws Exception {
 		assertEquals(null, usuario1.pesquisaConta("Santander"));
 	}
-	
+
 	@Test
 	public void testaEditaConta() throws Exception {
 		Conta conta = new Conta("Bradesco");
@@ -200,14 +207,14 @@ public class TestaUsuario {
 		conta = new Conta("Santander");
 		assertEquals(conta, usuario1.pesquisaConta("Santander"));
 	}
-	
+
 	@Test
 	public void testaAdicionaCategoriaValida() throws Exception {
 		assertEquals(2, usuario1.getCategorias().size());
 		usuario1.adicionaCategoria("Feira", "Marrom");
 		assertEquals(3, usuario1.getCategorias().size());
 	}
-	
+
 	@Test
 	public void testaAdicionaCategoriaInvalida() {
 		try {
@@ -216,28 +223,28 @@ public class TestaUsuario {
 		} catch (Exception e) {
 			assertEquals("Nome de categoria inválido.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaCategoria(null, "Marrom");
 			fail("Esperava Excecao!");
 		} catch (Exception e) {
 			assertEquals("Nome de categoria inválido.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaCategoria("Feira", "");
 			fail("Esperava Excecao!");
 		} catch (Exception e) {
 			assertEquals("Cor de categoria inválida.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaCategoria("Carro", null);
 			fail("Esperava Excecao!");
 		} catch (Exception e) {
 			assertEquals("Cor de categoria inválida.", e.getMessage());
 		}
-		
+
 		try {
 			usuario1.adicionaCategoria("Lazer", "669966");
 			fail("Esperava Excecao!");
@@ -245,7 +252,7 @@ public class TestaUsuario {
 			assertEquals("Categoria já existe.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaRemoveCategoriaValida() throws Exception {
 		Categoria categoria = new Categoria("Lazer", "669966");
@@ -253,7 +260,7 @@ public class TestaUsuario {
 		usuario1.removeCategoria(categoria);
 		assertEquals(1, usuario1.getCategorias().size());
 	}
-	
+
 	@Test
 	public void testaRemoveCategoriaInexistente() {
 		try {
@@ -264,15 +271,15 @@ public class TestaUsuario {
 			assertEquals("Categoria inexistente.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaEditaCategoriaValida() throws Exception {
 		Categoria categoria = new Categoria("Lazer", "669966");
 		assertEquals(null, usuario1.pesquisaCategoria("Feira"));
 		assertEquals(categoria, usuario1.pesquisaCategoria("Lazer"));
-		
+
 		usuario1.editaCategoria(categoria, "Feira", "Verde");
-		
+
 		categoria = new Categoria("Feira", "Verde");
 		assertEquals(categoria, usuario1.pesquisaCategoria("Feira"));
 		assertEquals(null, usuario1.pesquisaCategoria("Lazer"));

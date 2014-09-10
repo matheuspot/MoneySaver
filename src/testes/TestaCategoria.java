@@ -1,10 +1,11 @@
 package testes;
 
-import static org.junit.Assert.*;
-
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
+import static org.junit.Assert.fail;
 import org.junit.Before;
 import org.junit.Test;
-
 import excecao.MoneySaverException;
 import fonte.Categoria;
 
@@ -59,13 +60,13 @@ public class TestaCategoria {
 		categoria2 = new Categoria("lazer", "preto");
 		assertEquals("preto", categoria2.getCor());
 	}
-	
+
 	@Test
 	public void testaRemoveOrcamento() {
 		categoria1.removeOrcamento();
 		assertEquals(null, categoria1.getOrcamento());
 	}
-	
+
 	@Test
 	public void testaSetNomeInvalido() {
 		try {
@@ -74,7 +75,7 @@ public class TestaCategoria {
 		} catch (MoneySaverException e) {
 			assertEquals("Nome inválido.", e.getMessage());
 		}
-		
+
 		try {
 			categoria1.setNome("");
 			fail("Esperava excecao!");
@@ -82,7 +83,7 @@ public class TestaCategoria {
 			assertEquals("Nome inválido.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaSetCorInvalido() {
 		try {
@@ -91,7 +92,7 @@ public class TestaCategoria {
 		} catch (MoneySaverException e) {
 			assertEquals("Cor inválida.", e.getMessage());
 		}
-		
+
 		try {
 			categoria1.setCor("");
 			fail("Esperava excecao!");
@@ -99,8 +100,8 @@ public class TestaCategoria {
 			assertEquals("Cor inválida.", e.getMessage());
 		}
 	}
-	
- 	@Test
+
+	@Test
 	public void testaGetCorInvalida() {
 		try {
 			categoria1 = new Categoria("Lazer", "");
@@ -143,15 +144,15 @@ public class TestaCategoria {
 
 		categoria2 = new Categoria("lazer", "verde");
 		assertTrue(categoria1.equals(categoria2));
-		
+
 		categoria1.setOrcamento(50);
 		categoria2.setOrcamento(86);
 		assertFalse(categoria1.equals(categoria2));
-		
+
 		categoria1 = null;
 		assertFalse(categoria2.equals(categoria1));
 	}
-	
+
 	@Test
 	public void testaGeraOrcamentoInvalido() {
 		try {
@@ -160,7 +161,7 @@ public class TestaCategoria {
 		} catch (Exception e) {
 			assertEquals("Valor limite tem que ser positivo.", e.getMessage());
 		}
-		
+
 		try {
 			categoria1.setOrcamento(0);
 			fail("Esperava excecao!");
@@ -168,18 +169,17 @@ public class TestaCategoria {
 			assertEquals("Valor limite tem que ser positivo.", e.getMessage());
 		}
 	}
-	
+
 	@Test
 	public void testaGeraOrcamentoValido() throws Exception {
 		categoria1.setOrcamento(55.96);
 		assertEquals(55.96, categoria1.getOrcamento().getLimite(), 2.0);
-		
+
 		categoria1.setOrcamento(7.85);
 		assertEquals(7.85, categoria1.getOrcamento().getLimite(), 2.0);
-		
+
 		categoria1.setOrcamento(552.6);
 		assertEquals(552.6, categoria1.getOrcamento().getLimite(), 1.0);
 	}
-	
-	
+
 }

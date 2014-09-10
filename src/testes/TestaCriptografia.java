@@ -1,6 +1,7 @@
 package testes;
 
-import static org.junit.Assert.*;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 import java.io.IOException;
 import java.security.GeneralSecurityException;
 import org.junit.Test;

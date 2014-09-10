@@ -2,19 +2,16 @@ package testes;
 
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.fail;
-
 import java.io.File;
-
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
-
 import fonte.GerenteDeUsuarios;
 
 public class TestaGerenteDeUsuarios {
 
 	private GerenteDeUsuarios gerente;
-	
+
 	@Before
 	public void inicializaGerenteParaTestes() throws Exception {
 		File arquivo = new File("data.mos");
