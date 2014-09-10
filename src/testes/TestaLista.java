@@ -19,7 +19,7 @@ public class TestaLista {
 	private Categoria categoria;
 	private Transacao transacao1;
 	private Transacao transacao2;
-	Modo lista;
+	Modo<?> lista;
 
 	@Before
 	public void iniciaLista() throws MoneySaverException {

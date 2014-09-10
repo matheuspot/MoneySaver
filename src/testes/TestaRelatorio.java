@@ -3,8 +3,6 @@ package testes;
 import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
 import java.time.LocalDate;
-import java.util.ArrayList;
-import java.util.List;
 import org.junit.Before;
 import org.junit.Test;
 import fonte.Categoria;
@@ -23,7 +21,6 @@ public class TestaRelatorio {
 	private Transacao transacao1;
 	private Transacao transacao2;
 	private Relatorio relatorio;
-	private List<Transacao> listaTemp = new ArrayList<>();
 
 	@Before
 	public void iniciaRelatorio() throws Exception {
