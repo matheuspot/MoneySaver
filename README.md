@@ -1,7 +1,6 @@
-MoneySaver
-==========
+# Money Saver
 
-Java application developed for a programming laboratory discipline at the Federal University of Campina Grande.
+This is a Java application developed for a programming course from Computer Science at UFCG.
+The UI was built using JavaFX.
 
-This app will help you manage your expenses and keep track of everything you spend money on.
-Enjoy.
+The app keeps track of your expenses as you give it more information on what you're spending your money on.
